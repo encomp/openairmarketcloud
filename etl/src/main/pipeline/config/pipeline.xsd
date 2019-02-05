@@ -1,0 +1,133 @@
+<?xml version="1.0"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns="http://www.openairmarket.etl.pipeline.model"
+  targetNamespace="http://www.openairmarket.etl.pipeline.model"
+  elementFormDefault="qualified">
+
+  <xs:element name="pipelines" type="pipelines"/>
+
+  <xs:complexType name="pipelines">
+    <xs:sequence>
+      <xs:element name="pipeline" minOccurs="1" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:complexContent>
+            <xs:extension base="identifier">
+              <xs:sequence>
+                <xs:element name="extracts" type="extracts"/>
+                <xs:element name="transformations" type="transformations"/>
+              </xs:sequence>
+            </xs:extension>
+          </xs:complexContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="extracts">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="extract" type="extract" minOccurs="1"
+              maxOccurs="unbounded"/>
+          </xs:sequence>
+          <xs:attribute name="path" type="xs:string" use="required"/>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="inputs">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="input" type="input" minOccurs="1" maxOccurs="unbounded"/>
+          </xs:sequence>
+          <xs:attribute name="path" type="xs:string" use="required"/>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="conversions">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="conversion" type="conversion" minOccurs="1"
+              maxOccurs="unbounded"/>
+          </xs:sequence>
+          <xs:attribute name="path" type="xs:string" use="required"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="extracts">
+    <xs:sequence>
+      <xs:element name="extract" type="identifier" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="transformations">
+    <xs:sequence>
+      <xs:element name="inputs" type="inputs"/>
+      <xs:element name="conversions" type="conversions"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="inputs">
+    <xs:sequence>
+      <xs:element name="input" type="identifier" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="conversions">
+    <xs:sequence>
+      <xs:element name="conversion" type="identifier" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="identifier">
+    <xs:attribute name="id" type="xs:string" use="required"/>
+    <xs:attribute name="description" type="xs:string" use="optional"/>
+  </xs:complexType>
+
+  <xs:complexType name="extract">
+    <xs:complexContent>
+      <xs:extension base="identifier">
+        <xs:sequence>
+          <xs:element name="scripts" type="scripts"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="input">
+    <xs:complexContent>
+      <xs:extension base="identifier">
+        <xs:sequence>
+          <xs:element name="scripts" type="scripts"/>
+        </xs:sequence>
+        <xs:attribute name="table" type="xs:string" use="required"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="conversion">
+    <xs:complexContent>
+      <xs:extension base="identifier">
+        <xs:sequence>
+          <xs:element name="scripts" type="scripts"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:simpleType name="date">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="\d{4}-\d{2}-\d{2}"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="scripts">
+    <xs:sequence>
+      <xs:element name="script" type="script" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="path" type="xs:string" use="optional"/>
+  </xs:complexType>
+
+  <xs:complexType name="script">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="outputName" type="xs:string" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+</xs:schema>

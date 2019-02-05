@@ -1,0 +1,1 @@
+include ':app', ':etl', ':common', ':pos_persistence'

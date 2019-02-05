@@ -1,0 +1,3 @@
+SET @path_input           = @path_main||'/data/input/';
+SET @path_output          = @path_main||'/data/output/';
+SET @path_logs            = @path_main||'/log/';

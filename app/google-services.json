@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "949758843554",
+    "firebase_url": "https://openairmarket-150121.firebaseio.com",
+    "project_id": "openairmarket-150121",
+    "storage_bucket": "openairmarket-150121.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:949758843554:android:eae9173b016f481e",
+        "android_client_info": {
+          "package_name": "com.toolinc.openairmarket"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "949758843554-491e9m02reifqgl4ne6j1538jqdedh9n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.toolinc.openairmarket",
+            "certificate_hash": "d51aa5d78490fa1b0a155a51307af642a5561edc"
+          }
+        },
+        {
+          "client_id": "949758843554-7t10j5810ughdrcaqia8jgmkeu99agof.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCV748Rbn4l9LfbP0GOzTPNvOBxdbTYOfI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "949758843554-7t10j5810ughdrcaqia8jgmkeu99agof.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pipelines
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://www.openairmarket.etl.pipeline.model"
+  xsi:schemaLocation="http://www.openairmarket.etl.pipeline.model file:/pipeline.xsd">
+
+  <pipeline id="productos">
+    <extracts>
+      <extract id="empleado"/>
+      <extract id="fabricante"/>
+      <extract id="marca"/>
+      <extract id="producto"/>
+      <extract id="productoPrecio"/>
+      <extract id="rol"/>
+      <extract id="tipoPrecio"/>
+      <extract id="tipoProducto"/>
+      <extract id="unidadMedida"/>
+    </extracts>
+    <transformations>
+      <inputs>
+        <input id="empleado"/>
+        <input id="fabricante"/>
+        <input id="marca"/>
+        <input id="producto"/>
+        <input id="productoPrecio"/>
+        <input id="rol"/>
+        <input id="tipoPrecio"/>
+        <input id="tipoProducto"/>
+        <input id="unidadMedida"/>
+      </inputs>
+      <conversions>
+        <conversion id="producto"/>
+      </conversions>
+    </transformations>
+  </pipeline>
+
+  <extracts path="script/extraction/">
+    <extract id="empleado">
+      <scripts>
+        <script outputName="empleado.csv">extract_empleado.sql</script>
+      </scripts>
+    </extract>
+    <extract id="fabricante">
+      <scripts>
+        <script outputName="fabricante.csv">extract_fabricante.sql</script>
+      </scripts>
+    </extract>
+    <extract id="marca">
+      <scripts>
+        <script outputName="marca.csv">extract_marca.sql</script>
+      </scripts>
+    </extract>
+    <extract id="producto">
+      <scripts>
+        <script outputName="producto.csv">extract_producto.sql</script>
+      </scripts>
+    </extract>
+    <extract id="productoPrecio">
+      <scripts>
+        <script outputName="producto_precio.csv">extract_producto_precio.sql</script>
+      </scripts>
+    </extract>
+    <extract id="rol">
+      <scripts>
+        <script outputName="rol.csv">extract_rol.sql</script>
+      </scripts>
+    </extract>
+    <extract id="tipoPrecio">
+      <scripts>
+        <script outputName="tipo_precio.csv">extract_tipo_precio.sql</script>
+      </scripts>
+    </extract>
+    <extract id="tipoProducto">
+      <scripts>
+        <script outputName="tipo_producto.csv">extract_tipo_producto.sql</script>
+      </scripts>
+    </extract>
+    <extract id="unidadMedida">
+      <scripts>
+        <script outputName="unidad_medida.csv">extract_unidad_medida.sql</script>
+      </scripts>
+    </extract>
+  </extracts>
+
+  <inputs path="script/input/">
+    <input id="empleado" table="empleado">
+      <scripts>
+        <script>input_empleado.sql</script>
+      </scripts>
+    </input>
+    <input id="fabricante" table="fabricante">
+      <scripts>
+        <script>input_fabricante.sql</script>
+      </scripts>
+    </input>
+    <input id="marca" table="marca" description="Load all the brands of a product">
+      <scripts>
+        <script>input_marca.sql</script>
+      </scripts>
+    </input>
+    <input id="producto" table="producto" description="Load products">
+      <scripts>
+        <script>input_producto.sql</script>
+      </scripts>
+    </input>
+    <input id="productoPrecio" table="productoPrecio">
+      <scripts>
+        <script>input_producto_precio.sql</script>
+      </scripts>
+    </input>
+    <input id="rol" table="rol">
+      <scripts>
+        <script>input_rol.sql</script>
+      </scripts>
+    </input>
+    <input id="tipoPrecio" table="tipoPrecio">
+      <scripts>
+        <script>input_tipo_precio.sql</script>
+      </scripts>
+    </input>
+    <input id="tipoProducto" table="tipoProducto"
+      description="Load all the different types of products">
+      <scripts>
+        <script>input_tipos_producto.sql</script>
+      </scripts>
+    </input>
+    <input id="unidadMedida" table="unidadMedida"
+      description="Load all the different measurement units">
+      <scripts>
+        <script>input_unidad_medida.sql</script>
+      </scripts>
+    </input>
+  </inputs>
+
+  <conversions path="script/conversion/">
+    <conversion id="producto">
+      <scripts>
+        <script outputName="producto.csv">convert_producto.sql</script>
+      </scripts>
+    </conversion>
+  </conversions>
+</pipelines>

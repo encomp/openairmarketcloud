@@ -1,0 +1,62 @@
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "net.ltgt.gradle:gradle-apt-plugin:0.20"
+        classpath 'eu.appsatori:gradle-fatjar-plugin:0.3'
+    }
+}
+
+apply plugin: 'java-library'
+apply plugin: "net.ltgt.apt"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'javax.inject:javax.inject:1'
+    compile 'javax.xml.bind:jaxb-api:2.3.1'
+    compile 'org.glassfish.jaxb:jaxb-runtime:2.3.0'
+    compile 'com.google.auto.value:auto-value-annotations:1.6.3'
+    annotationProcessor 'com.google.auto.value:auto-value:1.6.3'
+    compile 'com.google.guava:guava:27.0-jre'
+    compile 'com.google.inject:guice:4.1.0'
+    compile 'com.google.flogger:flogger-system-backend:0.3.1'
+    compile(group: 'com.google.flogger', name: 'flogger-log4j-backend', version: '0.3.1') {
+        exclude group: 'com.sun.jmx', module: 'jmxri'
+        exclude group: 'com.sun.jdmk', module: 'jmxtools'
+        exclude group: 'javax.jms', module: 'jms'
+    }
+    compile 'com.google.http-client:google-http-client:1.26.0'
+    compile 'com.github.pcj:google-options:1.0.0'
+    compile 'c3p0:c3p0:0.9.1.2'
+    compile 'com.h2database:h2:1.4.197'
+    compile 'com.microsoft.sqlserver:mssql-jdbc:6.4.0.jre8'
+}
+
+task pipelineResources(type: Copy) {
+    from 'src/main/pipeline/'
+    into "build/pipeline"
+    fileMode = 0755
+}
+assemble.dependsOn pipelineResources
+
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Main-Class': 'com.toolinc.openairmarket.etl.Pipeline'
+        exclude 'META-INF/*.RSA', 'META-INF/*.SF','META-INF/*.DSA'
+    }
+    baseName = project.name + '-1.0-jar-with-dependencies'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    def file = file('build/')
+    destinationDir = file
+    with jar
+}
+
+sourceCompatibility = "8"
+targetCompatibility = "8"
