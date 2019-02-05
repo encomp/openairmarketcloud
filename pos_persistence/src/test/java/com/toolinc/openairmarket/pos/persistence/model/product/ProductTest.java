@@ -49,9 +49,8 @@ public final class ProductTest {
             .setImage("image")
             .setProductType(ProductType.ITEM)
             .setProductCategory("category")
-            .setProductManufacturer("manufacturer")
+            .setProductBrand("brand")
             .setProductMeasureUnit("measureUnit")
-            .setStocked(Boolean.TRUE)
             .build();
     ApiFuture<WriteResult> result = docRef.create(product);
     System.out.println("Update time : " + result.get());
