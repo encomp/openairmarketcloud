@@ -20,7 +20,7 @@ import java.util.concurrent.ExecutionException;
 public final class ProductUpload {
 
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
-  private static final String COLLECTION = "productos";
+  private static final String COLLECTION = "products";
   private static final String DATA_FILE = "build/pipeline/data/output/producto.csv";
 
   public static final void main(String[] args) throws Exception {
