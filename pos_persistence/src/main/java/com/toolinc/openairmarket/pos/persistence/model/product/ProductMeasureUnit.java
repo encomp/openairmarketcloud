@@ -7,7 +7,17 @@ import com.toolinc.openairmarket.common.persistence.model.AbstractCatalogModel;
 /** Define the different measure units of a {@link ProductType}. */
 public final class ProductMeasureUnit extends AbstractCatalogModel {
 
+  private String id;
+
   private Boolean countable;
+
+  public String id() {
+    return id;
+  }
+
+  public void setId(String id) {
+    this.id = checkNotEmpty(id).toUpperCase();
+  }
 
   public Boolean getCountable() {
     return countable;
@@ -34,12 +44,12 @@ public final class ProductMeasureUnit extends AbstractCatalogModel {
     private Boolean countable;
 
     public Builder setReferenceId(String referenceId) {
-      this.referenceId = checkNotEmpty(referenceId);
+      this.referenceId = checkNotEmpty(referenceId).toUpperCase();
       return this;
     }
 
     public Builder setName(String name) {
-      this.name = checkNotEmpty(name);
+      this.name = checkNotEmpty(name).toUpperCase();
       return this;
     }
 
