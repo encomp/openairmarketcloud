@@ -31,6 +31,7 @@
       <conversions>
         <conversion id="categoria"/>
         <conversion id="fabricante"/>
+        <conversion id="marca"/>
         <conversion id="producto"/>
         <conversion id="unidadMedida"/>
       </conversions>
@@ -144,6 +145,11 @@
     <conversion id="fabricante">
       <scripts>
         <script outputName="fabricante.csv">convert_fabricante.sql</script>
+      </scripts>
+    </conversion>
+    <conversion id="marca">
+      <scripts>
+        <script outputName="mcarca.csv">convert_marca.sql</script>
       </scripts>
     </conversion>
     <conversion id="producto">

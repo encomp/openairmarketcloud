@@ -17,9 +17,7 @@ public final class Product extends AbstractCatalogModel {
 
   private String productMeasureUnit;
 
-  private String productManufacturer;
-
-  private Boolean stocked;
+  private String productBrand;
 
   public void setId(String id) {
     this.id = checkNotEmpty(id);
@@ -57,20 +55,12 @@ public final class Product extends AbstractCatalogModel {
     this.productMeasureUnit = checkNotEmpty(productMeasureUnit);
   }
 
-  public String getProductManufacturer() {
-    return productManufacturer;
+  public String getProductBrand() {
+    return productBrand;
   }
 
-  public void setProductManufacturer(String productManufacturer) {
-    this.productManufacturer = checkNotEmpty(productManufacturer);
-  }
-
-  public Boolean getStocked() {
-    return stocked;
-  }
-
-  public void setStocked(Boolean stocked) {
-    this.stocked = Preconditions.checkNotNull(stocked);
+  public void setProductBrand(String productBrand) {
+    this.productBrand = checkNotEmpty(productBrand);
   }
 
   /**
@@ -91,8 +81,7 @@ public final class Product extends AbstractCatalogModel {
     private ProductType productType;
     private String productCategory;
     private String productMeasureUnit;
-    private String productManufacturer;
-    private Boolean stocked;
+    private String productBrand;
 
     public Builder setReferenceId(String referenceId) {
       this.referenceId = checkNotEmpty(referenceId);
@@ -124,13 +113,8 @@ public final class Product extends AbstractCatalogModel {
       return this;
     }
 
-    public Builder setProductManufacturer(String productManufacturer) {
-      this.productManufacturer = checkNotEmpty(productManufacturer);
-      return this;
-    }
-
-    public Builder setStocked(Boolean stocked) {
-      this.stocked = Preconditions.checkNotNull(stocked);
+    public Builder setProductBrand(String productBrand) {
+      this.productBrand = checkNotEmpty(productBrand);
       return this;
     }
 
@@ -147,8 +131,7 @@ public final class Product extends AbstractCatalogModel {
       productDefinition.setProductType(productType);
       productDefinition.setProductCategory(productCategory);
       productDefinition.setProductMeasureUnit(productMeasureUnit);
-      productDefinition.setProductManufacturer(productManufacturer);
-      productDefinition.setStocked(stocked);
+      productDefinition.setProductBrand(productBrand);
       return productDefinition;
     }
   }

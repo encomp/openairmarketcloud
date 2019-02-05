@@ -3,8 +3,8 @@ package com.toolinc.openairmarket.pos.persistence.model.product;
 import com.toolinc.openairmarket.common.model.Domain;
 import com.toolinc.openairmarket.common.persistence.model.AbstractCatalogModel;
 
-/** Define the different companies that produces products. */
-public final class ProductManufacturer extends AbstractCatalogModel {
+/** Define the different brand of a {@link ProductManufacturer}. */
+public final class ProductBrand extends AbstractCatalogModel {
 
   /**
    * Creates a new {@link Builder} instance.
@@ -15,7 +15,7 @@ public final class ProductManufacturer extends AbstractCatalogModel {
     return new Builder();
   }
 
-  /** Builder class that creates instances of {@link ProductManufacturer}. */
+  /** Builder class that creates instances of {@link ProductBrand}. */
   public static final class Builder implements Domain {
 
     private String referenceId;
@@ -32,12 +32,12 @@ public final class ProductManufacturer extends AbstractCatalogModel {
     }
 
     /**
-     * Creates a new instance of {@link ProductManufacturer}.
+     * Creates a new instance of {@link ProductBrand}.
      *
      * @return - new instance
      */
-    public ProductManufacturer build() {
-      ProductManufacturer company = new ProductManufacturer();
+    public ProductBrand build() {
+      ProductBrand company = new ProductBrand();
       company.setReferenceId(referenceId);
       company.setName(name);
       return company;
