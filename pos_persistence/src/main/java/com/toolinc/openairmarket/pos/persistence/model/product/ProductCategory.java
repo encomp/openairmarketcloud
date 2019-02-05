@@ -6,13 +6,23 @@ import com.toolinc.openairmarket.common.persistence.model.AbstractCatalogModel;
 /** Define the different categories in which a {@link Product} can be assigned. */
 public final class ProductCategory extends AbstractCatalogModel {
 
+  private String id;
+
+  public String id() {
+    return id;
+  }
+
+  public void setId(String id) {
+    this.id = checkNotEmpty(id);
+  }
+
   /**
    * Creates a new {@link ProductManufacturer.Builder} instance.
    *
    * @return - new instance
    */
-  public static ProductManufacturer.Builder newBuilder() {
-    return new ProductManufacturer.Builder();
+  public static Builder newBuilder() {
+    return new Builder();
   }
 
   /** Builder class that creates instances of {@link ProductCategory}. */
@@ -22,12 +32,12 @@ public final class ProductCategory extends AbstractCatalogModel {
     private String name;
 
     public Builder setReferenceId(String referenceId) {
-      this.referenceId = checkNotEmpty(referenceId);
+      this.referenceId = checkNotEmpty(referenceId).toUpperCase();
       return this;
     }
 
     public Builder setName(String name) {
-      this.name = checkNotEmpty(name);
+      this.name = checkNotEmpty(name).toUpperCase();
       return this;
     }
 

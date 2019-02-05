@@ -16,7 +16,7 @@ public final class ProductMeasureUnit extends AbstractCatalogModel {
   }
 
   public void setId(String id) {
-    this.id = checkNotEmpty(id).toUpperCase();
+    this.id = checkNotEmpty(id);
   }
 
   public Boolean getCountable() {
