@@ -1,6 +1,7 @@
 package com.toolinc.openairmarket.pos.persistence.model.product;
 
 import com.google.common.base.Preconditions;
+import com.google.common.base.Strings;
 import com.toolinc.openairmarket.common.model.Domain;
 import com.toolinc.openairmarket.common.persistence.model.AbstractCatalogModel;
 
@@ -18,6 +19,14 @@ public final class Product extends AbstractCatalogModel {
   private String productMeasureUnit;
 
   private String productBrand;
+
+  private ProductSalePrice productSalePrice;
+
+  private ProductPurchasePrice productPurchasePrice;
+
+  public String id() {
+    return id;
+  }
 
   public void setId(String id) {
     this.id = checkNotEmpty(id);
@@ -63,6 +72,22 @@ public final class Product extends AbstractCatalogModel {
     this.productBrand = checkNotEmpty(productBrand);
   }
 
+  public ProductSalePrice getProductSalePrice() {
+    return productSalePrice;
+  }
+
+  public void setProductSalePrice(ProductSalePrice productSalePrice) {
+    this.productSalePrice = Preconditions.checkNotNull(productSalePrice);
+  }
+
+  public ProductPurchasePrice getProductPurchasePrice() {
+    return productPurchasePrice;
+  }
+
+  public void setProductPurchasePrice(ProductPurchasePrice productPurchasePrice) {
+    this.productPurchasePrice = Preconditions.checkNotNull(productPurchasePrice);
+  }
+
   /**
    * Creates a new {@link Builder} instance.
    *
@@ -82,14 +107,16 @@ public final class Product extends AbstractCatalogModel {
     private String productCategory;
     private String productMeasureUnit;
     private String productBrand;
+    private ProductSalePrice productSalePrice;
+    private ProductPurchasePrice productPurchasePrice;
 
     public Builder setReferenceId(String referenceId) {
-      this.referenceId = checkNotEmpty(referenceId);
+      this.referenceId = checkNotEmpty(referenceId).toUpperCase();
       return this;
     }
 
     public Builder setName(String name) {
-      this.name = checkNotEmpty(name);
+      this.name = checkNotEmpty(name).toUpperCase();
       return this;
     }
 
@@ -118,6 +145,16 @@ public final class Product extends AbstractCatalogModel {
       return this;
     }
 
+    public Builder setProductSalePrice(ProductSalePrice productSalePrice) {
+      this.productSalePrice = Preconditions.checkNotNull(productSalePrice);
+      return this;
+    }
+
+    public Builder setProductPurchasePrice(ProductPurchasePrice productPurchasePrice) {
+      this.productPurchasePrice = Preconditions.checkNotNull(productPurchasePrice);
+      return this;
+    }
+
     /**
      * Creates a new instance of {@link Product}.
      *
@@ -125,13 +162,17 @@ public final class Product extends AbstractCatalogModel {
      */
     public Product build() {
       Product productDefinition = new Product();
-      productDefinition.setReferenceId(referenceId);
+      if (!Strings.isNullOrEmpty(referenceId)) {
+        productDefinition.setReferenceId(referenceId);
+      }
       productDefinition.setName(name);
       productDefinition.setImage(image);
       productDefinition.setProductType(productType);
       productDefinition.setProductCategory(productCategory);
       productDefinition.setProductMeasureUnit(productMeasureUnit);
       productDefinition.setProductBrand(productBrand);
+      productDefinition.setProductSalePrice(productSalePrice);
+      productDefinition.setProductPurchasePrice(productPurchasePrice);
       return productDefinition;
     }
   }

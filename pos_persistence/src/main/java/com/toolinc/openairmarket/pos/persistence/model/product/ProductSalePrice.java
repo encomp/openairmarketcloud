@@ -98,9 +98,19 @@ public final class ProductSalePrice extends AbstractActiveModel {
     private BigDecimal price;
     private BigDecimal profit;
 
+    public Builder setPrice(String price) {
+      BigDecimal bigDecimal = new BigDecimal(price.trim());
+      return setPrice(bigDecimal);
+    }
+
     public Builder setPrice(BigDecimal price) {
       this.price = checkPositive(price);
       return this;
+    }
+
+    public Builder setProfit(String profit) {
+      BigDecimal bigDecimal = new BigDecimal(profit.trim());
+      return setProfit(bigDecimal);
     }
 
     public Builder setProfit(BigDecimal profit) {

@@ -4,6 +4,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import com.google.auto.value.AutoValue;
 import com.google.common.flogger.FluentLogger;
+
 import java.io.BufferedReader;
 import java.io.Closeable;
 import java.io.IOException;
@@ -26,7 +27,8 @@ public abstract class CsvReader implements Closeable {
   /**
    * Reads the next line from the buffer and converts to a string array.
    *
-   * @return a string array with each comma-separated element as a separate entry.
+   * @return a string array with each comma-separated element as a separate entry, or null if the
+   *     end of the stream has been reached.
    * @throws IOException if an error occurred while reading the file.
    */
   public String[] readNext() throws IOException {

@@ -15,6 +15,6 @@ public abstract class AbstractCatalogModel extends AbstractActiveReferenceModel
 
   @Override
   public void setName(String name) {
-    this.name = checkNotEmpty(name);
+    this.name = checkNotEmpty(name).toUpperCase();
   }
 }

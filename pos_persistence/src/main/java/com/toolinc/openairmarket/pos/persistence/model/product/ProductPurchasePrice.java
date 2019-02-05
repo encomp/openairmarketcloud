@@ -79,6 +79,11 @@ public final class ProductPurchasePrice extends AbstractActiveModel {
 
     private BigDecimal price;
 
+    public Builder setPrice(String price) {
+      BigDecimal bigDecimal = new BigDecimal(price.trim());
+      return setPrice(bigDecimal);
+    }
+
     public Builder setPrice(BigDecimal price) {
       this.price = checkPositive(price);
       return this;

@@ -18,6 +18,6 @@ public abstract class AbstractActiveReferenceModel extends AbstractActiveModel
   @Override
   public void setReferenceId(String referenceId) {
     Preconditions.checkState(!Strings.isNullOrEmpty(referenceId));
-    this.referenceId = referenceId;
+    this.referenceId = referenceId.toUpperCase();
   }
 }

@@ -37,6 +37,9 @@ dependencies {
     compile 'c3p0:c3p0:0.9.1.2'
     compile 'com.h2database:h2:1.4.197'
     compile 'com.microsoft.sqlserver:mssql-jdbc:6.4.0.jre8'
+    compile 'com.google.firebase:firebase-admin:6.7.0'
+    compile project(':common')
+    compile project(':pos_persistence')
 }
 
 task pipelineResources(type: Copy) {
