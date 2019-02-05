@@ -71,16 +71,18 @@ public final class ProductSalePrice extends AbstractActiveModel {
     return toStringMoney(profit);
   }
 
+  // TODO: Remove the positive check due to data migration information.
   public void setProfit(String profit) {
-    this.profit = checkPositive(new BigDecimal(profit));
+    this.profit = new BigDecimal(profit);
   }
 
   public BigDecimal profit() {
     return this.profit;
   }
 
+  // TODO: Remove the positive check due to data migration information.
   public void profit(BigDecimal profit) {
-    this.profit = checkPositive(profit);
+    this.profit = profit;
   }
 
   /**
@@ -113,8 +115,9 @@ public final class ProductSalePrice extends AbstractActiveModel {
       return setProfit(bigDecimal);
     }
 
+    // TODO: Remove the positive check due to data migration information.
     public Builder setProfit(BigDecimal profit) {
-      this.profit = checkPositive(profit);
+      this.profit = profit;
       return this;
     }
 
