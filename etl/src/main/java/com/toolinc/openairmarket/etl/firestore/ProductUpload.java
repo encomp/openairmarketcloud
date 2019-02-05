@@ -1,15 +1,11 @@
 package com.toolinc.openairmarket.etl.firestore;
 
 import com.google.api.core.ApiFuture;
-import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.WriteResult;
 import com.google.common.flogger.FluentLogger;
 import com.google.common.io.Files;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.FirebaseOptions;
-import com.google.firebase.cloud.FirestoreClient;
 import com.toolinc.openairmarket.etl.file.CsvReader;
 import com.toolinc.openairmarket.pos.persistence.model.product.Product;
 import com.toolinc.openairmarket.pos.persistence.model.product.ProductPurchasePrice;
@@ -17,8 +13,6 @@ import com.toolinc.openairmarket.pos.persistence.model.product.ProductSalePrice;
 import com.toolinc.openairmarket.pos.persistence.model.product.ProductType;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.concurrent.ExecutionException;
 
@@ -27,19 +21,11 @@ public final class ProductUpload {
 
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
   private static final String COLLECTION = "productos";
-  private static final String PATH =
-      "/Users/edgarrico/AndroidStudioProjects/OpenAirMarketCloud/etl/";
-  private static final String CREDENTIALS =
-      "openairmarket-150121-firebase-adminsdk-2flfk-1db5fe164d.json";
   private static final String DATA_FILE = "build/pipeline/data/output/producto.csv";
 
   public static final void main(String[] args) throws Exception {
-    InputStream serviceAccount = new FileInputStream(PATH + CREDENTIALS);
-    GoogleCredentials credentials = GoogleCredentials.fromStream(serviceAccount);
-    FirebaseOptions options = new FirebaseOptions.Builder().setCredentials(credentials).build();
-    FirebaseApp.initializeApp(options);
-    final Firestore firestore = FirestoreClient.getFirestore();
-    File file = new File(PATH + DATA_FILE);
+    final Firestore firestore = FirestoreHelper.getFirestore();
+    File file = new File(FirestoreHelper.PATH + DATA_FILE);
     try (CsvReader csvReader =
         CsvReader.builder().setReader(Files.newReader(file, Charset.forName("UTF-8"))).build()) {
       String[] line = csvReader.readNext();
