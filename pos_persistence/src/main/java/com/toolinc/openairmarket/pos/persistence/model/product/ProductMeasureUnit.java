@@ -9,22 +9,12 @@ public final class ProductMeasureUnit extends AbstractCatalogModel {
 
   private Boolean countable;
 
-  private Boolean expire;
-
   public Boolean getCountable() {
     return countable;
   }
 
   public void setCountable(Boolean countable) {
     this.countable = Preconditions.checkNotNull(countable);
-  }
-
-  public Boolean getExpire() {
-    return expire;
-  }
-
-  public void setExpire(Boolean expire) {
-    this.expire = Preconditions.checkNotNull(expire);
   }
 
   /**
@@ -42,7 +32,6 @@ public final class ProductMeasureUnit extends AbstractCatalogModel {
     private String referenceId;
     private String name;
     private Boolean countable;
-    private Boolean expire;
 
     public Builder setReferenceId(String referenceId) {
       this.referenceId = checkNotEmpty(referenceId);
@@ -59,11 +48,6 @@ public final class ProductMeasureUnit extends AbstractCatalogModel {
       return this;
     }
 
-    public Builder setExpire(Boolean expire) {
-      this.expire = Preconditions.checkNotNull(expire);
-      return this;
-    }
-
     /**
      * Creates a new instance of {@link ProductMeasureUnit}.
      *
@@ -74,7 +58,6 @@ public final class ProductMeasureUnit extends AbstractCatalogModel {
       paquete.setReferenceId(referenceId);
       paquete.setName(name);
       paquete.setCountable(countable);
-      paquete.setExpire(expire);
       return paquete;
     }
   }

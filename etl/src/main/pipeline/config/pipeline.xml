@@ -29,7 +29,10 @@
         <input id="unidadMedida"/>
       </inputs>
       <conversions>
+        <conversion id="categoria"/>
+        <conversion id="fabricante"/>
         <conversion id="producto"/>
+        <conversion id="unidadMedida"/>
       </conversions>
     </transformations>
   </pipeline>
@@ -133,9 +136,24 @@
   </inputs>
 
   <conversions path="script/conversion/">
+    <conversion id="categoria">
+      <scripts>
+        <script outputName="categoria.csv">convert_categoria.sql</script>
+      </scripts>
+    </conversion>
+    <conversion id="fabricante">
+      <scripts>
+        <script outputName="fabricante.csv">convert_fabricante.sql</script>
+      </scripts>
+    </conversion>
     <conversion id="producto">
       <scripts>
         <script outputName="producto.csv">convert_producto.sql</script>
+      </scripts>
+    </conversion>
+    <conversion id="unidadMedida">
+      <scripts>
+        <script outputName="unidad_medida.csv">convert_unidad_medida.sql</script>
       </scripts>
     </conversion>
   </conversions>
