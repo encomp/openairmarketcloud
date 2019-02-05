@@ -22,24 +22,24 @@ import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.concurrent.ExecutionException;
 
+/** Upload the product data from a csv file to firestore database. */
 public final class ProductUpload {
 
-  private static final String COLLECTION = "productos";
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
+  private static final String COLLECTION = "productos";
   private static final String PATH =
-      "/Users/edgarrico/AndroidStudioProjects/OpenAirMarketCloud/pos_persistence/";
-  private static final String FILE_NAME =
+      "/Users/edgarrico/AndroidStudioProjects/OpenAirMarketCloud/etl/";
+  private static final String CREDENTIALS =
       "openairmarket-150121-firebase-adminsdk-2flfk-1db5fe164d.json";
+  private static final String DATA_FILE = "build/pipeline/data/output/producto.csv";
 
   public static final void main(String[] args) throws Exception {
-    InputStream serviceAccount = new FileInputStream(PATH + FILE_NAME);
+    InputStream serviceAccount = new FileInputStream(PATH + CREDENTIALS);
     GoogleCredentials credentials = GoogleCredentials.fromStream(serviceAccount);
     FirebaseOptions options = new FirebaseOptions.Builder().setCredentials(credentials).build();
     FirebaseApp.initializeApp(options);
-    final Firestore db = FirestoreClient.getFirestore();
-    File file =
-        new File(
-            "/Users/edgarrico/AndroidStudioProjects/OpenAirMarketCloud/etl/build/pipeline/data/output/producto.csv");
+    final Firestore firestore = FirestoreClient.getFirestore();
+    File file = new File(PATH + DATA_FILE);
     try (CsvReader csvReader =
         CsvReader.builder().setReader(Files.newReader(file, Charset.forName("UTF-8"))).build()) {
       String[] line = csvReader.readNext();
@@ -61,7 +61,7 @@ public final class ProductUpload {
                 .build();
         String id = line[0].length() == 0 ? line[1] : line[0];
         product.setId(id);
-        WriteResult writeResult = store(db, product);
+        WriteResult writeResult = store(firestore, product);
         logger.atInfo().log(
             String.format(
                 "Stored Producto: [%s], at: [%s]", product.id(), writeResult.getUpdateTime()));
