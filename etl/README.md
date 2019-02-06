@@ -8,5 +8,5 @@ Point of Sale Branch Server via the Point of Sale Terminal UI.
 
 Here is the Entity Relational Diagram of the SPVGanaMasSQL database:
 
-![grpc-gateway](./resources/producto-er.png)
+![grpc-gateway](./producto-er.png)
 
