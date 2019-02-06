@@ -6,6 +6,16 @@ import com.toolinc.openairmarket.common.persistence.model.AbstractCatalogModel;
 /** Define the different companies that produces products. */
 public final class ProductManufacturer extends AbstractCatalogModel {
 
+  private String id;
+
+  public String id() {
+    return id;
+  }
+
+  public void setId(String id) {
+    this.id = checkNotEmpty(id);
+  }
+
   /**
    * Creates a new {@link Builder} instance.
    *
@@ -27,7 +37,7 @@ public final class ProductManufacturer extends AbstractCatalogModel {
     }
 
     public Builder setName(String name) {
-      this.name = checkNotEmpty(name);
+      this.name = checkNotEmpty(name).toUpperCase();
       return this;
     }
 
