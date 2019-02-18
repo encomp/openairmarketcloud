@@ -50,7 +50,7 @@ targetCompatibility = 1.8  // App Engine Standard uses Java 8
 task replaceProjectId(type: Copy) {
     from 'src/main/webapp/WEB-INF/'
     include '*.xml'
-    into 'build/exploded-endpoints-v2-guice/WEB-INF'
+    into 'build/exploded-search/WEB-INF'
     expand(endpoints: [project: [id: projectId]])
     filteringCharset = 'UTF-8'
 }
