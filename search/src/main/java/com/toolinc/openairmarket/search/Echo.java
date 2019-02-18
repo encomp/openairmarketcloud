@@ -11,6 +11,12 @@ import com.google.api.server.spi.config.ApiNamespace;
 import com.google.api.server.spi.config.Named;
 import com.google.api.server.spi.config.Nullable;
 import com.google.api.server.spi.response.UnauthorizedException;
+import com.google.appengine.api.search.Document;
+import com.google.appengine.api.search.Field;
+import com.google.appengine.api.search.Index;
+import com.google.appengine.api.search.IndexSpec;
+import com.google.appengine.api.search.SearchServiceFactory;
+import com.toolinc.openairmarket.pos.persistence.model.product.ProductBrand;
 
 /** The Echo API which Endpoints will be exposing. */
 @Api(
@@ -58,6 +64,34 @@ public class Echo {
   @ApiMethod(name = "echo_path_parameter", path = "echo/{n}")
   public Message echoPathParameter(Message message, @Named("n") int n) {
     return doEcho(message, n);
+  }
+
+  @ApiMethod(name = "create", path = "create/productBrand")
+  public void createProductBrand(ProductBrand productBrand) {
+    Document document =
+        Document.newBuilder()
+            .setId(productBrand.id())
+            .addField(Field.newBuilder().setName("name").setText(productBrand.getName()).build())
+            .addField(
+                Field.newBuilder()
+                    .setName("referenceId")
+                    .setText(productBrand.getReferenceId())
+                    .build())
+            .addField(
+                Field.newBuilder()
+                    .setName("productManufacturer")
+                    .setText(productBrand.getProductManufacturer())
+                    .build())
+            .addField(
+                Field.newBuilder()
+                    .setName("active")
+                    .setText(productBrand.getActive().toString())
+                    .build())
+            .build();
+
+    IndexSpec indexSpec = IndexSpec.newBuilder().setName("productBrand").build();
+    Index index = SearchServiceFactory.getSearchService().getIndex(indexSpec);
+    index.put(document);
   }
 
   /**

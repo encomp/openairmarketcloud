@@ -21,9 +21,11 @@ apply plugin: 'com.google.cloud.tools.appengine'
 dependencies {
     compile 'com.google.endpoints:endpoints-framework:2.2.1'
     compile 'com.google.endpoints:endpoints-framework-guice:2.2.1'
-
     compile 'com.google.endpoints:endpoints-management-control-appengine:1.0.11'
     compile 'com.google.endpoints:endpoints-framework-auth:1.0.11'
+
+    compile project(':common')
+    compile project(':pos_persistence')
 }
 
 // [START endpoints_plugin_configuration]
