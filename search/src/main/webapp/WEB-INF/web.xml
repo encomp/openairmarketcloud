@@ -2,7 +2,6 @@
 <web-app xmlns="http://java.sun.com/xml/ns/javaee"  version="2.5">
     <!-- Wrap the backend with Endpoints Frameworks v2. -->
     <!-- Route API method requests to the backend using Guice. -->
-    <!-- [START guice_configuration] -->
     <filter>
         <filter-name>guiceFilter</filter-name>
         <filter-class>com.google.inject.servlet.GuiceFilter</filter-class>
@@ -21,5 +20,4 @@
     <listener>
         <listener-class>com.toolinc.openairmarket.search.SearchGuiceListener</listener-class>
     </listener>
-    <!-- [END guice_configuration] -->
 </web-app>
