@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"  version="2.5">
+    <!-- Wrap the backend with Endpoints Frameworks v2. -->
+    <!-- Route API method requests to the backend using Guice. -->
+    <!-- [START guice_configuration] -->
+    <filter>
+        <filter-name>guiceFilter</filter-name>
+        <filter-class>com.google.inject.servlet.GuiceFilter</filter-class>
+    </filter>
+
+    <!--
+      URL Pattern /_ah/api/* instead of /* because a legacy v1 servlet uses
+      the route /_ah/api/ and using /* will erronously use the legacy v1
+      servlet instead of routing to your API.
+    -->
+    <filter-mapping>
+        <filter-name>guiceFilter</filter-name>
+        <url-pattern>/_ah/api/*</url-pattern>
+    </filter-mapping>
+
+    <listener>
+        <listener-class>com.toolinc.openairmarket.search.EchoGuiceListener</listener-class>
+    </listener>
+    <!-- [END guice_configuration] -->
+</web-app>

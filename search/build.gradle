@@ -1,0 +1,61 @@
+
+repositories {
+    maven {
+        url 'https://maven-central.storage.googleapis.com'
+    }
+    jcenter()
+    mavenCentral()
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '3.5'
+}
+
+def projectId = 'openairmarket-150121'
+
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'com.google.cloud.tools.endpoints-framework-server'
+apply plugin: 'com.google.cloud.tools.appengine'
+
+dependencies {
+    compile 'com.google.endpoints:endpoints-framework:2.0.9'
+    // [START guice_dependency]
+    compile 'com.google.endpoints:endpoints-framework-guice:2.0.9'
+    // [END guice_dependency]
+
+    compile 'com.google.endpoints:endpoints-management-control-appengine:1.0.5'
+    compile 'com.google.endpoints:endpoints-framework-auth:1.0.5'
+}
+
+// [START endpoints_plugin_configuration]
+endpointsServer {
+    // Endpoints Framework Plugin server-side configuration
+    hostname = "${projectId}.appspot.com"
+    serviceClasses = ['com.toolinc.openairmarket.search.Echo']
+}
+// [END endpoints_plugin_configuration]
+
+appengine {  // App Engine tasks configuration
+    deploy {   // deploy configuration
+        version = findProperty("appengine.deploy.version")
+
+        def promoteProp = findProperty("appengine.deploy.promote")
+        if (promoteProp != null) {
+            promote = new Boolean(promoteProp)
+        }
+    }
+}
+
+sourceCompatibility = 1.8  // App Engine Standard uses Java 8
+targetCompatibility = 1.8  // App Engine Standard uses Java 8
+
+// this replaces the ${endpoints.project.id} in appengine-web.xml and web.xml
+task replaceProjectId(type: Copy) {
+    from 'src/main/webapp/WEB-INF/'
+    include '*.xml'
+    into 'build/exploded-endpoints-v2-guice/WEB-INF'
+    expand(endpoints:[project:[id:projectId]])
+    filteringCharset = 'UTF-8'
+}
+assemble.dependsOn replaceProjectId
