@@ -4,11 +4,11 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.servlet.GuiceServletContextListener;
 
-// [START injector]
-public class EchoGuiceListener extends GuiceServletContextListener {
+/** Specifies the servlet context listener to make use of guice. */
+public class SearchGuiceListener extends GuiceServletContextListener {
 
   @Override
   protected Injector getInjector() {
-    return Guice.createInjector(new EchoEndpointModule());
+    return Guice.createInjector(new SearchEndpointModule());
   }
 }

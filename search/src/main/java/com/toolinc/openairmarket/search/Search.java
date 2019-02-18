@@ -18,9 +18,9 @@ import com.google.appengine.api.search.IndexSpec;
 import com.google.appengine.api.search.SearchServiceFactory;
 import com.toolinc.openairmarket.pos.persistence.model.product.ProductBrand;
 
-/** The Echo API which Endpoints will be exposing. */
+/** The Search API which Endpoints will be exposing. */
 @Api(
-    name = "echo",
+    name = "search",
     version = "v1",
     namespace =
         @ApiNamespace(
@@ -34,7 +34,7 @@ import com.toolinc.openairmarket.pos.persistence.model.product.ProductBrand;
           jwksUri =
               "https://www.googleapis.com/robot/v1/metadata/x509/securetoken@system.gserviceaccount.com")
     })
-public class Echo {
+public class Search {
   /**
    * Echoes the received message back. If n is a non-negative integer, the message is copied that
    * many times in the returned message.
@@ -49,7 +49,6 @@ public class Echo {
   public Message echo(Message message, @Named("n") @Nullable Integer n) {
     return doEcho(message, n);
   }
-  // [END echo_method]
 
   /**
    * Echoes the received message back. If n is a non-negative integer, the message is copied that
@@ -64,34 +63,6 @@ public class Echo {
   @ApiMethod(name = "echo_path_parameter", path = "echo/{n}")
   public Message echoPathParameter(Message message, @Named("n") int n) {
     return doEcho(message, n);
-  }
-
-  @ApiMethod(name = "create", path = "create/productBrand")
-  public void createProductBrand(ProductBrand productBrand) {
-    Document document =
-        Document.newBuilder()
-            .setId(productBrand.id())
-            .addField(Field.newBuilder().setName("name").setText(productBrand.getName()).build())
-            .addField(
-                Field.newBuilder()
-                    .setName("referenceId")
-                    .setText(productBrand.getReferenceId())
-                    .build())
-            .addField(
-                Field.newBuilder()
-                    .setName("productManufacturer")
-                    .setText(productBrand.getProductManufacturer())
-                    .build())
-            .addField(
-                Field.newBuilder()
-                    .setName("active")
-                    .setText(productBrand.getActive().toString())
-                    .build())
-            .build();
-
-    IndexSpec indexSpec = IndexSpec.newBuilder().setName("productBrand").build();
-    Index index = SearchServiceFactory.getSearchService().getIndex(indexSpec);
-    index.put(document);
   }
 
   /**
@@ -175,5 +146,38 @@ public class Echo {
     Email response = new Email();
     response.setEmail(user.getEmail());
     return response;
+  }
+
+  /**
+   * Creates a new {@link ProductBrand} on a {@link Index}.
+   *
+   * @param productBrand the brand to be stored.
+   */
+  @ApiMethod(name = "create_product_brand", path = "create/productBrand")
+  public void createProductBrand(ProductBrand productBrand) {
+    Document document =
+        Document.newBuilder()
+            .setId(productBrand.id())
+            .addField(Field.newBuilder().setName("name").setText(productBrand.getName()).build())
+            .addField(
+                Field.newBuilder()
+                    .setName("referenceId")
+                    .setText(productBrand.getReferenceId())
+                    .build())
+            .addField(
+                Field.newBuilder()
+                    .setName("productManufacturer")
+                    .setText(productBrand.getProductManufacturer())
+                    .build())
+            .addField(
+                Field.newBuilder()
+                    .setName("active")
+                    .setText(productBrand.getActive().toString())
+                    .build())
+            .build();
+
+    IndexSpec indexSpec = IndexSpec.newBuilder().setName("productBrand").build();
+    Index index = SearchServiceFactory.getSearchService().getIndex(indexSpec);
+    index.put(document);
   }
 }

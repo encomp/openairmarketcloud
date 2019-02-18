@@ -32,7 +32,7 @@ dependencies {
 endpointsServer {
     // Endpoints Framework Plugin server-side configuration
     hostname = "${projectId}.appspot.com"
-    serviceClasses = ['com.toolinc.openairmarket.search.Echo']
+    serviceClasses = ['com.toolinc.openairmarket.search.Search']
 }
 // [END endpoints_plugin_configuration]
 

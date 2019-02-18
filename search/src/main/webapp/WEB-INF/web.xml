@@ -19,7 +19,7 @@
     </filter-mapping>
 
     <listener>
-        <listener-class>com.toolinc.openairmarket.search.EchoGuiceListener</listener-class>
+        <listener-class>com.toolinc.openairmarket.search.SearchGuiceListener</listener-class>
     </listener>
     <!-- [END guice_configuration] -->
 </web-app>
