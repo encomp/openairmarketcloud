@@ -17,6 +17,7 @@ import com.google.appengine.api.search.Index;
 import com.google.appengine.api.search.IndexSpec;
 import com.google.appengine.api.search.SearchServiceFactory;
 import com.toolinc.openairmarket.pos.persistence.model.product.ProductBrand;
+import com.toolinc.openairmarket.pos.persistence.model.product.ProductCategory;
 import com.toolinc.openairmarket.pos.persistence.model.product.ProductManufacturer;
 
 /** The Search API which Endpoints will be exposing. */
@@ -39,8 +40,9 @@ public class Search {
   private static final String REFERENCE_ID = "referenceId";
   private static final String NAME = "name";
   private static final String ACTIVE = "active";
-  private static final String PRODUCT_BRAND = "productBrand";
-  private static final String PRODUCT_MANUFACTURER = "productManufacturer";
+  private static final String PRODUCT_BRANDS = "productBrands";
+  private static final String PRODUCT_CATEGORIES = "productCategories";
+  private static final String PRODUCT_MANUFACTURERS = "productManufacturers";
 
   /**
    * Echoes the received message back. If n is a non-negative integer, the message is copied that
@@ -161,6 +163,17 @@ public class Search {
     SearchServiceFactory.getSearchService().getIndex(indexSpec).deleteSchema();
   }
 
+  /** Stores a new {@link ProductCategory} on an {@link Index}. */
+  @ApiMethod(name = "create_product_category", path = "create/ProductCategory")
+  public void createProductCategory(ProductCategory productCategory) {
+    Document.Builder builder =
+        addReferenceField(
+            Document.newBuilder().setId(productCategory.id()), productCategory.getReferenceId());
+    addNameField(builder, productCategory.getName());
+    Document document = addActiveField(builder, productCategory.getActive()).build();
+    storeDocument(PRODUCT_CATEGORIES, document);
+  }
+
   /** Stores a new {@link ProductManufacturer} on an {@link Index}. */
   @ApiMethod(name = "create_product_manufacturer", path = "create/productManufacturer")
   public void createProductManufacturer(ProductManufacturer productManufacturer) {
@@ -170,7 +183,7 @@ public class Search {
             productManufacturer.getReferenceId());
     addNameField(builder, productManufacturer.getName());
     Document document = addActiveField(builder, productManufacturer.getActive()).build();
-    storeDocument(PRODUCT_MANUFACTURER, document);
+    storeDocument(PRODUCT_MANUFACTURERS, document);
   }
 
   /** Creates a new {@link ProductBrand} on a {@link Index}. */
@@ -186,7 +199,7 @@ public class Search {
                 .setText(productBrand.getProductManufacturer())
                 .build());
     Document document = addActiveField(builder, productBrand.getActive()).build();
-    storeDocument(PRODUCT_BRAND, document);
+    storeDocument(PRODUCT_BRANDS, document);
   }
 
   private static final Document.Builder addReferenceField(Document.Builder builder, String value) {
