@@ -227,7 +227,9 @@ public class Search {
   @ApiMethod(name = "create_product", path = "create/product")
   public void createProductt(Product product) {
     Document.Builder builder =
-        addReferenceField(Document.newBuilder().setId(product.id()), product.getReferenceId());
+        addReferenceField(
+            Document.newBuilder().setId(product.id()),
+            product.getReferenceId() == null ? "" : product.getReferenceId());
     addNameField(builder, product.getName())
         .addField(
             Field.newBuilder()
@@ -250,6 +252,11 @@ public class Search {
             Field.newBuilder()
                 .setName("productSalePrice")
                 .setText(product.getProductSalePrice().getPrice())
+                .build())
+        .addField(
+            Field.newBuilder()
+                .setName("productSaleProfit")
+                .setText(product.getProductSalePrice().getProfit())
                 .build())
         .addField(
             Field.newBuilder()
