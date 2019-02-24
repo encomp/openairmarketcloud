@@ -148,6 +148,12 @@ public class Search {
     return response;
   }
 
+  @ApiMethod(name = "drop_index", path = "drop/index/{index}")
+  public void dropIndex(@Named("index") String index) {
+    IndexSpec indexSpec = IndexSpec.newBuilder().setName(index).build();
+    SearchServiceFactory.getSearchService().getIndex(indexSpec).deleteSchema();
+  }
+
   /**
    * Creates a new {@link ProductBrand} on a {@link Index}.
    *
@@ -158,12 +164,12 @@ public class Search {
     Document document =
         Document.newBuilder()
             .setId(productBrand.id())
-            .addField(Field.newBuilder().setName("name").setText(productBrand.getName()).build())
             .addField(
                 Field.newBuilder()
                     .setName("referenceId")
                     .setText(productBrand.getReferenceId())
                     .build())
+            .addField(Field.newBuilder().setName("name").setText(productBrand.getName()).build())
             .addField(
                 Field.newBuilder()
                     .setName("productManufacturer")
@@ -175,7 +181,6 @@ public class Search {
                     .setText(productBrand.getActive().toString())
                     .build())
             .build();
-
     IndexSpec indexSpec = IndexSpec.newBuilder().setName("productBrand").build();
     Index index = SearchServiceFactory.getSearchService().getIndex(indexSpec);
     index.put(document);
