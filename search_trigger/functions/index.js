@@ -60,3 +60,18 @@ exports.createProductBrand = functions.firestore.document('productBrands/{produc
   .onCreate((change, context) => {
     return endPointRequest('create/productBrand', change.after.data());
   });
+
+exports.createProductCategory = functions.firestore.document('productCategories/{productCategoryId}')
+  .onCreate((change, context) => {
+    return endPointRequest('create/productCategory', change.after.data());
+  });
+
+exports.createProductManufacturer = functions.firestore.document('productManufacturers/{productManufacturerId}')
+  .onCreate((change, context) => {
+    return endPointRequest('create/productManufacturer', change.after.data());
+  });
+
+exports.createProductMeasureUnit = functions.firestore.document('productMeasureUnits/{productMeasureUnitId}')
+  .onCreate((change, context) => {
+    return endPointRequest('create/productMeasureUnit', change.after.data());
+  });
