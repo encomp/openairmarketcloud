@@ -6,6 +6,30 @@ const admin = require('firebase-admin');
 admin.initializeApp();
 XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
+function endPointRequest(url, data) {
+  return new Promise((() => {
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'https://openairmarket-150121.appspot.com/_ah/api/search/v1/' + url);
+    xhr.onload = function () {
+      if (this.status === 200 && this.status < 300) {
+        return xhr.response;
+      } else {
+        return {
+          status: this.status,
+          statusText: xhr.statusText
+        };
+      }
+    };
+    xhr.onerror = function () {
+      return {
+        status: this.status,
+        statusText: xhr.statusText
+      };
+    };
+    xhr.send(JSON.stringify(data));
+  }));
+}
+
 // Take the text parameter passed to this HTTP endpoint and insert it into the
 // Realtime Database under the path /messages/:pushId/original
 exports.addMessage = functions.https.onRequest((req, res) => {
@@ -34,25 +58,5 @@ exports.makeUppercase = functions.database.ref('/messages/{pushId}/original')
 
 exports.createProductBrand = functions.firestore.document('productBrands/{productBrandId}')
   .onCreate((change, context) => {
-    return new Promise((() => {
-      var xhr = new XMLHttpRequest();
-      xhr.open('POST', 'https://openairmarket-150121.appspot.com/_ah/api/search/v1/create/productBrand');
-      xhr.onload = function () {
-        if (this.status === 200 && this.status < 300) {
-          return xhr.response;
-        } else {
-          return {
-            status: this.status,
-            statusText: xhr.statusText
-          };
-        }
-      };
-      xhr.onerror = function () {
-        return {
-          status: this.status,
-          statusText: xhr.statusText
-        };
-      };
-      xhr.send(JSON.stringify(change.after.data()));
-    }));
+    return endPointRequest('create/productBrand', change.after.data());
   });
