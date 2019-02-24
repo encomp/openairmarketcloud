@@ -17,7 +17,7 @@ import java.util.concurrent.ExecutionException;
 public final class ProductManufacturerUpload {
 
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
-  private static final String COLLECTION = "productManufactures";
+  private static final String COLLECTION = "productManufacturers";
   private static final String DATA_FILE = "build/pipeline/data/output/fabricante.csv";
 
   public static final void main(String[] args) throws Exception {
