@@ -24,7 +24,9 @@ public final class ProductSalePrice extends AbstractActiveModel {
   }
 
   public void setListPrice(String listPrice) {
-    this.listPrice = checkPositive(new BigDecimal(listPrice));
+    if (listPrice != null) {
+      this.listPrice = checkPositive(new BigDecimal(listPrice));
+    }
   }
 
   public BigDecimal listPrice() {
@@ -56,7 +58,9 @@ public final class ProductSalePrice extends AbstractActiveModel {
   }
 
   public void setLimitPrice(String limitPrice) {
-    this.limitPrice = checkPositive(new BigDecimal(limitPrice));
+    if (limitPrice != null) {
+      this.limitPrice = checkPositive(new BigDecimal(limitPrice));
+    }
   }
 
   public BigDecimal limitPrice() {
