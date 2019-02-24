@@ -35,6 +35,8 @@ import com.toolinc.openairmarket.pos.persistence.model.product.ProductBrand;
               "https://www.googleapis.com/robot/v1/metadata/x509/securetoken@system.gserviceaccount.com")
     })
 public class Search {
+  private static final String PRODUCT_BRAND = "productBrand";
+
   /**
    * Echoes the received message back. If n is a non-negative integer, the message is copied that
    * many times in the returned message.
@@ -154,11 +156,7 @@ public class Search {
     SearchServiceFactory.getSearchService().getIndex(indexSpec).deleteSchema();
   }
 
-  /**
-   * Creates a new {@link ProductBrand} on a {@link Index}.
-   *
-   * @param productBrand the brand to be stored.
-   */
+  /** Creates a new {@link ProductBrand} on a {@link Index}. */
   @ApiMethod(name = "create_product_brand", path = "create/productBrand")
   public void createProductBrand(ProductBrand productBrand) {
     Document document =
@@ -181,7 +179,11 @@ public class Search {
                     .setText(productBrand.getActive().toString())
                     .build())
             .build();
-    IndexSpec indexSpec = IndexSpec.newBuilder().setName("productBrand").build();
+    storeDocument(PRODUCT_BRAND, document);
+  }
+
+  private static final <T> void storeDocument(String indexName, Document document) {
+    IndexSpec indexSpec = IndexSpec.newBuilder().setName(indexName).build();
     Index index = SearchServiceFactory.getSearchService().getIndex(indexSpec);
     index.put(document);
   }
