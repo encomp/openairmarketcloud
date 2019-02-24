@@ -33,7 +33,7 @@ public final class ProductUpload {
       while (line != null) {
         Product product =
             Product.newBuilder()
-                .setReferenceId(line[1])
+                .setReferenceId(line[1].length() == 0 ? line[0] : line[1])
                 .setName(line[2])
                 .setImage(line[3])
                 .setProductType(ProductType.ITEM)
