@@ -227,9 +227,7 @@ public class Search {
   @ApiMethod(name = "create_product", path = "create/product")
   public void createProductt(Product product) {
     Document.Builder builder =
-        addReferenceField(
-            Document.newBuilder().setId(product.id()),
-            product.getReferenceId() == null ? "" : product.getReferenceId());
+        addReferenceField(Document.newBuilder().setId(product.id()), product.getReferenceId());
     addNameField(builder, product.getName())
         .addField(
             Field.newBuilder()
