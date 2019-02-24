@@ -57,21 +57,21 @@ exports.makeUppercase = functions.database.ref('/messages/{pushId}/original')
   });
 
 exports.createProductBrand = functions.firestore.document('productBrands/{productBrandId}')
-  .onCreate((change, context) => {
-    return endPointRequest('create/productBrand', change.after.data());
+  .onCreate((snap, context) => {
+    return endPointRequest('create/productBrand', snap.data());
   });
 
 exports.createProductCategory = functions.firestore.document('productCategories/{productCategoryId}')
-  .onCreate((change, context) => {
-    return endPointRequest('create/productCategory', change.after.data());
+  .onCreate((snap, context) => {
+    return endPointRequest('create/productCategory', snap.data());
   });
 
 exports.createProductManufacturer = functions.firestore.document('productManufacturers/{productManufacturerId}')
-  .onCreate((change, context) => {
-    return endPointRequest('create/productManufacturer', change.after.data());
+  .onCreate((snap, context) => {
+    return endPointRequest('create/productManufacturer', snap.data());
   });
 
 exports.createProductMeasureUnit = functions.firestore.document('productMeasureUnits/{productMeasureUnitId}')
-  .onCreate((change, context) => {
-    return endPointRequest('create/productMeasureUnit', change.after.data());
+  .onCreate((snap, context) => {
+    return endPointRequest('create/productMeasureUnit', snap.data());
   });
