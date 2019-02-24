@@ -53,4 +53,4 @@ exports.createProductMeasureUnit = functions.firestore.document('productMeasureU
 exports.createProduct = functions.firestore.document('products/{productId}')
   .onCreate((snap, context) => {
     return endPointRequest('create/product', snap.data());
-  });  
+  });
