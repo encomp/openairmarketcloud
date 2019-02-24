@@ -16,6 +16,7 @@ import com.google.appengine.api.search.Field;
 import com.google.appengine.api.search.Index;
 import com.google.appengine.api.search.IndexSpec;
 import com.google.appengine.api.search.SearchServiceFactory;
+import com.toolinc.openairmarket.pos.persistence.model.product.Product;
 import com.toolinc.openairmarket.pos.persistence.model.product.ProductBrand;
 import com.toolinc.openairmarket.pos.persistence.model.product.ProductCategory;
 import com.toolinc.openairmarket.pos.persistence.model.product.ProductManufacturer;
@@ -45,6 +46,7 @@ public class Search {
   private static final String PRODUCT_CATEGORIES = "productCategories";
   private static final String PRODUCT_MANUFACTURERS = "productManufacturers";
   private static final String PRODUCT_MEASURE_UNITS = "productMeasureUnits";
+  private static final String PRODUCTS = "products";
 
   /**
    * Echoes the received message back. If n is a non-negative integer, the message is copied that
@@ -219,6 +221,43 @@ public class Search {
                 .build());
     Document document = addActiveField(builder, productMeasureUnit.getActive()).build();
     storeDocument(PRODUCT_MEASURE_UNITS, document);
+  }
+
+  /** Stores a new {@link Product} on an {@link Index}. */
+  @ApiMethod(name = "create_product", path = "create/product")
+  public void createProductt(Product product) {
+    Document.Builder builder =
+        addReferenceField(Document.newBuilder().setId(product.id()), product.getReferenceId());
+    addNameField(builder, product.getName())
+        .addField(
+            Field.newBuilder()
+                .setName("productType")
+                .setText(product.getProductType().name())
+                .build())
+        .addField(
+            Field.newBuilder().setName("productBrand").setText(product.getProductBrand()).build())
+        .addField(
+            Field.newBuilder()
+                .setName("productCategory")
+                .setText(product.getProductCategory())
+                .build())
+        .addField(
+            Field.newBuilder()
+                .setName("productMeasureUnit")
+                .setText(product.getProductMeasureUnit())
+                .build())
+        .addField(
+            Field.newBuilder()
+                .setName("productSalePrice")
+                .setText(product.getProductSalePrice().getPrice())
+                .build())
+        .addField(
+            Field.newBuilder()
+                .setName("productPurchasePrice")
+                .setText(product.getProductPurchasePrice().getPrice())
+                .build());
+    Document document = addActiveField(builder, product.getActive()).build();
+    storeDocument(PRODUCTS, document);
   }
 
   private static final Document.Builder addReferenceField(Document.Builder builder, String value) {
