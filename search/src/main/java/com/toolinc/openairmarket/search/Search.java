@@ -272,7 +272,7 @@ public class Search {
     return builder.addField(Field.newBuilder().setName(ACTIVE).setText(value.toString()).build());
   }
 
-  private static final <T> void storeDocument(String indexName, Document document) {
+  private static final void storeDocument(String indexName, Document document) {
     IndexSpec indexSpec = IndexSpec.newBuilder().setName(indexName).build();
     Index index = SearchServiceFactory.getSearchService().getIndex(indexSpec);
     index.put(document);
