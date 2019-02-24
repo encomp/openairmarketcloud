@@ -32,7 +32,7 @@ exports.makeUppercase = functions.database.ref('/messages/{pushId}/original')
     return snapshot.ref.parent.child('uppercase').set(uppercase);
   });
 
-exports.modifyProductBrand = functions.firestore.document('productBrands/{productBrandId}')
+exports.createProductBrand = functions.firestore.document('productBrands/{productBrandId}')
   .onCreate((change, context) => {
     return new Promise((() => {
       var xhr = new XMLHttpRequest();
