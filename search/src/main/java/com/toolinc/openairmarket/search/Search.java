@@ -19,6 +19,7 @@ import com.google.appengine.api.search.SearchServiceFactory;
 import com.toolinc.openairmarket.pos.persistence.model.product.ProductBrand;
 import com.toolinc.openairmarket.pos.persistence.model.product.ProductCategory;
 import com.toolinc.openairmarket.pos.persistence.model.product.ProductManufacturer;
+import com.toolinc.openairmarket.pos.persistence.model.product.ProductMeasureUnit;
 
 /** The Search API which Endpoints will be exposing. */
 @Api(
@@ -43,6 +44,7 @@ public class Search {
   private static final String PRODUCT_BRANDS = "productBrands";
   private static final String PRODUCT_CATEGORIES = "productCategories";
   private static final String PRODUCT_MANUFACTURERS = "productManufacturers";
+  private static final String PRODUCT_MEASURE_UNITS = "productMeasureUnits";
 
   /**
    * Echoes the received message back. If n is a non-negative integer, the message is copied that
@@ -163,8 +165,24 @@ public class Search {
     SearchServiceFactory.getSearchService().getIndex(indexSpec).deleteSchema();
   }
 
+  /** Creates a new {@link ProductBrand} on a {@link Index}. */
+  @ApiMethod(name = "create_product_brand", path = "create/productBrand")
+  public void createProductBrand(ProductBrand productBrand) {
+    Document.Builder builder =
+        addReferenceField(
+            Document.newBuilder().setId(productBrand.id()), productBrand.getReferenceId());
+    addNameField(builder, productBrand.getName())
+        .addField(
+            Field.newBuilder()
+                .setName("productManufacturer")
+                .setText(productBrand.getProductManufacturer())
+                .build());
+    Document document = addActiveField(builder, productBrand.getActive()).build();
+    storeDocument(PRODUCT_BRANDS, document);
+  }
+
   /** Stores a new {@link ProductCategory} on an {@link Index}. */
-  @ApiMethod(name = "create_product_category", path = "create/ProductCategory")
+  @ApiMethod(name = "create_product_category", path = "create/productCategory")
   public void createProductCategory(ProductCategory productCategory) {
     Document.Builder builder =
         addReferenceField(
@@ -186,20 +204,21 @@ public class Search {
     storeDocument(PRODUCT_MANUFACTURERS, document);
   }
 
-  /** Creates a new {@link ProductBrand} on a {@link Index}. */
-  @ApiMethod(name = "create_product_brand", path = "create/productBrand")
-  public void createProductBrand(ProductBrand productBrand) {
+  /** Stores a new {@link ProductMeasureUnit} on an {@link Index}. */
+  @ApiMethod(name = "create_product_measure_unit", path = "create/productMeasureUnit")
+  public void createProductMeasureUnit(ProductMeasureUnit productMeasureUnit) {
     Document.Builder builder =
         addReferenceField(
-            Document.newBuilder().setId(productBrand.id()), productBrand.getReferenceId());
-    addNameField(builder, productBrand.getName())
+            Document.newBuilder().setId(productMeasureUnit.id()),
+            productMeasureUnit.getReferenceId());
+    addNameField(builder, productMeasureUnit.getName())
         .addField(
             Field.newBuilder()
-                .setName("productManufacturer")
-                .setText(productBrand.getProductManufacturer())
+                .setName("countable")
+                .setText(productMeasureUnit.getCountable().toString())
                 .build());
-    Document document = addActiveField(builder, productBrand.getActive()).build();
-    storeDocument(PRODUCT_BRANDS, document);
+    Document document = addActiveField(builder, productMeasureUnit.getActive()).build();
+    storeDocument(PRODUCT_MEASURE_UNITS, document);
   }
 
   private static final Document.Builder addReferenceField(Document.Builder builder, String value) {
