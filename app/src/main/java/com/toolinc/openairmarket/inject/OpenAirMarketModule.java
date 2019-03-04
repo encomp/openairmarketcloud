@@ -1,16 +1,14 @@
 package com.toolinc.openairmarket.inject;
 
-import com.toolinc.openairmarket.ui.EmailPasswordActivity;
+import com.google.firebase.auth.FirebaseAuth;
 
-import dagger.Module;
-import dagger.android.ContributesAndroidInjector;
+import dagger.Provides;
 
-/**
- * Specifies the object graph to inject different instances to activities and fragments of the
- * application.
- */
-@Module
-public abstract class OpenAirMarketModule {
-  @ContributesAndroidInjector
-  abstract EmailPasswordActivity emailPasswordActivity();
+/** Provides the basic dependency injection for the app. */
+public class OpenAirMarketModule {
+
+  @Provides
+  FirebaseAuth providesFirebaseAuth() {
+    return FirebaseAuth.getInstance();
+  }
 }
