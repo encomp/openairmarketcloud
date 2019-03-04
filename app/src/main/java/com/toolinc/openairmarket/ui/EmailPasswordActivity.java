@@ -29,14 +29,11 @@ public final class EmailPasswordActivity extends BaseActivity implements View.On
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_emailpassword);
-
     emailpasswordBinding = DataBindingUtil.setContentView(this, R.layout.activity_emailpassword);
-
-    findViewById(R.id.emailSignInButton).setOnClickListener(this);
-    findViewById(R.id.emailCreateAccountButton).setOnClickListener(this);
-    findViewById(R.id.signOutButton).setOnClickListener(this);
-    findViewById(R.id.verifyEmailButton).setOnClickListener(this);
-
+    emailpasswordBinding.emailSignInButton.setOnClickListener(this);
+    emailpasswordBinding.emailCreateAccountButton.setOnClickListener(this);
+    emailpasswordBinding.signOutButton.setOnClickListener(this);
+    emailpasswordBinding.verifyEmailButton.setOnClickListener(this);
     mAuth = FirebaseAuth.getInstance();
   }
 
