@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -15,17 +13,16 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.toolinc.openairmarket.R;
+import com.toolinc.openairmarket.databinding.ActivityEmailpasswordBinding;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 
 /** Creates a new user or login an existing user. */
 public final class EmailPasswordActivity extends BaseActivity implements View.OnClickListener {
 
   private static final String TAG = "EmailPassword";
-  private TextView mStatusTextView;
-  private TextView mDetailTextView;
-  private EditText mEmailField;
-  private EditText mPasswordField;
+  private ActivityEmailpasswordBinding emailpasswordBinding;
   private FirebaseAuth mAuth;
 
   @Override
@@ -33,10 +30,7 @@ public final class EmailPasswordActivity extends BaseActivity implements View.On
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_emailpassword);
 
-    mStatusTextView = findViewById(R.id.status);
-    mDetailTextView = findViewById(R.id.detail);
-    mEmailField = findViewById(R.id.fieldEmail);
-    mPasswordField = findViewById(R.id.fieldPassword);
+    emailpasswordBinding = DataBindingUtil.setContentView(this, R.layout.activity_emailpassword);
 
     findViewById(R.id.emailSignInButton).setOnClickListener(this);
     findViewById(R.id.emailCreateAccountButton).setOnClickListener(this);
@@ -113,7 +107,7 @@ public final class EmailPasswordActivity extends BaseActivity implements View.On
                 }
 
                 if (!task.isSuccessful()) {
-                  mStatusTextView.setText(R.string.auth_failed);
+                  emailpasswordBinding.status.setText(R.string.auth_failed);
                 }
                 hideProgressDialog();
               }
@@ -159,19 +153,19 @@ public final class EmailPasswordActivity extends BaseActivity implements View.On
 
   private boolean validateForm() {
     boolean valid = true;
-    String email = mEmailField.getText().toString();
+    String email = emailpasswordBinding.fieldEmail.getText().toString();
     if (TextUtils.isEmpty(email)) {
-      mEmailField.setError("Required.");
+      emailpasswordBinding.fieldEmail.setError("Required.");
       valid = false;
     } else {
-      mEmailField.setError(null);
+      emailpasswordBinding.fieldEmail.setError(null);
     }
-    String password = mPasswordField.getText().toString();
+    String password = emailpasswordBinding.fieldPassword.getText().toString();
     if (TextUtils.isEmpty(password)) {
-      mPasswordField.setError("Required.");
+      emailpasswordBinding.fieldPassword.setError("Required.");
       valid = false;
     } else {
-      mPasswordField.setError(null);
+      emailpasswordBinding.fieldPassword.setError(null);
     }
     return valid;
   }
@@ -179,17 +173,17 @@ public final class EmailPasswordActivity extends BaseActivity implements View.On
   private void updateUI(FirebaseUser user) {
     hideProgressDialog();
     if (user != null) {
-      mStatusTextView.setText(
+      emailpasswordBinding.status.setText(
           getString(R.string.emailpassword_status_fmt, user.getEmail(), user.isEmailVerified()));
-      mDetailTextView.setText(getString(R.string.firebase_status_fmt, user.getUid()));
+      emailpasswordBinding.detail.setText(getString(R.string.firebase_status_fmt, user.getUid()));
       findViewById(R.id.emailPasswordButtons).setVisibility(View.GONE);
       findViewById(R.id.emailPasswordFields).setVisibility(View.GONE);
       findViewById(R.id.signedInButtons).setVisibility(View.VISIBLE);
       findViewById(R.id.verifyEmailButton).setEnabled(!user.isEmailVerified());
       startActivity(new Intent(getApplicationContext(), MainActivity.class));
     } else {
-      mStatusTextView.setText(R.string.signed_out);
-      mDetailTextView.setText(null);
+      emailpasswordBinding.status.setText(R.string.signed_out);
+      emailpasswordBinding.detail.setText(null);
       findViewById(R.id.emailPasswordButtons).setVisibility(View.VISIBLE);
       findViewById(R.id.emailPasswordFields).setVisibility(View.VISIBLE);
       findViewById(R.id.signedInButtons).setVisibility(View.GONE);
@@ -200,9 +194,13 @@ public final class EmailPasswordActivity extends BaseActivity implements View.On
   public void onClick(View v) {
     int i = v.getId();
     if (i == R.id.emailCreateAccountButton) {
-      createAccount(mEmailField.getText().toString(), mPasswordField.getText().toString());
+      createAccount(
+          emailpasswordBinding.fieldEmail.getText().toString(),
+          emailpasswordBinding.fieldPassword.getText().toString());
     } else if (i == R.id.emailSignInButton) {
-      signIn(mEmailField.getText().toString(), mPasswordField.getText().toString());
+      signIn(
+          emailpasswordBinding.fieldEmail.getText().toString(),
+          emailpasswordBinding.fieldPassword.getText().toString());
     } else if (i == R.id.signOutButton) {
       signOut();
     } else if (i == R.id.verifyEmailButton) {
