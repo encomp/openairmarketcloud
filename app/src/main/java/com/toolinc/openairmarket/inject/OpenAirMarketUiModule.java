@@ -1,6 +1,7 @@
 package com.toolinc.openairmarket.inject;
 
 import com.toolinc.openairmarket.ui.EmailPasswordActivity;
+import com.toolinc.openairmarket.ui.MainActivity;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -11,6 +12,10 @@ import dagger.android.ContributesAndroidInjector;
  */
 @Module
 public abstract class OpenAirMarketUiModule {
+
   @ContributesAndroidInjector
   abstract EmailPasswordActivity emailPasswordActivity();
+
+  @ContributesAndroidInjector
+  abstract MainActivity mainActivity();
 }
