@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".EmailPasswordActivity"
+            android:name=".ui.EmailPasswordActivity"
             android:label="@string/title_activity_email_password"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -24,7 +24,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.toolinc.openairmarket.EmailPasswordActivity" />
+                android:value="com.toolinc.openairmarket.ui.EmailPasswordActivity" />
         </activity>
     </application>
 
