@@ -1,4 +1,4 @@
-package com.toolinc.openairmarket;
+package com.toolinc.openairmarket.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,7 +14,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.toolinc.openairmarket.ui.MainActivity;
+import com.toolinc.openairmarket.R;
 
 import androidx.annotation.NonNull;
 
