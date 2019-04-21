@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">OpenAirMarket</string>
 
-    <string name="title_activity_email_password">Email/Password Authentication</string>
+    <string name="title_activity_email_password">POS</string>
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
     <string name="sign_in">Sign In</string>
