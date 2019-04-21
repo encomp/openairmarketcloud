@@ -1,11 +1,19 @@
 package com.toolinc.openairmarket.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -15,18 +23,49 @@ import com.google.firebase.auth.FirebaseUser;
 import com.toolinc.openairmarket.R;
 import com.toolinc.openairmarket.databinding.ActivityEmailpasswordBinding;
 
-import androidx.annotation.NonNull;
-import androidx.databinding.DataBindingUtil;
+import javax.inject.Inject;
+
+import dagger.android.AndroidInjection;
 
 /** Creates a new user or login an existing user. */
-public final class EmailPasswordActivity extends BaseActivity implements View.OnClickListener {
+public final class EmailPasswordActivity extends AppCompatActivity implements View.OnClickListener {
 
   private static final String TAG = "EmailPassword";
+  @VisibleForTesting ProgressBar mProgressDialog;
   private ActivityEmailpasswordBinding emailpasswordBinding;
-  private FirebaseAuth mAuth;
+  @Inject FirebaseAuth mAuth;
+
+  public void showProgressDialog() {
+    if (mProgressDialog == null) {
+      mProgressDialog = new ProgressBar(this);
+      mProgressDialog.setIndeterminate(true);
+    }
+    mProgressDialog.setVisibility(View.VISIBLE);
+  }
+
+  public void hideProgressDialog() {
+    if (mProgressDialog != null) {
+      mProgressDialog.setVisibility(View.INVISIBLE);
+    }
+  }
+
+  public void hideKeyboard(View view) {
+    final InputMethodManager imm =
+        (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+    if (imm != null) {
+      imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+  }
+
+  @Override
+  public void onStop() {
+    super.onStop();
+    hideProgressDialog();
+  }
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
+    AndroidInjection.inject(this);
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_emailpassword);
     emailpasswordBinding = DataBindingUtil.setContentView(this, R.layout.activity_emailpassword);
@@ -34,7 +73,6 @@ public final class EmailPasswordActivity extends BaseActivity implements View.On
     emailpasswordBinding.emailCreateAccountButton.setOnClickListener(this);
     emailpasswordBinding.signOutButton.setOnClickListener(this);
     emailpasswordBinding.verifyEmailButton.setOnClickListener(this);
-    mAuth = FirebaseAuth.getInstance();
   }
 
   @Override
@@ -70,7 +108,6 @@ public final class EmailPasswordActivity extends BaseActivity implements View.On
                       .show();
                   updateUI(null);
                 }
-
                 hideProgressDialog();
               }
             });
