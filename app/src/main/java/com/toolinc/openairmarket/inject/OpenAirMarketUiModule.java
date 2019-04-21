@@ -13,9 +13,9 @@ import dagger.android.ContributesAndroidInjector;
 @Module
 public abstract class OpenAirMarketUiModule {
 
-  @ContributesAndroidInjector
+  @ContributesAndroidInjector(modules = OpenAirMarketModule.class)
   abstract EmailPasswordActivity emailPasswordActivity();
 
-  @ContributesAndroidInjector
+  @ContributesAndroidInjector(modules = OpenAirMarketModule.class)
   abstract MainActivity mainActivity();
 }

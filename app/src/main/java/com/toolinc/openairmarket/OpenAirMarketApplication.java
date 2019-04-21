@@ -17,14 +17,14 @@ public class OpenAirMarketApplication extends Application implements HasActivity
   @Inject DispatchingAndroidInjector<Activity> dispatchingActivityInjector;
 
   @Override
-  public AndroidInjector<Activity> activityInjector() {
-    return dispatchingActivityInjector;
-  }
-
-  @Override
   public void onCreate() {
     super.onCreate();
     DaggerOpenAirMarketInjector.create().inject(this);
+  }
+
+  @Override
+  public AndroidInjector<Activity> activityInjector() {
+    return dispatchingActivityInjector;
   }
 
   public static boolean isInternetAvailable(Context context) {
