@@ -1,8 +1,8 @@
 package com.toolinc.openairmarket.inject;
 
 import com.google.firebase.auth.FirebaseAuth;
-
-import java.math.BigDecimal;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreSettings;
 
 import dagger.Module;
 import dagger.Provides;
@@ -14,5 +14,13 @@ public abstract class OpenAirMarketModule {
   @Provides
   static FirebaseAuth providesFirebaseAuth() {
     return FirebaseAuth.getInstance();
+  }
+
+  @Provides
+  static FirebaseFirestore providesFirestore() {
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+    firebaseFirestore.setFirestoreSettings(
+        new FirebaseFirestoreSettings.Builder().setPersistenceEnabled(true).build());
+    return firebaseFirestore;
   }
 }
