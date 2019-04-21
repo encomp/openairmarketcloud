@@ -20,6 +20,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.perf.metrics.AddTrace;
 import com.toolinc.openairmarket.R;
 import com.toolinc.openairmarket.databinding.ActivityEmailpasswordBinding;
 
@@ -32,8 +33,8 @@ public final class EmailPasswordActivity extends AppCompatActivity implements Vi
 
   private static final String TAG = "EmailPassword";
   @VisibleForTesting ProgressBar mProgressDialog;
-  private ActivityEmailpasswordBinding emailpasswordBinding;
   @Inject FirebaseAuth mAuth;
+  private ActivityEmailpasswordBinding emailpasswordBinding;
 
   public void showProgressDialog() {
     if (mProgressDialog == null) {
@@ -82,6 +83,7 @@ public final class EmailPasswordActivity extends AppCompatActivity implements Vi
     updateUI(currentUser);
   }
 
+  @AddTrace(name = "EmailPasswordActivity.createAccount", enabled = true)
   private void createAccount(String email, String password) {
     Log.d(TAG, "createAccount:" + email);
     if (!validateForm()) {
@@ -113,6 +115,7 @@ public final class EmailPasswordActivity extends AppCompatActivity implements Vi
             });
   }
 
+  @AddTrace(name = "EmailPasswordActivity.signIn", enabled = true)
   private void signIn(String email, String password) {
     Log.d(TAG, "signIn:" + email);
     if (!validateForm()) {
@@ -153,6 +156,7 @@ public final class EmailPasswordActivity extends AppCompatActivity implements Vi
     updateUI(null);
   }
 
+  @AddTrace(name = "EmailPasswordActivity.sendEmailVerification", enabled = true)
   private void sendEmailVerification() {
     // Disable button
     findViewById(R.id.verifyEmailButton).setEnabled(false);
