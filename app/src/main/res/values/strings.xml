@@ -22,4 +22,12 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+
+    <!-- Offline Sync -->
+    <string name="offline_channel_name">Offline Sync</string>
+    <string name="offline_channel_description">Offline Sync</string>
+    <string name="product_brand_offline_notification_success_title">Product Brand Synced</string>
+    <string name="product_brand_offline_notification_success_content">The product brands were synced successfully.</string>
+    <string name="product_brand_offline_notification_inprogress_title">Product Brand Syncing</string>
+    <string name="product_brand_offline_notification_inprogress_content">The product brands syncing process started.</string>
 </resources>
