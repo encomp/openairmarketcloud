@@ -4,6 +4,10 @@ import android.app.Application;
 
 import androidx.room.Room;
 
+import com.toolinc.openairmarket.common.inject.Global;
+
+import java.util.concurrent.Executor;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -11,7 +15,7 @@ import dagger.Provides;
 
 /** Specifies the Offline database dagger module. */
 @Module
-public abstract class OfflineDatabaseModule {
+public class OfflineDatabaseModule {
 
   private static volatile OfflineRoomDatabase offlineRoomDatabase;
 
@@ -29,14 +33,18 @@ public abstract class OfflineDatabaseModule {
 
   @Singleton
   @Provides
-  static OfflineRoomDatabase providesRoomDatabase() {
+  OfflineRoomDatabase providesRoomDatabase() {
     return offlineRoomDatabase;
   }
 
   @Provides
-  static CollectionStateDao providesCollectionStateDao(OfflineRoomDatabase demoDatabase) {
+  CollectionStateDao providesCollectionStateDao(OfflineRoomDatabase demoDatabase) {
     return demoDatabase.collectionStateDao();
   }
 
-  abstract CollectionStateRepository providesCollectionStateRepository();
+  @Provides
+  CollectionStateRepository providesCollectionStateRepository(
+      @Global.NetworkIO Executor executor, CollectionStateDao collectionStateDao) {
+    return new CollectionStateRepository(executor, collectionStateDao);
+  }
 }

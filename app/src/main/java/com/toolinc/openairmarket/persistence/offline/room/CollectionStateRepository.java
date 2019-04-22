@@ -2,7 +2,7 @@ package com.toolinc.openairmarket.persistence.offline.room;
 
 import androidx.lifecycle.LiveData;
 
-import com.toolinc.openairmarket.inject.Global;
+import com.toolinc.openairmarket.common.inject.Global;
 
 import java.util.List;
 import java.util.concurrent.Executor;

@@ -1,4 +1,4 @@
-package com.toolinc.openairmarket.inject;
+package com.toolinc.openairmarket.common.inject;
 
 import com.squareup.inject.assisted.dagger2.AssistedModule;
 

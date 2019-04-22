@@ -1,4 +1,4 @@
-package com.toolinc.openairmarket.inject;
+package com.toolinc.openairmarket.common.inject;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;

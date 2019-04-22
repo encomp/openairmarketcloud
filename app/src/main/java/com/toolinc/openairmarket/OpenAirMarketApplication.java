@@ -8,6 +8,7 @@ import android.net.ConnectivityManager;
 import androidx.work.Configuration;
 import androidx.work.WorkManager;
 
+import com.toolinc.openairmarket.persistence.offline.room.OfflineDatabaseModule;
 import com.toolinc.openairmarket.work.WorkerFactoryDagger;
 
 import javax.inject.Inject;
@@ -35,7 +36,10 @@ public class OpenAirMarketApplication extends Application implements HasActivity
   @Override
   public void onCreate() {
     super.onCreate();
-    DaggerOpenAirMarketInjector.create().inject(this);
+    DaggerOpenAirMarketInjector.builder()
+        .offlineDatabaseModule(new OfflineDatabaseModule(this))
+        .build()
+        .inject(this);
     WorkManager.initialize(
         this, new Configuration.Builder().setWorkerFactory(workerFactory).build());
   }
