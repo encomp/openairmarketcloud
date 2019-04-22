@@ -1,4 +1,4 @@
-package com.toolinc.openairmarket.work;
+package com.toolinc.openairmarket.common.work;
 
 import android.content.Context;
 

@@ -9,7 +9,7 @@ import androidx.work.Configuration;
 import androidx.work.WorkManager;
 
 import com.toolinc.openairmarket.persistence.offline.room.OfflineDatabaseModule;
-import com.toolinc.openairmarket.work.WorkerFactoryDagger;
+import com.toolinc.openairmarket.common.work.WorkerFactoryDagger;
 
 import javax.inject.Inject;
 

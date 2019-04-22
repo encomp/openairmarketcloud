@@ -9,6 +9,7 @@ import androidx.work.WorkerParameters;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.inject.assisted.Assisted;
 import com.squareup.inject.assisted.AssistedInject;
+import com.toolinc.openairmarket.common.work.ListenableWorkerFactory;
 
 /** Downloads the product information from firestore database. */
 public class ProductWorker extends Worker {
