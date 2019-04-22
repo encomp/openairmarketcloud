@@ -8,6 +8,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 
+/** Provides the repositories for firestore database. */
 @Module(includes = {OfflineDatabaseModule.class})
 public interface PersistenceModule {
 

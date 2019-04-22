@@ -12,6 +12,7 @@ import javax.inject.Provider;
 import dagger.Module;
 import dagger.Provides;
 
+/** Specifies the injection for the worker managers. */
 @Module(includes = WorkerFactoryDaggerModule.class)
 public class WorkersModule {
 
