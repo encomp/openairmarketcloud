@@ -16,7 +16,7 @@ import javax.inject.Inject;
 public final class CollectionStateRepository {
 
   private final CollectionStateDao collectionStateDao;
-  private final @Global.NetworkIO Executor executor;
+  private final Executor executor;
 
   @Inject
   public CollectionStateRepository(
