@@ -30,4 +30,6 @@
     <string name="product_brand_offline_notification_success_content">The product brands were synced successfully.</string>
     <string name="product_brand_offline_notification_inprogress_title">Product Brand Syncing</string>
     <string name="product_brand_offline_notification_inprogress_content">The product brands syncing process started.</string>
+    <string name="product_brand_offline_notification_failure_title">Product Brand Failure</string>
+    <string name="product_brand_offline_notification_failure_content">The product brands synced failed.</string>
 </resources>

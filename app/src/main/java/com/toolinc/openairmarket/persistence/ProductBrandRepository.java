@@ -1,7 +1,6 @@
 package com.toolinc.openairmarket.persistence;
 
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.CollectionReference;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.toolinc.openairmarket.common.inject.Global;
@@ -24,8 +23,7 @@ public final class ProductBrandRepository {
     this.firestore = firebaseFirestore;
   }
 
-  void retrieveAll(OnSuccessListener<QuerySnapshot> onCompleteListener) {
-    CollectionReference collectionReference = firestore.collection(COLLECTION);
-    collectionReference.get().addOnSuccessListener(executor, onCompleteListener);
+  Task<QuerySnapshot> retrieveAll() {
+    return firestore.collection(COLLECTION).get();
   }
 }
