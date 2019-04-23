@@ -7,6 +7,9 @@ import androidx.annotation.NonNull;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Singleton;
 
@@ -28,7 +31,9 @@ public class ExecutorsModule {
   @Singleton
   @Provides
   static Executor providesNetworkIOExecutor() {
-    return Executors.newFixedThreadPool(3);
+    int numCores = Runtime.getRuntime().availableProcessors();
+    return new ThreadPoolExecutor(
+        numCores * 2, numCores * 2, 120L, TimeUnit.SECONDS, new LinkedBlockingQueue<>());
   }
 
   @Global.MainThread
