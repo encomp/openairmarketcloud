@@ -15,7 +15,7 @@ import javax.inject.Provider;
 /** A factory object that creates {@link ListenableWorker} instances using Dagger. */
 public class WorkerFactoryDagger extends WorkerFactory {
 
-  final ImmutableMap<Class<ListenableWorker>, Provider<ListenableWorkerFactory>> factories;
+  private final ImmutableMap<Class<ListenableWorker>, Provider<ListenableWorkerFactory>> factories;
 
   @Inject
   public WorkerFactoryDagger(
@@ -32,10 +32,14 @@ public class WorkerFactoryDagger extends WorkerFactory {
 
     try {
       Class<?> clazz = Class.forName(workerClassName);
-      return factories.get(clazz).get().create(appContext, workerParameters);
+      if (clazz.isAssignableFrom(ListenableWorker.class)) {
+        return factories.get(clazz).get().create(appContext, workerParameters);
+      }
+      throw new IllegalArgumentException(
+          String.format("Unknown ListenableWorker class: [%s].", workerClassName));
     } catch (ClassNotFoundException e) {
       throw new IllegalArgumentException(
-          String.format("Unknown worker class name: [%s].", workerClassName));
+          String.format("Unknown ListenableWorker class: [%s].", workerClassName), e);
     }
   }
 }
