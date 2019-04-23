@@ -12,6 +12,8 @@ import com.toolinc.openairmarket.common.inject.Global;
 import com.toolinc.openairmarket.persistence.offline.room.CollectionState;
 import com.toolinc.openairmarket.persistence.offline.room.CollectionStateRepository;
 
+import org.joda.time.DateTime;
+
 import java.util.concurrent.Executor;
 
 import javax.inject.Inject;
@@ -91,7 +93,7 @@ public final class ProductBrandOfflineRefresher {
     CollectionState collectionState = new CollectionState();
     collectionState.setId(OFFLINE_ID);
     collectionState.setStatus(status);
-    collectionState.setLastUpdate("");
+    collectionState.setLastUpdate(DateTime.now());
     collectionState.setNumberOfDocs(0);
     return collectionState;
   }

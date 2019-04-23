@@ -5,6 +5,8 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import org.joda.time.DateTime;
+
 import java.io.Serializable;
 
 /** Specifies state of a Firestore collection that will be store on SQLite. */
@@ -22,7 +24,7 @@ public class CollectionState implements Serializable {
 
   @NonNull
   @ColumnInfo(name = "lastUpdate")
-  private String lastUpdate;
+  private DateTime lastUpdate;
 
   @ColumnInfo(name = "numberOfDocs")
   private int numberOfDocs;
@@ -44,11 +46,11 @@ public class CollectionState implements Serializable {
     this.status = status;
   }
 
-  public String getLastUpdate() {
+  public DateTime getLastUpdate() {
     return lastUpdate;
   }
 
-  public void setLastUpdate(@NonNull String lastUpdate) {
+  public void setLastUpdate(@NonNull DateTime lastUpdate) {
     this.lastUpdate = lastUpdate;
   }
 
