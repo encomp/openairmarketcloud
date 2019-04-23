@@ -9,8 +9,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.toolinc.openairmarket.R;
 import com.toolinc.openairmarket.common.NotificationUtil;
 import com.toolinc.openairmarket.common.inject.Global;
-import com.toolinc.openairmarket.persistence.offline.room.CollectionState;
-import com.toolinc.openairmarket.persistence.offline.room.CollectionStateRepository;
+import com.toolinc.openairmarket.persistence.cloud.ProductBrandRepository;
+import com.toolinc.openairmarket.persistence.local.offline.CollectionState;
+import com.toolinc.openairmarket.persistence.local.offline.CollectionStateRepository;
 
 import org.joda.time.DateTime;
 
@@ -36,6 +37,15 @@ public final class ProductBrandOfflineRefresher {
     this.executor = executor;
     this.productBrandRepository = productBrandRepository;
     this.collectionStateRepository = collectionStateRepository;
+  }
+
+  private static final CollectionState create(String status) {
+    CollectionState collectionState = new CollectionState();
+    collectionState.setId(OFFLINE_ID);
+    collectionState.setStatus(status);
+    collectionState.setLastUpdate(DateTime.now());
+    collectionState.setNumberOfDocs(0);
+    return collectionState;
   }
 
   public void refresh(Context context) {
@@ -80,21 +90,12 @@ public final class ProductBrandOfflineRefresher {
     CollectionState collectionState = create("FAILED");
     collectionStateRepository.insert(collectionState);
     NotificationUtil.notify(
-            context,
-            NOTIFICATION_ID,
-            CHANNEL_ID,
-            R.drawable.ic_cloud_off,
-            context.getString(R.string.product_brand_offline_notification_failure_title),
-            context.getString(R.string.product_brand_offline_notification_failure_content),
-            NotificationManager.IMPORTANCE_HIGH);
-  }
-
-  private static final CollectionState create(String status) {
-    CollectionState collectionState = new CollectionState();
-    collectionState.setId(OFFLINE_ID);
-    collectionState.setStatus(status);
-    collectionState.setLastUpdate(DateTime.now());
-    collectionState.setNumberOfDocs(0);
-    return collectionState;
+        context,
+        NOTIFICATION_ID,
+        CHANNEL_ID,
+        R.drawable.ic_cloud_off,
+        context.getString(R.string.product_brand_offline_notification_failure_title),
+        context.getString(R.string.product_brand_offline_notification_failure_content),
+        NotificationManager.IMPORTANCE_HIGH);
   }
 }

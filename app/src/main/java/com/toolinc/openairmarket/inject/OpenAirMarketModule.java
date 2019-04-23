@@ -6,7 +6,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.toolinc.openairmarket.common.inject.AssitInjectionModule;
 import com.toolinc.openairmarket.common.inject.ExecutorsModule;
-import com.toolinc.openairmarket.persistence.inject.PersistenceModule;
+import com.toolinc.openairmarket.persistence.cloud.inject.PersistenceModule;
 import com.toolinc.openairmarket.work.inject.WorkersModule;
 
 import dagger.Module;

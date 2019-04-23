@@ -1,8 +1,8 @@
-package com.toolinc.openairmarket.persistence.inject;
+package com.toolinc.openairmarket.persistence.cloud.inject;
 
 import com.toolinc.openairmarket.persistence.ProductBrandOfflineRefresher;
-import com.toolinc.openairmarket.persistence.ProductBrandRepository;
-import com.toolinc.openairmarket.persistence.offline.room.OfflineDatabaseModule;
+import com.toolinc.openairmarket.persistence.cloud.ProductBrandRepository;
+import com.toolinc.openairmarket.persistence.local.offline.OfflineDatabaseModule;
 
 import javax.inject.Singleton;
 

@@ -8,7 +8,7 @@ import android.net.ConnectivityManager;
 import androidx.work.Configuration;
 import androidx.work.WorkManager;
 
-import com.toolinc.openairmarket.persistence.offline.room.OfflineDatabaseModule;
+import com.toolinc.openairmarket.persistence.local.offline.OfflineDatabaseModule;
 import com.toolinc.openairmarket.common.work.WorkerFactoryDagger;
 
 import javax.inject.Inject;

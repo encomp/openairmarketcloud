@@ -1,4 +1,4 @@
-package com.toolinc.openairmarket.persistence;
+package com.toolinc.openairmarket.persistence.cloud;
 
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -23,7 +23,7 @@ public final class ProductBrandRepository {
     this.firestore = firebaseFirestore;
   }
 
-  Task<QuerySnapshot> retrieveAll() {
+  public Task<QuerySnapshot> retrieveAll() {
     return firestore.collection(COLLECTION).get();
   }
 }

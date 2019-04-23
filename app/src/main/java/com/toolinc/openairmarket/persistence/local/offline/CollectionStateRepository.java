@@ -1,4 +1,4 @@
-package com.toolinc.openairmarket.persistence.offline.room;
+package com.toolinc.openairmarket.persistence.local.offline;
 
 import androidx.lifecycle.LiveData;
 
