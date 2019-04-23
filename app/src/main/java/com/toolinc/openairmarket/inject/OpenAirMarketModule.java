@@ -1,6 +1,7 @@
 package com.toolinc.openairmarket.inject;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.toolinc.openairmarket.common.inject.AssitInjectionModule;
@@ -24,6 +25,11 @@ public class OpenAirMarketModule {
   @Provides
   FirebaseAuth providesFirebaseAuth() {
     return FirebaseAuth.getInstance();
+  }
+
+  @Provides
+  FirebaseUser providesCurrentUserEmail(FirebaseAuth firebaseAuth) {
+    return firebaseAuth.getCurrentUser();
   }
 
   @Provides
