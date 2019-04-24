@@ -9,7 +9,7 @@ import com.toolinc.openairmarket.common.NotificationUtil.NotificationProperties;
 import com.toolinc.openairmarket.common.inject.Global;
 import com.toolinc.openairmarket.persistence.cloud.SyncRepository;
 import com.toolinc.openairmarket.persistence.cloud.inject.SyncRepositoryModule;
-import com.toolinc.openairmarket.persistence.inject.Annotations;
+import com.toolinc.openairmarket.persistence.inject.Annotations.Product.Brands;
 import com.toolinc.openairmarket.persistence.local.offline.CollectionStateRepository;
 import com.toolinc.openairmarket.persistence.sync.DataSync;
 
@@ -38,10 +38,11 @@ public class ProductDataSyncModule {
   }
 
   @Provides
+  @Brands
   DataSync provides(
       Application application,
       @Global.NetworkIO Executor executor,
-      @Annotations.Product.Brands SyncRepository syncRepository,
+      @Brands SyncRepository syncRepository,
       CollectionStateRepository collectionStateRepository,
       ChannelProperties channelProperties) {
     NotificationProperties brandStart =

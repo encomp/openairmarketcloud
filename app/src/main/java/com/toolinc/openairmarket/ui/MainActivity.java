@@ -15,6 +15,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.toolinc.openairmarket.R;
+import com.toolinc.openairmarket.persistence.inject.Annotations.Product.Brands;
 import com.toolinc.openairmarket.persistence.sync.DataSync;
 
 import javax.inject.Inject;
@@ -26,7 +27,7 @@ public final class MainActivity extends AppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener {
 
   private static final String TAG = "MainActivity";
-  @Inject DataSync dataSync;
+  @Inject @Brands DataSync dataSync;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
