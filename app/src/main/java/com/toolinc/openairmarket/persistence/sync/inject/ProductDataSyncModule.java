@@ -9,7 +9,7 @@ import com.toolinc.openairmarket.common.NotificationUtil.NotificationProperties;
 import com.toolinc.openairmarket.common.inject.Global;
 import com.toolinc.openairmarket.persistence.cloud.SyncRepository;
 import com.toolinc.openairmarket.persistence.cloud.inject.SyncRepositoryModule;
-import com.toolinc.openairmarket.persistence.inject.Annotations.Product.Brands;
+import com.toolinc.openairmarket.persistence.inject.Annotations.Product.Categories;
 import com.toolinc.openairmarket.persistence.local.offline.CollectionStateRepository;
 import com.toolinc.openairmarket.persistence.sync.DataSync;
 
@@ -38,11 +38,11 @@ public class ProductDataSyncModule {
   }
 
   @Provides
-  @Brands
-  DataSync provides(
+  @Categories
+  DataSync providesProductCategoriesSync(
       Application application,
       @Global.NetworkIO Executor executor,
-      @Brands SyncRepository syncRepository,
+      @Categories SyncRepository syncRepository,
       CollectionStateRepository collectionStateRepository,
       ChannelProperties channelProperties) {
     NotificationProperties brandStart =
@@ -50,28 +50,28 @@ public class ProductDataSyncModule {
             .setNotificationId(NOTIFICATION_ID)
             .setTitle(
                 getString(
-                    application, R.string.product_brand_offline_notification_inprogress_title))
+                    application, R.string.product_category_offline_notification_inprogress_title))
             .setContent(
                 getString(
-                    application, R.string.product_brand_offline_notification_inprogress_content))
+                    application, R.string.product_category_offline_notification_inprogress_content))
             .build();
 
     NotificationProperties brandSuccess =
         SUCCESS_BUILDER
             .setNotificationId(NOTIFICATION_ID)
             .setTitle(
-                getString(application, R.string.product_brand_offline_notification_success_title))
+                getString(application, R.string.product_category_offline_notification_success_title))
             .setContent(
-                getString(application, R.string.product_brand_offline_notification_success_content))
+                getString(application, R.string.product_category_offline_notification_success_content))
             .build();
 
     NotificationProperties brandFailure =
         FAILURE_BUILDER
             .setNotificationId(NOTIFICATION_ID)
             .setTitle(
-                getString(application, R.string.product_brand_offline_notification_failure_title))
+                getString(application, R.string.product_category_offline_notification_failure_title))
             .setContent(
-                getString(application, R.string.product_brand_offline_notification_failure_content))
+                getString(application, R.string.product_category_offline_notification_failure_content))
             .build();
 
     return new DataSync(

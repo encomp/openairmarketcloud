@@ -17,34 +17,16 @@ public final class Annotations {
 
     private Product() {}
 
-    /** Specifies product brands injection. */
-    @Qualifier
-    @Documented
-    @Retention(RUNTIME)
-    public @interface Brands {}
-
     /** Specifies product categories injection. */
     @Qualifier
     @Documented
     @Retention(RUNTIME)
     public @interface Categories {}
 
-    /** Specifies product manufacturers injection. */
-    @Qualifier
-    @Documented
-    @Retention(RUNTIME)
-    public @interface Manufacturers {}
-
     /** Specifies products injection. */
     @Qualifier
     @Documented
     @Retention(RUNTIME)
     public @interface Products {}
-
-    /** Specifies product manufacturers injection. */
-    @Qualifier
-    @Documented
-    @Retention(RUNTIME)
-    public @interface Units {}
   }
 }
