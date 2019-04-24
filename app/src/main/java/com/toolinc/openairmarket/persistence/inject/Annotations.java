@@ -1,4 +1,4 @@
-package com.toolinc.openairmarket.persistence.cloud.inject;
+package com.toolinc.openairmarket.persistence.inject;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
@@ -7,46 +7,44 @@ import javax.inject.Qualifier;
 
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-/** Repository injection annotations. */
-@Qualifier
-@Documented
-@Retention(RUNTIME)
-public @interface Repository {
+/** Annotations injection annotations. */
+public final class Annotations {
+
+  private Annotations() {}
 
   /** Specifies the injection for product */
-  @Qualifier
-  @Documented
-  @Retention(RUNTIME)
-  public @interface Product {
+  public static final class Product {
+
+    private Product() {}
 
     /** Specifies product brands injection. */
     @Qualifier
     @Documented
     @Retention(RUNTIME)
-    @interface Brands {}
+    public @interface Brands {}
 
     /** Specifies product categories injection. */
     @Qualifier
     @Documented
     @Retention(RUNTIME)
-    @interface Categories {}
+    public @interface Categories {}
 
     /** Specifies product manufacturers injection. */
     @Qualifier
     @Documented
     @Retention(RUNTIME)
-    @interface Manufacturers {}
+    public @interface Manufacturers {}
 
     /** Specifies products injection. */
     @Qualifier
     @Documented
     @Retention(RUNTIME)
-    @interface Products {}
+    public @interface Products {}
 
     /** Specifies product manufacturers injection. */
     @Qualifier
     @Documented
     @Retention(RUNTIME)
-    @interface Units {}
+    public @interface Units {}
   }
 }
