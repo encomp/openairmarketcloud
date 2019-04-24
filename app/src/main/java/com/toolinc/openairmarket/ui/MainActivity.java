@@ -14,8 +14,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.toolinc.openairmarket.R;
+import com.toolinc.openairmarket.persistence.sync.DataSync;
 
 import javax.inject.Inject;
 
@@ -25,7 +25,8 @@ import dagger.android.AndroidInjection;
 public final class MainActivity extends AppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener {
 
-  @Inject FirebaseFirestore firebaseFirestore;
+  private static final String TAG = "MainActivity";
+  @Inject DataSync dataSync;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,7 @@ public final class MainActivity extends AppCompatActivity
     toggle.syncState();
     NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
     navigationView.setNavigationItemSelectedListener(this);
+    pullProduct();
   }
 
   @Override
@@ -109,5 +111,9 @@ public final class MainActivity extends AppCompatActivity
     DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
     drawer.closeDrawer(GravityCompat.START);
     return true;
+  }
+
+  private void pullProduct() {
+    dataSync.refresh(getApplicationContext());
   }
 }
