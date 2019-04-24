@@ -10,8 +10,8 @@ import com.toolinc.openairmarket.common.NotificationUtil.ChannelProperties;
 import com.toolinc.openairmarket.common.NotificationUtil.NotificationProperties;
 import com.toolinc.openairmarket.common.inject.Global;
 import com.toolinc.openairmarket.persistence.cloud.SyncRepository;
-import com.toolinc.openairmarket.persistence.local.offline.CollectionState;
-import com.toolinc.openairmarket.persistence.local.offline.CollectionStateRepository;
+import com.toolinc.openairmarket.persistence.local.offline.CollectionSyncState;
+import com.toolinc.openairmarket.persistence.local.offline.CollectionSyncStateRepository;
 
 import org.joda.time.DateTime;
 
@@ -24,7 +24,7 @@ public final class DataSync {
 
   private final Executor executor;
   private final SyncRepository syncRepository;
-  private final CollectionStateRepository collectionStateRepository;
+  private final CollectionSyncStateRepository collectionSyncStateRepository;
   private final ChannelProperties channelProperties;
   private final NotificationProperties startNoti;
   private final NotificationProperties successNoti;
@@ -35,33 +35,33 @@ public final class DataSync {
   public DataSync(
       @Global.NetworkIO Executor executor,
       SyncRepository syncRepository,
-      CollectionStateRepository collectionStateRepository,
+      CollectionSyncStateRepository collectionSyncStateRepository,
       ChannelProperties channelProperties,
       NotificationProperties startNoti,
       NotificationProperties successNoti,
       NotificationProperties failureNoti) {
     this.executor = executor;
     this.syncRepository = syncRepository;
-    this.collectionStateRepository = collectionStateRepository;
+    this.collectionSyncStateRepository = collectionSyncStateRepository;
     this.channelProperties = channelProperties;
     this.startNoti = startNoti;
     this.successNoti = successNoti;
     this.failureNoti = failureNoti;
   }
 
-  private static final CollectionState create(String status) {
-    CollectionState collectionState = new CollectionState();
-    collectionState.setId("");
-    collectionState.setStatus(status);
-    collectionState.setLastUpdate(DateTime.now());
-    collectionState.setNumberOfDocs(0);
-    return collectionState;
+  private static final CollectionSyncState create(String status) {
+    CollectionSyncState collectionSyncState = new CollectionSyncState();
+    collectionSyncState.setId("");
+    collectionSyncState.setStatus(status);
+    collectionSyncState.setLastUpdate(DateTime.now());
+    collectionSyncState.setNumberOfDocs(0);
+    return collectionSyncState;
   }
 
   public void refresh(Context context) {
     this.context = context;
-    CollectionState collectionState = create("IN PROGRESS");
-    collectionStateRepository.insert(collectionState);
+    CollectionSyncState collectionSyncState = create("IN PROGRESS");
+    collectionSyncStateRepository.insert(collectionSyncState);
     NotificationUtil.createChannel(context, channelProperties);
     NotificationUtil.notify(context, startNoti);
     syncRepository
@@ -71,15 +71,15 @@ public final class DataSync {
   }
 
   private void onSuccess(@NonNull QuerySnapshot querySnapshot) {
-    CollectionState collectionState = create("COMPLETE");
-    collectionState.setNumberOfDocs(querySnapshot.size());
-    collectionStateRepository.insert(collectionState);
+    CollectionSyncState collectionSyncState = create("COMPLETE");
+    collectionSyncState.setNumberOfDocs(querySnapshot.size());
+    collectionSyncStateRepository.insert(collectionSyncState);
     NotificationUtil.notify(context, successNoti);
   }
 
   private void onFailure(@NonNull Exception var1) {
-    CollectionState collectionState = create("FAILED");
-    collectionStateRepository.insert(collectionState);
+    CollectionSyncState collectionSyncState = create("FAILED");
+    collectionSyncStateRepository.insert(collectionSyncState);
     NotificationUtil.notify(context, failureNoti);
   }
 }

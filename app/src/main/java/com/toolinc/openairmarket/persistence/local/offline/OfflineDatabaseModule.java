@@ -38,13 +38,13 @@ public class OfflineDatabaseModule {
   }
 
   @Provides
-  CollectionStateDao providesCollectionStateDao(OfflineRoomDatabase demoDatabase) {
+  CollectionSyncStateDao providesCollectionStateDao(OfflineRoomDatabase demoDatabase) {
     return demoDatabase.collectionStateDao();
   }
 
   @Provides
-  CollectionStateRepository providesCollectionStateRepository(
-      @Global.NetworkIO Executor executor, CollectionStateDao collectionStateDao) {
-    return new CollectionStateRepository(executor, collectionStateDao);
+  CollectionSyncStateRepository providesCollectionStateRepository(
+      @Global.NetworkIO Executor executor, CollectionSyncStateDao collectionSyncStateDao) {
+    return new CollectionSyncStateRepository(executor, collectionSyncStateDao);
   }
 }

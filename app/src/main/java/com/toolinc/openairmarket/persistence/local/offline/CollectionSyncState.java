@@ -9,9 +9,9 @@ import org.joda.time.DateTime;
 
 import java.io.Serializable;
 
-/** Specifies state of a Firestore collection that will be store on SQLite. */
-@Entity(tableName = "collectionState")
-public class CollectionState implements Serializable {
+/** Specifies the sync state of a Firestore collection that will be store on SQLite. */
+@Entity(tableName = "CollectionSyncState")
+public class CollectionSyncState implements Serializable {
 
   @PrimaryKey
   @NonNull
