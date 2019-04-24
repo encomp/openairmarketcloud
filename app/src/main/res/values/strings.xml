@@ -26,10 +26,16 @@
     <!-- Data Sync Channel and Notifications -->
     <string name="data_sync_channel_name">Data Sync</string>
     <string name="data_sync_channel_description">Data Synchronization from Cloud notifications channel.</string>
-    <string name="product_category_offline_notification_success_title">Product Categories Synced</string>
-    <string name="product_category_offline_notification_success_content">The product categories were synced successfully.</string>
-    <string name="product_category_offline_notification_inprogress_title">Product Categories Syncing</string>
-    <string name="product_category_offline_notification_inprogress_content">The product categories syncing process started.</string>
-    <string name="product_category_offline_notification_failure_title">Product Categories Failure</string>
-    <string name="product_category_offline_notification_failure_content">The product categories synced failed.</string>
+    <string name="product_category_data_sync_notification_success_title">Product Categories Synced</string>
+    <string name="product_category_data_sync_notification_success_content">The product categories were synced successfully.</string>
+    <string name="product_category_data_sync_notification_inprogress_title">Product Categories Syncing</string>
+    <string name="product_category_data_sync_notification_inprogress_content">The product categories syncing process started.</string>
+    <string name="product_category_data_sync_notification_failure_title">Product Categories Failure</string>
+    <string name="product_category_data_sync_notification_failure_content">The product categories synced failed.</string>
+    <string name="products_data_sync_notification_success_title">Products Synced</string>
+    <string name="products_data_sync_notification_success_content">The products were synced successfully.</string>
+    <string name="products_data_sync_notification_inprogress_title">Products Syncing</string>
+    <string name="products_data_sync_notification_inprogress_content">The products syncing process started.</string>
+    <string name="products_data_sync_notification_failure_title">Products  Failure</string>
+    <string name="products_data_sync_notification_failure_content">The products synced failed.</string>
 </resources>
