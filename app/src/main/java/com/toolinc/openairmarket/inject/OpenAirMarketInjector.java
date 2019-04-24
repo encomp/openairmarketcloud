@@ -1,5 +1,6 @@
-package com.toolinc.openairmarket;
+package com.toolinc.openairmarket.inject;
 
+import com.toolinc.openairmarket.OpenAirMarketApplication;
 import com.toolinc.openairmarket.inject.OpenAirMarketModule;
 import com.toolinc.openairmarket.inject.OpenAirMarketUiModule;
 

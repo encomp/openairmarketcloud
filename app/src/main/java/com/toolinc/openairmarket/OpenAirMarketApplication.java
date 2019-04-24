@@ -10,6 +10,7 @@ import androidx.work.WorkManager;
 
 import com.toolinc.openairmarket.common.inject.AppModule;
 import com.toolinc.openairmarket.common.work.WorkerFactoryDagger;
+import com.toolinc.openairmarket.inject.DaggerOpenAirMarketInjector;
 import com.toolinc.openairmarket.persistence.local.offline.OfflineDatabaseModule;
 
 import javax.inject.Inject;
