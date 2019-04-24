@@ -3,6 +3,8 @@ package com.toolinc.openairmarket.persistence.sync.inject;
 import android.app.Application;
 import android.app.NotificationManager;
 
+import com.toolinc.openairmarket.ChannelIds;
+import com.toolinc.openairmarket.NotificationIds;
 import com.toolinc.openairmarket.R;
 import com.toolinc.openairmarket.common.NotificationUtil.ChannelProperties;
 import com.toolinc.openairmarket.common.NotificationUtil.NotificationProperties;
@@ -21,8 +23,6 @@ import dagger.Provides;
 
 @Module(includes = SyncRepositoryModule.class)
 public class ProductDataSyncModule {
-  private static final String CHANNEL_ID = "DATA_SYNC";
-  private static final int NOTIFICATION_ID = 1;
   private static final NotificationProperties.Builder START_BUILDER =
       notiBuilder().setIcon(R.drawable.ic_cloud_download);
   private static final NotificationProperties.Builder SUCCESS_BUILDER =
@@ -48,7 +48,7 @@ public class ProductDataSyncModule {
       ChannelProperties channelProperties) {
     NotificationProperties brandStart =
         START_BUILDER
-            .setNotificationId(NOTIFICATION_ID)
+            .setNotificationId(NotificationIds.DATA_SYNC_CATEGORIES_START)
             .setTitle(
                 getString(
                     application, R.string.product_category_data_sync_notification_inprogress_title))
@@ -60,7 +60,7 @@ public class ProductDataSyncModule {
 
     NotificationProperties brandSuccess =
         SUCCESS_BUILDER
-            .setNotificationId(NOTIFICATION_ID)
+            .setNotificationId(NotificationIds.DATA_SYNC_CATEGORIES_SUCCESS)
             .setTitle(
                 getString(
                     application, R.string.product_category_data_sync_notification_success_title))
@@ -71,7 +71,7 @@ public class ProductDataSyncModule {
 
     NotificationProperties brandFailure =
         FAILURE_BUILDER
-            .setNotificationId(NOTIFICATION_ID)
+            .setNotificationId(NotificationIds.DATA_SYNC_CATEGORIES_FAILED)
             .setTitle(
                 getString(
                     application, R.string.product_category_data_sync_notification_failure_title))
@@ -100,7 +100,7 @@ public class ProductDataSyncModule {
       ChannelProperties channelProperties) {
     NotificationProperties brandStart =
         START_BUILDER
-            .setNotificationId(NOTIFICATION_ID)
+            .setNotificationId(NotificationIds.DATA_SYNC_PRODUCTS_START)
             .setTitle(
                 getString(application, R.string.products_data_sync_notification_inprogress_title))
             .setContent(
@@ -109,7 +109,7 @@ public class ProductDataSyncModule {
 
     NotificationProperties brandSuccess =
         SUCCESS_BUILDER
-            .setNotificationId(NOTIFICATION_ID)
+            .setNotificationId(NotificationIds.DATA_SYNC_PRODUCTSY_SUCCESS)
             .setTitle(
                 getString(application, R.string.products_data_sync_notification_success_title))
             .setContent(
@@ -118,7 +118,7 @@ public class ProductDataSyncModule {
 
     NotificationProperties brandFailure =
         FAILURE_BUILDER
-            .setNotificationId(NOTIFICATION_ID)
+            .setNotificationId(NotificationIds.DATA_SYNC_PRODUCTS_FAILED)
             .setTitle(
                 getString(application, R.string.products_data_sync_notification_failure_title))
             .setContent(
@@ -137,13 +137,13 @@ public class ProductDataSyncModule {
 
   private static final ChannelProperties.Builder channelBuilder() {
     return ChannelProperties.builder()
-        .setChannelId(CHANNEL_ID)
+        .setChannelId(ChannelIds.DATA_SYNC)
         .setImportance(NotificationManager.IMPORTANCE_HIGH);
   }
 
   private static final NotificationProperties.Builder notiBuilder() {
     return NotificationProperties.builder()
-        .setChannelId(CHANNEL_ID)
+        .setChannelId(ChannelIds.DATA_SYNC)
         .setPriority(NotificationManager.IMPORTANCE_HIGH);
   }
 
