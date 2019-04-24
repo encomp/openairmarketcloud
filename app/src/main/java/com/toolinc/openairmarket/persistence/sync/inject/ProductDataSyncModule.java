@@ -32,8 +32,8 @@ public class ProductDataSyncModule {
   @Provides
   ChannelProperties provideChannel(Application application) {
     return channelBuilder()
-        .setChannelName(getString(application, R.string.offline_channel_name))
-        .setChannelDesc(getString(application, R.string.offline_channel_description))
+        .setChannelName(getString(application, R.string.data_sync_channel_name))
+        .setChannelDesc(getString(application, R.string.data_sync_channel_description))
         .build();
   }
 

@@ -24,8 +24,8 @@
     <string name="action_settings">Settings</string>
 
     <!-- Offline Sync -->
-    <string name="offline_channel_name">Offline Sync</string>
-    <string name="offline_channel_description">Offline Sync</string>
+    <string name="data_sync_channel_name">Data Sync</string>
+    <string name="data_sync_channel_description">Data Synchronization from Cloud notifications channel.</string>
     <string name="product_brand_offline_notification_success_title">Product Brand Synced</string>
     <string name="product_brand_offline_notification_success_content">The product brands were synced successfully.</string>
     <string name="product_brand_offline_notification_inprogress_title">Product Brand Syncing</string>
