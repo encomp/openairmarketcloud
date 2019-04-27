@@ -56,6 +56,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-perf:16.2.5'
     api 'com.google.guava:guava:27.0.1-android'
     implementation 'com.jakewharton:butterknife:10.0.0'
+    implementation 'com.jakewharton.timber:timber:4.7.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
     compileOnly 'com.squareup.inject:assisted-inject-annotations-dagger2:0.4.0'
     annotationProcessor 'com.squareup.inject:assisted-inject-processor-dagger2:0.4.0'
@@ -74,4 +75,5 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+    androidTestImplementation 'androidx.work:work-testing:2.0.1'
 }
