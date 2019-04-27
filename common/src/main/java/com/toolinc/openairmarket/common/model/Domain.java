@@ -3,9 +3,13 @@ package com.toolinc.openairmarket.common.model;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.util.Date;
 
 /** Marker inteface that specifies that an object is a model. */
 public interface Domain extends Serializable {
@@ -81,5 +85,45 @@ public interface Domain extends Serializable {
       return MONEY.format(bigDecimal);
     }
     return null;
+  }
+
+  /**
+   * Ensures that the provided {@link DateTime} is on UTC timezone.
+   *
+   * @return the reference that was validated
+   */
+  default Date toDate(DateTime dateTime) {
+    Preconditions.checkNotNull(dateTime);
+    if (DateTimeZone.UTC.equals(dateTime.getZone())) {
+      return dateTime.toDate();
+    }
+    return dateTime.toDateTime(DateTimeZone.UTC).toDate();
+  }
+
+  /**
+   * Ensures that the provided {@link Date} is on the device timezone.
+   *
+   * @return the reference that was validated
+   */
+  default DateTime toDateTime(Date date) {
+    Preconditions.checkNotNull(date);
+    DateTime dateTime = new DateTime(date);
+    if (DateTimeZone.UTC.equals(dateTime.getZone())) {
+      return dateTime.toDateTime(DateTimeZone.getDefault());
+    }
+    return dateTime;
+  }
+
+  /**
+   * Ensures that the provided {@link DateTime} is on UTC.
+   *
+   * @return the reference that was validated
+   */
+  default DateTime toDateTime(DateTime dateTime) {
+    Preconditions.checkNotNull(dateTime);
+    if (DateTimeZone.UTC.equals(dateTime.getZone())) {
+      return dateTime.toDateTime(DateTimeZone.getDefault());
+    }
+    return dateTime;
   }
 }
