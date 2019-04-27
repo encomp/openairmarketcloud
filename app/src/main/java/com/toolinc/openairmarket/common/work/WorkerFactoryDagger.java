@@ -32,7 +32,7 @@ public class WorkerFactoryDagger extends WorkerFactory {
 
     try {
       Class<?> clazz = Class.forName(workerClassName);
-      if (clazz.isAssignableFrom(ListenableWorker.class)) {
+      if (ListenableWorker.class.isAssignableFrom(clazz)) {
         return factories.get(clazz).get().create(appContext, workerParameters);
       }
       throw new IllegalArgumentException(
