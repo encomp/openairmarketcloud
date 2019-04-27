@@ -9,6 +9,7 @@ import com.toolinc.openairmarket.R;
 import com.toolinc.openairmarket.common.NotificationUtil.ChannelProperties;
 import com.toolinc.openairmarket.common.NotificationUtil.NotificationProperties;
 import com.toolinc.openairmarket.common.inject.Global;
+import com.toolinc.openairmarket.persistence.cloud.CollectionsNames;
 import com.toolinc.openairmarket.persistence.cloud.SyncRepository;
 import com.toolinc.openairmarket.persistence.cloud.inject.SyncRepositoryModule;
 import com.toolinc.openairmarket.persistence.inject.Annotations.Product.Categories;
@@ -82,6 +83,7 @@ public class ProductDataSyncModule {
 
     return new DataSync(
         executor,
+        CollectionsNames.PRODUCT_CATEGORIES,
         syncRepository,
         collectionSyncStateRepository,
         channelProperties,
@@ -127,6 +129,7 @@ public class ProductDataSyncModule {
 
     return new DataSync(
         executor,
+        CollectionsNames.PRODUCTS,
         syncRepository,
         collectionSyncStateRepository,
         channelProperties,
