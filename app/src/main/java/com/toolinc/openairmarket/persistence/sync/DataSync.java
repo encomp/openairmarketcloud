@@ -13,6 +13,7 @@ import com.toolinc.openairmarket.common.inject.Global;
 import com.toolinc.openairmarket.persistence.cloud.SyncRepository;
 import com.toolinc.openairmarket.persistence.local.offline.CollectionSyncState;
 import com.toolinc.openairmarket.persistence.local.offline.CollectionSyncStateRepository;
+import com.toolinc.openairmarket.persistence.local.offline.SyncStatus;
 
 import org.joda.time.DateTime;
 
@@ -55,7 +56,7 @@ public final class DataSync {
 
   public Task<QuerySnapshot> refresh(Context context) {
     this.context = context;
-    CollectionSyncState collectionSyncState = create("IN PROGRESS");
+    CollectionSyncState collectionSyncState = create(SyncStatus.IN_PROGRESS);
     collectionSyncStateRepository.insert(collectionSyncState);
     NotificationUtil.createChannel(context, channelProperties);
     NotificationUtil.notify(context, startNoti);
@@ -66,19 +67,19 @@ public final class DataSync {
   }
 
   private void onSuccess(@NonNull QuerySnapshot querySnapshot) {
-    CollectionSyncState collectionSyncState = create("COMPLETE");
+    CollectionSyncState collectionSyncState = create(SyncStatus.COMPLETE);
     collectionSyncState.setNumberOfDocs(querySnapshot.size());
     collectionSyncStateRepository.insert(collectionSyncState);
     NotificationUtil.notify(context, successNoti);
   }
 
   private void onFailure(@NonNull Exception var1) {
-    CollectionSyncState collectionSyncState = create("FAILED");
+    CollectionSyncState collectionSyncState = create(SyncStatus.FAILED);
     collectionSyncStateRepository.insert(collectionSyncState);
     NotificationUtil.notify(context, failureNoti);
   }
 
-  private final CollectionSyncState create(String status) {
+  private final CollectionSyncState create(SyncStatus status) {
     CollectionSyncState collectionSyncState = new CollectionSyncState();
     collectionSyncState.setId(collectionName);
     collectionSyncState.setStatus(status);

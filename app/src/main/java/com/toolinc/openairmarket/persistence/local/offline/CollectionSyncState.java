@@ -20,7 +20,7 @@ public class CollectionSyncState implements Serializable {
 
   @NonNull
   @ColumnInfo(name = "status")
-  private String status;
+  private SyncStatus status;
 
   @NonNull
   @ColumnInfo(name = "lastUpdate")
@@ -38,11 +38,11 @@ public class CollectionSyncState implements Serializable {
     this.id = id;
   }
 
-  public String getStatus() {
+  public SyncStatus getStatus() {
     return status;
   }
 
-  public void setStatus(@NonNull String status) {
+  public void setStatus(@NonNull SyncStatus status) {
     this.status = status;
   }
 
