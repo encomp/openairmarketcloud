@@ -5,7 +5,9 @@ import androidx.work.ListenableWorker;
 import com.google.common.collect.ImmutableMap;
 import com.toolinc.openairmarket.common.work.ListenableWorkerFactory;
 import com.toolinc.openairmarket.common.work.inject.WorkerFactoryDaggerModule;
-import com.toolinc.openairmarket.work.ProductWorker;
+import com.toolinc.openairmarket.persistence.sync.inject.ProductDataSyncModule;
+import com.toolinc.openairmarket.work.ProductCategorySyncWorker;
+import com.toolinc.openairmarket.work.ProductSyncWorker;
 
 import javax.inject.Provider;
 
@@ -13,7 +15,7 @@ import dagger.Module;
 import dagger.Provides;
 
 /** Specifies the injection for the worker managers. */
-@Module(includes = WorkerFactoryDaggerModule.class)
+@Module(includes = {WorkerFactoryDaggerModule.class, ProductDataSyncModule.class})
 public class WorkersModule {
 
   @SuppressWarnings("unchecked")
@@ -26,12 +28,15 @@ public class WorkersModule {
     return (Provider<T>) provider;
   }
 
+  @SuppressWarnings("unchecked")
   @Provides
   ImmutableMap<Class<ListenableWorker>, Provider<ListenableWorkerFactory>> providesWorkerFactories(
-      Provider<ProductWorker.Factory> productWorkerProvider) {
+      Provider<ProductCategorySyncWorker.Factory> productCategoryWorkerProvider,
+      Provider<ProductSyncWorker.Factory> productWorkerProvider) {
     ImmutableMap.Builder<Class<ListenableWorker>, Provider<ListenableWorkerFactory>> builder =
         ImmutableMap.builder();
-    builder.put(toClass(ProductWorker.class), toType(productWorkerProvider));
+    builder.put(toClass(ProductCategorySyncWorker.class), toType(productCategoryWorkerProvider));
+    builder.put(toClass(ProductSyncWorker.class), toType(productWorkerProvider));
     return builder.build();
   }
 }

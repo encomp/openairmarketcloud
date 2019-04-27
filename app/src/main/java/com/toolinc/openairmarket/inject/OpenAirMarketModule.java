@@ -7,7 +7,6 @@ import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.toolinc.openairmarket.common.inject.AppModule;
 import com.toolinc.openairmarket.common.inject.AssitInjectionModule;
 import com.toolinc.openairmarket.common.inject.ExecutorsModule;
-import com.toolinc.openairmarket.persistence.sync.inject.ProductDataSyncModule;
 import com.toolinc.openairmarket.work.inject.WorkersModule;
 
 import dagger.Module;
@@ -19,7 +18,6 @@ import dagger.Provides;
       AppModule.class,
       AssitInjectionModule.class,
       ExecutorsModule.class,
-      ProductDataSyncModule.class,
       WorkersModule.class
     })
 public class OpenAirMarketModule {
