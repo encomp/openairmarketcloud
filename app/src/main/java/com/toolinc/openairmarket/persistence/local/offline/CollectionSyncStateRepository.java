@@ -33,7 +33,7 @@ public final class CollectionSyncStateRepository {
     executor.execute(() -> collectionSyncStateDao.delete(collectionSyncState));
   }
 
-  public LiveData<CollectionSyncState> findById(String id) {
+  public CollectionSyncState findById(String id) {
     return collectionSyncStateDao.findById(id);
   }
 

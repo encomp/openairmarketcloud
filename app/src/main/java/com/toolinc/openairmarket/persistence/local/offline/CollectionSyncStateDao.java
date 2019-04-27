@@ -24,7 +24,7 @@ interface CollectionSyncStateDao extends Serializable {
   void deleteAll();
 
   @Query("SELECT * FROM CollectionSyncState WHERE id = :id")
-  LiveData<CollectionSyncState> findById(String id);
+  CollectionSyncState findById(String id);
 
   @Query("SELECT * from CollectionSyncState ORDER BY id ASC")
   LiveData<List<CollectionSyncState>> getAll();
