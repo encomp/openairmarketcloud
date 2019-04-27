@@ -4,6 +4,7 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.toolinc.openairmarket.common.NotificationUtil;
 import com.toolinc.openairmarket.common.NotificationUtil.ChannelProperties;
@@ -58,16 +59,16 @@ public final class DataSync {
     return collectionSyncState;
   }
 
-  public void refresh(Context context) {
+  public Task<QuerySnapshot> refresh(Context context) {
     this.context = context;
     CollectionSyncState collectionSyncState = create("IN PROGRESS");
     collectionSyncStateRepository.insert(collectionSyncState);
     NotificationUtil.createChannel(context, channelProperties);
     NotificationUtil.notify(context, startNoti);
-    syncRepository
-        .retrieveAll()
-        .addOnSuccessListener(executor, this::onSuccess)
-        .addOnFailureListener(executor, this::onFailure);
+    Task<QuerySnapshot> task = syncRepository.retrieveAll();
+    task.addOnSuccessListener(executor, this::onSuccess);
+    task.addOnFailureListener(executor, this::onFailure);
+    return task;
   }
 
   private void onSuccess(@NonNull QuerySnapshot querySnapshot) {
