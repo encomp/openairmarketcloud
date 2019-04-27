@@ -2,6 +2,7 @@ package com.toolinc.openairmarket.persistence.local.offline;
 
 import androidx.lifecycle.LiveData;
 
+import com.google.common.base.Optional;
 import com.toolinc.openairmarket.common.inject.Global;
 
 import java.util.List;
@@ -33,8 +34,8 @@ public final class CollectionSyncStateRepository {
     executor.execute(() -> collectionSyncStateDao.delete(collectionSyncState));
   }
 
-  public CollectionSyncState findById(String id) {
-    return collectionSyncStateDao.findById(id);
+  public Optional<CollectionSyncState> findById(String id) {
+    return Optional.fromNullable(collectionSyncStateDao.findById(id));
   }
 
   public LiveData<List<CollectionSyncState>> getAll() {

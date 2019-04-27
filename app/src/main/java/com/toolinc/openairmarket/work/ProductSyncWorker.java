@@ -7,18 +7,13 @@ import androidx.annotation.NonNull;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
-import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.Tasks;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.inject.assisted.Assisted;
 import com.squareup.inject.assisted.AssistedInject;
 import com.toolinc.openairmarket.common.work.ListenableWorkerFactory;
+import com.toolinc.openairmarket.persistence.cloud.CollectionsNames;
 import com.toolinc.openairmarket.persistence.inject.Annotations.Product.Products;
+import com.toolinc.openairmarket.persistence.local.offline.CollectionSyncStateRepository;
 import com.toolinc.openairmarket.persistence.sync.DataSync;
-
-import java.util.concurrent.ExecutionException;
-
-import timber.log.Timber;
 
 /** Downloads the product information from firestore database. */
 public class ProductSyncWorker extends Worker {
@@ -26,33 +21,33 @@ public class ProductSyncWorker extends Worker {
   private static final String TAG = ProductSyncWorker.class.getSimpleName();
 
   private final Application application;
+  private final CollectionSyncStateRepository collectionProductRepo;
   private final DataSync dataSync;
 
   @AssistedInject
   public ProductSyncWorker(
       Application application,
       @Products DataSync dataSync,
+      CollectionSyncStateRepository collectionProductRepo,
       @Assisted Context context,
       @Assisted WorkerParameters workerParameters) {
     super(context, workerParameters);
     this.application = application;
+    this.collectionProductRepo = collectionProductRepo;
     this.dataSync = dataSync;
   }
 
   @NonNull
   @Override
   public Result doWork() {
-    Task<QuerySnapshot> task = dataSync.refresh(application.getApplicationContext());
-    Timber.tag(TAG).d("Waiting for the task to complete...");
-    try {
-      Tasks.await(task);
-      if (task.isSuccessful()) {
-        return Result.success();
-      }
-    } catch (ExecutionException | InterruptedException exc) {
-      Timber.tag(TAG).e(exc.getMessage());
-    }
-    return Result.failure();
+    SyncWorker syncWorker =
+        SyncWorker.builder()
+            .setCollectionId(CollectionsNames.PRODUCTS)
+            .setApplication(application)
+            .setCollectionSyncStateRepository(collectionProductRepo)
+            .setDataSync(dataSync)
+            .build();
+    return syncWorker.syncCollection();
   }
 
   @AssistedInject.Factory
