@@ -24,6 +24,7 @@ import javax.inject.Inject;
 public final class DataSync {
 
   private final Executor executor;
+  private final String collectionName;
   private final SyncRepository syncRepository;
   private final CollectionSyncStateRepository collectionSyncStateRepository;
   private final ChannelProperties channelProperties;
@@ -35,6 +36,7 @@ public final class DataSync {
   @Inject
   public DataSync(
       @Global.NetworkIO Executor executor,
+      String collectionName,
       SyncRepository syncRepository,
       CollectionSyncStateRepository collectionSyncStateRepository,
       ChannelProperties channelProperties,
@@ -42,21 +44,13 @@ public final class DataSync {
       NotificationProperties successNoti,
       NotificationProperties failureNoti) {
     this.executor = executor;
+    this.collectionName = collectionName;
     this.syncRepository = syncRepository;
     this.collectionSyncStateRepository = collectionSyncStateRepository;
     this.channelProperties = channelProperties;
     this.startNoti = startNoti;
     this.successNoti = successNoti;
     this.failureNoti = failureNoti;
-  }
-
-  private static final CollectionSyncState create(String status) {
-    CollectionSyncState collectionSyncState = new CollectionSyncState();
-    collectionSyncState.setId("");
-    collectionSyncState.setStatus(status);
-    collectionSyncState.setLastUpdate(DateTime.now());
-    collectionSyncState.setNumberOfDocs(0);
-    return collectionSyncState;
   }
 
   public Task<QuerySnapshot> refresh(Context context) {
@@ -82,5 +76,14 @@ public final class DataSync {
     CollectionSyncState collectionSyncState = create("FAILED");
     collectionSyncStateRepository.insert(collectionSyncState);
     NotificationUtil.notify(context, failureNoti);
+  }
+
+  private final CollectionSyncState create(String status) {
+    CollectionSyncState collectionSyncState = new CollectionSyncState();
+    collectionSyncState.setId(collectionName);
+    collectionSyncState.setStatus(status);
+    collectionSyncState.setLastUpdate(DateTime.now());
+    collectionSyncState.setNumberOfDocs(0);
+    return collectionSyncState;
   }
 }
