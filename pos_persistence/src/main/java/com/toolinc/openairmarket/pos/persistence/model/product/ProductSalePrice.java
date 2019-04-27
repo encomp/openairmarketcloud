@@ -104,6 +104,8 @@ public final class ProductSalePrice extends AbstractActiveModel {
     private BigDecimal price;
     private BigDecimal profit;
 
+    private Builder() {}
+
     public Builder setPrice(String price) {
       BigDecimal bigDecimal = new BigDecimal(price.trim());
       return setPrice(bigDecimal);

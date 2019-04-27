@@ -31,6 +31,8 @@ public final class ProductManufacturer extends AbstractCatalogModel {
     private String referenceId;
     private String name;
 
+    private Builder() {}
+
     public Builder setReferenceId(String referenceId) {
       this.referenceId = checkNotEmpty(referenceId);
       return this;

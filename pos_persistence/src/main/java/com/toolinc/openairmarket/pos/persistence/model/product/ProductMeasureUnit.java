@@ -43,6 +43,8 @@ public final class ProductMeasureUnit extends AbstractCatalogModel {
     private String name;
     private Boolean countable;
 
+    private Builder() {}
+
     public Builder setReferenceId(String referenceId) {
       this.referenceId = checkNotEmpty(referenceId).toUpperCase();
       return this;

@@ -110,6 +110,8 @@ public final class Product extends AbstractCatalogModel {
     private ProductSalePrice productSalePrice;
     private ProductPurchasePrice productPurchasePrice;
 
+    private Builder() {}
+
     public Builder setReferenceId(String referenceId) {
       if (!Strings.isNullOrEmpty(referenceId)) {
         this.referenceId = checkNotEmpty(referenceId).toUpperCase();
