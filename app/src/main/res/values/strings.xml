@@ -23,6 +23,11 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
+    <!-- Main Fragment -->
+    <string name="pos_title">Point Of Sale</string>
+    <string name="toolbar_navigation_description">title</string>
+    <string name="dd"></string>
+
     <!-- Data Sync Channel and Notifications -->
     <string name="data_sync_channel_name">Data Sync</string>
     <string name="data_sync_channel_description">Data Synchronization from Cloud notifications channel.</string>

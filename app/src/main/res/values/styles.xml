@@ -17,6 +17,11 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="AppTheme.Toolbar.WithCloseButton" parent="AppTheme.PopupOverlay">
+        <item name="navigationContentDescription">@string/toolbar_navigation_description</item>
+        <item name="navigationIcon">@drawable/ic_close</item>
+    </style>
+
     <!-- Activity with no Title -->
     <style name="ThemeOverlay.MyNoTitleActivity" parent="AppTheme">
         <item name="windowActionBar">false</item>

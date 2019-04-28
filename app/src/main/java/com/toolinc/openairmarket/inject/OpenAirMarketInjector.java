@@ -16,4 +16,7 @@ import dagger.android.AndroidInjector;
       OpenAirMarketModule.class,
       OpenAirMarketUiModule.class
     })
-public interface OpenAirMarketInjector extends AndroidInjector<OpenAirMarketApplication> {}
+public interface OpenAirMarketInjector extends AndroidInjector<OpenAirMarketApplication> {
+
+  void inject(OpenAirMarketApplication app);
+}
