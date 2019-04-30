@@ -17,35 +17,35 @@
                 style="@style/TextAppearance.Shrine.Filter.SubHead"
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
-                android:text="Row"
+                android:text="@string/receipt_row"
                 android:textAlignment="center" />
 
             <TextView
                 style="@style/TextAppearance.Shrine.Filter.SubHead"
                 android:layout_width="130dp"
                 android:layout_height="wrap_content"
-                android:text="Product"
+                android:text="@string/receipt_product"
                 android:textAlignment="center" />
 
             <TextView
                 style="@style/TextAppearance.Shrine.Filter.SubHead"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:text="Price"
+                android:text="@string/receipt_price"
                 android:textAlignment="center" />
 
             <TextView
                 style="@style/TextAppearance.Shrine.Filter.SubHead"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:text="Quantity"
+                android:text="@string/receipt_quantity"
                 android:textAlignment="center" />
 
             <TextView
                 style="@style/TextAppearance.Shrine.Filter.SubHead"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:text="Total"
+                android:text="@string/receipt_subtotal"
                 android:textAlignment="center" />
         </TableRow>
 
@@ -57,16 +57,29 @@
     </TableLayout>
 
     <LinearLayout
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/table_layout"
+        android:layout_marginTop="@dimen/shrine_small_spacing"
+        android:layout_marginBottom="@dimen/shrine_small_spacing"
+        android:padding="@dimen/shrine_standard_spacing"
+        android:background="@color/colorPrimaryDark"
         android:orientation="horizontal">
 
         <TextView
             style="@style/Widget.Shrine.TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingEnd="@dimen/shrine_large_spacing"
+            android:gravity="end"
+            android:text="Total:" />
+
+        <TextView
+            style="@style/Widget.Shrine.TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="@dimen/shrine_large_spacing"
+            android:gravity="end"
             android:text="Total" />
 
     </LinearLayout>
