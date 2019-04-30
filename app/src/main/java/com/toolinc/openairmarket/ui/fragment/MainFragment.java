@@ -14,6 +14,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.navigation.NavigationView;
 import com.toolinc.openairmarket.R;
 
@@ -33,6 +34,9 @@ public class MainFragment extends DaggerFragment
     View view = layoutInflater.inflate(R.layout.fragment_main, viewGroup, false /* attachToRoot */);
     AppCompatActivity activity = (AppCompatActivity) getActivity();
     Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
+    toolbar.setTitle("POS");
+
+    BottomAppBar bottomAppBar = (BottomAppBar) view.findViewById(R.id.bottom_app_bar);
     activity.setSupportActionBar(toolbar);
 
     drawer = (DrawerLayout) activity.findViewById(R.id.drawer_layout);
@@ -40,11 +44,15 @@ public class MainFragment extends DaggerFragment
         new ActionBarDrawerToggle(
             activity,
             drawer,
-            toolbar,
+            bottomAppBar,
             R.string.navigation_drawer_open,
             R.string.navigation_drawer_close);
     drawer.addDrawerListener(toggle);
     toggle.syncState();
+
+    ViewGroup mainContainer = view.findViewById(R.id.full_screen_fragment_container);
+    View childView = layoutInflater.inflate(R.layout.fragment_receipts, viewGroup, false);
+    mainContainer.addView(childView);
 
     NavigationView navigationView = (NavigationView) activity.findViewById(R.id.nav_view);
     navigationView.setNavigationItemSelectedListener(this);
@@ -54,8 +62,9 @@ public class MainFragment extends DaggerFragment
   public boolean onBackPressed() {
     if (drawer.isDrawerOpen(GravityCompat.START)) {
       drawer.closeDrawer(GravityCompat.START);
+      return true;
     }
-    return true;
+    return false;
   }
 
   @SuppressWarnings("StatementWithEmptyBody")
