@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".ui.MainActivity">
 
     <com.google.android.material.tabs.TabLayout
         android:layout_width="match_parent"
@@ -13,19 +15,19 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:icon="@drawable/ic_receipt"
-            android:text="Receipt #1"></com.google.android.material.tabs.TabItem>
+            android:text="@string/receipt_tab_1"/>
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:icon="@drawable/ic_receipt"
-            android:text="Receipt #2" />
+            android:text="@string/receipt_tab_2" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:icon="@drawable/ic_receipt"
-            android:text="Receipt #3" />
+            android:text="@string/receipt_tab_3" />
     </com.google.android.material.tabs.TabLayout>
 
     <androidx.viewpager.widget.ViewPager
@@ -37,6 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        style="?android:attr/buttonBarStyle"
         android:orientation="horizontal">
 
         <Button
@@ -47,7 +50,8 @@
             android:layout_marginTop="@dimen/shrine_small_spacing"
             android:layout_marginBottom="@dimen/shrine_small_spacing"
             android:backgroundTint="#ff1744"
-            android:text="Cancel"
+            android:text="@string/receipt_cancel_btn"
+            style="?android:attr/buttonBarButtonStyle"
             app:icon="@drawable/ic_close" />
 
         <Button
@@ -57,7 +61,8 @@
             android:layout_margin="@dimen/shrine_standard_spacing"
             android:layout_marginTop="@dimen/shrine_small_spacing"
             android:layout_marginBottom="@dimen/shrine_small_spacing"
-            android:text="Pay"
+            android:text="@string/receipt_pay_btn"
+            style="?android:attr/buttonBarButtonStyle"
             app:icon="@drawable/ic_payment" />
     </LinearLayout>
 
@@ -71,11 +76,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/shrine_standard_spacing"
-            android:hint="Codigo de Barras"
+            android:hint="@string/receipt_code_bar_hint"
             app:counterEnabled="true"
             app:counterMaxLength="10"
             app:errorEnabled="true"
-            app:helperText="Codigo de Barras"
+            app:helperText="@string/receipt_code_bar_label"
             app:helperTextEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText

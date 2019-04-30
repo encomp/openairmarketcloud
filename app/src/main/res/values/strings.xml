@@ -28,7 +28,16 @@
     <string name="toolbar_navigation_description">title</string>
     <string name="dd"></string>
 
-    <!-- Receipt Tale -->
+    <!-- Receipts fragment -->
+    <string name="receipt_tab_1">Receipt #1</string>
+    <string name="receipt_tab_2">Receipt #2</string>
+    <string name="receipt_tab_3">Receipt #3</string>
+    <string name="receipt_cancel_btn">Cancel</string>
+    <string name="receipt_pay_btn">Pay</string>
+    <string name="receipt_code_bar_hint">Code Bar</string>
+    <string name="receipt_code_bar_label">Code Bar</string>
+
+    <!-- Receipt table fragment -->
     <string name="receipt_row">Row</string>
     <string name="receipt_product">Product</string>
     <string name="receipt_price">Price</string>
