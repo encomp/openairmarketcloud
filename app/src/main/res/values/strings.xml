@@ -34,6 +34,7 @@
     <string name="receipt_price">Price</string>
     <string name="receipt_quantity">Quantity</string>
     <string name="receipt_subtotal">Total</string>
+    <string name="receipt_total">Total: </string>
 
     <!-- Data Sync Channel and Notifications -->
     <string name="data_sync_channel_name">Data Sync</string>
