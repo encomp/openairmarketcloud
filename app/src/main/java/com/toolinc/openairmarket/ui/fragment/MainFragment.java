@@ -50,9 +50,11 @@ public class MainFragment extends DaggerFragment
     drawer.addDrawerListener(toggle);
     toggle.syncState();
 
-    ViewGroup mainContainer = view.findViewById(R.id.full_screen_fragment_container);
-    View childView = layoutInflater.inflate(R.layout.fragment_receipts, viewGroup, false);
-    mainContainer.addView(childView);
+    ReceiptsFragment receiptsFragment = new ReceiptsFragment();
+    getChildFragmentManager()
+        .beginTransaction()
+        .add(R.id.full_screen_fragment_container, receiptsFragment)
+        .commit();
 
     NavigationView navigationView = (NavigationView) activity.findViewById(R.id.nav_view);
     navigationView.setNavigationItemSelectedListener(this);
