@@ -12,6 +12,8 @@ import com.toolinc.openairmarket.pos.persistence.model.sale.SaleLine;
 import java.math.BigDecimal;
 import java.util.Set;
 
+import javax.inject.Inject;
+
 /** Specifies the view model for a single receipt. */
 public class ReceiptViewModel extends ViewModel {
 
@@ -19,6 +21,7 @@ public class ReceiptViewModel extends ViewModel {
   private final MutableLiveData<ImmutableList<SaleLine>> lines = new MutableLiveData<>();
   private final MutableLiveData<BigDecimal> amountDue = new MutableLiveData<>();
 
+  @Inject
   public ReceiptViewModel() {
     lines.postValue(ImmutableList.<SaleLine>builder().build());
     products.postValue(ImmutableSet.<Product>builder().build());
