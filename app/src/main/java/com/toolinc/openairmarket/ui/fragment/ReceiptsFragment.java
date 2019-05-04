@@ -15,6 +15,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
 import com.toolinc.openairmarket.R;
 import com.toolinc.openairmarket.persistence.cloud.ProductsRepository;
+import com.toolinc.openairmarket.pos.persistence.model.product.Product;
 
 import javax.inject.Inject;
 
@@ -45,9 +46,8 @@ public class ReceiptsFragment extends DaggerFragment {
     View view =
         layoutInflater.inflate(R.layout.fragment_receipts, viewGroup, false /* attachToRoot */);
     ButterKnife.bind(this, view);
-    receiptFragmentStatePagerAdapter = new ReceiptFragmentStatePagerAdapter(getFragmentManager());
-    viewPager.setAdapter(receiptFragmentStatePagerAdapter);
-    viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+    receiptFragmentStatePagerAdapter =
+        new ReceiptFragmentStatePagerAdapter(getFragmentManager(), viewPager, tabLayout);
     textInputEditText.setOnKeyListener(this::onKey);
     return view;
   }
@@ -55,11 +55,15 @@ public class ReceiptsFragment extends DaggerFragment {
   private boolean onKey(View view, int keyCode, KeyEvent event) {
     if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
       String productId = textInputEditText.getText().toString();
-      productsRepository.findProductById(
-          productId, receiptFragmentStatePagerAdapter, this::onFailure);
+      textInputEditText.getText().clear();
+      productsRepository.findProductById(productId, this::onSuccess, this::onFailure);
       return true;
     }
     return false;
+  }
+
+  void onSuccess(Product product) {
+    receiptFragmentStatePagerAdapter.addProduct(product);
   }
 
   private void onFailure(@NonNull Exception e) {}
