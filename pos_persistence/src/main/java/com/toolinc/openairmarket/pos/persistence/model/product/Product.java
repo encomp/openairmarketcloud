@@ -1,5 +1,6 @@
 package com.toolinc.openairmarket.pos.persistence.model.product;
 
+import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 import com.toolinc.openairmarket.common.model.Domain;
@@ -86,6 +87,20 @@ public final class Product extends AbstractCatalogModel {
 
   public void setProductPurchasePrice(ProductPurchasePrice productPurchasePrice) {
     this.productPurchasePrice = Preconditions.checkNotNull(productPurchasePrice);
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    final Product product = (Product) o;
+    return Objects.equal(id, product.id);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hashCode(id);
   }
 
   /**
