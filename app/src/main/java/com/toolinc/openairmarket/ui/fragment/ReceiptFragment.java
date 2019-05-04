@@ -31,6 +31,10 @@ public final class ReceiptFragment extends DaggerFragment {
     return view;
   }
 
+  public ReceiptViewModel getReceiptViewModel() {
+    return receiptViewModel;
+  }
+
   private ReceiptViewModel create() {
     return ViewModelProviders.of(this, viewModelFactory).get(ReceiptViewModel.class);
   }
