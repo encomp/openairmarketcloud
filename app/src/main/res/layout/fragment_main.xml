@@ -34,7 +34,7 @@
         app:fabAlignmentMode="end" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_load_recipes"
+        android:id="@+id/fab_add_to_receipt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_add_shopping_cart"

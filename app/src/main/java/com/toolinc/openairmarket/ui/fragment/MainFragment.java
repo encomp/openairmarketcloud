@@ -15,16 +15,28 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.bottomappbar.BottomAppBar;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.toolinc.openairmarket.R;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import dagger.android.support.DaggerFragment;
 
 /** Initial screen for the pos app. */
 public class MainFragment extends DaggerFragment
     implements OnBackPressedHandler, NavigationView.OnNavigationItemSelectedListener {
 
-  private DrawerLayout drawer;
+  DrawerLayout drawer;
+
+  @BindView(R.id.toolbar)
+  Toolbar toolbar;
+
+  @BindView(R.id.bottom_app_bar)
+  BottomAppBar bottomAppBar;
+
+  @BindView(R.id.fab_add_to_receipt)
+  FloatingActionButton floatingActionButton;
 
   @Nullable
   @Override
@@ -32,13 +44,11 @@ public class MainFragment extends DaggerFragment
       LayoutInflater layoutInflater, @Nullable ViewGroup viewGroup, @Nullable Bundle bundle) {
 
     View view = layoutInflater.inflate(R.layout.fragment_main, viewGroup, false /* attachToRoot */);
+    ButterKnife.bind(this, view);
+
     AppCompatActivity activity = (AppCompatActivity) getActivity();
-    Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
     toolbar.setTitle("POS");
-
-    BottomAppBar bottomAppBar = (BottomAppBar) view.findViewById(R.id.bottom_app_bar);
     activity.setSupportActionBar(toolbar);
-
     drawer = (DrawerLayout) activity.findViewById(R.id.drawer_layout);
     ActionBarDrawerToggle toggle =
         new ActionBarDrawerToggle(
@@ -50,7 +60,8 @@ public class MainFragment extends DaggerFragment
     drawer.addDrawerListener(toggle);
     toggle.syncState();
 
-    ReceiptsFragment receiptsFragment = new ReceiptsFragment();
+    // TODO (edgar): Refactor this to extends from FullScreenFragment.
+    ReceiptsFragment receiptsFragment = new ReceiptsFragment(floatingActionButton);
     getChildFragmentManager()
         .beginTransaction()
         .add(R.id.full_screen_fragment_container, receiptsFragment)

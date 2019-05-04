@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
 import com.toolinc.openairmarket.R;
@@ -37,7 +38,12 @@ public class ReceiptsFragment extends DaggerFragment {
   @BindView(R.id.text_input_edit_text)
   TextInputEditText textInputEditText;
 
+  private final FloatingActionButton floatingActionButton;
   private ReceiptFragmentStatePagerAdapter receiptFragmentStatePagerAdapter;
+
+  public ReceiptsFragment(FloatingActionButton floatingActionButton) {
+    this.floatingActionButton = floatingActionButton;
+  }
 
   @Nullable
   @Override
@@ -49,6 +55,7 @@ public class ReceiptsFragment extends DaggerFragment {
     receiptFragmentStatePagerAdapter =
         new ReceiptFragmentStatePagerAdapter(getFragmentManager(), viewPager, tabLayout);
     textInputEditText.setOnKeyListener(this::onKey);
+    floatingActionButton.setOnClickListener(this::onClick);
     return view;
   }
 
@@ -60,6 +67,12 @@ public class ReceiptsFragment extends DaggerFragment {
       return true;
     }
     return false;
+  }
+
+  private void onClick(View view) {
+    String productId = textInputEditText.getText().toString();
+    textInputEditText.getText().clear();
+    productsRepository.findProductById(productId, this::onSuccess, this::onFailure);
   }
 
   void onSuccess(Product product) {
