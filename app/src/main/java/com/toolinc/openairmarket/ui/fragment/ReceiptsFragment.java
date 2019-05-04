@@ -1,19 +1,20 @@
 package com.toolinc.openairmarket.ui.fragment;
 
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.textfield.TextInputEditText;
 import com.toolinc.openairmarket.R;
+import com.toolinc.openairmarket.persistence.cloud.ProductsRepository;
 
 import javax.inject.Inject;
 
@@ -23,6 +24,7 @@ import dagger.android.support.DaggerFragment;
 
 public class ReceiptsFragment extends DaggerFragment {
 
+  @Inject ProductsRepository productsRepository;
   @Inject ViewModelProvider.Factory viewModelFactory;
 
   @BindView(R.id.tab_layout)
@@ -30,6 +32,9 @@ public class ReceiptsFragment extends DaggerFragment {
 
   @BindView(R.id.view_pager)
   ViewPager viewPager;
+
+  @BindView(R.id.text_input_edit_text)
+  TextInputEditText textInputEditText;
 
   private ReceiptFragmentStatePagerAdapter receiptFragmentStatePagerAdapter;
 
@@ -43,39 +48,19 @@ public class ReceiptsFragment extends DaggerFragment {
     receiptFragmentStatePagerAdapter = new ReceiptFragmentStatePagerAdapter(getFragmentManager());
     viewPager.setAdapter(receiptFragmentStatePagerAdapter);
     viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+    textInputEditText.setOnKeyListener(this::onKey);
     return view;
   }
 
-  static final class ReceiptFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
-
-    private final ReceiptFragment receiptFragment1 = new ReceiptFragment();
-    private final ReceiptFragment receiptFragment2 = new ReceiptFragment();
-    private final ReceiptFragment receiptFragment3 = new ReceiptFragment();
-
-    public ReceiptFragmentStatePagerAdapter(FragmentManager fragmentManager) {
-      super(fragmentManager);
+  private boolean onKey(View view, int keyCode, KeyEvent event) {
+    if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+      String productId = textInputEditText.getText().toString();
+      productsRepository.findProductById(
+          productId, receiptFragmentStatePagerAdapter, this::onFailure);
+      return true;
     }
-
-    @Override
-    public Fragment getItem(int position) {
-      switch (position) {
-        case 0:
-          return receiptFragment1;
-
-        case 1:
-          return receiptFragment2;
-
-        case 2:
-          return receiptFragment3;
-
-        default:
-          return null;
-      }
-    }
-
-    @Override
-    public int getCount() {
-      return 3;
-    }
+    return false;
   }
+
+  private void onFailure(@NonNull Exception e) {}
 }
