@@ -4,9 +4,11 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.google.auto.value.AutoValue;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Sets;
 import com.toolinc.openairmarket.pos.persistence.model.product.Product;
+import com.toolinc.openairmarket.pos.persistence.model.product.ProductSalePrice;
 import com.toolinc.openairmarket.pos.persistence.model.sale.SaleLine;
 
 import java.math.BigDecimal;
@@ -17,30 +19,71 @@ import javax.inject.Inject;
 /** Specifies the view model for a single receipt. */
 public class ReceiptViewModel extends ViewModel {
 
-  private final MutableLiveData<Set<Product>> products = new MutableLiveData<>();
-  private final MutableLiveData<ImmutableList<SaleLine>> lines = new MutableLiveData<>();
+  private final Set<Product> products = Sets.newHashSet();
+  private final MutableLiveData<ImmutableList<ProductLine>> lines = new MutableLiveData<>();
   private final MutableLiveData<BigDecimal> amountDue = new MutableLiveData<>();
 
   @Inject
   public ReceiptViewModel() {
-    lines.postValue(ImmutableList.<SaleLine>builder().build());
-    products.postValue(ImmutableSet.<Product>builder().build());
+    lines.postValue(ImmutableList.of());
     amountDue.postValue(BigDecimal.ZERO);
   }
 
   public void add(Product product) {
-
+    if (!products.contains(product)) {
+      ProductSalePrice productSalePrice = product.getProductSalePrice();
+      SaleLine saleLine = new SaleLine();
+      saleLine.setLineOrder(lines.getValue().size());
+      saleLine.setProduct(product.id());
+      saleLine.quantity(BigDecimal.ONE);
+      saleLine.price(productSalePrice.price());
+      saleLine.total(BigDecimal.ONE.multiply(productSalePrice.price()));
+      ProductLine productLine = ProductLine.create(product, saleLine);
+      ImmutableList<ProductLine> newLines =
+          ImmutableList.<ProductLine>builder().addAll(lines.getValue()).add(productLine).build();
+      lines.postValue(newLines);
+      products.add(productLine.product());
+    }
   }
 
-  public LiveData<ImmutableList<SaleLine>> getLines() {
+  public LiveData<ImmutableList<ProductLine>> getLines() {
     return lines;
-  }
-
-  public LiveData<Set<Product>> getProducts() {
-    return products;
   }
 
   public LiveData<BigDecimal> getAmountDue() {
     return amountDue;
+  }
+
+  @AutoValue
+  public abstract static class ProductLine {
+
+    public abstract Product product();
+
+    public abstract SaleLine saleLine();
+
+    @Override
+    public boolean equals(Object o) {
+      if (o == this) {
+        return true;
+      }
+      if (o instanceof ProductLine) {
+        ProductLine that = (ProductLine) o;
+        return product().equals(that.product());
+      }
+      return false;
+    }
+
+    @Override
+    public int hashCode() {
+      int h$ = 1;
+      h$ *= 1000003;
+      h$ ^= product().hashCode();
+      h$ *= 1000003;
+      return h$;
+    }
+
+    public static final ProductLine create(Product product, SaleLine saleLine) {
+      return new AutoValue_ReceiptViewModel_ProductLine(product, saleLine);
+    }
   }
 }
