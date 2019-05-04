@@ -5,7 +5,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.toolinc.openairmarket.common.concurrent.MainThreadExecutor;
 import com.toolinc.openairmarket.common.inject.Global;
 import com.toolinc.openairmarket.pos.persistence.model.product.Product;
 
@@ -17,16 +16,12 @@ import javax.inject.Inject;
 public final class ProductsRepository {
 
   private final Executor executor;
-  private final MainThreadExecutor mainThreadExecutor;
   private final FirebaseFirestore firebaseFirestore;
 
   @Inject
   public ProductsRepository(
-      @Global.NetworkIO Executor executor,
-      MainThreadExecutor mainThreadExecutor,
-      FirebaseFirestore firebaseFirestore) {
+      @Global.NetworkIO Executor executor, FirebaseFirestore firebaseFirestore) {
     this.executor = executor;
-    this.mainThreadExecutor = mainThreadExecutor;
     this.firebaseFirestore = firebaseFirestore;
   }
 
@@ -51,17 +46,12 @@ public final class ProductsRepository {
       DocumentSnapshot documentSnapshot, OnSuccessListener<Product> successListener) {
     if (documentSnapshot.exists()) {
       Product product = documentSnapshot.toObject(Product.class);
-      mainThreadExecutor.execute(
-          () -> {
-            successListener.onSuccess(product);
-          });
+      product.setId(documentSnapshot.getId());
+      successListener.onSuccess(product);
     }
   }
 
   private void onFailure(Exception exc, OnFailureListener onFailureListener) {
-    mainThreadExecutor.execute(
-        () -> {
-          onFailureListener.onFailure(exc);
-        });
+    onFailureListener.onFailure(exc);
   }
 }
