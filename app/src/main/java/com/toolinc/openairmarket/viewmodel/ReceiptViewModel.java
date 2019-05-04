@@ -41,8 +41,10 @@ public class ReceiptViewModel extends ViewModel {
       ProductLine productLine = ProductLine.create(product, saleLine);
       ImmutableList<ProductLine> newLines =
           ImmutableList.<ProductLine>builder().addAll(lines.getValue()).add(productLine).build();
-      lines.postValue(newLines);
       products.add(productLine.product());
+      lines.postValue(newLines);
+      BigDecimal newTotal = amountDue.getValue().add(saleLine.total());
+      amountDue.postValue(newTotal);
     }
   }
 
