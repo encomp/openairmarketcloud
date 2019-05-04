@@ -5,14 +5,12 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.PagerAdapter;
 
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.common.collect.ImmutableList;
 import com.toolinc.openairmarket.pos.persistence.model.product.Product;
 import com.toolinc.openairmarket.viewmodel.ReceiptViewModel;
 
 /** Implementation of {@link PagerAdapter} that renders the content of three tickets. */
-public final class ReceiptFragmentStatePagerAdapter extends FragmentStatePagerAdapter
-    implements OnSuccessListener<Product> {
+public final class ReceiptFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
 
   private final ImmutableList<ReceiptFragment> receiptFragments =
       ImmutableList.of(new ReceiptFragment(), new ReceiptFragment(), new ReceiptFragment());
@@ -42,10 +40,9 @@ public final class ReceiptFragmentStatePagerAdapter extends FragmentStatePagerAd
     return 3;
   }
 
-  @Override
-  public void onSuccess(Product product) {
-      ReceiptFragment receiptFragment = receiptFragments.get(position);
-      ReceiptViewModel receiptViewModel = receiptFragment.getReceiptViewModel();
-      receiptViewModel.add(product);
+  public void addProduct(Product product) {
+    ReceiptFragment receiptFragment = receiptFragments.get(position);
+    ReceiptViewModel receiptViewModel = receiptFragment.getReceiptViewModel();
+    receiptViewModel.add(product);
   }
 }
