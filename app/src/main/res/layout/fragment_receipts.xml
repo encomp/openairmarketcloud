@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,13 +10,15 @@
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:icon="@drawable/ic_receipt"
-            android:text="@string/receipt_tab_1"/>
+            android:text="@string/receipt_tab_1" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
@@ -34,43 +36,45 @@
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
-        android:layout_height="400dp" />
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/controls_layout"
+        app:layout_constraintTop_toBottomOf="@+id/tab_layout" />
 
     <LinearLayout
+        android:id="@+id/controls_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        style="?android:attr/buttonBarStyle"
-        android:orientation="horizontal">
+        android:layout_marginBottom="75dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_pager">
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="130dp"
+        <LinearLayout
+            style="?android:attr/buttonBarStyle"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/shrine_standard_spacing"
-            android:layout_marginTop="@dimen/shrine_small_spacing"
-            android:layout_marginBottom="@dimen/shrine_small_spacing"
-            android:backgroundTint="#ff1744"
-            android:text="@string/receipt_cancel_btn"
-            style="?android:attr/buttonBarButtonStyle"
-            app:icon="@drawable/ic_close" />
+            android:gravity="center"
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="130dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/shrine_standard_spacing"
-            android:layout_marginTop="@dimen/shrine_small_spacing"
-            android:layout_marginBottom="@dimen/shrine_small_spacing"
-            android:text="@string/receipt_pay_btn"
-            style="?android:attr/buttonBarButtonStyle"
-            app:icon="@drawable/ic_payment" />
-    </LinearLayout>
+            <Button
+                android:id="@+id/button"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/shrine_standard_spacing"
+                android:backgroundTint="#ff1744"
+                android:text="@string/receipt_cancel_btn"
+                app:icon="@drawable/ic_close" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+            <Button
+                android:id="@+id/button2"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/shrine_standard_spacing"
+                android:text="@string/receipt_pay_btn"
+                app:icon="@drawable/ic_payment" />
+        </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -89,6 +93,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
-    </LinearLayout>
 
-</LinearLayout>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
