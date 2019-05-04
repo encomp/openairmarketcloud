@@ -16,7 +16,7 @@
             style="@style/TextAppearance.Shrine.Filter.SubHead"
             android:layout_width="40dp"
             android:layout_height="wrap_content"
-            android:text="@{saleLine.lineOrder}"
+            android:text="@{String.valueOf(saleLine.lineOrder)}"
             android:textAlignment="center"
             tools:text="1" />
 
