@@ -28,6 +28,10 @@ public class ReceiptViewModel extends ViewModel {
     amountDue.postValue(BigDecimal.ZERO);
   }
 
+  public void add(Product product) {
+
+  }
+
   public LiveData<ImmutableList<SaleLine>> getLines() {
     return lines;
   }
