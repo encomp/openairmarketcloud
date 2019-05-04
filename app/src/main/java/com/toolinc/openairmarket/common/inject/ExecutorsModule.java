@@ -1,9 +1,6 @@
 package com.toolinc.openairmarket.common.inject;
 
-import android.os.Handler;
-import android.os.Looper;
-
-import androidx.annotation.NonNull;
+import com.toolinc.openairmarket.common.concurrent.MainThreadExecutor;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -36,19 +33,9 @@ public class ExecutorsModule {
         numCores * 2, numCores * 2, 120L, TimeUnit.SECONDS, new LinkedBlockingQueue<>());
   }
 
-  @Global.MainThread
   @Singleton
   @Provides
-  static Executor providesMainThreadExecutor() {
+  static MainThreadExecutor providesMainThreadExecutor() {
     return new MainThreadExecutor();
-  }
-
-  private static class MainThreadExecutor implements Executor {
-    private Handler mainThreadHandler = new Handler(Looper.getMainLooper());
-
-    @Override
-    public void execute(@NonNull Runnable command) {
-      mainThreadHandler.post(command);
-    }
   }
 }

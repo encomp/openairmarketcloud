@@ -24,10 +24,4 @@ public @interface Global {
   @Documented
   @Retention(RUNTIME)
   @interface NetworkIO {}
-
-  /** Specifies a main thread operation. */
-  @Qualifier
-  @Documented
-  @Retention(RUNTIME)
-  @interface MainThread {}
 }
