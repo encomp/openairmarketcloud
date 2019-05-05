@@ -53,7 +53,8 @@ public class ReceiptsFragment extends DaggerFragment {
         layoutInflater.inflate(R.layout.fragment_receipts, viewGroup, false /* attachToRoot */);
     ButterKnife.bind(this, view);
     receiptFragmentStatePagerAdapter =
-        new ReceiptFragmentStatePagerAdapter(getFragmentManager(), viewPager, tabLayout);
+        new ReceiptFragmentStatePagerAdapter(
+            getFragmentManager(), getContext(), viewPager, tabLayout);
     textInputEditText.setOnKeyListener(this::onKey);
     floatingActionButton.setOnClickListener(this::onClick);
     return view;
