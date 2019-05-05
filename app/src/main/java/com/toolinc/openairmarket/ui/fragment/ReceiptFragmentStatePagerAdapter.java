@@ -2,8 +2,6 @@ package com.toolinc.openairmarket.ui.fragment;
 
 import android.content.Context;
 
-import androidx.annotation.DrawableRes;
-import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
@@ -11,6 +9,7 @@ import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
+import com.google.auto.value.AutoValue;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import com.toolinc.openairmarket.R;
@@ -18,19 +17,16 @@ import com.toolinc.openairmarket.pos.persistence.model.product.Product;
 import com.toolinc.openairmarket.viewmodel.ReceiptViewModel;
 import com.toolinc.openairmarket.viewmodel.ReceiptsViewModel;
 
+import timber.log.Timber;
+
 /** Implementation of {@link PagerAdapter} that renders the content of three tickets. */
-public final class ReceiptFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
+public final class ReceiptFragmentStatePagerAdapter extends FragmentStatePagerAdapter
+    implements ViewPager.OnPageChangeListener {
 
-  @StringRes private static final int TAB_1 = R.string.receipt_tab_1;
-  @StringRes private static final int TAB_2 = R.string.receipt_tab_2;
-  @StringRes private static final int TAB_3 = R.string.receipt_tab_3;
-  @DrawableRes private static final int ICON_TAB = R.drawable.ic_receipt;
-
-  private final ReceiptsViewModel receiptsViewModel;
-  private final Context context;
-  private final ViewPager viewPager;
+  private static final String TAG = ReceiptFragmentStatePagerAdapter.class.getSimpleName();
   private final TabLayout tabLayout;
-  private final ImmutableList<ReceiptFragment> receiptFragments;
+  private final ImmutableList<FragmentReceiptViewModel> fragmentWithViewModels;
+  private final ImmutableList<String> titles;
 
   public ReceiptFragmentStatePagerAdapter(
       FragmentManager fragmentManager,
@@ -39,54 +35,98 @@ public final class ReceiptFragmentStatePagerAdapter extends FragmentStatePagerAd
       ViewPager viewPager,
       TabLayout tabLayout) {
     super(fragmentManager);
-    this.receiptsViewModel =
-        Preconditions.checkNotNull(receiptsViewModel, "ReceiptsViewModel is missing.");
-    this.context = Preconditions.checkNotNull(context, "Context is missing.");
-    this.viewPager = Preconditions.checkNotNull(viewPager, "ViewPager is missing.");
+    Preconditions.checkNotNull(receiptsViewModel, "ReceiptsViewModel is missing.");
+    Preconditions.checkNotNull(viewPager, "ViewPager is missing.");
+    Preconditions.checkNotNull(context, "Context is missing.");
     this.tabLayout = Preconditions.checkNotNull(tabLayout, "TabLayout is missing.");
-    ImmutableList.Builder<ReceiptFragment> builder = ImmutableList.builder();
-    for (ReceiptViewModel receiptViewModel : receiptsViewModel.getReceiptViewModels()) {
-      builder.add(new ReceiptFragment(receiptViewModel));
-    }
-    receiptFragments = builder.build();
-    viewPager.setAdapter(this);
-    tabLayout.setupWithViewPager(viewPager);
-    for (int i = 0; i < tabLayout.getTabCount(); i++) {
-      tabLayout.getTabAt(i).setIcon(ICON_TAB);
-    }
+    fragmentWithViewModels = initFragmentWithViewModel(receiptsViewModel);
+    titles = initTitles(context);
+    bindViewPagerWithTabLayout(viewPager);
   }
 
   @Override
   public Fragment getItem(int position) {
-    return receiptFragments.get(position);
+    return fragmentWithViewModels.get(position).receiptFragment();
   }
 
   @Override
   public int getCount() {
-    return receiptFragments.size();
+    return fragmentWithViewModels.size();
   }
 
   @Override
   public CharSequence getPageTitle(int position) {
-    switch (position) {
-      case 0:
-        return context.getString(TAB_1);
-
-      case 1:
-        return context.getString(TAB_2);
-
-      case 2:
-        return context.getString(TAB_3);
-
-      default:
-        break;
-    }
-    return "";
+    return titles.get(position);
   }
 
+  @Override
+  public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+
+  @Override
+  public void onPageSelected(int position) {
+    Timber.tag(TAG).d("Append observers " + position);
+    fragmentWithViewModels.get(position).bindObservers();
+  }
+
+  @Override
+  public void onPageScrollStateChanged(int state) {}
+
   public void addProduct(Product product) {
-    ReceiptFragment receiptFragment = receiptFragments.get(tabLayout.getSelectedTabPosition());
-    ReceiptViewModel receiptViewModel = receiptFragment.getReceiptViewModel();
+    Timber.tag(TAG).d("Current Tab Position: " + tabLayout.getSelectedTabPosition());
+    Timber.tag(TAG).d("Append product: " + product.id());
+    FragmentReceiptViewModel fragmentReceiptViewModel =
+        fragmentWithViewModels.get(tabLayout.getSelectedTabPosition());
+    ReceiptViewModel receiptViewModel = fragmentReceiptViewModel.receiptViewModel();
     receiptViewModel.add(product);
+  }
+
+  private void bindViewPagerWithTabLayout(ViewPager viewPager) {
+    viewPager.addOnPageChangeListener(this);
+    viewPager.setAdapter(this);
+    tabLayout.setupWithViewPager(viewPager);
+    for (int i = 0; i < tabLayout.getTabCount(); i++) {
+      tabLayout.getTabAt(i).setIcon(R.drawable.ic_receipt);
+    }
+  }
+
+  private ImmutableList<String> initTitles(Context context) {
+    ImmutableList.Builder<String> builder = ImmutableList.builder();
+    builder.add(context.getString(R.string.receipt_tab_1));
+    builder.add(context.getString(R.string.receipt_tab_2));
+    builder.add(context.getString(R.string.receipt_tab_3));
+    return builder.build();
+  }
+
+  private ImmutableList<FragmentReceiptViewModel> initFragmentWithViewModel(
+      ReceiptsViewModel receiptsViewModel) {
+    ImmutableList.Builder<FragmentReceiptViewModel> builder = ImmutableList.builder();
+    for (ReceiptViewModel receiptViewModel : receiptsViewModel.getReceiptViewModels()) {
+      builder.add(FragmentReceiptViewModel.create(new ReceiptFragment(), receiptViewModel));
+    }
+    return builder.build();
+  }
+
+  @AutoValue
+  abstract static class FragmentReceiptViewModel {
+
+    abstract ReceiptFragment receiptFragment();
+
+    abstract ReceiptViewModel receiptViewModel();
+
+    void bindObservers() {
+      receiptViewModel().getLines().observe(receiptFragment(), receiptFragment()::newProductLines);
+      receiptViewModel()
+          .getAmountDue()
+          .observe(receiptFragment(), receiptFragment()::newTotalAmount);
+    }
+
+    static FragmentReceiptViewModel create(
+        ReceiptFragment receiptFragment, ReceiptViewModel receiptViewModel) {
+      FragmentReceiptViewModel fragmentReceiptViewModel =
+          new AutoValue_ReceiptFragmentStatePagerAdapter_FragmentReceiptViewModel(
+              receiptFragment, receiptViewModel);
+      fragmentReceiptViewModel.bindObservers();
+      return fragmentReceiptViewModel;
+    }
   }
 }

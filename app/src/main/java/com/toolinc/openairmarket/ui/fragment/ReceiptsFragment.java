@@ -1,5 +1,6 @@
 package com.toolinc.openairmarket.ui.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -8,15 +9,17 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.common.base.Preconditions;
 import com.toolinc.openairmarket.R;
 import com.toolinc.openairmarket.persistence.cloud.ProductsRepository;
 import com.toolinc.openairmarket.pos.persistence.model.product.Product;
+import com.toolinc.openairmarket.ui.MainActivity;
 import com.toolinc.openairmarket.viewmodel.ReceiptsViewModel;
 
 import javax.inject.Inject;
@@ -24,11 +27,12 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import dagger.android.support.DaggerFragment;
+import timber.log.Timber;
 
 public class ReceiptsFragment extends DaggerFragment {
 
-  private final ReceiptsViewModel receiptsViewModel;
-  private final FloatingActionButton floatingActionButton;
+  private static final String TAG = ReceiptsFragment.class.getSimpleName();
+  @Inject ViewModelProvider.Factory viewModelFactory;
   @Inject ProductsRepository productsRepository;
 
   @BindView(R.id.tab_layout)
@@ -40,13 +44,16 @@ public class ReceiptsFragment extends DaggerFragment {
   @BindView(R.id.text_input_edit_text)
   TextInputEditText textInputEditText;
 
+  private ReceiptsViewModel receiptsViewModel;
+  private FloatingActionButton floatingActionButton;
   private ReceiptFragmentStatePagerAdapter receiptFragmentStatePagerAdapter;
 
-  public ReceiptsFragment(
-      FloatingActionButton floatingActionButton, ReceiptsViewModel receiptsViewModel) {
-    this.floatingActionButton = Preconditions.checkNotNull(floatingActionButton, "FAB is missing.");
-    this.receiptsViewModel =
-        Preconditions.checkNotNull(receiptsViewModel, "ReceiptsViewModel is missing.");
+  @Override
+  public void onAttach(Context context) {
+    super.onAttach(context);
+    receiptsViewModel =
+        ViewModelProviders.of((MainActivity) context, viewModelFactory)
+            .get(ReceiptsViewModel.class);
   }
 
   @Nullable
@@ -56,6 +63,7 @@ public class ReceiptsFragment extends DaggerFragment {
     View view =
         layoutInflater.inflate(R.layout.fragment_receipts, viewGroup, false /* attachToRoot */);
     ButterKnife.bind(this, view);
+    floatingActionButton = getActivity().findViewById(R.id.fab_add_to_receipt);
     receiptFragmentStatePagerAdapter =
         new ReceiptFragmentStatePagerAdapter(
             getFragmentManager(), receiptsViewModel, getContext(), viewPager, tabLayout);
@@ -69,6 +77,7 @@ public class ReceiptsFragment extends DaggerFragment {
       String productId = textInputEditText.getText().toString();
       textInputEditText.getText().clear();
       productsRepository.findProductById(productId, this::onSuccess, this::onFailure);
+      Timber.tag(TAG).d("Searching for Product: " + productId);
       return true;
     }
     return false;
@@ -84,5 +93,7 @@ public class ReceiptsFragment extends DaggerFragment {
     receiptFragmentStatePagerAdapter.addProduct(product);
   }
 
-  private void onFailure(@NonNull Exception e) {}
+  private void onFailure(@NonNull Exception e) {
+    Timber.tag(TAG).e(e.getMessage(), e);
+  }
 }
