@@ -29,6 +29,7 @@ import butterknife.ButterKnife;
 import dagger.android.support.DaggerFragment;
 import timber.log.Timber;
 
+/** Receipts fragment to handle product search and append. */
 public class ReceiptsFragment extends DaggerFragment {
 
   private static final String TAG = ReceiptsFragment.class.getSimpleName();
