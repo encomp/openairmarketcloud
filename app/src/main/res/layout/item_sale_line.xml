@@ -23,7 +23,7 @@
 
         <TextView
             style="@style/TextAppearance.Shrine.Filter.SubHead"
-            android:layout_width="130dp"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:text="@{saleLine.product}"
             android:textAlignment="center"
@@ -39,7 +39,7 @@
 
         <TextView
             style="@style/TextAppearance.Shrine.Filter.SubHead"
-            android:layout_width="80dp"
+            android:layout_width="65dp"
             android:layout_height="wrap_content"
             android:text="@{saleLine.quantity}"
             android:textAlignment="center"
@@ -47,7 +47,7 @@
 
         <TextView
             style="@style/TextAppearance.Shrine.Filter.SubHead"
-            android:layout_width="80dp"
+            android:layout_width="72dp"
             android:layout_height="wrap_content"
             android:text="@{saleLine.total}"
             android:textAlignment="center"
