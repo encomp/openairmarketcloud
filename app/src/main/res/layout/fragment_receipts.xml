@@ -11,12 +11,13 @@
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:icon="@drawable/ic_receipt"
             android:text="@string/receipt_tab_1" />
 
@@ -31,24 +32,17 @@
             android:layout_height="wrap_content"
             android:icon="@drawable/ic_receipt"
             android:text="@string/receipt_tab_3" />
+
     </com.google.android.material.tabs.TabLayout>
 
-    <FrameLayout
-        android:id="@+id/receipt_container"
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/controls_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tab_layout">
-
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/view_pager"
-            android:layout_width="match_parent"
-            android:layout_marginStart="10dp"
-            android:layout_height="match_parent" />
-
-    </FrameLayout>
+        app:layout_constraintTop_toBottomOf="@+id/tab_layout" />
 
     <LinearLayout
         android:id="@+id/controls_layout"
@@ -58,7 +52,7 @@
         android:layout_marginBottom="75dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/receipt_container">
+        app:layout_constraintTop_toBottomOf="@+id/view_pager">
 
         <LinearLayout
             style="?android:attr/buttonBarStyle"
