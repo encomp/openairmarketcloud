@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.common.collect.ImmutableList;
 import com.toolinc.openairmarket.R;
-import com.toolinc.openairmarket.common.concurrent.MainThreadExecutor;
 import com.toolinc.openairmarket.ui.adapter.SaleLineListAdapter;
 import com.toolinc.openairmarket.viewmodel.ReceiptViewModel;
 import com.toolinc.openairmarket.viewmodel.ReceiptViewModel.ProductLine;
@@ -32,7 +31,6 @@ public final class ReceiptFragment extends DaggerFragment {
 
   private final SaleLineListAdapter saleLineListAdapter = new SaleLineListAdapter();
   private final ReceiptViewModel receiptViewModel;
-  @Inject MainThreadExecutor mainThreadExecutor;
   @Inject ViewModelProvider.Factory viewModelFactory;
 
   @BindView(R.id.product_list_recycler_view)
