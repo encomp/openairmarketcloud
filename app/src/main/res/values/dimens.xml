@@ -12,6 +12,7 @@
 
 
     <dimen name="shrine_standard_spacing">16dp</dimen>
+    <dimen name="shrine_tiny_spacing">4dp</dimen>
     <dimen name="shrine_small_spacing">8dp</dimen>
     <dimen name="shrine_large_spacing">36dp</dimen>
     <dimen name="shrine_toolbar_collapsed_height">72dp</dimen>

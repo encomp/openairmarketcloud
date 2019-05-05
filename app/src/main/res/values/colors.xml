@@ -8,12 +8,21 @@
     <color name="textColorPrimary">#dd000000</color>
     <color name="textColorSecondary">#89000000</color>
 
+    <!-- Amber -->
+    <color name="amber_50">#fff8e1</color>
+
+    <!-- Blue Gray -->
     <color name="blue_grey_50">#ECEFF1</color>
     <color name="blue_grey_100">#CFD8DC</color>
 
+    <!-- Grey -->
     <color name="grey_50">#FAFAFA</color>
     <color name="grey_100">#F5F5F5</color>
     <color name="grey_200">#EEEEEE</color>
     <color name="grey_300">#E0E0E0</color>
     <color name="grey_500">#9E9E9E</color>
+
+    <!-- Light Blue -->
+    <color name="light_blue_50">#E1F5FE</color>
+    <color name="light_blue_100">#b3e5fc</color>
 </resources>
