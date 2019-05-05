@@ -82,11 +82,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/guideline"
-        android:layout_marginTop="@dimen/shrine_small_spacing"
-        android:layout_marginEnd="@dimen/shrine_standard_spacing"
-        android:background="@color/colorPrimaryDark"
+        android:layout_marginStart="@dimen/shrine_large_spacing"
+        android:layout_marginEnd="@dimen/shrine_large_spacing"
+        android:background="@color/blue_grey_50"
         android:orientation="horizontal"
-        android:padding="@dimen/shrine_standard_spacing"
+        android:padding="@dimen/shrine_small_spacing"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline">
 
