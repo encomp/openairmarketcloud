@@ -60,16 +60,10 @@ public final class ReceiptFragmentStatePagerAdapter extends FragmentStatePagerAd
   }
 
   @Override
-  public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
-
-  @Override
   public void onPageSelected(int position) {
     Timber.tag(TAG).d("Append observers " + position);
     fragmentWithViewModels.get(position).bindObservers();
   }
-
-  @Override
-  public void onPageScrollStateChanged(int state) {}
 
   public void addProduct(Product product) {
     Timber.tag(TAG).d("Current Tab Position: " + tabLayout.getSelectedTabPosition());
@@ -79,6 +73,12 @@ public final class ReceiptFragmentStatePagerAdapter extends FragmentStatePagerAd
     ReceiptViewModel receiptViewModel = fragmentReceiptViewModel.receiptViewModel();
     receiptViewModel.add(product);
   }
+
+  @Override
+  public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+
+  @Override
+  public void onPageScrollStateChanged(int state) {}
 
   private void bindViewPagerWithTabLayout(ViewPager viewPager) {
     viewPager.addOnPageChangeListener(this);
