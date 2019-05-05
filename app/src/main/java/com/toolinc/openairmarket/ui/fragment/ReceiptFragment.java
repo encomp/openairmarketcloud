@@ -34,8 +34,10 @@ public final class ReceiptFragment extends DaggerFragment {
   private final ReceiptViewModel receiptViewModel;
   @Inject MainThreadExecutor mainThreadExecutor;
   @Inject ViewModelProvider.Factory viewModelFactory;
+
   @BindView(R.id.product_list_recycler_view)
   RecyclerView recyclerView;
+
   @BindView(R.id.total_tv)
   TextView textView;
 
