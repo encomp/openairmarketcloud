@@ -1,12 +1,16 @@
 package com.toolinc.openairmarket.ui.adapter;
 
+import android.content.Context;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.TableRow;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.common.collect.ImmutableList;
+import com.toolinc.openairmarket.R;
 import com.toolinc.openairmarket.databinding.ItemSaleLineBinding;
 import com.toolinc.openairmarket.pos.persistence.model.sale.SaleLine;
 import com.toolinc.openairmarket.viewmodel.ReceiptViewModel.ProductLine;
@@ -30,6 +34,16 @@ public final class SaleLineListAdapter
 
   @Override
   public void onBindViewHolder(@NonNull SaleLineViewHolder saleLineViewHolder, int position) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+      TableRow tableRow =
+          saleLineViewHolder.itemSaleLineBinding.getRoot().findViewById(R.id.product_line);
+      Context context = saleLineViewHolder.itemSaleLineBinding.getRoot().getContext();
+      if (position % 2 == 0) {
+        tableRow.setBackgroundColor(context.getColor(R.color.grey_100));
+      } else {
+        tableRow.setBackgroundColor(context.getColor(R.color.colorPrimary));
+      }
+    }
     saleLineViewHolder.itemSaleLineBinding.setSaleLine(productLines.get(position).saleLine());
   }
 

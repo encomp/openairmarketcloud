@@ -10,8 +10,10 @@
     </data>
 
     <TableRow
+        android:id="@+id/product_line"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="@dimen/shrine_tiny_spacing">
 
         <TextView
             style="@style/TextAppearance.Shrine.Filter.SubHead"
