@@ -5,18 +5,21 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.google.auto.value.AutoValue;
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Sets;
+import com.google.common.collect.Maps;
 import com.toolinc.openairmarket.pos.persistence.model.product.Product;
 import com.toolinc.openairmarket.pos.persistence.model.product.ProductSalePrice;
 import com.toolinc.openairmarket.pos.persistence.model.sale.SaleLine;
 
 import java.math.BigDecimal;
-import java.util.Set;
+import java.util.Map;
+
+import timber.log.Timber;
 
 /** Specifies the view model for a single receipt. */
 public final class ReceiptViewModel {
 
-  private final Set<Product> products = Sets.newHashSet();
+  private static final String TAG = ReceiptViewModel.class.getSimpleName();
+  private final Map<Product, SaleLine> productToSale = Maps.newHashMap();
   private final MutableLiveData<ImmutableList<ProductLine>> lines = new MutableLiveData<>();
   private final MutableLiveData<BigDecimal> amountDue = new MutableLiveData<>();
 
@@ -26,10 +29,11 @@ public final class ReceiptViewModel {
   }
 
   public void add(Product product) {
-    if (!products.contains(product)) {
+    if (!productToSale.containsKey(product)) {
+      Timber.tag(TAG).d("Adding new product: [%s]-[%s].", product.id(), product.getName());
       ProductSalePrice productSalePrice = product.getProductSalePrice();
       SaleLine saleLine = new SaleLine();
-      saleLine.setLineOrder(lines.getValue().size());
+      saleLine.setLineOrder(lines.getValue().size() + 1);
       saleLine.setProduct(product.id());
       saleLine.quantity(BigDecimal.ONE);
       saleLine.price(productSalePrice.price());
@@ -37,10 +41,21 @@ public final class ReceiptViewModel {
       ProductLine productLine = ProductLine.create(product, saleLine);
       ImmutableList<ProductLine> newLines =
           ImmutableList.<ProductLine>builder().addAll(lines.getValue()).add(productLine).build();
-      products.add(productLine.product());
-      lines.postValue(newLines);
       BigDecimal newTotal = amountDue.getValue().add(saleLine.total());
+      productToSale.put(product, saleLine);
+      lines.postValue(newLines);
       amountDue.postValue(newTotal);
+      Timber.tag(TAG).d("Finished adding new product: [%s]-[%s].", product.id(), product.getName());
+    } else {
+      Timber.tag(TAG).d("Existing product [%s]-[%s].", product.id(), product.getName());
+      ProductSalePrice productSalePrice = product.getProductSalePrice();
+      SaleLine saleLine = productToSale.get(product);
+      saleLine.quantity(saleLine.quantity().add(BigDecimal.ONE));
+      saleLine.total(saleLine.total().add(productSalePrice.price()));
+      BigDecimal newTotal = amountDue.getValue().add(productSalePrice.price());
+      lines.postValue(lines.getValue());
+      amountDue.postValue(newTotal);
+      Timber.tag(TAG).d("Complete existing product [%s]-[%s].", product.id(), product.getName());
     }
   }
 
