@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,17 +30,18 @@ import dagger.android.support.DaggerFragment;
 /** Receipt fragment to handle all the items of a sale. */
 public final class ReceiptFragment extends DaggerFragment {
 
+  private final SaleLineListAdapter saleLineListAdapter = new SaleLineListAdapter();
+  private final ReceiptViewModel receiptViewModel;
   @Inject MainThreadExecutor mainThreadExecutor;
   @Inject ViewModelProvider.Factory viewModelFactory;
-
   @BindView(R.id.product_list_recycler_view)
   RecyclerView recyclerView;
-
   @BindView(R.id.total_tv)
   TextView textView;
 
-  private ReceiptViewModel receiptViewModel;
-  private final SaleLineListAdapter saleLineListAdapter = new SaleLineListAdapter();
+  public ReceiptFragment(ReceiptViewModel receiptViewModel) {
+    this.receiptViewModel = receiptViewModel;
+  }
 
   @Nullable
   @Override
@@ -49,7 +49,6 @@ public final class ReceiptFragment extends DaggerFragment {
       LayoutInflater layoutInflater, @Nullable ViewGroup viewGroup, @Nullable Bundle bundle) {
     final View view = layoutInflater.inflate(R.layout.fragment_receipt, viewGroup, false);
     ButterKnife.bind(this, view);
-    receiptViewModel = create();
     receiptViewModel.getLines().observe(this, this::newProductLines);
     receiptViewModel.getAmountDue().observe(this, this::newTotalAmount);
 
@@ -74,9 +73,5 @@ public final class ReceiptFragment extends DaggerFragment {
 
   public ReceiptViewModel getReceiptViewModel() {
     return receiptViewModel;
-  }
-
-  private ReceiptViewModel create() {
-    return ViewModelProviders.of(this, viewModelFactory).get(ReceiptViewModel.class);
   }
 }

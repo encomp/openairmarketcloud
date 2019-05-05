@@ -1,5 +1,6 @@
 package com.toolinc.openairmarket.ui.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -13,11 +14,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.toolinc.openairmarket.R;
+import com.toolinc.openairmarket.ui.MainActivity;
+import com.toolinc.openairmarket.viewmodel.ReceiptsViewModel;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,6 +33,8 @@ import dagger.android.support.DaggerFragment;
 /** Initial screen for the pos app. */
 public class MainFragment extends DaggerFragment
     implements OnBackPressedHandler, NavigationView.OnNavigationItemSelectedListener {
+
+  @Inject ViewModelProvider.Factory viewModelFactory;
 
   DrawerLayout drawer;
 
@@ -37,6 +46,17 @@ public class MainFragment extends DaggerFragment
 
   @BindView(R.id.fab_add_to_receipt)
   FloatingActionButton floatingActionButton;
+
+  private ReceiptsViewModel receiptsViewModel;
+
+  // TODO (edgar): Refactor this to extends from FullScreenFragment.
+  @Override
+  public void onAttach(Context context) {
+    super.onAttach(context);
+    receiptsViewModel =
+        ViewModelProviders.of((MainActivity) context, viewModelFactory)
+            .get(ReceiptsViewModel.class);
+  }
 
   @Nullable
   @Override
@@ -61,7 +81,8 @@ public class MainFragment extends DaggerFragment
     toggle.syncState();
 
     // TODO (edgar): Refactor this to extends from FullScreenFragment.
-    ReceiptsFragment receiptsFragment = new ReceiptsFragment(floatingActionButton);
+    ReceiptsFragment receiptsFragment =
+        new ReceiptsFragment(floatingActionButton, receiptsViewModel);
     getChildFragmentManager()
         .beginTransaction()
         .add(R.id.full_screen_fragment_container, receiptsFragment)

@@ -8,15 +8,16 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.common.base.Preconditions;
 import com.toolinc.openairmarket.R;
 import com.toolinc.openairmarket.persistence.cloud.ProductsRepository;
 import com.toolinc.openairmarket.pos.persistence.model.product.Product;
+import com.toolinc.openairmarket.viewmodel.ReceiptsViewModel;
 
 import javax.inject.Inject;
 
@@ -26,8 +27,9 @@ import dagger.android.support.DaggerFragment;
 
 public class ReceiptsFragment extends DaggerFragment {
 
+  private final ReceiptsViewModel receiptsViewModel;
+  private final FloatingActionButton floatingActionButton;
   @Inject ProductsRepository productsRepository;
-  @Inject ViewModelProvider.Factory viewModelFactory;
 
   @BindView(R.id.tab_layout)
   TabLayout tabLayout;
@@ -38,11 +40,13 @@ public class ReceiptsFragment extends DaggerFragment {
   @BindView(R.id.text_input_edit_text)
   TextInputEditText textInputEditText;
 
-  private final FloatingActionButton floatingActionButton;
   private ReceiptFragmentStatePagerAdapter receiptFragmentStatePagerAdapter;
 
-  public ReceiptsFragment(FloatingActionButton floatingActionButton) {
-    this.floatingActionButton = floatingActionButton;
+  public ReceiptsFragment(
+      FloatingActionButton floatingActionButton, ReceiptsViewModel receiptsViewModel) {
+    this.floatingActionButton = Preconditions.checkNotNull(floatingActionButton, "FAB is missing.");
+    this.receiptsViewModel =
+        Preconditions.checkNotNull(receiptsViewModel, "ReceiptsViewModel is missing.");
   }
 
   @Nullable
@@ -54,7 +58,7 @@ public class ReceiptsFragment extends DaggerFragment {
     ButterKnife.bind(this, view);
     receiptFragmentStatePagerAdapter =
         new ReceiptFragmentStatePagerAdapter(
-            getFragmentManager(), getContext(), viewPager, tabLayout);
+            getFragmentManager(), receiptsViewModel, getContext(), viewPager, tabLayout);
     textInputEditText.setOnKeyListener(this::onKey);
     floatingActionButton.setOnClickListener(this::onClick);
     return view;

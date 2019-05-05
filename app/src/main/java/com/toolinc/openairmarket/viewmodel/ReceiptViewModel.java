@@ -2,7 +2,6 @@ package com.toolinc.openairmarket.viewmodel;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
 import com.google.auto.value.AutoValue;
 import com.google.common.collect.ImmutableList;
@@ -14,16 +13,13 @@ import com.toolinc.openairmarket.pos.persistence.model.sale.SaleLine;
 import java.math.BigDecimal;
 import java.util.Set;
 
-import javax.inject.Inject;
-
 /** Specifies the view model for a single receipt. */
-public class ReceiptViewModel extends ViewModel {
+public final class ReceiptViewModel {
 
   private final Set<Product> products = Sets.newHashSet();
   private final MutableLiveData<ImmutableList<ProductLine>> lines = new MutableLiveData<>();
   private final MutableLiveData<BigDecimal> amountDue = new MutableLiveData<>();
 
-  @Inject
   public ReceiptViewModel() {
     lines.postValue(ImmutableList.of());
     amountDue.postValue(BigDecimal.ZERO);
@@ -59,6 +55,10 @@ public class ReceiptViewModel extends ViewModel {
   @AutoValue
   public abstract static class ProductLine {
 
+    public static final ProductLine create(Product product, SaleLine saleLine) {
+      return new AutoValue_ReceiptViewModel_ProductLine(product, saleLine);
+    }
+
     public abstract Product product();
 
     public abstract SaleLine saleLine();
@@ -82,10 +82,6 @@ public class ReceiptViewModel extends ViewModel {
       h$ ^= product().hashCode();
       h$ *= 1000003;
       return h$;
-    }
-
-    public static final ProductLine create(Product product, SaleLine saleLine) {
-      return new AutoValue_ReceiptViewModel_ProductLine(product, saleLine);
     }
   }
 }

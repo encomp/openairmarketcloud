@@ -16,6 +16,7 @@ import com.google.common.collect.ImmutableList;
 import com.toolinc.openairmarket.R;
 import com.toolinc.openairmarket.pos.persistence.model.product.Product;
 import com.toolinc.openairmarket.viewmodel.ReceiptViewModel;
+import com.toolinc.openairmarket.viewmodel.ReceiptsViewModel;
 
 /** Implementation of {@link PagerAdapter} that renders the content of three tickets. */
 public final class ReceiptFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
@@ -25,18 +26,29 @@ public final class ReceiptFragmentStatePagerAdapter extends FragmentStatePagerAd
   @StringRes private static final int TAB_3 = R.string.receipt_tab_3;
   @DrawableRes private static final int ICON_TAB = R.drawable.ic_receipt;
 
+  private final ReceiptsViewModel receiptsViewModel;
   private final Context context;
   private final ViewPager viewPager;
   private final TabLayout tabLayout;
-  private final ImmutableList<ReceiptFragment> receiptFragments =
-      ImmutableList.of(new ReceiptFragment(), new ReceiptFragment(), new ReceiptFragment());
+  private final ImmutableList<ReceiptFragment> receiptFragments;
 
   public ReceiptFragmentStatePagerAdapter(
-      FragmentManager fragmentManager, Context context, ViewPager viewPager, TabLayout tabLayout) {
+      FragmentManager fragmentManager,
+      ReceiptsViewModel receiptsViewModel,
+      Context context,
+      ViewPager viewPager,
+      TabLayout tabLayout) {
     super(fragmentManager);
+    this.receiptsViewModel =
+        Preconditions.checkNotNull(receiptsViewModel, "ReceiptsViewModel is missing.");
     this.context = Preconditions.checkNotNull(context, "Context is missing.");
     this.viewPager = Preconditions.checkNotNull(viewPager, "ViewPager is missing.");
     this.tabLayout = Preconditions.checkNotNull(tabLayout, "TabLayout is missing.");
+    ImmutableList.Builder<ReceiptFragment> builder = ImmutableList.builder();
+    for (ReceiptViewModel receiptViewModel : receiptsViewModel.getReceiptViewModels()) {
+      builder.add(new ReceiptFragment(receiptViewModel));
+    }
+    receiptFragments = builder.build();
     viewPager.setAdapter(this);
     tabLayout.setupWithViewPager(viewPager);
     for (int i = 0; i < tabLayout.getTabCount(); i++) {

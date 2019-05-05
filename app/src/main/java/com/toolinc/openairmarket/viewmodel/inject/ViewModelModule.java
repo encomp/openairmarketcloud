@@ -3,7 +3,7 @@ package com.toolinc.openairmarket.viewmodel.inject;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.toolinc.openairmarket.viewmodel.ReceiptViewModel;
+import com.toolinc.openairmarket.viewmodel.ReceiptsViewModel;
 
 import dagger.Binds;
 import dagger.Module;
@@ -15,8 +15,8 @@ public abstract class ViewModelModule {
 
   @Binds
   @IntoMap
-  @ViewModelKey(ReceiptViewModel.class)
-  abstract ViewModel bindUserViewModel(ReceiptViewModel userViewModel);
+  @ViewModelKey(ReceiptsViewModel.class)
+  abstract ViewModel bindReceiptsViewModel(ReceiptsViewModel userViewModel);
 
   @Binds
   abstract ViewModelProvider.Factory bindViewModelFactory(DaggerViewModelFactory factory);
