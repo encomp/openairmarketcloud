@@ -77,9 +77,9 @@ public class ReceiptsFragment extends DaggerFragment {
             getFragmentManager(), receiptsViewModel, getContext(), viewPager, tabLayout);
     setUpBottomSheet();
     bottomAppBar.replaceMenu(R.menu.bottom_app_bar_receipts);
-    textInputEditText.setOnKeyListener(this::onKey);
-    floatingActionButton.setOnClickListener(this::onClick);
     bottomAppBar.setOnMenuItemClickListener(this::onMenuItemClick);
+    floatingActionButton.setOnClickListener(this::onClick);
+    textInputEditText.setOnKeyListener(this::onKey);
     return view;
   }
 
@@ -90,12 +90,9 @@ public class ReceiptsFragment extends DaggerFragment {
     BottomSheetBehavior.from(bottomSheetInternal).setPeekHeight(400);
   }
 
-  private boolean onKey(View view, int keyCode, KeyEvent event) {
-    if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
-      String productId = textInputEditText.getText().toString();
-      textInputEditText.getText().clear();
-      productsRepository.findProductById(productId, this::onSuccess, this::onFailure);
-      Timber.tag(TAG).d("Searching for Product: " + productId);
+  private boolean onMenuItemClick(MenuItem menuItem) {
+    if (menuItem.getItemId() == R.id.quick_access) {
+      bottomSheetDialog.show();
       return true;
     }
     return false;
@@ -107,9 +104,12 @@ public class ReceiptsFragment extends DaggerFragment {
     productsRepository.findProductById(productId, this::onSuccess, this::onFailure);
   }
 
-  private boolean onMenuItemClick(MenuItem menuItem) {
-    if (menuItem.getItemId() == R.id.quick_access) {
-      bottomSheetDialog.show();
+  private boolean onKey(View view, int keyCode, KeyEvent event) {
+    if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+      String productId = textInputEditText.getText().toString();
+      textInputEditText.getText().clear();
+      productsRepository.findProductById(productId, this::onSuccess, this::onFailure);
+      Timber.tag(TAG).d("Searching for Product: " + productId);
       return true;
     }
     return false;
