@@ -5,16 +5,6 @@
 
     <item
         android:enabled="true"
-        android:icon="@drawable/ic_store"
-        android:title="Sale"/>
-
-    <item
-        android:enabled="true"
-        android:icon="@drawable/ic_shopping_basket"
-        android:title="Sale"/>
-
-    <item
-        android:enabled="true"
         android:icon="@drawable/ic_bookmark"
-        android:title="Sale"/>
+        android:title="@string/bottom_sheet_quick_access"/>
 </menu>
