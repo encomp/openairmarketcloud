@@ -87,7 +87,7 @@ public class ReceiptsFragment extends DaggerFragment {
     bottomSheetDialog = new BottomSheetDialog(getActivity());
     bottomSheetDialog.setContentView(R.layout.bottomsheet_quick_buttons);
     View bottomSheetInternal = bottomSheetDialog.findViewById(R.id.design_bottom_sheet);
-    BottomSheetBehavior.from(bottomSheetInternal).setPeekHeight(400);
+    BottomSheetBehavior.from(bottomSheetInternal).setPeekHeight(300);
   }
 
   private boolean onMenuItemClick(MenuItem menuItem) {
