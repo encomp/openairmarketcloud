@@ -82,37 +82,44 @@
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="256dp" />
 
-    <LinearLayout
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/guideline"
         android:layout_marginStart="@dimen/shrine_large_spacing"
         android:layout_marginEnd="@dimen/shrine_large_spacing"
-        android:background="@color/grey_300"
-        android:orientation="horizontal"
-        android:padding="@dimen/shrine_small_spacing"
+        android:backgroundTint="@color/grey_300"
+        app:cardCornerRadius="@dimen/shrine_tiny_spacing"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline">
 
-        <TextView
-            style="@style/Widget.Shrine.TextView"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="end"
-            android:paddingStart="@dimen/shrine_large_spacing"
-            android:paddingEnd="@dimen/shrine_large_spacing"
-            android:text="@string/receipt_total" />
+            android:orientation="horizontal"
+            android:padding="@dimen/shrine_small_spacing">
 
-        <TextView
-            android:id="@+id/total_tv"
-            style="@style/Widget.Shrine.TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="end"
-            android:paddingStart="@dimen/shrine_large_spacing"
-            android:paddingEnd="@dimen/shrine_large_spacing"
-            tools:text="$20.23" />
-    </LinearLayout>
+            <TextView
+                style="@style/Widget.Shrine.TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:paddingStart="@dimen/shrine_large_spacing"
+                android:paddingEnd="@dimen/shrine_large_spacing"
+                android:text="@string/receipt_total" />
+
+            <TextView
+                android:id="@+id/total_tv"
+                style="@style/Widget.Shrine.TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:paddingStart="@dimen/shrine_large_spacing"
+                android:paddingEnd="@dimen/shrine_large_spacing"
+                tools:text="$20.23" />
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
