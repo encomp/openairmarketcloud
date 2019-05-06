@@ -1,9 +1,9 @@
 package com.toolinc.openairmarket.ui.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -13,6 +13,9 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
+import com.google.android.material.bottomappbar.BottomAppBar;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
@@ -46,14 +49,17 @@ public class ReceiptsFragment extends DaggerFragment {
   TextInputEditText textInputEditText;
 
   private ReceiptsViewModel receiptsViewModel;
+  private BottomAppBar bottomAppBar;
+  private BottomSheetDialog bottomSheetDialog;
   private FloatingActionButton floatingActionButton;
   private ReceiptFragmentStatePagerAdapter receiptFragmentStatePagerAdapter;
 
   @Override
-  public void onAttach(Context context) {
-    super.onAttach(context);
+  public void onCreate(@Nullable Bundle bundle) {
+    super.onCreate(bundle);
+    setHasOptionsMenu(true);
     receiptsViewModel =
-        ViewModelProviders.of((MainActivity) context, viewModelFactory)
+        ViewModelProviders.of((MainActivity) getActivity(), viewModelFactory)
             .get(ReceiptsViewModel.class);
   }
 
@@ -64,13 +70,24 @@ public class ReceiptsFragment extends DaggerFragment {
     View view =
         layoutInflater.inflate(R.layout.fragment_receipts, viewGroup, false /* attachToRoot */);
     ButterKnife.bind(this, view);
+    bottomAppBar = getActivity().findViewById(R.id.bottom_app_bar);
     floatingActionButton = getActivity().findViewById(R.id.fab_add_to_receipt);
     receiptFragmentStatePagerAdapter =
         new ReceiptFragmentStatePagerAdapter(
             getFragmentManager(), receiptsViewModel, getContext(), viewPager, tabLayout);
+    setUpBottomSheet();
+    bottomAppBar.replaceMenu(R.menu.bottom_app_bar_receipts);
     textInputEditText.setOnKeyListener(this::onKey);
     floatingActionButton.setOnClickListener(this::onClick);
+    bottomAppBar.setOnMenuItemClickListener(this::onMenuItemClick);
     return view;
+  }
+
+  private void setUpBottomSheet() {
+    bottomSheetDialog = new BottomSheetDialog(getActivity());
+    bottomSheetDialog.setContentView(R.layout.bottomsheet_quick_buttons);
+    View bottomSheetInternal = bottomSheetDialog.findViewById(R.id.design_bottom_sheet);
+    BottomSheetBehavior.from(bottomSheetInternal).setPeekHeight(400);
   }
 
   private boolean onKey(View view, int keyCode, KeyEvent event) {
@@ -88,6 +105,14 @@ public class ReceiptsFragment extends DaggerFragment {
     String productId = textInputEditText.getText().toString();
     textInputEditText.getText().clear();
     productsRepository.findProductById(productId, this::onSuccess, this::onFailure);
+  }
+
+  private boolean onMenuItemClick(MenuItem menuItem) {
+    if (menuItem.getItemId() == R.id.quick_access) {
+      bottomSheetDialog.show();
+      return true;
+    }
+    return false;
   }
 
   void onSuccess(Product product) {

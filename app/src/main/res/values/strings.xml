@@ -37,7 +37,7 @@
     <string name="receipt_code_bar_label">Code Bar</string>
 
     <!-- BottomSheet menu labels -->
-    <string name="bottom_sheet_quick_access">Quick Access</string>
+    <string name="bottom_sheet_quick_access">Quick Access Products.</string>
 
     <!-- Receipt table fragment -->
     <string name="receipt_row">Row</string>
