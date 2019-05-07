@@ -29,77 +29,18 @@
             android:textColor="@color/textColorSecondary" />
     </FrameLayout>
 
-    <GridLayout
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="@dimen/shrine_small_spacing"
-        android:clipToPadding="false"
-        android:columnCount="2">
+        android:orientation="vertical">
 
-        <Button
-            style="@style/Widget.Shrine.Button.OutlinedButton.Accent"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/quick_access_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_gravity="center_horizontal"
             android:layout_margin="@dimen/shrine_small_spacing"
-            android:text="Ham Fud" />
+            android:clipToPadding="false" />
+    </LinearLayout>
 
-        <Button
-            style="@style/Widget.Shrine.Button.OutlinedButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="@dimen/shrine_small_spacing"
-            android:text="Turkey Ham" />
-
-        <Button
-            style="@style/Widget.Shrine.Button.OutlinedButton.Accent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="@dimen/shrine_small_spacing"
-            android:text="Ham Gali" />
-
-        <Button
-            style="@style/Widget.Shrine.Button.OutlinedButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="@dimen/shrine_small_spacing"
-            android:text="American Cheese" />
-
-        <Button
-            style="@style/Widget.Shrine.Button.OutlinedButton.Accent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="@dimen/shrine_small_spacing"
-            android:text="Cheese" />
-
-        <Button
-            style="@style/Widget.Shrine.Button.OutlinedButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="@dimen/shrine_small_spacing"
-            android:text="Oaxaca Cheese" />
-
-        <Button
-            style="@style/Widget.Shrine.Button.OutlinedButton.Accent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="@dimen/shrine_small_spacing"
-            android:text="Bacon" />
-
-        <Button
-            style="@style/Widget.Shrine.Button.OutlinedButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="@dimen/shrine_small_spacing"
-            android:text="Pork Sausage" />
-
-    </GridLayout>
 </LinearLayout>

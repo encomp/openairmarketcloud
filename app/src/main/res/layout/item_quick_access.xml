@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="quickAccess"
+            type="com.toolinc.openairmarket.model.QuickAccess" />
+    </data>
+
+    <FrameLayout
+        android:id="@+id/quick_access_btn_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/shrine_small_spacing" />
+
+</layout>

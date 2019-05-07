@@ -1,0 +1,78 @@
+package com.toolinc.openairmarket.ui.adapter;
+
+import android.graphics.PorterDuff;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.view.ContextThemeWrapper;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.button.MaterialButton;
+import com.google.common.collect.ImmutableList;
+import com.toolinc.openairmarket.R;
+import com.toolinc.openairmarket.databinding.ItemQuickAccessBinding;
+import com.toolinc.openairmarket.model.QuickAccess;
+
+/**
+ * Adapter that provides a binding from an {@link ImmutableList} of {@link QuickAccess} to the view
+ * {@code R.layout.item_quick_access} displayed within a RecyclerView.
+ */
+public final class QuickAccessListAdapter
+    extends RecyclerView.Adapter<QuickAccessListAdapter.QuickAccessViewHolder> {
+
+  private ImmutableList<QuickAccess> quickAccesses = ImmutableList.of();
+
+  @NonNull
+  @Override
+  public QuickAccessViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+    LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
+    ItemQuickAccessBinding itemBinding = ItemQuickAccessBinding.inflate(inflater, viewGroup, false);
+    return new QuickAccessViewHolder(itemBinding);
+  }
+
+  @Override
+  public void onBindViewHolder(@NonNull QuickAccessViewHolder holder, int position) {
+    QuickAccess quickAccess = quickAccesses.get(position);
+    FrameLayout frameLayout =
+        holder.itemBinding.getRoot().findViewById(R.id.quick_access_btn_container);
+    ContextThemeWrapper contextThemeWrapper =
+        new ContextThemeWrapper(holder.itemBinding.getRoot().getContext(), quickAccess.style());
+    MaterialButton button = new MaterialButton(contextThemeWrapper, null, quickAccess.style());
+    button.setBackgroundTintMode(PorterDuff.Mode.CLEAR);
+    button.setRippleColorResource(quickAccess.rippleColor());
+    button.setText(quickAccess.shortDesc());
+
+    LinearLayout.LayoutParams layoutParams =
+        new LinearLayout.LayoutParams(
+            ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+    layoutParams.gravity = Gravity.CENTER;
+    button.setLayoutParams(layoutParams);
+
+    frameLayout.addView(button);
+    holder.itemBinding.setQuickAccess(quickAccess);
+  }
+
+  @Override
+  public int getItemCount() {
+    return quickAccesses.size();
+  }
+
+  public void setQuickAccesses(ImmutableList<QuickAccess> quickAccesses) {
+    this.quickAccesses = quickAccesses;
+  }
+
+  /** Describes a {@link QuickAccess} item about its place within the RecyclerView. */
+  public static final class QuickAccessViewHolder extends RecyclerView.ViewHolder {
+
+    private final ItemQuickAccessBinding itemBinding;
+
+    public QuickAccessViewHolder(@NonNull ItemQuickAccessBinding itemBinding) {
+      super(itemBinding.getRoot());
+      this.itemBinding = itemBinding;
+    }
+  }
+}

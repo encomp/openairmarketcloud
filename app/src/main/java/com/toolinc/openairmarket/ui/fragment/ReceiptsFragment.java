@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.bottomappbar.BottomAppBar;
@@ -20,9 +22,11 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
 import com.toolinc.openairmarket.R;
+import com.toolinc.openairmarket.model.QuickAccess;
 import com.toolinc.openairmarket.persistence.cloud.ProductsRepository;
 import com.toolinc.openairmarket.pos.persistence.model.product.Product;
 import com.toolinc.openairmarket.ui.MainActivity;
+import com.toolinc.openairmarket.ui.adapter.QuickAccessListAdapter;
 import com.toolinc.openairmarket.viewmodel.ReceiptsViewModel;
 
 import javax.inject.Inject;
@@ -36,6 +40,7 @@ import timber.log.Timber;
 public class ReceiptsFragment extends DaggerFragment {
 
   private static final String TAG = ReceiptsFragment.class.getSimpleName();
+
   @Inject ViewModelProvider.Factory viewModelFactory;
   @Inject ProductsRepository productsRepository;
 
@@ -86,6 +91,12 @@ public class ReceiptsFragment extends DaggerFragment {
   private void setUpBottomSheet() {
     bottomSheetDialog = new BottomSheetDialog(getActivity());
     bottomSheetDialog.setContentView(R.layout.bottomsheet_quick_buttons);
+    RecyclerView recyclerView = bottomSheetDialog.findViewById(R.id.quick_access_btn);
+    QuickAccessListAdapter adapter = new QuickAccessListAdapter();
+    adapter.setQuickAccesses(QuickAccess.quickAccessesButtons());
+    recyclerView.setAdapter(adapter);
+    GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
+    recyclerView.setLayoutManager(gridLayoutManager);
     View bottomSheetInternal = bottomSheetDialog.findViewById(R.id.design_bottom_sheet);
     BottomSheetBehavior.from(bottomSheetInternal).setPeekHeight(300);
   }
