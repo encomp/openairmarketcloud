@@ -92,8 +92,8 @@ public class ReceiptsFragment extends DaggerFragment {
     bottomSheetDialog = new BottomSheetDialog(getActivity());
     bottomSheetDialog.setContentView(R.layout.bottomsheet_quick_buttons);
     RecyclerView recyclerView = bottomSheetDialog.findViewById(R.id.quick_access_btn);
-    QuickAccessListAdapter adapter = new QuickAccessListAdapter();
-    adapter.setQuickAccesses(QuickAccess.quickAccessesButtons());
+    QuickAccessListAdapter adapter =
+        new QuickAccessListAdapter(QuickAccess.quickAccessesButtons(), this::onClickQuick);
     recyclerView.setAdapter(adapter);
     GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
     recyclerView.setLayoutManager(gridLayoutManager);
@@ -124,6 +124,11 @@ public class ReceiptsFragment extends DaggerFragment {
       return true;
     }
     return false;
+  }
+
+  private void onClickQuick(String productId) {
+    bottomSheetDialog.cancel();
+    productsRepository.findProductById(productId, this::onSuccess, this::onFailure);
   }
 
   void onSuccess(Product product) {
