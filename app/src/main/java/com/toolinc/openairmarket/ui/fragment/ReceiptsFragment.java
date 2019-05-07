@@ -127,7 +127,6 @@ public class ReceiptsFragment extends DaggerFragment {
   }
 
   private void onClickQuickAccess(String productId) {
-    bottomSheetDialog.cancel();
     productsRepository.findProductById(productId, this::onSuccess, this::onFailure);
   }
 
