@@ -28,7 +28,7 @@ public final class QuickAccessListAdapter
 
   /** Specifies the quick access product that was click by the user. */
   public interface OnClick {
-    void onClickQuick(String productId);
+    void onClickQuickAccess(String productId);
   }
 
   private final ImmutableList<QuickAccess> quickAccesses;
@@ -87,7 +87,7 @@ public final class QuickAccessListAdapter
 
     @Override
     public void onClick(View v) {
-      onClick.onClickQuick(itemBinding.getQuickAccess().productId());
+      onClick.onClickQuickAccess(itemBinding.getQuickAccess().productId());
     }
   }
 }
