@@ -3,7 +3,7 @@
     <style name="Theme.Shrine" parent="Base.Theme.Shrine" />
 
     <!-- TODO: Remove this line. -->
-    <style name="AppTheme" parent="Theme.Shrine"/>
+    <style name="AppTheme" parent="Theme.Shrine" />
 
     <style name="Theme.Shrine.Launcher">
         <item name="colorPrimaryDark">?attr/colorPrimary</item>
