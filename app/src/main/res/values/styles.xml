@@ -139,6 +139,18 @@
         <item name="android:textSize">14sp</item>
     </style>
 
+    <style name="Widget.Shrine.Button.OutlinedButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="rippleColor">@color/btn_text_btn_ripple_color_accent</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="strokeColor">@color/colorAccent</item>
+    </style>
+
+    <style name="Widget.Shrine.Button.OutlinedButton.Accent" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="rippleColor">@color/btn_text_btn_ripple_color_accent2</item>
+        <item name="android:textColor">@color/colorAccent2</item>
+        <item name="strokeColor">@color/colorAccent2</item>
+    </style>
+
     <!-- Login -->
     <style name="ThemeOverlay.LoginIcon" parent="Theme.Shrine">
         <item name="android:layout_marginTop">@dimen/icon_top_margin</item>

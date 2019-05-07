@@ -67,7 +67,7 @@
                 android:layout_width="130dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/shrine_standard_spacing"
-                android:backgroundTint="#ff1744"
+                android:backgroundTint="@color/red"
                 android:text="@string/receipt_cancel_btn"
                 app:icon="@drawable/ic_close" />
 

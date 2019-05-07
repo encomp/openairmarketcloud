@@ -4,7 +4,9 @@
     <color name="colorPrimary">#ffffff</color>
     <color name="colorPrimaryDark">#e0e0e0</color>
     <color name="colorAccent">#039BE5</color>
+    <color name="btn_text_btn_ripple_color_accent">#63CCFF</color>
     <color name="colorAccent2">#FFA000</color>
+    <color name="btn_text_btn_ripple_color_accent2">#FFD149</color>
     <color name="textColorPrimary">#dd000000</color>
     <color name="textColorSecondary">#89000000</color>
 
@@ -25,4 +27,7 @@
     <!-- Light Blue -->
     <color name="light_blue_50">#E1F5FE</color>
     <color name="light_blue_100">#b3e5fc</color>
+
+    <!-- Red -->
+    <color name="red">#FF1744</color>
 </resources>

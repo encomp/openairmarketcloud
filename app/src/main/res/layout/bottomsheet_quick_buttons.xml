@@ -4,7 +4,7 @@
     android:id="@+id/bottom_drawer"
     style="@style/Widget.MaterialComponents.BottomSheet.Modal"
     android:layout_width="match_parent"
-    android:layout_height="500dp"
+    android:layout_height="400dp"
     android:orientation="vertical">
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -15,7 +15,7 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <TextView
@@ -29,4 +29,61 @@
             android:textColor="@color/textColorSecondary" />
     </FrameLayout>
 
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/shrine_small_spacing"
+        android:clipToPadding="false"
+        android:columnCount="2">
+
+        <Button
+            style="@style/Widget.Shrine.Button.OutlinedButton.Accent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/shrine_small_spacing"
+            android:text="Ham Fud" />
+
+        <Button
+            style="@style/Widget.Shrine.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/shrine_small_spacing"
+            android:text="Turkey Ham" />
+
+        <Button
+            style="@style/Widget.Shrine.Button.OutlinedButton.Accent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/shrine_small_spacing"
+            android:text="Ham Gali" />
+
+        <Button
+            style="@style/Widget.Shrine.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/shrine_small_spacing"
+            android:text="American Cheese" />
+
+        <Button
+            style="@style/Widget.Shrine.Button.OutlinedButton.Accent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/shrine_small_spacing"
+            android:text="Cheese" />
+
+        <Button
+            style="@style/Widget.Shrine.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/shrine_small_spacing"
+            android:text="Oaxaca Cheese" />
+
+    </GridLayout>
 </LinearLayout>
