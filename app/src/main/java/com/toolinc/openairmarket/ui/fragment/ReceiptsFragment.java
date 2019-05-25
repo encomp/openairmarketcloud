@@ -2,6 +2,7 @@ package com.toolinc.openairmarket.ui.fragment;
 
 import android.app.AlertDialog;
 import android.graphics.PorterDuff;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -159,7 +160,9 @@ public class ReceiptsFragment extends DaggerFragment {
           params.setMargins(10, 0, 0, 0);
           Button positiveBtn = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
           positiveBtn.setBackgroundTintMode(PorterDuff.Mode.CLEAR);
-          positiveBtn.setTextColor(getContext().getColor(R.color.colorAccent));
+          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            positiveBtn.setTextColor(getContext().getColor(R.color.colorAccent));
+          }
           positiveBtn.setLayoutParams(params);
 
           params =
@@ -168,7 +171,9 @@ public class ReceiptsFragment extends DaggerFragment {
           params.setMargins(0, 0, 10, 0);
           Button negativeBtn = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
           negativeBtn.setBackgroundTintMode(PorterDuff.Mode.CLEAR);
-          negativeBtn.setTextColor(getContext().getColor(R.color.red));
+          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            negativeBtn.setTextColor(getContext().getColor(R.color.red));
+          }
           negativeBtn.setLayoutParams(params);
         });
     alertDialog.show();
