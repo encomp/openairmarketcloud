@@ -145,6 +145,18 @@ public class ReceiptsFragment extends DaggerFragment {
     final AlertDialog alertDialog =
         new AlertDialog.Builder(getContext()).setView(R.layout.dialog_complete_sale).create();
 
+    alertDialog.setOnShowListener(
+        (dialog) -> {
+          alertDialog
+              .findViewById(R.id.btn_positive)
+              .setOnClickListener(
+                  (viewBtn) -> {
+                    dialog.cancel();
+                  });
+          alertDialog
+              .findViewById(R.id.btn_negative)
+              .setOnClickListener((viewBtn) -> dialog.cancel());
+        });
     alertDialog.show();
   }
 
