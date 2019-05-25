@@ -30,4 +30,5 @@
 
     <!-- Red -->
     <color name="red">#FF1744</color>
+    <color name="btn_text_btn_ripple_color_red">#FF616F</color>
 </resources>

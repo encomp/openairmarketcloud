@@ -145,6 +145,12 @@
         <item name="strokeColor">@color/colorAccent</item>
     </style>
 
+    <style name="Widget.Shrine.Button.OutlinedButton.Red" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="rippleColor">@color/btn_text_btn_ripple_color_red</item>
+        <item name="android:textColor">@color/red</item>
+        <item name="strokeColor">@color/red</item>
+    </style>
+
     <style name="Widget.Shrine.Button.OutlinedButton.Accent" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="rippleColor">@color/btn_text_btn_ripple_color_accent2</item>
         <item name="android:textColor">@color/colorAccent2</item>

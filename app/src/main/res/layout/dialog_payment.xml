@@ -6,13 +6,34 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        style="@style/TextAppearance.AppCompat.Title"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:padding="@dimen/shrine_small_spacing"
-        android:text="@string/payment_sale_dialog_title" />
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/shrine_standard_spacing"
+            android:layout_marginTop="@dimen/shrine_standard_spacing"
+            android:contentDescription="@string/payment_sale_dialog_image_description"
+            app:srcCompat="@drawable/ic_shopping_cart" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/TextAppearance.AppCompat.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="24dp"
+                android:padding="@dimen/shrine_small_spacing"
+                android:text="@string/payment_sale_dialog_title" />
+        </FrameLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -70,5 +91,28 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/shrine_small_spacing"
             tools:text="$2.86" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_margin="@dimen/shrine_standard_spacing"
+        android:orientation="horizontal">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_negative"
+            style="@style/Widget.Shrine.Button.OutlinedButton.Red"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/shrine_standard_spacing"
+            android:text="@string/cancel_sale_dialog_negative_btn" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_positive"
+            style="@style/Widget.Shrine.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel_sale_dialog_positive_btn" />
     </LinearLayout>
 </LinearLayout>

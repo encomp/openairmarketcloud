@@ -41,6 +41,7 @@
     <string name="cancel_sale_dialog_positive_btn">Yes</string>
     <string name="cancel_sale_dialog_negative_btn">No</string>
     <!-- Payment Dialog -->
+    <string name="payment_sale_dialog_image_description">Shopping car</string>
     <string name="payment_sale_dialog_title">Complete Sale</string>
     <string name="payment_sale_dialog_total_label">Total Amount:</string>
     <string name="payment_sale_dialog_payment_label">Payment</string>
