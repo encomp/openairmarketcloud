@@ -46,7 +46,7 @@
     <string name="payment_sale_dialog_image_description">Shopping cart</string>
     <string name="payment_sale_dialog_title">Complete Sale</string>
     <string name="payment_sale_dialog_total_label">Total Amount:</string>
-    <string name="payment_sale_dialog_payment_label">Payment</string>
+    <string name="payment_sale_dialog_payment_label">Payment Amount</string>
     <string name="payment_sale_dialog_change_label">Change:</string>
     <!-- BottomSheet menu labels -->
     <string name="bottom_sheet_quick_access">Quick Access Products.</string>

@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,16 +21,21 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
+import com.toolinc.openairmarket.OpenAirMarketApplication;
 import com.toolinc.openairmarket.R;
 import com.toolinc.openairmarket.model.QuickAccess;
 import com.toolinc.openairmarket.persistence.cloud.ProductsRepository;
 import com.toolinc.openairmarket.pos.persistence.model.product.Product;
 import com.toolinc.openairmarket.ui.MainActivity;
 import com.toolinc.openairmarket.ui.adapter.QuickAccessListAdapter;
+import com.toolinc.openairmarket.viewmodel.ReceiptViewModel;
 import com.toolinc.openairmarket.viewmodel.ReceiptsViewModel;
+
+import java.math.BigDecimal;
 
 import javax.inject.Inject;
 
@@ -147,12 +153,38 @@ public class ReceiptsFragment extends DaggerFragment {
 
     alertDialog.setOnShowListener(
         (dialog) -> {
-          alertDialog
-              .findViewById(R.id.btn_positive)
-              .setOnClickListener(
-                  (viewBtn) -> {
-                    dialog.cancel();
-                  });
+          final TextInputEditText tietPayment = alertDialog.findViewById(R.id.tiet_payment_amount);
+          final TextView tvTotal = alertDialog.findViewById(R.id.tv_total_amount);
+          final TextView tvChange = alertDialog.findViewById(R.id.tv_change_amount);
+          final MaterialButton mbPositive = alertDialog.findViewById(R.id.btn_positive);
+          final ReceiptViewModel receiptViewModel =
+              receiptFragmentStatePagerAdapter.getReceiptViewModel();
+          final BigDecimal total = receiptViewModel.getAmountDue().getValue();
+          tvTotal.setText(OpenAirMarketApplication.toString(total));
+          tvChange.setText(OpenAirMarketApplication.toString(BigDecimal.ZERO));
+          tietPayment.setOnKeyListener(
+              (viewDialog, keyCode, event) -> {
+                Timber.tag(TAG).d("Payment Amount: [%s].", tietPayment.getText().toString());
+                try {
+                  BigDecimal paymentAmount = new BigDecimal(tietPayment.getText().toString());
+                  BigDecimal change = paymentAmount.subtract(total);
+                  tvChange.setText(OpenAirMarketApplication.toString(change));
+                  if (change.compareTo(BigDecimal.ZERO) >= 0) {
+                    mbPositive.setVisibility(View.VISIBLE);
+                  } else {
+                    mbPositive.setVisibility(View.GONE);
+                  }
+                } catch (NumberFormatException exc) {
+                  tvChange.setText(OpenAirMarketApplication.toString(BigDecimal.ZERO));
+                  mbPositive.setVisibility(View.GONE);
+                }
+                return false;
+              });
+          mbPositive.setVisibility(View.GONE);
+          mbPositive.setOnClickListener(
+              (viewBtn) -> {
+                dialog.cancel();
+              });
           alertDialog
               .findViewById(R.id.btn_negative)
               .setOnClickListener((viewBtn) -> dialog.cancel());

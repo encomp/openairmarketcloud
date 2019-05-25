@@ -63,14 +63,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/shrine_standard_spacing"
         android:layout_marginEnd="@dimen/shrine_standard_spacing"
-        android:hint="@string/payment_sale_dialog_payment_label"
-        app:helperText="@string/payment_sale_dialog_payment_label"
-        app:helperTextEnabled="true">
+        android:hint="@string/payment_sale_dialog_payment_label">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/tiet_payment_amount"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
@@ -108,7 +107,6 @@
             style="@style/Widget.Shrine.Button.OutlinedButton.Red"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/shrine_standard_spacing"
             android:text="@string/sale_dialog_negative_btn" />
 
         <com.google.android.material.button.MaterialButton
@@ -116,6 +114,7 @@
             style="@style/Widget.Shrine.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/shrine_standard_spacing"
             android:text="@string/sale_dialog_positive_btn" />
     </LinearLayout>
 </LinearLayout>
