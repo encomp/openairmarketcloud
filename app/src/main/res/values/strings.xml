@@ -35,13 +35,15 @@
     <string name="receipt_pay_btn">Pay</string>
     <string name="receipt_code_bar_hint">Code Bar</string>
     <string name="receipt_code_bar_label">Code Bar</string>
+    <!-- Dialog Buttons -->
+    <string name="sale_dialog_positive_btn">Yes</string>
+    <string name="sale_dialog_negative_btn">No</string>
     <!-- Cancel Dialog -->
-    <string name="cancel_sale_dialog_title">Cancel</string>
+    <string name="cancel_sale_dialog_title">Cancel Sale</string>
+    <string name="cancel_sale_dialog_image_description">Cancel shopping cart</string>
     <string name="cancel_sale_dialog_message">Are you sure you want to Cancel the sale?</string>
-    <string name="cancel_sale_dialog_positive_btn">Yes</string>
-    <string name="cancel_sale_dialog_negative_btn">No</string>
     <!-- Payment Dialog -->
-    <string name="payment_sale_dialog_image_description">Shopping car</string>
+    <string name="payment_sale_dialog_image_description">Shopping cart</string>
     <string name="payment_sale_dialog_title">Complete Sale</string>
     <string name="payment_sale_dialog_total_label">Total Amount:</string>
     <string name="payment_sale_dialog_payment_label">Payment</string>
