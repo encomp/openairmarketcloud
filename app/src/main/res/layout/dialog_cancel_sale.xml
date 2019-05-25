@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -40,15 +39,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:padding="@dimen/shrine_small_spacing"
-        android:text="@string/cancel_sale_dialog_message"/>
+        android:layout_marginStart="@dimen/shrine_standard_spacing"
+        android:layout_marginEnd="@dimen/shrine_standard_spacing"
+        android:paddingTop="@dimen/shrine_small_spacing"
+        android:paddingBottom="@dimen/shrine_small_spacing"
+        android:text="@string/cancel_sale_dialog_message"
+        android:textAlignment="center" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
-        android:layout_margin="@dimen/shrine_standard_spacing"
-        android:orientation="horizontal">
+        android:layout_marginEnd="@dimen/shrine_standard_spacing"
+        android:orientation="horizontal"
+        android:padding="@dimen/shrine_small_spacing">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_negative"
