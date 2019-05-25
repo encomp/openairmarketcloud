@@ -1,9 +1,6 @@
 package com.toolinc.openairmarket.ui.fragment;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.graphics.PorterDuff;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -11,7 +8,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -97,8 +93,8 @@ public class ReceiptsFragment extends DaggerFragment {
     bottomAppBar.setOnMenuItemClickListener(this::onMenuItemClick);
     floatingActionButton.setOnClickListener(this::onClick);
     textInputEditText.setOnKeyListener(this::onKey);
-    payBtn.setOnClickListener(this::onClickCompleteSale);
-    cancelBtn.setOnClickListener(this::onClickCancelSale);
+    payBtn.setOnClickListener(this::displayCompleteSaleDialog);
+    cancelBtn.setOnClickListener(this::displayCancelSaleDialog);
     return view;
   }
 
@@ -145,55 +141,31 @@ public class ReceiptsFragment extends DaggerFragment {
     productsRepository.findProductById(productId, this::onSuccess, this::onFailure);
   }
 
-  private void onClickCompleteSale(View view) {
+  private void displayCompleteSaleDialog(View view) {
     final AlertDialog alertDialog =
-        new AlertDialog.Builder(getContext())
-            .setView(R.layout.dialog_complete_sale)
-            .create();
+        new AlertDialog.Builder(getContext()).setView(R.layout.dialog_complete_sale).create();
 
     alertDialog.show();
   }
 
-  private void onClickCancelSale(View view) {
+  private void displayCancelSaleDialog(View view) {
     final AlertDialog alertDialog =
-        new AlertDialog.Builder(getContext())
-            .setTitle(getString(R.string.cancel_sale_dialog_title))
-            .setMessage(getString(R.string.cancel_sale_dialog_message))
-            .setPositiveButton(
-                getString(R.string.sale_dialog_positive_btn), this::onClickCancel)
-            .setNegativeButton(getString(R.string.sale_dialog_negative_btn), null)
-            .setIcon(R.drawable.ic_remove_shopping)
-            .create();
+        new AlertDialog.Builder(getContext()).setView(R.layout.dialog_cancel_sale).create();
 
     alertDialog.setOnShowListener(
         (dialog) -> {
-          LinearLayout.LayoutParams params =
-              new LinearLayout.LayoutParams(
-                  LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-          params.setMargins(10, 0, 0, 0);
-          Button positiveBtn = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
-          positiveBtn.setBackgroundTintMode(PorterDuff.Mode.CLEAR);
-          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            positiveBtn.setTextColor(getContext().getColor(R.color.colorAccent));
-          }
-          positiveBtn.setLayoutParams(params);
-
-          params =
-              new LinearLayout.LayoutParams(
-                  LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-          params.setMargins(0, 0, 10, 0);
-          Button negativeBtn = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
-          negativeBtn.setBackgroundTintMode(PorterDuff.Mode.CLEAR);
-          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            negativeBtn.setTextColor(getContext().getColor(R.color.red));
-          }
-          negativeBtn.setLayoutParams(params);
+          alertDialog
+              .findViewById(R.id.btn_positive)
+              .setOnClickListener(
+                  (viewBtn) -> {
+                    receiptFragmentStatePagerAdapter.removeAllProducts();
+                    dialog.cancel();
+                  });
+          alertDialog
+              .findViewById(R.id.btn_negative)
+              .setOnClickListener((viewBtn) -> dialog.cancel());
         });
     alertDialog.show();
-  }
-
-  void onClickCancel(DialogInterface dialog, int which) {
-    receiptFragmentStatePagerAdapter.removeAllProducts();
   }
 
   void onSuccess(Product product) {
