@@ -24,8 +24,7 @@ public final class ReceiptViewModel {
   private final MutableLiveData<BigDecimal> amountDue = new MutableLiveData<>();
 
   public ReceiptViewModel() {
-    lines.postValue(ImmutableList.of());
-    amountDue.postValue(BigDecimal.ZERO);
+    removeAllProducts();
   }
 
   public void add(Product product) {
@@ -57,6 +56,13 @@ public final class ReceiptViewModel {
       amountDue.postValue(newTotal);
       Timber.tag(TAG).d("Complete existing product [%s]-[%s].", product.id(), product.getName());
     }
+  }
+
+  public void removeAllProducts() {
+    Timber.tag(TAG).d("Remove all products.");
+    productToSale.clear();
+    lines.postValue(ImmutableList.of());
+    amountDue.postValue(BigDecimal.ZERO);
   }
 
   public LiveData<ImmutableList<ProductLine>> getLines() {

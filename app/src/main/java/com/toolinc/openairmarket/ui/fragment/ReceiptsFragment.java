@@ -1,6 +1,7 @@
 package com.toolinc.openairmarket.ui.fragment;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.PorterDuff;
 import android.os.Build;
 import android.os.Bundle;
@@ -147,7 +148,7 @@ public class ReceiptsFragment extends DaggerFragment {
         new AlertDialog.Builder(getContext())
             .setTitle(getString(R.string.cancel_sale_dialog_title))
             .setMessage(getString(R.string.cancel_sale_dialog_message))
-            .setPositiveButton(getString(R.string.cancel_sale_dialog_positive_btn), null)
+            .setPositiveButton(getString(R.string.cancel_sale_dialog_positive_btn), this::onClickCancel)
             .setNegativeButton(getString(R.string.cancel_sale_dialog_negative_btn), null)
             .setIcon(R.drawable.ic_remove_shopping)
             .create();
@@ -177,6 +178,10 @@ public class ReceiptsFragment extends DaggerFragment {
           negativeBtn.setLayoutParams(params);
         });
     alertDialog.show();
+  }
+
+  void onClickCancel(DialogInterface dialog, int which) {
+    receiptFragmentStatePagerAdapter.removeAllProducts();
   }
 
   void onSuccess(Product product) {
