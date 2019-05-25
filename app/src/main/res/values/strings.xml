@@ -35,6 +35,11 @@
     <string name="receipt_pay_btn">Pay</string>
     <string name="receipt_code_bar_hint">Code Bar</string>
     <string name="receipt_code_bar_label">Code Bar</string>
+    <!-- Cancel Dialog -->
+    <string name="cancel_sale_dialog_title">Cancel</string>
+    <string name="cancel_sale_dialog_message">Are you sure you want to Cancel the sale?</string>
+    <string name="cancel_sale_dialog_positive_btn">Yes</string>
+    <string name="cancel_sale_dialog_negative_btn">No</string>
 
     <!-- BottomSheet menu labels -->
     <string name="bottom_sheet_quick_access">Quick Access Products.</string>

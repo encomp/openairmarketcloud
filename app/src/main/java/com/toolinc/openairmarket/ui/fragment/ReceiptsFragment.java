@@ -1,11 +1,15 @@
 package com.toolinc.openairmarket.ui.fragment;
 
+import android.app.AlertDialog;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -53,6 +57,12 @@ public class ReceiptsFragment extends DaggerFragment {
   @BindView(R.id.text_input_edit_text)
   TextInputEditText textInputEditText;
 
+  @BindView(R.id.cancel_btn)
+  Button cancelBtn;
+
+  @BindView(R.id.pay_btn)
+  Button payBtn;
+
   private ReceiptsViewModel receiptsViewModel;
   private BottomAppBar bottomAppBar;
   private BottomSheetDialog bottomSheetDialog;
@@ -85,6 +95,7 @@ public class ReceiptsFragment extends DaggerFragment {
     bottomAppBar.setOnMenuItemClickListener(this::onMenuItemClick);
     floatingActionButton.setOnClickListener(this::onClick);
     textInputEditText.setOnKeyListener(this::onKey);
+    cancelBtn.setOnClickListener(this::onClickCancelSale);
     return view;
   }
 
@@ -98,7 +109,7 @@ public class ReceiptsFragment extends DaggerFragment {
     GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
     recyclerView.setLayoutManager(gridLayoutManager);
     View bottomSheetInternal = bottomSheetDialog.findViewById(R.id.design_bottom_sheet);
-    BottomSheetBehavior.from(bottomSheetInternal).setPeekHeight(300);
+    BottomSheetBehavior.from(bottomSheetInternal).setPeekHeight(230);
   }
 
   private boolean onMenuItemClick(MenuItem menuItem) {
@@ -128,6 +139,39 @@ public class ReceiptsFragment extends DaggerFragment {
 
   private void onClickQuickAccess(String productId) {
     productsRepository.findProductById(productId, this::onSuccess, this::onFailure);
+  }
+
+  private void onClickCancelSale(View view) {
+    final AlertDialog alertDialog =
+        new AlertDialog.Builder(getContext())
+            .setTitle(getString(R.string.cancel_sale_dialog_title))
+            .setMessage(getString(R.string.cancel_sale_dialog_message))
+            .setPositiveButton(getString(R.string.cancel_sale_dialog_positive_btn), null)
+            .setNegativeButton(getString(R.string.cancel_sale_dialog_negative_btn), null)
+            .setIcon(R.drawable.ic_remove_shopping)
+            .create();
+
+    alertDialog.setOnShowListener(
+        (dialog) -> {
+          LinearLayout.LayoutParams params =
+              new LinearLayout.LayoutParams(
+                  LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+          params.setMargins(10, 0, 0, 0);
+          Button positiveBtn = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+          positiveBtn.setBackgroundTintMode(PorterDuff.Mode.CLEAR);
+          positiveBtn.setTextColor(getContext().getColor(R.color.colorAccent));
+          positiveBtn.setLayoutParams(params);
+
+          params =
+              new LinearLayout.LayoutParams(
+                  LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+          params.setMargins(0, 0, 10, 0);
+          Button negativeBtn = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+          negativeBtn.setBackgroundTintMode(PorterDuff.Mode.CLEAR);
+          negativeBtn.setTextColor(getContext().getColor(R.color.red));
+          negativeBtn.setLayoutParams(params);
+        });
+    alertDialog.show();
   }
 
   void onSuccess(Product product) {
