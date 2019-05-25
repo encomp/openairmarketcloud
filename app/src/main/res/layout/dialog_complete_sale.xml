@@ -49,6 +49,7 @@
             android:text="@string/payment_sale_dialog_total_label" />
 
         <TextView
+            android:id="@+id/tv_total_amount"
             style="@style/TextAppearance.AppCompat.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -67,7 +68,7 @@
         app:helperTextEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/text_input_edit_text_payment"
+            android:id="@+id/tiet_payment_amount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -86,6 +87,7 @@
             android:text="@string/payment_sale_dialog_change_label" />
 
         <TextView
+            android:id="@+id/tv_change_amount"
             style="@style/TextAppearance.AppCompat.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
