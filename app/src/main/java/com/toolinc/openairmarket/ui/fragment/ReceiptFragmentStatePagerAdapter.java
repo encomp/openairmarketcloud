@@ -75,7 +75,7 @@ public final class ReceiptFragmentStatePagerAdapter extends FragmentStatePagerAd
     getReceiptViewModel().removeAllProducts();
   }
 
-  private ReceiptViewModel getReceiptViewModel() {
+  ReceiptViewModel getReceiptViewModel() {
     FragmentReceiptViewModel fragmentReceiptViewModel =
         fragmentWithViewModels.get(tabLayout.getSelectedTabPosition());
     return fragmentReceiptViewModel.receiptViewModel();
