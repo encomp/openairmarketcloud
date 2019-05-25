@@ -97,6 +97,7 @@ public class ReceiptsFragment extends DaggerFragment {
     bottomAppBar.setOnMenuItemClickListener(this::onMenuItemClick);
     floatingActionButton.setOnClickListener(this::onClick);
     textInputEditText.setOnKeyListener(this::onKey);
+    payBtn.setOnClickListener(this::onClickCompleteSale);
     cancelBtn.setOnClickListener(this::onClickCancelSale);
     return view;
   }
@@ -144,14 +145,23 @@ public class ReceiptsFragment extends DaggerFragment {
     productsRepository.findProductById(productId, this::onSuccess, this::onFailure);
   }
 
+  private void onClickCompleteSale(View view) {
+    final AlertDialog alertDialog =
+        new AlertDialog.Builder(getContext())
+            .setView(R.layout.dialog_complete_sale)
+            .create();
+
+    alertDialog.show();
+  }
+
   private void onClickCancelSale(View view) {
     final AlertDialog alertDialog =
         new AlertDialog.Builder(getContext())
             .setTitle(getString(R.string.cancel_sale_dialog_title))
             .setMessage(getString(R.string.cancel_sale_dialog_message))
             .setPositiveButton(
-                getString(R.string.cancel_sale_dialog_positive_btn), this::onClickCancel)
-            .setNegativeButton(getString(R.string.cancel_sale_dialog_negative_btn), null)
+                getString(R.string.sale_dialog_positive_btn), this::onClickCancel)
+            .setNegativeButton(getString(R.string.sale_dialog_negative_btn), null)
             .setIcon(R.drawable.ic_remove_shopping)
             .create();
 
