@@ -41,7 +41,7 @@
     <!-- Cancel Dialog -->
     <string name="cancel_sale_dialog_title">Cancel Sale</string>
     <string name="cancel_sale_dialog_image_description">Cancel shopping cart</string>
-    <string name="cancel_sale_dialog_message">Are you sure you want to Cancel the sale?</string>
+    <string name="cancel_sale_dialog_message">Are you sure you want to CANCEL this Receipt?</string>
     <!-- Payment Dialog -->
     <string name="payment_sale_dialog_image_description">Shopping cart</string>
     <string name="payment_sale_dialog_title">Complete Sale</string>
