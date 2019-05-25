@@ -106,13 +106,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/shrine_standard_spacing"
-            android:text="@string/cancel_sale_dialog_negative_btn" />
+            android:text="@string/sale_dialog_negative_btn" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_positive"
             style="@style/Widget.Shrine.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/cancel_sale_dialog_positive_btn" />
+            android:text="@string/sale_dialog_positive_btn" />
     </LinearLayout>
 </LinearLayout>
