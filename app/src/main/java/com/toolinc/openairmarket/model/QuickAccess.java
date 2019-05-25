@@ -1,5 +1,7 @@
 package com.toolinc.openairmarket.model;
 
+import android.content.Context;
+
 import androidx.annotation.ColorRes;
 import androidx.annotation.StyleRes;
 
@@ -53,55 +55,55 @@ public abstract class QuickAccess {
 
   // TODO (edgarrico): Move this to a settings so that it can be changed and perhaps also store this
   //  information in room.
-  public static ImmutableList<QuickAccess> quickAccessesButtons() {
+  public static ImmutableList<QuickAccess> quickAccessesButtons(Context context) {
     return ImmutableList.of(
         QuickAccess.builder()
             .setStyle(BUTTON)
             .setRippleColor(BUTTON_RIPPLE)
-            .setProductId("1")
-            .setShortDesc("Fud Ham")
+            .setProductId(context.getString(R.string.product_one_id))
+            .setShortDesc(context.getString(R.string.product_one_label))
             .build(),
         QuickAccess.builder()
             .setStyle(BUTTON_ACCENT)
             .setRippleColor(BUTTON_ACCENT_RIPPLE)
-            .setProductId("2")
-            .setShortDesc("Turkey Ham")
+            .setProductId(context.getString(R.string.product_two_id))
+            .setShortDesc(context.getString(R.string.product_two_label))
             .build(),
         QuickAccess.builder()
             .setStyle(BUTTON)
             .setRippleColor(BUTTON_RIPPLE)
-            .setProductId("3")
-            .setShortDesc("Gali Ham")
+            .setProductId(context.getString(R.string.product_three_id))
+            .setShortDesc(context.getString(R.string.product_three_label))
             .build(),
         QuickAccess.builder()
             .setStyle(BUTTON_ACCENT)
             .setRippleColor(BUTTON_ACCENT_RIPPLE)
-            .setProductId("5")
-            .setShortDesc("American Cheese")
+            .setProductId(context.getString(R.string.product_four_id))
+            .setShortDesc(context.getString(R.string.product_four_label))
             .build(),
         QuickAccess.builder()
             .setStyle(BUTTON)
             .setRippleColor(BUTTON_RIPPLE)
-            .setProductId("7")
-            .setShortDesc("Cheese")
+            .setProductId(context.getString(R.string.product_five_id))
+            .setShortDesc(context.getString(R.string.product_five_label))
             .build(),
         QuickAccess.builder()
             .setStyle(BUTTON_ACCENT)
             .setRippleColor(BUTTON_ACCENT_RIPPLE)
-            .setProductId("6")
-            .setShortDesc("Oaxaca Chees")
+            .setProductId(context.getString(R.string.product_six_id))
+            .setShortDesc(context.getString(R.string.product_six_label))
             .build(),
         QuickAccess.builder()
             .setStyle(BUTTON)
             .setRippleColor(BUTTON_RIPPLE)
-            .setProductId("12")
-            .setShortDesc("Bacon")
+            .setProductId(context.getString(R.string.product_seven_id))
+            .setShortDesc(context.getString(R.string.product_seven_label))
             .build(),
         QuickAccess.builder()
             .setStyle(BUTTON_ACCENT)
             .setRippleColor(BUTTON_ACCENT_RIPPLE)
-            .setProductId("14")
-            .setShortDesc("Pork Sausage")
+            .setProductId(context.getString(R.string.product_eigth_id))
+            .setShortDesc(context.getString(R.string.product_eigth_label))
             .build());
   }
 }

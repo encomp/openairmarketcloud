@@ -106,7 +106,8 @@ public class ReceiptsFragment extends DaggerFragment {
     bottomSheetDialog.setContentView(R.layout.bottomsheet_quick_buttons);
     RecyclerView recyclerView = bottomSheetDialog.findViewById(R.id.quick_access_btn);
     QuickAccessListAdapter adapter =
-        new QuickAccessListAdapter(QuickAccess.quickAccessesButtons(), this::onClickQuickAccess);
+        new QuickAccessListAdapter(
+            QuickAccess.quickAccessesButtons(getContext()), this::onClickQuickAccess);
     recyclerView.setAdapter(adapter);
     GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
     recyclerView.setLayoutManager(gridLayoutManager);
@@ -148,7 +149,8 @@ public class ReceiptsFragment extends DaggerFragment {
         new AlertDialog.Builder(getContext())
             .setTitle(getString(R.string.cancel_sale_dialog_title))
             .setMessage(getString(R.string.cancel_sale_dialog_message))
-            .setPositiveButton(getString(R.string.cancel_sale_dialog_positive_btn), this::onClickCancel)
+            .setPositiveButton(
+                getString(R.string.cancel_sale_dialog_positive_btn), this::onClickCancel)
             .setNegativeButton(getString(R.string.cancel_sale_dialog_negative_btn), null)
             .setIcon(R.drawable.ic_remove_shopping)
             .create();
