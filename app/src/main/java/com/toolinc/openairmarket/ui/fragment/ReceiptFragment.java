@@ -13,12 +13,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.common.collect.ImmutableList;
+import com.toolinc.openairmarket.OpenAirMarketApplication;
 import com.toolinc.openairmarket.R;
 import com.toolinc.openairmarket.ui.adapter.SaleLineListAdapter;
 import com.toolinc.openairmarket.viewmodel.ReceiptViewModel.ProductLine;
 
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 
 import javax.inject.Inject;
 
@@ -61,11 +61,6 @@ public final class ReceiptFragment extends DaggerFragment {
 
   public void newTotalAmount(BigDecimal bigDecimal) {
     Timber.tag(TAG).d("New Total Amount: " + bigDecimal.toPlainString());
-    DecimalFormat moneyFormat = new DecimalFormat();
-    moneyFormat.setMinimumFractionDigits(0);
-    moneyFormat.setMaximumFractionDigits(4);
-    moneyFormat.setMaximumIntegerDigits(10);
-    moneyFormat.setMinimumIntegerDigits(0);
-    textView.setText(moneyFormat.format(bigDecimal));
+    textView.setText(OpenAirMarketApplication.toString(bigDecimal));
   }
 }

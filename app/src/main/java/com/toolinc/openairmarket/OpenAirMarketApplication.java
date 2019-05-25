@@ -13,6 +13,9 @@ import com.toolinc.openairmarket.common.work.WorkerFactoryDagger;
 import com.toolinc.openairmarket.inject.DaggerOpenAirMarketInjector;
 import com.toolinc.openairmarket.persistence.local.offline.OfflineDatabaseModule;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+
 import javax.inject.Inject;
 
 import dagger.android.AndroidInjector;
@@ -54,5 +57,14 @@ public class OpenAirMarketApplication extends Application implements HasActivity
   @Override
   public AndroidInjector<Activity> activityInjector() {
     return dispatchingActivityInjector;
+  }
+
+  public static String toString(BigDecimal bigDecimal) {
+    DecimalFormat moneyFormat = new DecimalFormat();
+    moneyFormat.setMinimumFractionDigits(0);
+    moneyFormat.setMaximumFractionDigits(4);
+    moneyFormat.setMaximumIntegerDigits(10);
+    moneyFormat.setMinimumIntegerDigits(0);
+    return moneyFormat.format(bigDecimal);
   }
 }
