@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ProgressBar;
@@ -27,14 +26,15 @@ import com.toolinc.openairmarket.databinding.ActivityEmailpasswordBinding;
 import javax.inject.Inject;
 
 import dagger.android.AndroidInjection;
+import timber.log.Timber;
 
 /** Creates a new user or login an existing user. */
 public final class EmailPasswordActivity extends AppCompatActivity implements View.OnClickListener {
 
-  private static final String TAG = "EmailPassword";
+  private static final String TAG = EmailPasswordActivity.class.getSimpleName();
+  private ActivityEmailpasswordBinding emailpasswordBinding;
   @VisibleForTesting ProgressBar mProgressDialog;
   @Inject FirebaseAuth mAuth;
-  private ActivityEmailpasswordBinding emailpasswordBinding;
 
   public void showProgressDialog() {
     if (mProgressDialog == null) {
@@ -85,7 +85,7 @@ public final class EmailPasswordActivity extends AppCompatActivity implements Vi
 
   @AddTrace(name = "EmailPasswordActivity.createAccount", enabled = true)
   private void createAccount(String email, String password) {
-    Log.d(TAG, "createAccount:" + email);
+    Timber.tag(TAG).d(TAG, "createAccount:" + email);
     if (!validateForm()) {
       return;
     }
@@ -99,12 +99,12 @@ public final class EmailPasswordActivity extends AppCompatActivity implements Vi
               public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                   // Sign in success, update UI with the signed-in user's information
-                  Log.d(TAG, "createUserWithEmail:success");
+                  Timber.tag(TAG).d("createUserWithEmail:success");
                   FirebaseUser user = mAuth.getCurrentUser();
                   updateUI(user);
                 } else {
                   // If sign in fails, display a message to the user.
-                  Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                  Timber.tag(TAG).w(task.getException(), "createUserWithEmail:failure.");
                   Toast.makeText(
                           EmailPasswordActivity.this, "Authentication failed.", Toast.LENGTH_SHORT)
                       .show();
@@ -117,7 +117,7 @@ public final class EmailPasswordActivity extends AppCompatActivity implements Vi
 
   @AddTrace(name = "EmailPasswordActivity.signIn", enabled = true)
   private void signIn(String email, String password) {
-    Log.d(TAG, "signIn:" + email);
+    Timber.tag(TAG).d("signIn:" + email);
     if (!validateForm()) {
       return;
     }
@@ -131,12 +131,12 @@ public final class EmailPasswordActivity extends AppCompatActivity implements Vi
               public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                   // Sign in success, update UI with the signed-in user's information
-                  Log.d(TAG, "signInWithEmail:success");
+                  Timber.tag(TAG).d("signInWithEmail:success");
                   FirebaseUser user = mAuth.getCurrentUser();
                   updateUI(user);
                 } else {
                   // If sign in fails, display a message to the user.
-                  Log.w(TAG, "signInWithEmail:failure", task.getException());
+                  Timber.tag(TAG).w(task.getException(), "signInWithEmail:failure.");
                   Toast.makeText(
                           EmailPasswordActivity.this, "Authentication failed.", Toast.LENGTH_SHORT)
                       .show();
@@ -178,7 +178,7 @@ public final class EmailPasswordActivity extends AppCompatActivity implements Vi
                           Toast.LENGTH_SHORT)
                       .show();
                 } else {
-                  Log.e(TAG, "sendEmailVerification", task.getException());
+                  Timber.tag(TAG).e(task.getException(), "sendEmailVerification");
                   Toast.makeText(
                           EmailPasswordActivity.this,
                           "Failed to send verification email.",
