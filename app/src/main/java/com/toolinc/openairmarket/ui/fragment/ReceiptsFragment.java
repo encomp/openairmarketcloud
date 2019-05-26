@@ -160,91 +160,90 @@ public class ReceiptsFragment extends DaggerFragment {
   }
 
   private void displayCompleteSaleDialog(View view) {
-    final AlertDialog alertDialog =
-        new AlertDialog.Builder(getContext()).setView(R.layout.dialog_complete_sale).create();
-
-    alertDialog.setOnShowListener(
-        (dialog) -> {
-          final TextInputEditText tietPayment = alertDialog.findViewById(R.id.tiet_payment_amount);
-          final TextView tvTotal = alertDialog.findViewById(R.id.tv_total_amount);
-          final TextView tvChange = alertDialog.findViewById(R.id.tv_change_amount);
-          final MaterialButton mbPositive = alertDialog.findViewById(R.id.btn_positive);
-          final ReceiptViewModel receiptViewModel =
-              receiptFragmentStatePagerAdapter.getReceiptViewModel();
-          final BigDecimal total = receiptViewModel.getAmountDue().getValue();
-          tvTotal.setText(OpenAirMarketApplication.toString(total));
-          tvChange.setText(OpenAirMarketApplication.toString(BigDecimal.ZERO));
-          tietPayment.setOnKeyListener(
-              (viewDialog, keyCode, event) -> {
-                Timber.tag(TAG).d("Payment Amount: [%s].", tietPayment.getText().toString());
-                try {
-                  BigDecimal paymentAmount = new BigDecimal(tietPayment.getText().toString());
-                  BigDecimal change = paymentAmount.subtract(total);
-                  tvChange.setText(OpenAirMarketApplication.toString(change));
-                  if (change.compareTo(BigDecimal.ZERO) >= 0) {
-                    mbPositive.setVisibility(View.VISIBLE);
-                  } else {
+    if (receiptFragmentStatePagerAdapter.getReceiptViewModel().getLines().getValue().size() > 0) {
+      final AlertDialog alertDialog =
+          new AlertDialog.Builder(getContext()).setView(R.layout.dialog_complete_sale).create();
+      // Define the dialog listeners.
+      alertDialog.setOnShowListener(
+          (dialog) -> {
+            final TextInputEditText tietPayment =
+                alertDialog.findViewById(R.id.tiet_payment_amount);
+            final TextView tvTotal = alertDialog.findViewById(R.id.tv_total_amount);
+            final TextView tvChange = alertDialog.findViewById(R.id.tv_change_amount);
+            final MaterialButton mbPositive = alertDialog.findViewById(R.id.btn_positive);
+            final ReceiptViewModel receiptViewModel =
+                receiptFragmentStatePagerAdapter.getReceiptViewModel();
+            final BigDecimal total = receiptViewModel.getAmountDue().getValue();
+            tvTotal.setText(OpenAirMarketApplication.toString(total));
+            tvChange.setText(OpenAirMarketApplication.toString(BigDecimal.ZERO));
+            tietPayment.setOnKeyListener(
+                (viewDialog, keyCode, event) -> {
+                  Timber.tag(TAG).d("Payment Amount: [%s].", tietPayment.getText().toString());
+                  try {
+                    BigDecimal paymentAmount = new BigDecimal(tietPayment.getText().toString());
+                    BigDecimal change = paymentAmount.subtract(total);
+                    tvChange.setText(OpenAirMarketApplication.toString(change));
+                    if (change.compareTo(BigDecimal.ZERO) >= 0) {
+                      mbPositive.setVisibility(View.VISIBLE);
+                    } else {
+                      mbPositive.setVisibility(View.GONE);
+                    }
+                  } catch (NumberFormatException exc) {
+                    tvChange.setText(OpenAirMarketApplication.toString(BigDecimal.ZERO));
                     mbPositive.setVisibility(View.GONE);
                   }
-                } catch (NumberFormatException exc) {
-                  tvChange.setText(OpenAirMarketApplication.toString(BigDecimal.ZERO));
-                  mbPositive.setVisibility(View.GONE);
-                }
-                return false;
-              });
-          mbPositive.setVisibility(View.GONE);
-          mbPositive.setOnClickListener(
-              (viewBtn) -> {
-                saleRepository.create(
-                    receiptViewModel,
-                    new BigDecimal(tietPayment.getText().toString()),
-                    (sale) -> {
-                      // TODO (edgarrico): In case of a temporary offline we need to keep track of
-                      // this situation better.
-                      Timber.tag(TAG).d("Sale: [%s].", sale.id());
-                      NotificationUtil.notify(getContext(), saleSucceedNotification);
-                    },
-                    (exc) -> {
-                      // TODO (edgarrico): In case of a failure consider storing such information in
-                      // a local database to further audit in case the connection is lost and a sale
-                      // was actually performed.
-                      Timber.tag(TAG).d("Unable to perform the Sale: [%s].", exc.getMessage());
-                      NotificationUtil.notify(getContext(), saleFailedNotification);
-                    });
-                dialog.cancel();
-                receiptFragmentStatePagerAdapter.removeAllProducts();
-              });
-          alertDialog
-              .findViewById(R.id.btn_negative)
-              .setOnClickListener((viewBtn) -> dialog.cancel());
-        });
-    if (!receiptFragmentStatePagerAdapter
-        .getReceiptViewModel()
-        .getAmountDue()
-        .getValue()
-        .equals(BigDecimal.ZERO)) {
+                  return false;
+                });
+            mbPositive.setVisibility(View.GONE);
+            mbPositive.setOnClickListener(
+                (viewBtn) -> {
+                  saleRepository.create(
+                      receiptViewModel,
+                      new BigDecimal(tietPayment.getText().toString()),
+                      (sale) -> {
+                        // TODO (edgarrico): In case of a temporary offline we need to keep track of
+                        // this situation better.
+                        Timber.tag(TAG).d("Sale: [%s].", sale.id());
+                        NotificationUtil.notify(getContext(), saleSucceedNotification);
+                      },
+                      (exc) -> {
+                        // TODO (edgarrico): In case of a failure consider storing such information
+                        // in
+                        // a local database to further audit in case the connection is lost and a
+                        // sale
+                        // was actually performed.
+                        Timber.tag(TAG).d("Unable to perform the Sale: [%s].", exc.getMessage());
+                        NotificationUtil.notify(getContext(), saleFailedNotification);
+                      });
+                  dialog.cancel();
+                  receiptFragmentStatePagerAdapter.removeAllProducts();
+                });
+            alertDialog
+                .findViewById(R.id.btn_negative)
+                .setOnClickListener((viewBtn) -> dialog.cancel());
+          });
       alertDialog.show();
     }
   }
 
   private void displayCancelSaleDialog(View view) {
-    final AlertDialog alertDialog =
-        new AlertDialog.Builder(getContext()).setView(R.layout.dialog_cancel_sale).create();
-
-    alertDialog.setOnShowListener(
-        (dialog) -> {
-          alertDialog
-              .findViewById(R.id.btn_positive)
-              .setOnClickListener(
-                  (viewBtn) -> {
-                    receiptFragmentStatePagerAdapter.removeAllProducts();
-                    dialog.cancel();
-                  });
-          alertDialog
-              .findViewById(R.id.btn_negative)
-              .setOnClickListener((viewBtn) -> dialog.cancel());
-        });
     if (receiptFragmentStatePagerAdapter.getReceiptViewModel().getLines().getValue().size() > 0) {
+      final AlertDialog alertDialog =
+          new AlertDialog.Builder(getContext()).setView(R.layout.dialog_cancel_sale).create();
+      // Define the button listeners.
+      alertDialog.setOnShowListener(
+          (dialog) -> {
+            alertDialog
+                .findViewById(R.id.btn_positive)
+                .setOnClickListener(
+                    (viewBtn) -> {
+                      receiptFragmentStatePagerAdapter.removeAllProducts();
+                      dialog.cancel();
+                    });
+            alertDialog
+                .findViewById(R.id.btn_negative)
+                .setOnClickListener((viewBtn) -> dialog.cancel());
+          });
       alertDialog.show();
     }
   }
