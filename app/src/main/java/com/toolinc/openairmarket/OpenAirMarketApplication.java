@@ -8,14 +8,19 @@ import android.net.ConnectivityManager;
 import androidx.work.Configuration;
 import androidx.work.WorkManager;
 
+import com.google.common.base.Preconditions;
 import com.toolinc.openairmarket.common.inject.AppModule;
 import com.toolinc.openairmarket.common.work.WorkerFactoryDagger;
 import com.toolinc.openairmarket.inject.DaggerOpenAirMarketInjector;
 import com.toolinc.openairmarket.inject.OpenAirMarketInjector;
 import com.toolinc.openairmarket.persistence.local.offline.OfflineDatabaseModule;
 
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
+
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.util.Date;
 
 import javax.inject.Inject;
 
@@ -73,5 +78,13 @@ public class OpenAirMarketApplication extends Application implements HasActivity
     moneyFormat.setMaximumIntegerDigits(10);
     moneyFormat.setMinimumIntegerDigits(0);
     return moneyFormat.format(bigDecimal);
+  }
+
+  public static Date toDate(DateTime dateTime) {
+    Preconditions.checkNotNull(dateTime);
+    if (DateTimeZone.UTC.equals(dateTime.getZone())) {
+      return dateTime.toDate();
+    }
+    return dateTime.toDateTime(DateTimeZone.UTC).toDate();
   }
 }
