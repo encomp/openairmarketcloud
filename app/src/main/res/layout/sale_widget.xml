@@ -1,21 +1,54 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#09C"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimary"
+    android:orientation="horizontal"
     android:padding="@dimen/widget_margin">
 
-    <TextView
-        android:id="@+id/appwidget_text"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_margin="8dp"
-        android:background="#09C"
-        android:contentDescription="@string/appwidget_text"
-        android:text="@string/appwidget_text"
-        android:textColor="#ffffff"
-        android:textSize="24sp"
-        android:textStyle="bold|italic" />
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/shrine_tiny_spacing"
+        android:orientation="vertical">
 
-</RelativeLayout>
+        <TextView
+            style="@style/Widget.Shrine.TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="@dimen/shrine_tiny_spacing"
+            android:text="@string/appwidget_title"
+            android:textAlignment="center"
+            android:textSize="20sp" />
+
+        <TextView
+            style="@style/Widget.Shrine.TextView.SectionHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingStart="@dimen/shrine_tiny_spacing"
+            android:paddingEnd="@dimen/shrine_tiny_spacing"
+            android:text="@string/appwidget_sub_title"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/tv_sale_amount"
+            style="@style/Widget.Shrine.TextView.SectionHeaderEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="@dimen/shrine_tiny_spacing"
+            android:textAlignment="center"
+            tools:text="$2500" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="11dp"
+        android:layout_marginEnd="@dimen/shrine_tiny_spacing"
+        android:contentDescription="@string/appwidget_image_description"
+        android:src="@mipmap/ic_launcher" />
+</LinearLayout>
