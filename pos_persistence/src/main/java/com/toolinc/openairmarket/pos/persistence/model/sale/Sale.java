@@ -1,5 +1,6 @@
 package com.toolinc.openairmarket.pos.persistence.model.sale;
 
+import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
 import com.toolinc.openairmarket.common.model.Domain;
 import com.toolinc.openairmarket.common.persistence.model.AbstractModel;
@@ -9,6 +10,7 @@ import org.joda.time.DateTime;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -132,11 +134,11 @@ public class Sale extends AbstractModel {
     this.saleLines = saleLines;
   }
 
-  public SaleLine[] getSaleLines() {
-    return saleLines.toArray(new SaleLine[saleLines.size()]);
+  public List<SaleLine> getSaleLines() {
+    return saleLines;
   }
 
-  public void setSaleLines(SaleLine[] saleLines) {
+  public void setSaleLines(List<SaleLine> saleLines) {
     this.saleLines = ImmutableList.copyOf(saleLines);
   }
 
@@ -216,12 +218,16 @@ public class Sale extends AbstractModel {
      */
     public Sale build() {
       Sale sale = new Sale();
-      sale.setId(id);
+      if (!Strings.isNullOrEmpty(id)) {
+        sale.setId(id);
+      }
       sale.setSaleType(saleType);
       sale.setPaymentMethod(paymentMethod);
       sale.date(date);
       sale.amount(amount);
-      sale.tax(tax);
+      if (tax != null && tax.doubleValue() > 0.0) {
+        sale.tax(tax);
+      }
       sale.total(total);
       sale.setSystemUser(systemUser);
       sale.saleLines(saleLines);
