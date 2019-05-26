@@ -142,7 +142,6 @@ public final class EmailPasswordActivity extends AppCompatActivity implements Vi
                       .show();
                   updateUI(null);
                 }
-
                 if (!task.isSuccessful()) {
                   emailpasswordBinding.status.setText(R.string.auth_failed);
                 }
