@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">OpenAirMarket</string>
 
+    <!-- Email and Password activity. -->
     <string name="title_activity_email_password">POS</string>
     <string name="hint_email">Email</string>
     <string name="hint_invalid_email">Email is invalid.</string>
@@ -22,9 +23,11 @@
     <string name="auth_failed">Authentication failed</string>
     <string name="firebase_status_fmt">Firebase User: %s</string>
     <string name="title_activity_main">MainActivity</string>
+
+    <!-- Navigation Drawer -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_title">Open Air Market\nPoint Of Sale</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
