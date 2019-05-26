@@ -5,8 +5,10 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.common.collect.FluentIterable;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.WriteBatch;
+import com.toolinc.openairmarket.OpenAirMarketApplication;
 import com.toolinc.openairmarket.common.inject.Global;
 import com.toolinc.openairmarket.pos.persistence.model.PaymentMethod;
 import com.toolinc.openairmarket.pos.persistence.model.sale.Sale;
@@ -16,6 +18,7 @@ import com.toolinc.openairmarket.viewmodel.ReceiptViewModel;
 import org.joda.time.DateTime;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.concurrent.Executor;
 
 import javax.inject.Inject;
@@ -70,5 +73,28 @@ public final class SaleRepository {
       DocumentReference documentReference, Sale sale, OnSuccessListener<Sale> successListener) {
     sale.setId(documentReference.getId());
     successListener.onSuccess(sale);
+  }
+
+  /** Retrieve the sales from the last x number of hours. */
+  public void retrieveSalesTotal(
+      int hours,
+      OnSuccessListener<BigDecimal> onSuccessListener,
+      OnFailureListener onFailureListener) {
+    firebaseFirestore
+        .collection(CollectionsNames.SALES)
+        .whereGreaterThan("date", OpenAirMarketApplication.toDate(DateTime.now().minusHours(hours)))
+        .get()
+        .addOnSuccessListener(
+            executor,
+            (querySnapshot) -> {
+              BigDecimal total = BigDecimal.ZERO;
+              List<DocumentSnapshot> documentSnapshots = querySnapshot.getDocuments();
+              for (DocumentSnapshot documentSnapshot : documentSnapshots) {
+                Sale sale = documentSnapshot.toObject(Sale.class);
+                total = total.add(sale.total());
+              }
+              onSuccessListener.onSuccess(total);
+            })
+        .addOnFailureListener(executor, onFailureListener);
   }
 }
