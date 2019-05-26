@@ -7,7 +7,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
@@ -16,6 +15,7 @@ import androidx.databinding.DataBindingUtil;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -84,7 +84,7 @@ public final class EmailPasswordActivity extends AppCompatActivity implements Vi
   }
 
   @AddTrace(name = "EmailPasswordActivity.createAccount", enabled = true)
-  private void createAccount(String email, String password) {
+  private void createAccount(View view, String email, String password) {
     Timber.tag(TAG).d(TAG, "createAccount:" + email);
     if (!validateForm()) {
       return;
@@ -105,9 +105,7 @@ public final class EmailPasswordActivity extends AppCompatActivity implements Vi
                 } else {
                   // If sign in fails, display a message to the user.
                   Timber.tag(TAG).w(task.getException(), "createUserWithEmail:failure.");
-                  Toast.makeText(
-                          EmailPasswordActivity.this, "Authentication failed.", Toast.LENGTH_SHORT)
-                      .show();
+                  Snackbar.make(view, R.string.account_failed, Snackbar.LENGTH_LONG).show();
                   updateUI(null);
                 }
                 hideProgressDialog();
@@ -116,7 +114,7 @@ public final class EmailPasswordActivity extends AppCompatActivity implements Vi
   }
 
   @AddTrace(name = "EmailPasswordActivity.signIn", enabled = true)
-  private void signIn(String email, String password) {
+  private void signIn(View view, String email, String password) {
     Timber.tag(TAG).d("signIn:" + email);
     if (!validateForm()) {
       return;
@@ -137,9 +135,7 @@ public final class EmailPasswordActivity extends AppCompatActivity implements Vi
                 } else {
                   // If sign in fails, display a message to the user.
                   Timber.tag(TAG).w(task.getException(), "signInWithEmail:failure.");
-                  Toast.makeText(
-                          EmailPasswordActivity.this, "Authentication failed.", Toast.LENGTH_SHORT)
-                      .show();
+                  Snackbar.make(view, R.string.auth_failed, Snackbar.LENGTH_LONG).show();
                   updateUI(null);
                 }
                 if (!task.isSuccessful()) {
@@ -156,7 +152,7 @@ public final class EmailPasswordActivity extends AppCompatActivity implements Vi
   }
 
   @AddTrace(name = "EmailPasswordActivity.sendEmailVerification", enabled = true)
-  private void sendEmailVerification() {
+  private void sendEmailVerification(View view) {
     // Disable button
     findViewById(R.id.verifyEmailButton).setEnabled(false);
 
@@ -171,18 +167,15 @@ public final class EmailPasswordActivity extends AppCompatActivity implements Vi
                 // Re-enable button
                 findViewById(R.id.verifyEmailButton).setEnabled(true);
                 if (task.isSuccessful()) {
-                  Toast.makeText(
-                          EmailPasswordActivity.this,
-                          "Verification email sent to " + user.getEmail(),
-                          Toast.LENGTH_SHORT)
+                  Snackbar.make(
+                          view,
+                          String.format(getString(R.string.verification_sent), user.getEmail()),
+                          Snackbar.LENGTH_LONG)
                       .show();
+                  signOut();
                 } else {
                   Timber.tag(TAG).e(task.getException(), "sendEmailVerification");
-                  Toast.makeText(
-                          EmailPasswordActivity.this,
-                          "Failed to send verification email.",
-                          Toast.LENGTH_SHORT)
-                      .show();
+                  Snackbar.make(view, R.string.verification_failed, Snackbar.LENGTH_LONG).show();
                 }
               }
             });
@@ -192,14 +185,14 @@ public final class EmailPasswordActivity extends AppCompatActivity implements Vi
     boolean valid = true;
     String email = emailpasswordBinding.fieldEmail.getText().toString();
     if (TextUtils.isEmpty(email)) {
-      emailpasswordBinding.fieldEmail.setError("Required.");
+      emailpasswordBinding.fieldEmail.setError(getString(R.string.hint_invalid_email));
       valid = false;
     } else {
       emailpasswordBinding.fieldEmail.setError(null);
     }
     String password = emailpasswordBinding.fieldPassword.getText().toString();
     if (TextUtils.isEmpty(password)) {
-      emailpasswordBinding.fieldPassword.setError("Required.");
+      emailpasswordBinding.fieldPassword.setError(getString(R.string.hint_invalid_password));
       valid = false;
     } else {
       emailpasswordBinding.fieldPassword.setError(null);
@@ -217,7 +210,9 @@ public final class EmailPasswordActivity extends AppCompatActivity implements Vi
       findViewById(R.id.emailPasswordFields).setVisibility(View.GONE);
       findViewById(R.id.signedInButtons).setVisibility(View.VISIBLE);
       findViewById(R.id.verifyEmailButton).setEnabled(!user.isEmailVerified());
-      startActivity(new Intent(getApplicationContext(), MainActivity.class));
+      if (user.isEmailVerified()) {
+        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+      }
     } else {
       emailpasswordBinding.status.setText(R.string.signed_out);
       emailpasswordBinding.detail.setText(null);
@@ -228,20 +223,21 @@ public final class EmailPasswordActivity extends AppCompatActivity implements Vi
   }
 
   @Override
-  public void onClick(View v) {
-    int i = v.getId();
-    if (i == R.id.emailCreateAccountButton) {
+  public void onClick(View view) {
+    if (view.getId() == R.id.emailCreateAccountButton) {
       createAccount(
+          view,
           emailpasswordBinding.fieldEmail.getText().toString(),
           emailpasswordBinding.fieldPassword.getText().toString());
-    } else if (i == R.id.emailSignInButton) {
+    } else if (view.getId() == R.id.emailSignInButton) {
       signIn(
+          view,
           emailpasswordBinding.fieldEmail.getText().toString(),
           emailpasswordBinding.fieldPassword.getText().toString());
-    } else if (i == R.id.signOutButton) {
+    } else if (view.getId() == R.id.signOutButton) {
       signOut();
-    } else if (i == R.id.verifyEmailButton) {
-      sendEmailVerification();
+    } else if (view.getId() == R.id.verifyEmailButton) {
+      sendEmailVerification(view);
     }
   }
 }
