@@ -19,7 +19,7 @@ import javax.inject.Inject;
 
 import timber.log.Timber;
 
-/** Implementation of App Widget functionality. */
+/** Implementation of Sale Widget functionality. */
 public class SaleWidget extends AppWidgetProvider {
 
   private static final String TAG = SaleWidget.class.getSimpleName();
