@@ -11,4 +11,6 @@ public final class NotificationIds {
   public static final int DATA_SYNC_PRODUCTS_START = 4;
   public static final int DATA_SYNC_PRODUCTSY_SUCCESS = 5;
   public static final int DATA_SYNC_PRODUCTS_FAILED = 6;
+  public static final int SALE_COMPLETED = 7;
+  public static final int SALE_FAILED = 8;
 }

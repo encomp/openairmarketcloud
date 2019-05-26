@@ -6,4 +6,5 @@ public final class ChannelIds {
   private ChannelIds() {}
 
   public static final String DATA_SYNC = "DATA_SYNC";
+  public static final String SALE = "SALE";
 }

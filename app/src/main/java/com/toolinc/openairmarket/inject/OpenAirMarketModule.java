@@ -8,6 +8,7 @@ import com.toolinc.openairmarket.common.inject.AppModule;
 import com.toolinc.openairmarket.common.inject.AssitInjectionModule;
 import com.toolinc.openairmarket.common.inject.ExecutorsModule;
 import com.toolinc.openairmarket.persistence.cloud.inject.RepositoryModule;
+import com.toolinc.openairmarket.ui.fragment.inject.SaleNotificationModule;
 import com.toolinc.openairmarket.viewmodel.inject.ViewModelModule;
 import com.toolinc.openairmarket.work.inject.WorkersModule;
 
@@ -21,6 +22,7 @@ import dagger.Provides;
       AssitInjectionModule.class,
       ExecutorsModule.class,
       RepositoryModule.class,
+      SaleNotificationModule.class,
       ViewModelModule.class,
       WorkersModule.class
     })

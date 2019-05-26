@@ -76,6 +76,14 @@
     <string name="receipt_subtotal">Total</string>
     <string name="receipt_total">Total: </string>
 
+    <!-- Sale Channel and Notifications -->
+    <string name="sale_channel_name">Sales</string>
+    <string name="sale_channel_description">Sales notifications channel.</string>
+    <string name="sale_notification_success_title">Sale Succeed</string>
+    <string name="sale_notification_success_content">The sale was successful.</string>
+    <string name="sale_notification_failure_title">Sale Failed</string>
+    <string name="sale_notification_failure_content">The sale failed. Please retry one more time.</string>
+
     <!-- Data Sync Channel and Notifications -->
     <string name="data_sync_channel_name">Data Sync</string>
     <string name="data_sync_channel_description">Data Synchronization from Cloud notifications channel.</string>

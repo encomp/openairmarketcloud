@@ -27,12 +27,18 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
 import com.toolinc.openairmarket.OpenAirMarketApplication;
 import com.toolinc.openairmarket.R;
+import com.toolinc.openairmarket.common.NotificationUtil;
+import com.toolinc.openairmarket.common.NotificationUtil.ChannelProperties;
+import com.toolinc.openairmarket.common.NotificationUtil.NotificationProperties;
 import com.toolinc.openairmarket.model.QuickAccess;
 import com.toolinc.openairmarket.persistence.cloud.ProductsRepository;
 import com.toolinc.openairmarket.persistence.cloud.SaleRepository;
 import com.toolinc.openairmarket.pos.persistence.model.product.Product;
 import com.toolinc.openairmarket.ui.MainActivity;
 import com.toolinc.openairmarket.ui.adapter.QuickAccessListAdapter;
+import com.toolinc.openairmarket.ui.fragment.inject.Annotations.Sale;
+import com.toolinc.openairmarket.ui.fragment.inject.Annotations.Sale.Failed;
+import com.toolinc.openairmarket.ui.fragment.inject.Annotations.Sale.Succeed;
 import com.toolinc.openairmarket.viewmodel.ReceiptViewModel;
 import com.toolinc.openairmarket.viewmodel.ReceiptsViewModel;
 
@@ -53,6 +59,9 @@ public class ReceiptsFragment extends DaggerFragment {
   @Inject ViewModelProvider.Factory viewModelFactory;
   @Inject ProductsRepository productsRepository;
   @Inject SaleRepository saleRepository;
+  @Inject @Sale ChannelProperties channelProperties;
+  @Inject @Succeed NotificationProperties saleSucceedNotification;
+  @Inject @Failed NotificationProperties saleFailedNotification;
 
   @BindView(R.id.tab_layout)
   TabLayout tabLayout;
@@ -78,6 +87,7 @@ public class ReceiptsFragment extends DaggerFragment {
   @Override
   public void onCreate(@Nullable Bundle bundle) {
     super.onCreate(bundle);
+    NotificationUtil.createChannel(getContext(), channelProperties);
     setHasOptionsMenu(true);
     receiptsViewModel =
         ViewModelProviders.of((MainActivity) getActivity(), viewModelFactory)
@@ -191,10 +201,12 @@ public class ReceiptsFragment extends DaggerFragment {
                     (sale) -> {
                       Timber.tag(TAG).d("Sale: [%s].", sale.id());
                       receiptFragmentStatePagerAdapter.removeAllProducts();
+                      NotificationUtil.notify(getContext(), saleSucceedNotification);
                       dialog.cancel();
                     },
                     (exc) -> {
                       Timber.tag(TAG).d("Unable to perform the Sale: [%s].", exc.getMessage());
+                      NotificationUtil.notify(getContext(), saleFailedNotification);
                     });
               });
           alertDialog
