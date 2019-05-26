@@ -189,7 +189,7 @@ public class ReceiptsFragment extends DaggerFragment {
                     receiptViewModel,
                     new BigDecimal(tietPayment.getText().toString()),
                     (sale) -> {
-                      Timber.tag(TAG).d("Sale: [%s].", sale);
+                      Timber.tag(TAG).d("Sale: [%s].", sale.id());
                       receiptFragmentStatePagerAdapter.removeAllProducts();
                       dialog.cancel();
                     },
