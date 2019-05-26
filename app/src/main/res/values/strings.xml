@@ -7,11 +7,11 @@
     <string name="sign_in">Sign In</string>
     <string name="sign_out">Sign Out</string>
     <string name="signed_in">Signed In</string>
-    <string name="signed_out">Signed Out</string>
+    <string name="signed_out">Welcome</string>
     <string name="create_account">Create Account</string>
     <string name="verify_email">Verify Email</string>
     <string name="emailpassword_status_fmt">Email User: %1$s (verified: %2$b)</string>
-    <string name="emailpassword_title_text">Email and Password</string>
+    <string name="emailpassword_title_text">Open Air Market</string>
     <string name="desc_firebase_lockup">Firebase logo and name</string>
     <string name="auth_failed">Authentication failed</string>
     <string name="firebase_status_fmt">Firebase User: %s</string>
