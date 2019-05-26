@@ -244,7 +244,9 @@ public class ReceiptsFragment extends DaggerFragment {
               .findViewById(R.id.btn_negative)
               .setOnClickListener((viewBtn) -> dialog.cancel());
         });
-    alertDialog.show();
+    if (receiptFragmentStatePagerAdapter.getReceiptViewModel().getLines().getValue().size() > 0) {
+      alertDialog.show();
+    }
   }
 
   void onSuccess(Product product) {
