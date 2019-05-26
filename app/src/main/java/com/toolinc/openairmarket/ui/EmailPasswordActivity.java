@@ -80,7 +80,11 @@ public final class EmailPasswordActivity extends AppCompatActivity implements Vi
   public void onStart() {
     super.onStart();
     FirebaseUser currentUser = mAuth.getCurrentUser();
-    updateUI(currentUser);
+    if (currentUser != null && currentUser.isEmailVerified()) {
+      startActivity(new Intent(getApplicationContext(), MainActivity.class));
+    } else {
+      updateUI(currentUser);
+    }
   }
 
   @AddTrace(name = "EmailPasswordActivity.createAccount", enabled = true)
