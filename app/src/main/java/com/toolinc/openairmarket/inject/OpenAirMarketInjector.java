@@ -1,6 +1,7 @@
 package com.toolinc.openairmarket.inject;
 
 import com.toolinc.openairmarket.OpenAirMarketApplication;
+import com.toolinc.openairmarket.widget.SaleWidget;
 
 import javax.inject.Singleton;
 
@@ -19,4 +20,6 @@ import dagger.android.AndroidInjector;
 public interface OpenAirMarketInjector extends AndroidInjector<OpenAirMarketApplication> {
 
   void inject(OpenAirMarketApplication app);
+
+  void inject(SaleWidget saleWidget);
 }

@@ -99,4 +99,8 @@
     <string name="products_data_sync_notification_inprogress_content">The products syncing process started.</string>
     <string name="products_data_sync_notification_failure_title">Products  Failure</string>
     <string name="products_data_sync_notification_failure_content">The products synced failed.</string>
+
+    <!-- Widget -->
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 </resources>
