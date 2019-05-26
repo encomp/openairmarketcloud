@@ -218,7 +218,13 @@ public class ReceiptsFragment extends DaggerFragment {
               .findViewById(R.id.btn_negative)
               .setOnClickListener((viewBtn) -> dialog.cancel());
         });
-    alertDialog.show();
+    if (!receiptFragmentStatePagerAdapter
+        .getReceiptViewModel()
+        .getAmountDue()
+        .getValue()
+        .equals(BigDecimal.ZERO)) {
+      alertDialog.show();
+    }
   }
 
   private void displayCancelSaleDialog(View view) {
