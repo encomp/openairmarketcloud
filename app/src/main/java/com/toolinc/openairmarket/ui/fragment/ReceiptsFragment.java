@@ -29,6 +29,7 @@ import com.toolinc.openairmarket.OpenAirMarketApplication;
 import com.toolinc.openairmarket.R;
 import com.toolinc.openairmarket.model.QuickAccess;
 import com.toolinc.openairmarket.persistence.cloud.ProductsRepository;
+import com.toolinc.openairmarket.persistence.cloud.SaleRepository;
 import com.toolinc.openairmarket.pos.persistence.model.product.Product;
 import com.toolinc.openairmarket.ui.MainActivity;
 import com.toolinc.openairmarket.ui.adapter.QuickAccessListAdapter;
@@ -51,6 +52,7 @@ public class ReceiptsFragment extends DaggerFragment {
 
   @Inject ViewModelProvider.Factory viewModelFactory;
   @Inject ProductsRepository productsRepository;
+  @Inject SaleRepository saleRepository;
 
   @BindView(R.id.tab_layout)
   TabLayout tabLayout;
@@ -183,7 +185,14 @@ public class ReceiptsFragment extends DaggerFragment {
           mbPositive.setVisibility(View.GONE);
           mbPositive.setOnClickListener(
               (viewBtn) -> {
-                dialog.cancel();
+                saleRepository.create(
+                    receiptViewModel,
+                    new BigDecimal(tietPayment.getText().toString()),
+                    (sale) -> {
+                      receiptFragmentStatePagerAdapter.removeAllProducts();
+                      dialog.cancel();
+                    },
+                    (exc) -> {});
               });
           alertDialog
               .findViewById(R.id.btn_negative)
