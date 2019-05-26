@@ -6,6 +6,7 @@
     <string name="hint_invalid_email">Email is invalid.</string>
     <string name="hint_password">Password</string>
     <string name="hint_invalid_password">Password is required.</string>
+    <string name="hint_verification_email">Verification email sent to %s. Please look at your email inbox.</string>
     <string name="sign_in">Sign In</string>
     <string name="sign_out">Sign Out</string>
     <string name="signed_in">Signed In</string>

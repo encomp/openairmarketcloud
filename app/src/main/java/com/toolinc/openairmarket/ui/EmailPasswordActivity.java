@@ -131,7 +131,13 @@ public final class EmailPasswordActivity extends AppCompatActivity implements Vi
                   // Sign in success, update UI with the signed-in user's information
                   Timber.tag(TAG).d("signInWithEmail:success");
                   FirebaseUser user = mAuth.getCurrentUser();
-                  updateUI(user);
+                  if (user.isEmailVerified()) {
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                  } else {
+                    String msg =
+                        String.format(getString(R.string.hint_verification_email), user.getEmail());
+                    Snackbar.make(view, msg, Snackbar.LENGTH_LONG).show();
+                  }
                 } else {
                   // If sign in fails, display a message to the user.
                   Timber.tag(TAG).w(task.getException(), "signInWithEmail:failure.");
@@ -210,9 +216,6 @@ public final class EmailPasswordActivity extends AppCompatActivity implements Vi
       findViewById(R.id.emailPasswordFields).setVisibility(View.GONE);
       findViewById(R.id.signedInButtons).setVisibility(View.VISIBLE);
       findViewById(R.id.verifyEmailButton).setEnabled(!user.isEmailVerified());
-      if (user.isEmailVerified()) {
-        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-      }
     } else {
       emailpasswordBinding.status.setText(R.string.signed_out);
       emailpasswordBinding.detail.setText(null);
