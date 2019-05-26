@@ -101,6 +101,7 @@
     <string name="products_data_sync_notification_failure_content">The products synced failed.</string>
 
     <!-- Widget -->
-    <string name="appwidget_text">EXAMPLE</string>
-    <string name="add_widget">Add widget</string>
+    <string name="appwidget_title">Today</string>
+    <string name="appwidget_sub_title">Sales:</string>
+    <string name="appwidget_image_description">Sales Icon</string>
 </resources>
