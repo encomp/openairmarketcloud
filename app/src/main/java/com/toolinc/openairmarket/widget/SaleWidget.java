@@ -7,11 +7,15 @@ import android.widget.RemoteViews;
 
 import com.toolinc.openairmarket.OpenAirMarketApplication;
 import com.toolinc.openairmarket.R;
+import com.toolinc.openairmarket.persistence.cloud.SaleRepository;
+
+import javax.inject.Inject;
 
 /** Implementation of App Widget functionality. */
 public class SaleWidget extends AppWidgetProvider {
 
   private Context context;
+  @Inject SaleRepository saleRepository;
 
   static void updateAppWidget(Context context, AppWidgetManager appWidgetManager, int appWidgetId) {
     CharSequence widgetText = context.getString(R.string.appwidget_text);
@@ -26,6 +30,7 @@ public class SaleWidget extends AppWidgetProvider {
   public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
     // There may be multiple widgets active, so update all of them
     this.context = context;
+    inject(context);
     for (int appWidgetId : appWidgetIds) {
       updateAppWidget(context, appWidgetManager, appWidgetId);
     }
