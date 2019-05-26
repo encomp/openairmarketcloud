@@ -19,6 +19,8 @@ import com.toolinc.openairmarket.persistence.sync.DataSync;
 
 import java.util.concurrent.Executor;
 
+import javax.inject.Named;
+
 import dagger.Module;
 import dagger.Provides;
 
@@ -32,6 +34,7 @@ public class ProductDataSyncModule {
       notiBuilder().setIcon(R.drawable.ic_cloud_off);
 
   @Provides
+  @Named("DataSync")
   ChannelProperties provideChannel(Application application) {
     return channelBuilder()
         .setChannelName(getString(application, R.string.data_sync_channel_name))
@@ -46,7 +49,7 @@ public class ProductDataSyncModule {
       @Global.NetworkIO Executor executor,
       @Categories SyncRepository syncRepository,
       CollectionSyncStateRepository collectionSyncStateRepository,
-      ChannelProperties channelProperties) {
+      @Named("DataSync") ChannelProperties channelProperties) {
     NotificationProperties brandStart =
         START_BUILDER
             .setNotificationId(NotificationIds.DATA_SYNC_CATEGORIES_START)
@@ -99,7 +102,7 @@ public class ProductDataSyncModule {
       @Global.NetworkIO Executor executor,
       @Products SyncRepository syncRepository,
       CollectionSyncStateRepository collectionSyncStateRepository,
-      ChannelProperties channelProperties) {
+      @Named("DataSync") ChannelProperties channelProperties) {
     NotificationProperties brandStart =
         START_BUILDER
             .setNotificationId(NotificationIds.DATA_SYNC_PRODUCTS_START)
