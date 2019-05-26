@@ -76,7 +76,9 @@ public class SaleLine extends AbstractModel {
   }
 
   public void setTax(String tax) {
-    this.tax = checkPositive(new BigDecimal(tax));
+    if (tax != null) {
+      this.tax = checkPositive(new BigDecimal(tax));
+    }
   }
 
   public BigDecimal total() {
