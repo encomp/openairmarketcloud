@@ -208,10 +208,8 @@ public class ReceiptsFragment extends DaggerFragment {
                       },
                       (exc) -> {
                         // TODO (edgarrico): In case of a failure consider storing such information
-                        // in
-                        // a local database to further audit in case the connection is lost and a
-                        // sale
-                        // was actually performed.
+                        // in a local database to further audit in case the connection is lost and a
+                        // sale was actually performed.
                         Timber.tag(TAG).d("Unable to perform the Sale: [%s].", exc.getMessage());
                         NotificationUtil.notify(getContext(), saleFailedNotification);
                       });
