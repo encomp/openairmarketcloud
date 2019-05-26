@@ -86,17 +86,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/shrine_standard_spacing"
-            android:hint="@string/receipt_code_bar_hint"
-            app:counterEnabled="true"
-            app:counterMaxLength="10"
-            app:errorEnabled="true"
-            app:helperText="@string/receipt_code_bar_label"
-            app:helperTextEnabled="true">
+            android:hint="@string/receipt_code_bar_hint">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/text_input_edit_text"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
