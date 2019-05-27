@@ -31,6 +31,7 @@ import timber.log.Timber;
 /** Creates a new user or login an existing user. */
 public final class EmailPasswordActivity extends AppCompatActivity implements View.OnClickListener {
 
+  public static final int REQUEST_CODE = 1;
   private static final String TAG = EmailPasswordActivity.class.getSimpleName();
   private ActivityEmailpasswordBinding emailpasswordBinding;
   @VisibleForTesting ProgressBar mProgressDialog;
@@ -81,10 +82,20 @@ public final class EmailPasswordActivity extends AppCompatActivity implements Vi
     super.onStart();
     FirebaseUser currentUser = mAuth.getCurrentUser();
     if (currentUser != null && currentUser.isEmailVerified()) {
-      startActivity(new Intent(getApplicationContext(), MainActivity.class));
+      startActivityForResult(new Intent(getApplicationContext(), MainActivity.class), REQUEST_CODE);
     } else {
       updateUI(currentUser);
     }
+  }
+
+  @Override
+  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    if (requestCode == REQUEST_CODE) {
+      if (resultCode == RESULT_OK) {
+        signOut();
+      }
+    }
+    super.onActivityResult(requestCode, resultCode, data);
   }
 
   @AddTrace(name = "EmailPasswordActivity.createAccount", enabled = true)
@@ -136,7 +147,8 @@ public final class EmailPasswordActivity extends AppCompatActivity implements Vi
                   Timber.tag(TAG).d("signInWithEmail:success");
                   FirebaseUser user = mAuth.getCurrentUser();
                   if (user.isEmailVerified()) {
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    startActivityForResult(
+                        new Intent(getApplicationContext(), MainActivity.class), REQUEST_CODE);
                   } else {
                     String msg =
                         String.format(getString(R.string.hint_verification_email), user.getEmail());

@@ -1,5 +1,7 @@
 package com.toolinc.openairmarket.ui.fragment;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -86,7 +88,7 @@ public class MainFragment extends DaggerFragment
       drawer.closeDrawer(GravityCompat.START);
       return true;
     }
-    return false;
+    return true;
   }
 
   @SuppressWarnings("StatementWithEmptyBody")
@@ -95,6 +97,7 @@ public class MainFragment extends DaggerFragment
     // Handle navigation view item clicks here.
     int id = item.getItemId();
     if (id == R.id.nav_log_out) {
+      getActivity().setResult(Activity.RESULT_OK, new Intent());
       getActivity().finish();
     }
     drawer.closeDrawer(GravityCompat.START);
