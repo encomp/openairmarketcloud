@@ -58,6 +58,16 @@ line.
 | ----------- |:----------:|
 | <img src="/md/quick_access.gif" width="400" height="800"> | <img src="/md/pay_quick.gif" width="400" height="800"> |
 
+#### Worker Sync for Offline 
+
+The application performs a batch job upon start every 12 hours to make sure the database keeps an 
+offline copy of products and categories. The freshness of the data is store on room to prevent from
+over sync from firestore. This allows the app to work offline if the internet access is lost.
+
+| Data Sync |
+| --------- |
+| <img src="/md/data_sync.gif" width="400" height="800"> | 
+
 #### Screen Widget 
 
 The app will provide a widget that will provide the intraday dollar amount of the sales performed.
@@ -70,6 +80,6 @@ The app will provide a widget that will provide the intraday dollar amount of th
 
 The app will provide a menu to allow the user to log out from the application.
 
-| Log Out |
-| ------- |
-| <img src="/md/log_out.gif" width="400" height="800"> | 
+| Log Out | Offline Sale | 
+| ------- |:------------:|
+| <img src="/md/log_out.gif" width="400" height="800"> | <img src="/md/offline_sale.gif" width="400" height="800"> |
