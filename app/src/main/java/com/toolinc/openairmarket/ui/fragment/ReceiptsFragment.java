@@ -251,6 +251,6 @@ public class ReceiptsFragment extends DaggerFragment {
   }
 
   private void onFailure(@NonNull Exception e) {
-    Timber.tag(TAG).e(e.getMessage(), e);
+    Timber.tag(TAG).e(e);
   }
 }

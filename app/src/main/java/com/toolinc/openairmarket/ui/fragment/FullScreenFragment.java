@@ -104,7 +104,7 @@ public abstract class FullScreenFragment extends Fragment implements HasSupportF
     try {
       AndroidSupportInjection.inject(this);
     } catch (Exception exc) {
-      Timber.tag(TAG).e(exc.getMessage());
+      Timber.tag(TAG).e(exc);
     }
   }
 }

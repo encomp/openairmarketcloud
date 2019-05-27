@@ -65,7 +65,7 @@ abstract class SyncWorker {
         return Result.success();
       }
     } catch (ExecutionException | InterruptedException exc) {
-      Timber.tag(TAG).e(exc.getMessage());
+      Timber.tag(TAG).e(exc);
     }
     return Result.failure();
   }
