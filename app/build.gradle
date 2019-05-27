@@ -67,11 +67,6 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'joda-time:joda-time:2.10.1'
 
-    implementation 'com.google.android.agera:agera:1.4.0'
-    implementation 'com.google.android.agera:net:1.4.0'
-    implementation 'com.google.android.agera:rvadapter:1.4.0'
-    implementation 'com.google.android.agera:rvdatabinding:1.4.0'
-
     implementation project(':common')
     implementation project(':pos_persistence')
 
