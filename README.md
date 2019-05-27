@@ -25,3 +25,7 @@ merchants to have more than one terminal if needed since the POS backend is clou
 
 The following screen allows to log in to the system or create a new account if is a new user to gain 
 access to the POS application. 
+
+Create Account |
+--- |
+![Create Account](/md/create_account.gif) |
