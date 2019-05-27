@@ -57,3 +57,10 @@ line.
 | ----------- |:----------:|
 | <img src="/md/quick_access.gif" width="400" height="800"> | <img src="/md/pay_quick.gif" width="400" height="800"> |
 
+#### Screen Widget 
+
+The app will provide a widget that will provide the intraday dollar amount of the sales performed.
+
+| Sales Widget |
+| ------------ |
+| <img src="/md/widget.gif" width="400" height="800"> | 
