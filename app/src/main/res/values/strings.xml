@@ -10,7 +10,6 @@
     <string name="hint_verification_email">Verification email sent to %s. Please look at your email inbox.</string>
     <string name="sign_in">Sign In</string>
     <string name="sign_out">Sign Out</string>
-    <string name="signed_in">Signed In</string>
     <string name="signed_out">Welcome</string>
     <string name="create_account">Create Account</string>
     <string name="verify_email">Verify Email</string>
@@ -30,13 +29,10 @@
     <string name="nav_header_title">Open Air Market</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
-    <string name="menu_drawer_account">Account</string>
     <string name="menu_drawer_log_out">Log Out</string>
 
     <!-- Main Fragment -->
     <string name="pos_title">Point Of Sale</string>
-    <string name="toolbar_navigation_description">title</string>
 
     <!-- Receipts fragment -->
     <string name="receipt_tab_1">Receipt #1</string>
@@ -45,7 +41,6 @@
     <string name="receipt_cancel_btn">Cancel</string>
     <string name="receipt_pay_btn">Pay</string>
     <string name="receipt_code_bar_hint">Code Bar</string>
-    <string name="receipt_code_bar_label">Code Bar</string>
     <!-- Dialog Buttons -->
     <string name="sale_dialog_positive_btn">Yes</string>
     <string name="sale_dialog_negative_btn">No</string>
