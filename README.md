@@ -64,3 +64,11 @@ The app will provide a widget that will provide the intraday dollar amount of th
 | Sales Widget |
 | ------------ |
 | <img src="/md/widget.gif" width="400" height="800"> | 
+
+#### Log Out 
+
+The app will provide a menu to allow the user to log out from the application.
+
+| Log Out |
+| ------- |
+| <img src="/md/log_out.gif" width="400" height="800"> | 
