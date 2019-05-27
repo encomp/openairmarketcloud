@@ -41,6 +41,6 @@ the specific product. And at the bottom it provides the total of amount of the s
 receipt could be cancel (by clicking on the cancel button) or complete (by clicking on the pay 
 button).
 
-| Receipts | 
-| -------------- |
-| <img src="/md/pos_screen.gif" width="400" height="800"> | 
+| Receipts | Cancel/Pay | 
+| -------- |:----------:|
+| <img src="/md/pos_screen.gif" width="400" height="800"> | <img src="/md/cancel_pay.gif" width="400" height="800"> |
