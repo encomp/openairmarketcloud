@@ -26,7 +26,8 @@
         android:paddingTop="@dimen/shrine_small_spacing"
         android:paddingEnd="@dimen/shrine_small_spacing"
         android:text="@string/nav_header_title"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:textColor="@color/textColorPrimary" />
 
     <TextView
         android:id="@+id/tv_email"
@@ -37,6 +38,8 @@
         android:paddingTop="@dimen/shrine_tiny_spacing"
         android:paddingEnd="@dimen/shrine_small_spacing"
         android:paddingBottom="@dimen/shrine_small_spacing"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textColor="@color/textColorSecondary"
         tools:text="@string/nav_header_subtitle" />
 
 </LinearLayout>
