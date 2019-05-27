@@ -85,7 +85,6 @@ public class MainFragment extends DaggerFragment
   public boolean onBackPressed() {
     if (drawer.isDrawerOpen(GravityCompat.START)) {
       drawer.closeDrawer(GravityCompat.START);
-      return true;
     }
     return true;
   }
