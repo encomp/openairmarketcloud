@@ -2,14 +2,6 @@
 
     <style name="Theme.Shrine" parent="Base.Theme.Shrine" />
 
-    <!-- TODO: Remove this line. -->
-    <style name="AppTheme" parent="Theme.Shrine" />
-
-    <style name="Theme.Shrine.Launcher">
-        <item name="colorPrimaryDark">?attr/colorPrimary</item>
-        <!--item name="android:windowBackground">@drawable/launch_screen</item-->
-    </style>
-
     <style name="Base.Theme.Shrine" parent="@style/Theme.MaterialComponents.Light">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -43,8 +35,6 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Shrine.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
     <style name="Base.Widget.Shrine.Toolbar.Logo" parent="Widget.Shrine.Toolbar">
         <item name="titleTextAppearance">@style/TextAppearance.Shrine.Logo</item>
     </style>
@@ -58,44 +48,6 @@
     </style>
 
     <style name="TextAppearance.Shrine.Logo" parent="Base.TextAppearance.Shrine.Logo" />
-
-    <style name="ThemeOverlay.Shrine.BottomNavView" parent="">
-        <item name="colorPrimary">@color/colorAccent</item>
-    </style>
-
-    <style name="Base.Shrine.BottomNavView" parent="">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/shrine_bottom_nav_view_height</item>
-        <item name="android:layout_gravity">bottom</item>
-        <item name="android:background">@color/colorPrimary</item>
-        <item name="android:theme">@style/ThemeOverlay.Shrine.BottomNavView</item>
-    </style>
-
-    <style name="Shrine.BottomNavView" parent="Base.Shrine.BottomNavView" />
-
-    <style name="Theme.Shrine.Filter">
-        <item name="android:textAppearance">@style/Widget.Shrine.TextView</item>
-    </style>
-
-    <style name="Widget.Shrine.Toolbar.Filter">
-        <item name="android:background">?attr/colorPrimary</item>
-    </style>
-
-    <style name="Widget.Shrine.SectionItem" parent="">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:paddingTop">@dimen/shrine_standard_spacing</item>
-        <item name="android:paddingBottom">@dimen/shrine_standard_spacing</item>
-        <item name="android:orientation">horizontal</item>
-    </style>
-
-    <style name="Widget.Shrine.SectionItem.Container">
-        <item name="android:layout_marginBottom">@dimen/shrine_small_spacing</item>
-        <item name="android:paddingLeft">@dimen/shrine_standard_spacing</item>
-        <item name="android:paddingRight">@dimen/shrine_standard_spacing</item>
-        <item name="android:background">?attr/colorPrimary</item>
-        <item name="android:orientation">vertical</item>
-    </style>
 
     <style name="Widget.Shrine.TextView" parent="">
         <item name="android:layout_width">wrap_content</item>
@@ -120,12 +72,6 @@
     <style name="TextAppearance.Shrine.Filter.SubHead" parent="TextAppearance.AppCompat.Subhead">
         <item name="android:textSize">@dimen/shrine_section_header_text_size</item>
         <item name="android:textColor">@color/textColorSecondary</item>
-    </style>
-
-    <style name="NavigationDrawerStyle">
-        <item name="android:textSize">16sp</item><!-- text size in menu-->
-        <item name="android:listPreferredItemHeightSmall">56dp</item><!-- item size in menu-->
-        <item name="listPreferredItemHeightSmall">56dp</item><!-- item size in menu-->
     </style>
 
     <style name="Widget.Shrine.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -166,13 +112,5 @@
     <style name="ThemeOverlay.TitleText" parent="Theme.Shrine">
         <item name="android:gravity">center</item>
         <item name="android:textSize">36sp</item>
-    </style>
-
-    <style name="ThemeOverlay.DarkButton" parent="ThemeOverlay.AppCompat.Dark">
-        <item name="colorButtonNormal">@color/grey_500</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:layout_marginRight">4dp</item>
-        <item name="android:layout_marginLeft">4dp</item>
-        <item name="android:textColor">@android:color/white</item>
     </style>
 </resources>
