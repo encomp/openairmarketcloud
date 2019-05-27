@@ -13,10 +13,11 @@ merchants to define the products and allow them to perform sale transactions. Th
 merchants to have more than one terminal if needed since the POS backend is cloud base.
 
 ### Features
-- Sign In/Create Account Screen
+- Sign In/Create Account Screen using a verified email account
 - Point of Sale Screen
 - Support up to 3 Sales (receipts) at the same time
 - Allow add quick access product to a specific ticket
+- Perform a data sync to allow the app function in case it lost internet access
 - Perform a sale from a given receipt
 - Widget that provide the dollar amount of the intraday sales
 
