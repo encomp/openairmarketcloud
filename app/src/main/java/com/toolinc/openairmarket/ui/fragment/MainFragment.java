@@ -69,6 +69,7 @@ public class MainFragment extends DaggerFragment
     toggle.syncState();
 
     NavigationView navigationView = activity.findViewById(R.id.nav_view);
+    navigationView.setNavigationItemSelectedListener(this);
     TextView tvEmail = navigationView.getHeaderView(0).findViewById(R.id.tv_email);
     tvEmail.setText(currentUser.getEmail());
 
@@ -78,8 +79,6 @@ public class MainFragment extends DaggerFragment
         .beginTransaction()
         .add(R.id.full_screen_fragment_container, receiptsFragment)
         .commit();
-
-    navigationView.setNavigationItemSelectedListener(this);
     return view;
   }
 
