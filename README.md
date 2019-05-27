@@ -21,11 +21,12 @@ merchants to have more than one terminal if needed since the POS backend is clou
 - Widget that provide the dollar amount of the intraday sales
 
 ### User Interface Mocks
-#### Screen Log In/Create Account
+#### Screen Create Account/Log In
 
-The following screen allows to log in to the system or create a new account if is a new user to gain 
-access to the POS application. 
+The following screen allows to create a new account to allo a new user to gain access to the POS 
+application. However, only after the email verifciation occurred a user will be able to Log In to 
+the application.
 
 Create Account |
 --- |
-![Create Account](/md/create_account.gif) |
+![Create Account](/md/create_account.gif =250x) |
