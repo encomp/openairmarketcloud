@@ -1,0 +1,6 @@
+<lint>
+    <issue id="InvalidPackage">
+        <ignore path="**/auto-value*.jar" />
+        <ignore path="**/grpc-core*.jar" />
+    </issue>
+</lint>
