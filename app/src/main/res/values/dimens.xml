@@ -1,6 +1,4 @@
 <resources>
-    <dimen name="fab_margin">16dp</dimen>
-
     <dimen name="icon_top_margin">24dp</dimen>
     <dimen name="icon_bottom_margin">24dp</dimen>
     <!-- Default screen margins, per the Android Design guidelines. -->
@@ -11,11 +9,6 @@
     <dimen name="shrine_small_spacing">8dp</dimen>
     <dimen name="shrine_large_spacing">36dp</dimen>
     <dimen name="shrine_toolbar_collapsed_height">72dp</dimen>
-    <dimen name="shrine_bottom_nav_view_elevation">16dp</dimen>
-    <dimen name="shrine_bottom_nav_view_height">56dp</dimen>
 
-    <dimen name="shrine_section_elevation">4dp</dimen>
     <dimen name="shrine_section_header_text_size">16sp</dimen>
-    <dimen name="shrine_section_title_text_size">26sp</dimen>
-    <dimen name="shrine_seekbar_padding">12dp</dimen>
 </resources>
