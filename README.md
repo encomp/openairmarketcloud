@@ -29,4 +29,4 @@ the application.
 
 Create Account |
 --- |
-![Create Account](/md/create_account.gif){ width=50% } |
+<img src="/md/create_account.gif" width="400" height="800"> |
