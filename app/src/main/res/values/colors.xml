@@ -15,11 +15,7 @@
     <color name="grey_100">#F5F5F5</color>
     <color name="grey_200">#EEEEEE</color>
     <color name="grey_300">#E0E0E0</color>
-    <color name="grey_500">#9E9E9E</color>
-
-    <!-- Light Blue -->
-    <color name="light_blue_50">#E1F5FE</color>
-    <color name="light_blue_100">#b3e5fc</color>
+    <!--color name="grey_500">#9E9E9E</color-->
 
     <!-- Red -->
     <color name="red">#FF1744</color>
