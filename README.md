@@ -30,3 +30,7 @@ the application.
 Create Account |
 --- |
 <img src="/md/create_account.gif" width="400" height="800"> |
+
+Sign In |
+--- |
+<img src="/md/signIn.gif" width="400" height="800"> |
