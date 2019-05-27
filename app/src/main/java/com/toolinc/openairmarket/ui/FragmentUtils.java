@@ -14,11 +14,6 @@ public abstract class FragmentUtils {
     activity
         .getSupportFragmentManager()
         .beginTransaction()
-        .setCustomAnimations(
-            com.google.android.material.R.anim.abc_grow_fade_in_from_bottom,
-            com.google.android.material.R.anim.abc_fade_out,
-            com.google.android.material.R.anim.abc_fade_in,
-            com.google.android.material.R.anim.abc_shrink_fade_out_from_bottom)
         .replace(MAIN_ACTIVITY_FRAGMENT_CONTAINER_ID, fragment, tag)
         .addToBackStack(null /* name */)
         .commit();
