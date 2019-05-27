@@ -149,7 +149,7 @@ public class ReceiptsFragment extends DaggerFragment {
       String productId = textInputEditText.getText().toString();
       textInputEditText.getText().clear();
       productsRepository.findProductById(productId, this::onSuccess, this::onFailure);
-      Timber.tag(TAG).d("Searching for Product: " + productId);
+      Timber.tag(TAG).d("Searching for Product: [%s].", productId);
       return true;
     }
     return false;

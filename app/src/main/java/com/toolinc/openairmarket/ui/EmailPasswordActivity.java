@@ -100,7 +100,7 @@ public final class EmailPasswordActivity extends AppCompatActivity implements Vi
 
   @AddTrace(name = "EmailPasswordActivity.createAccount", enabled = true)
   private void createAccount(View view, String email, String password) {
-    Timber.tag(TAG).d(TAG, "createAccount:" + email);
+    Timber.tag(TAG).d(TAG, "createAccount: [%s].", email);
     if (!validateForm()) {
       return;
     }
@@ -130,7 +130,7 @@ public final class EmailPasswordActivity extends AppCompatActivity implements Vi
 
   @AddTrace(name = "EmailPasswordActivity.signIn", enabled = true)
   private void signIn(View view, String email, String password) {
-    Timber.tag(TAG).d("signIn:" + email);
+    Timber.tag(TAG).d("signIn: [%s].", email);
     if (!validateForm()) {
       return;
     }

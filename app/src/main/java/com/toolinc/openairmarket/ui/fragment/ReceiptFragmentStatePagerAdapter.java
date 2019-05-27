@@ -61,13 +61,13 @@ public final class ReceiptFragmentStatePagerAdapter extends FragmentStatePagerAd
 
   @Override
   public void onPageSelected(int position) {
-    Timber.tag(TAG).d("Append observers " + position);
+    Timber.tag(TAG).d("Append observers [%d].", position);
     fragmentWithViewModels.get(position).bindObservers();
   }
 
   public void addProduct(Product product) {
-    Timber.tag(TAG).d("Current Tab Position: " + tabLayout.getSelectedTabPosition());
-    Timber.tag(TAG).d("Append product: " + product.id());
+    Timber.tag(TAG).d("Current Tab Position: [%d].", tabLayout.getSelectedTabPosition());
+    Timber.tag(TAG).d("Append product: [%s].", product.id());
     getReceiptViewModel().add(product);
   }
 

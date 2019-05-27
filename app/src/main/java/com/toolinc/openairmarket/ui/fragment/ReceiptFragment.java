@@ -54,13 +54,13 @@ public final class ReceiptFragment extends DaggerFragment {
   }
 
   public void newProductLines(ImmutableList<ProductLine> productLines) {
-    Timber.tag(TAG).d("About to add more products: " + productLines.size());
+    Timber.tag(TAG).d("About to add more products: [%d].", productLines.size());
     saleLineListAdapter.setProductLines(productLines);
     recyclerView.setAdapter(saleLineListAdapter);
   }
 
   public void newTotalAmount(BigDecimal bigDecimal) {
-    Timber.tag(TAG).d("New Total Amount: " + bigDecimal.toPlainString());
+    Timber.tag(TAG).d("New Total Amount: [%s].", bigDecimal.toPlainString());
     textView.setText(OpenAirMarketApplication.toString(bigDecimal));
   }
 }
