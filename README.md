@@ -44,3 +44,16 @@ button).
 | Receipts | Cancel/Pay | 
 | -------- |:----------:|
 | <img src="/md/pos_screen.gif" width="400" height="800"> | <img src="/md/cancel_pay.gif" width="400" height="800"> |
+
+#### Screen Pos Phone Mobile Quick Access
+
+The following screen allows the user sell a product using the quick access bottom sheet. The 
+merchant can select the product he desires to sell by using the bottom sheet that will display a 
+grid of buttons with products that are more frequently bought or lack a codebar. If the merchant 
+clicks on one of the product it the selected product will appear on the selected receipt as a new 
+line.
+
+| Quick Acces | Cancel/Pay | 
+| ----------- |:----------:|
+| <img src="/md/quick_access.gif" width="400" height="800"> | <img src="/md/pay_quick.gif" width="400" height="800"> |
+
