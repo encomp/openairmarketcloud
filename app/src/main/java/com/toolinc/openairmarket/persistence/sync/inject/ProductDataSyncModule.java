@@ -2,6 +2,7 @@ package com.toolinc.openairmarket.persistence.sync.inject;
 
 import android.app.Application;
 import android.app.NotificationManager;
+import android.os.Build;
 
 import com.toolinc.openairmarket.ChannelIds;
 import com.toolinc.openairmarket.NotificationIds;
@@ -142,15 +143,21 @@ public class ProductDataSyncModule {
   }
 
   private static final ChannelProperties.Builder channelBuilder() {
-    return ChannelProperties.builder()
-        .setChannelId(ChannelIds.DATA_SYNC)
-        .setImportance(NotificationManager.IMPORTANCE_HIGH);
+    ChannelProperties.Builder builder =
+        ChannelProperties.builder().setChannelId(ChannelIds.DATA_SYNC);
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+      builder.setImportance(NotificationManager.IMPORTANCE_HIGH);
+    }
+    return builder;
   }
 
   private static final NotificationProperties.Builder notiBuilder() {
-    return NotificationProperties.builder()
-        .setChannelId(ChannelIds.DATA_SYNC)
-        .setPriority(NotificationManager.IMPORTANCE_HIGH);
+    NotificationProperties.Builder builder =
+        NotificationProperties.builder().setChannelId(ChannelIds.DATA_SYNC);
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+      builder.setPriority(NotificationManager.IMPORTANCE_HIGH);
+    }
+    return builder;
   }
 
   private String getString(Application application, int resId) {
