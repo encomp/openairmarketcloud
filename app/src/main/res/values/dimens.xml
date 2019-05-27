@@ -6,25 +6,16 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="nav_header_height">184dp</dimen>
 
-
     <dimen name="shrine_standard_spacing">16dp</dimen>
     <dimen name="shrine_tiny_spacing">4dp</dimen>
     <dimen name="shrine_small_spacing">8dp</dimen>
     <dimen name="shrine_large_spacing">36dp</dimen>
     <dimen name="shrine_toolbar_collapsed_height">72dp</dimen>
-    <dimen name="shrine_toolbar_elevation">4dp</dimen>
     <dimen name="shrine_bottom_nav_view_elevation">16dp</dimen>
     <dimen name="shrine_bottom_nav_view_height">56dp</dimen>
-    <dimen name="launchscreens_product_logo_bottom">16dp</dimen>
 
     <dimen name="shrine_section_elevation">4dp</dimen>
     <dimen name="shrine_section_header_text_size">16sp</dimen>
     <dimen name="shrine_section_title_text_size">26sp</dimen>
     <dimen name="shrine_seekbar_padding">12dp</dimen>
-
-    <!--
-       Refer to App Widget Documentation for margin information
-       http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
-    -->
-    <dimen name="widget_margin">8dp</dimen>
 </resources>
