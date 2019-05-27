@@ -27,10 +27,6 @@ The following screen allows to create a new account to allo a new user to gain a
 application. However, only after the email verifciation occurred a user will be able to Log In to 
 the application.
 
-Create Account |
---- |
-<img src="/md/create_account.gif" width="400" height="800"> |
-
-Sign In |
---- |
-<img src="/md/signIn.gif" width="400" height="800"> |
+| Create Account | Log In | 
+| -------------- |:------:|
+| <img src="/md/create_account.gif" width="400" height="800"> | <img src="/md/signIn.gif" width="400" height="800"> |
