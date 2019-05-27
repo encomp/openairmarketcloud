@@ -11,3 +11,17 @@ the merchant may issue a receipt for the transaction, which is printed or emaile
 The user based for the app are retail merchants that lack a POS. The goal of the system is to allow 
 merchants to define the products and allow them to perform sale transactions. The system will allow 
 merchants to have more than one terminal if needed since the POS backend is cloud base.
+
+### Features
+- Sign In/Create Account Screen
+- Point of Sale Screen
+- Support up to 3 Sales (receipts) at the same time
+- Allow add quick access product to a specific ticket
+- Perform a sale from a given receipt
+- Widget that provide the dollar amount of the intraday sales
+
+### User Interface Mocks
+#### Screen Log In/Create Account
+
+The following screen allows to log in to the system or create a new account if is a new user to gain 
+access to the POS application. 
