@@ -30,3 +30,14 @@ the application.
 | Create Account | Log In | 
 | -------------- |:------:|
 | <img src="/md/create_account.gif" width="400" height="800"> | <img src="/md/signIn.gif" width="400" height="800"> |
+
+#### Screen Pos Phone Mobile
+
+The following screen allows the user to perform a sale. The user could perform 3 different sales 
+simultaneously by having 3 receipt tabs. Each tab receipt provides all the different products with 
+the correspondent quantities and price of each product. To capture the desired product to sell there 
+is a search in the bottom app bar. This icon will allow to enter a product by using the barcode of 
+the specific product. And at the bottom it provides the total of amount of the sale. The entire 
+receipt could be cancel (by clicking on the cancel button) or complete (by clicking on the pay 
+button).
+
