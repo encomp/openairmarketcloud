@@ -31,7 +31,7 @@ the application.
 | -------------- |:------:|
 | <img src="/md/create_account.gif" width="400" height="800"> | <img src="/md/signIn.gif" width="400" height="800"> |
 
-#### Screen Pos Phone Mobile
+#### Screen Pos Mobile
 
 The following screen allows the user to perform a sale. The user could perform 3 different sales 
 simultaneously by having 3 receipt tabs. Each tab receipt provides all the different products with 
@@ -41,3 +41,6 @@ the specific product. And at the bottom it provides the total of amount of the s
 receipt could be cancel (by clicking on the cancel button) or complete (by clicking on the pay 
 button).
 
+| Receipts | 
+| -------------- |
+| <img src="/md/pos_screen.gif" width="400" height="800"> | 
