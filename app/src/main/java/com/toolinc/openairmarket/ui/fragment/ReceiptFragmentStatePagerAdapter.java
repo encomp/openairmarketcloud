@@ -34,7 +34,7 @@ public final class ReceiptFragmentStatePagerAdapter extends FragmentStatePagerAd
       Context context,
       ViewPager viewPager,
       TabLayout tabLayout) {
-    super(fragmentManager);
+    super(fragmentManager, FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
     Preconditions.checkNotNull(receiptsViewModel, "ReceiptsViewModel is missing.");
     Preconditions.checkNotNull(viewPager, "ViewPager is missing.");
     Preconditions.checkNotNull(context, "Context is missing.");
