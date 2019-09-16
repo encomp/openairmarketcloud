@@ -15,6 +15,9 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.work.BackoffPolicy;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -22,6 +25,10 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseUser;
 import com.toolinc.openairmarket.R;
 import com.toolinc.openairmarket.ui.fragment.MainFragmentDirections.ActionLogout;
+import com.toolinc.openairmarket.work.ProductCategorySyncWorker;
+import com.toolinc.openairmarket.work.ProductSyncWorker;
+
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
@@ -45,6 +52,12 @@ public class MainFragment extends DaggerFragment
   FloatingActionButton floatingActionButton;
 
   @Inject FirebaseUser currentUser;
+
+  @Override
+  public void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    syncFromFirestore();
+  }
 
   @Nullable
   @Override
@@ -94,5 +107,27 @@ public class MainFragment extends DaggerFragment
     }
     drawer.closeDrawer(GravityCompat.START);
     return true;
+  }
+
+  private void syncFromFirestore() {
+    WorkManager.getInstance(getActivity())
+        .enqueue(
+            new OneTimeWorkRequest.Builder(ProductCategorySyncWorker.class)
+                .setInitialDelay(2000, TimeUnit.MILLISECONDS)
+                .setBackoffCriteria(
+                    BackoffPolicy.EXPONENTIAL,
+                    OneTimeWorkRequest.MIN_BACKOFF_MILLIS,
+                    TimeUnit.MILLISECONDS)
+                .build());
+
+    WorkManager.getInstance(getActivity())
+        .enqueue(
+            new OneTimeWorkRequest.Builder(ProductSyncWorker.class)
+                .setInitialDelay(2000, TimeUnit.MILLISECONDS)
+                .setBackoffCriteria(
+                    BackoffPolicy.EXPONENTIAL,
+                    OneTimeWorkRequest.MIN_BACKOFF_MILLIS,
+                    TimeUnit.MILLISECONDS)
+                .build());
   }
 }
