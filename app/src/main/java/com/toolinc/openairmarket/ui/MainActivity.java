@@ -32,33 +32,12 @@ public final class MainActivity extends DaggerAppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
-
     receiptsViewModel = ViewModelProviders.of(this, viewModelFactory).get(ReceiptsViewModel.class);
-
-    if (savedInstanceState == null) {
-      MainFragment mainFragment = new MainFragment();
-      getSupportFragmentManager().beginTransaction().add(R.id.container, mainFragment).commit();
-    }
-
     syncFromFirestore();
   }
 
-  @Override
-  public void onBackPressed() {
-    if (handleFragmentOnBackPressed()) {
-      return;
-    }
-    super.onBackPressed();
-  }
-
-  private boolean handleFragmentOnBackPressed() {
-    Fragment currentFragment = FragmentUtils.getCurrentFragment(this);
-    return currentFragment instanceof OnBackPressedHandler
-        && ((OnBackPressedHandler) currentFragment).onBackPressed();
-  }
-
   private void syncFromFirestore() {
-    WorkManager.getInstance()
+    WorkManager.getInstance(getApplicationContext())
         .enqueue(
             new OneTimeWorkRequest.Builder(ProductCategorySyncWorker.class)
                 .setInitialDelay(2000, TimeUnit.MILLISECONDS)
@@ -68,7 +47,7 @@ public final class MainActivity extends DaggerAppCompatActivity {
                     TimeUnit.MILLISECONDS)
                 .build());
 
-    WorkManager.getInstance()
+    WorkManager.getInstance(getApplicationContext())
         .enqueue(
             new OneTimeWorkRequest.Builder(ProductSyncWorker.class)
                 .setInitialDelay(2000, TimeUnit.MILLISECONDS)

@@ -1,7 +1,5 @@
 package com.toolinc.openairmarket.ui.fragment;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -16,12 +14,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseUser;
 import com.toolinc.openairmarket.R;
+import com.toolinc.openairmarket.ui.fragment.MainFragmentDirections.ActionLogout;
 
 import javax.inject.Inject;
 
@@ -95,8 +95,9 @@ public class MainFragment extends DaggerFragment
     // Handle navigation view item clicks here.
     int id = item.getItemId();
     if (id == R.id.nav_log_out) {
-      getActivity().setResult(Activity.RESULT_OK, new Intent());
-      getActivity().finish();
+      ActionLogout actionLogout = MainFragmentDirections.actionLogout();
+      actionLogout = actionLogout.setLogout(Boolean.TRUE);
+      NavHostFragment.findNavController(this).navigate(actionLogout);
     }
     drawer.closeDrawer(GravityCompat.START);
     return true;

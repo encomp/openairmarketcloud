@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.toolinc.openairmarket.ui.fragment.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_start_recipts"
+            app:destination="@id/mainFragment" />
+        <argument
+            android:name="logout"
+            app:argType="boolean"
+            android:defaultValue="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.toolinc.openairmarket.ui.fragment.MainFragment"
+        android:label="MainFragment">
+        <action
+            android:id="@+id/action_logout"
+            app:destination="@id/loginFragment"
+            app:launchSingleTop="false" />
+    </fragment>
+</navigation>

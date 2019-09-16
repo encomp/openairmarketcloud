@@ -1,0 +1,160 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:id="@+id/main_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/icon"
+                style="@style/ThemeOverlay.LoginIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="0dp"
+                android:contentDescription="@string/desc_firebase_lockup"
+                android:src="@mipmap/ic_launcher_round" />
+
+            <TextView
+                android:id="@+id/titleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/shrine_small_spacing"
+                android:layout_marginBottom="@dimen/shrine_small_spacing"
+                android:text="@string/emailpassword_title_text"
+                android:theme="@style/ThemeOverlay.TitleText" />
+
+            <TextView
+                android:id="@+id/status"
+                style="@style/Widget.Shrine.TextInputLayout"
+                android:text="@string/signed_out" />
+
+            <TextView
+                android:id="@+id/detail"
+                style="@style/Widget.Shrine.TextInputLayout"
+                tools:text="Firebase User ID: 123456789abc" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/shrine_standard_spacing"
+            android:layout_marginBottom="@dimen/shrine_standard_spacing"
+            android:background="@color/grey_200"
+            android:orientation="vertical"
+            android:padding="@dimen/shrine_standard_spacing">
+
+            <LinearLayout
+                android:id="@+id/emailPasswordFields"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/shrine_tiny_spacing"
+                    android:hint="@string/hint_email">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/fieldEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textEmailAddress" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/shrine_standard_spacing"
+                    android:hint="@string/hint_password">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/fieldPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPassword" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/emailPasswordButtons"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/shrine_standard_spacing"
+                android:orientation="horizontal"
+                android:weightSum="2.0">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/emailSignInButton"
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/shrine_small_spacing"
+                    android:layout_marginEnd="@dimen/shrine_small_spacing"
+                    android:layout_weight="1.0"
+                    android:padding="@dimen/shrine_small_spacing"
+                    android:text="@string/sign_in"
+                    app:backgroundTint="@color/colorAccent2" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/emailCreateAccountButton"
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/shrine_small_spacing"
+                    android:layout_marginEnd="@dimen/shrine_small_spacing"
+                    android:layout_weight="1.0"
+                    android:padding="@dimen/shrine_small_spacing"
+                    android:text="@string/create_account" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/signedInButtons"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/shrine_standard_spacing"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                android:weightSum="2.0">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/signOutButton"
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/shrine_small_spacing"
+                    android:layout_marginRight="@dimen/shrine_small_spacing"
+                    android:layout_weight="1.0"
+                    android:text="@string/sign_out" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/verifyEmailButton"
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/shrine_small_spacing"
+                    android:layout_marginRight="@dimen/shrine_small_spacing"
+                    android:layout_weight="1.0"
+                    android:gravity="center"
+                    android:text="@string/verify_email"
+                    app:backgroundTint="@color/colorAccent2" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</layout>
