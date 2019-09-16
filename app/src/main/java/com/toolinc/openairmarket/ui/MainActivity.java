@@ -2,7 +2,6 @@ package com.toolinc.openairmarket.ui;
 
 import android.os.Bundle;
 
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.work.BackoffPolicy;
@@ -10,8 +9,6 @@ import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
 import com.toolinc.openairmarket.R;
-import com.toolinc.openairmarket.ui.fragment.MainFragment;
-import com.toolinc.openairmarket.ui.fragment.OnBackPressedHandler;
 import com.toolinc.openairmarket.viewmodel.ReceiptsViewModel;
 import com.toolinc.openairmarket.work.ProductCategorySyncWorker;
 import com.toolinc.openairmarket.work.ProductSyncWorker;

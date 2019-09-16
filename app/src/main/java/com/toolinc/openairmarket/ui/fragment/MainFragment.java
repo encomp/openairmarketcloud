@@ -31,7 +31,7 @@ import dagger.android.support.DaggerFragment;
 
 /** Initial screen for the pos app. */
 public class MainFragment extends DaggerFragment
-    implements OnBackPressedHandler, NavigationView.OnNavigationItemSelectedListener {
+    implements NavigationView.OnNavigationItemSelectedListener {
 
   DrawerLayout drawer;
 
@@ -80,13 +80,6 @@ public class MainFragment extends DaggerFragment
         .add(R.id.full_screen_fragment_container, receiptsFragment)
         .commit();
     return view;
-  }
-
-  public boolean onBackPressed() {
-    if (drawer.isDrawerOpen(GravityCompat.START)) {
-      drawer.closeDrawer(GravityCompat.START);
-    }
-    return true;
   }
 
   @SuppressWarnings("StatementWithEmptyBody")
