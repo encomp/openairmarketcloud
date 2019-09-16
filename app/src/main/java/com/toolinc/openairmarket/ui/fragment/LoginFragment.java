@@ -22,7 +22,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.perf.metrics.AddTrace;
 import com.toolinc.openairmarket.R;
 import com.toolinc.openairmarket.databinding.FragmentLoginBinding;
-import com.toolinc.openairmarket.ui.EmailPasswordActivity;
 
 import javax.inject.Inject;
 
@@ -32,7 +31,7 @@ import timber.log.Timber;
 public class LoginFragment extends DaggerFragment implements View.OnClickListener {
 
   public static final int REQUEST_CODE = 1;
-  private static final String TAG = EmailPasswordActivity.class.getSimpleName();
+  private static final String TAG = LoginFragment.class.getSimpleName();
   private FragmentLoginBinding loginBinding;
 
   @VisibleForTesting ProgressBar mProgressDialog;
