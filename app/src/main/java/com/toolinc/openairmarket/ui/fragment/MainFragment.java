@@ -73,7 +73,7 @@ public class MainFragment extends DaggerFragment
     TextView tvEmail = navigationView.getHeaderView(0).findViewById(R.id.tv_email);
     tvEmail.setText(currentUser.getEmail());
 
-    // TODO (edgar): Refactor this to extends from FullScreenFragment.
+    // TODO (edgar): Consider this created a nav graph.
     ReceiptsFragment receiptsFragment = new ReceiptsFragment();
     getChildFragmentManager()
         .beginTransaction()
