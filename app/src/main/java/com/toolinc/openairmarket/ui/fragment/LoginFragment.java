@@ -28,6 +28,7 @@ import javax.inject.Inject;
 import dagger.android.support.DaggerFragment;
 import timber.log.Timber;
 
+/** Fragment that allows the creation of a new account or login with an existing account. */
 public class LoginFragment extends DaggerFragment implements View.OnClickListener {
 
   public static final int REQUEST_CODE = 1;
