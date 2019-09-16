@@ -31,7 +31,6 @@ import timber.log.Timber;
 /** Fragment that allows the creation of a new account or login with an existing account. */
 public class LoginFragment extends DaggerFragment implements View.OnClickListener {
 
-  public static final int REQUEST_CODE = 1;
   private static final String TAG = LoginFragment.class.getSimpleName();
   private FragmentLoginBinding loginBinding;
 
