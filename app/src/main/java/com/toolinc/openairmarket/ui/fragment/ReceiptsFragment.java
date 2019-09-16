@@ -25,6 +25,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.common.base.Strings;
 import com.toolinc.openairmarket.OpenAirMarketApplication;
 import com.toolinc.openairmarket.R;
 import com.toolinc.openairmarket.common.NotificationUtil;
@@ -141,15 +142,19 @@ public class ReceiptsFragment extends DaggerFragment {
   private void onClick(View view) {
     String productId = textInputEditText.getText().toString();
     textInputEditText.getText().clear();
-    productsRepository.findProductById(productId, this::onSuccess, this::onFailure);
+    if (!Strings.isNullOrEmpty(productId)) {
+      productsRepository.findProductById(productId, this::onSuccess, this::onFailure);
+    }
   }
 
   private boolean onKey(View view, int keyCode, KeyEvent event) {
     if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
       String productId = textInputEditText.getText().toString();
       textInputEditText.getText().clear();
-      productsRepository.findProductById(productId, this::onSuccess, this::onFailure);
-      Timber.tag(TAG).d("Searching for Product: [%s].", productId);
+      if (!Strings.isNullOrEmpty(productId)) {
+        productsRepository.findProductById(productId, this::onSuccess, this::onFailure);
+        Timber.tag(TAG).d("Searching for Product: [%s].", productId);
+      }
       return true;
     }
     return false;
