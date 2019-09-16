@@ -86,7 +86,7 @@ public class LoginFragment extends DaggerFragment implements View.OnClickListene
     }
   }
 
-  @AddTrace(name = "EmailPasswordActivity.createAccount", enabled = true)
+  @AddTrace(name = "LoginFragment.createAccount", enabled = true)
   private void createAccount(View view, String email, String password) {
     Timber.tag(TAG).d(TAG, "createAccount: [%s].", email);
     if (!validateForm()) {
@@ -116,7 +116,7 @@ public class LoginFragment extends DaggerFragment implements View.OnClickListene
             });
   }
 
-  @AddTrace(name = "EmailPasswordActivity.signIn", enabled = true)
+  @AddTrace(name = "LoginFragment.signIn", enabled = true)
   private void signIn(View view, String email, String password) {
     Timber.tag(TAG).d("signIn: [%s].", email);
     if (!validateForm()) {
@@ -161,7 +161,7 @@ public class LoginFragment extends DaggerFragment implements View.OnClickListene
     updateUI(null);
   }
 
-  @AddTrace(name = "EmailPasswordActivity.sendEmailVerification", enabled = true)
+  @AddTrace(name = "LoginFragment.sendEmailVerification", enabled = true)
   private void sendEmailVerification(View view) {
     // Disable button
     loginBinding.verifyEmailButton.setEnabled(false);
