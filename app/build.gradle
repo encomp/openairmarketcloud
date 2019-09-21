@@ -41,6 +41,10 @@ android {
 }
 
 dependencies {
+    def room_version = "2.2.0-rc01"
+    def rxandroid_version = "2.1.1"
+    def rxjava_version = "2.2.12"
+
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.appcompat:appcompat:1.1.0'
@@ -53,8 +57,9 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation "androidx.work:work-runtime:2.2.0"
     implementation 'androidx.viewpager:viewpager:1.0.0'
-    implementation "android.arch.persistence.room:runtime:1.1.1"
-    annotationProcessor "android.arch.persistence.room:compiler:1.1.1"
+    implementation "androidx.room:room-runtime:$room_version"
+    implementation "androidx.room:room-rxjava2:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
     implementation 'com.google.android.material:material:1.0.0'
@@ -70,6 +75,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore:21.1.1'
     implementation 'com.google.firebase:firebase-perf:19.0.0'
     api 'com.google.guava:guava:27.0.1-android'
+    implementation "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
+    implementation "io.reactivex.rxjava2:rxjava:$rxjava_version"
     implementation 'com.jakewharton:butterknife:10.1.0'
     implementation 'com.jakewharton.timber:timber:4.7.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
@@ -82,8 +89,22 @@ dependencies {
     implementation project(':common')
     implementation project(':pos_persistence')
 
+    implementation 'com.google.truth:truth:0.42'
+    implementation 'com.google.code.gson:gson:2.8.0'
+
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.2.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    androidTestImplementation 'androidx.test:core:1.0.0'
+    androidTestImplementation 'androidx.test:runner:1.1.0'
+    androidTestImplementation 'androidx.test:rules:1.1.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.0.0'
+    androidTestImplementation 'androidx.test.ext:truth:1.0.0'
+    androidTestImplementation 'com.google.truth:truth:0.42'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.1.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-intents:3.1.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-accessibility:3.1.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-web:3.1.0'
+    androidTestImplementation 'androidx.test.espresso.idling:idling-concurrent:3.1.0'
     androidTestImplementation 'androidx.work:work-testing:2.2.0'
+    androidTestImplementation "androidx.room:room-testing:$room_version"
 }
