@@ -2,11 +2,11 @@ apply plugin: 'java-library'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    compile project(':common')
-    compile 'com.google.guava:guava:27.0-jre'
+    implementation project(':common')
+    implementation 'com.google.guava:guava:28.1-jre'
     implementation 'joda-time:joda-time:2.10.1'
-    testCompile 'junit:junit:4.12'
-    testCompile 'com.google.firebase:firebase-admin:6.7.0'
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'com.google.firebase:firebase-admin:6.7.0'
 }
 
 sourceCompatibility = "8"
