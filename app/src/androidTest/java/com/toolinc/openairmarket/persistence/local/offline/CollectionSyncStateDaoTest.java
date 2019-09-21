@@ -32,9 +32,15 @@ public class CollectionSyncStateDaoTest {
   }
 
   @Test
+  public void delete() {
+    CollectionSyncState model = create("new", SyncStatus.IN_PROGRESS);
+    mDatabase.collectionStateDao().delete(model).test().assertValue(0);
+  }
+
+  @Test
   public void insertAndDelete() {
     CollectionSyncState model = create("new", SyncStatus.IN_PROGRESS);
-    mDatabase.collectionStateDao().insert(model);
+    mDatabase.collectionStateDao().insert(model).test().assertComplete();
     mDatabase.collectionStateDao().delete(model).test().assertValue(1);
   }
 
@@ -43,7 +49,7 @@ public class CollectionSyncStateDaoTest {
     int[] ids = new int[] {1, 2, 3, 4, 5};
     for (int id : ids) {
       CollectionSyncState model = create("new" + id, SyncStatus.IN_PROGRESS);
-      mDatabase.collectionStateDao().insert(model);
+      mDatabase.collectionStateDao().insert(model).test().assertComplete();
     }
     mDatabase.collectionStateDao().deleteAll().test().assertComplete();
   }

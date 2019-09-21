@@ -10,12 +10,17 @@ import java.util.concurrent.Executor;
 
 import javax.inject.Inject;
 
+import io.reactivex.Completable;
+import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
+
 /**
  * Collection sync state repository hides the async thread execution for insert, delete and
  * retrieval of information.
  */
 public final class CollectionSyncStateRepository {
 
+  private static final String TAG = CollectionSyncStateRepository.class.getSimpleName();
   private final CollectionSyncStateDao collectionSyncStateDao;
   private final Executor executor;
 
@@ -27,11 +32,21 @@ public final class CollectionSyncStateRepository {
   }
 
   public void insert(CollectionSyncState collectionSyncState) {
-    executor.execute(() -> collectionSyncStateDao.insert(collectionSyncState));
+    Completable.fromAction(() -> collectionSyncStateDao.insert(collectionSyncState))
+        .subscribeOn(Schedulers.from(executor))
+        .doOnError(
+            throwable -> {
+              Timber.tag(TAG).e(throwable, "Unable to insert [%s].", collectionSyncState.getId());
+            });
   }
 
   public void delete(CollectionSyncState collectionSyncState) {
-    executor.execute(() -> collectionSyncStateDao.delete(collectionSyncState));
+    Completable.fromAction(() -> collectionSyncStateDao.delete(collectionSyncState))
+        .subscribeOn(Schedulers.from(executor))
+        .doOnError(
+            throwable -> {
+              Timber.tag(TAG).e(throwable, "Unable to delete [%s].", collectionSyncState.getId());
+            });
   }
 
   public Optional<CollectionSyncState> findById(String id) {

@@ -18,7 +18,7 @@ import io.reactivex.Maybe;
 interface CollectionSyncStateDao extends Serializable {
 
   @Insert(onConflict = OnConflictStrategy.REPLACE)
-  void insert(CollectionSyncState collectionSyncState);
+  Completable insert(CollectionSyncState collectionSyncState);
 
   @Delete
   Maybe<Integer> delete(CollectionSyncState collectionSyncState);
