@@ -74,7 +74,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-config:19.0.1'
     implementation 'com.google.firebase:firebase-firestore:21.1.1'
     implementation 'com.google.firebase:firebase-perf:19.0.0'
-    api 'com.google.guava:guava:27.0.1-android'
+    api 'com.google.guava:guava:28.1-android'
+    implementation 'com.google.code.gson:gson:2.8.0'
     implementation "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
     implementation "io.reactivex.rxjava2:rxjava:$rxjava_version"
     implementation 'com.jakewharton:butterknife:10.1.0'
@@ -88,9 +89,6 @@ dependencies {
 
     implementation project(':common')
     implementation project(':pos_persistence')
-
-    implementation 'com.google.truth:truth:0.42'
-    implementation 'com.google.code.gson:gson:2.8.0'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:core:1.0.0'
