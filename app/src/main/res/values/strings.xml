@@ -21,7 +21,6 @@
     <string name="verification_failed">Failed to send verification email.</string>
     <string name="auth_failed">Authentication failed</string>
     <string name="firebase_status_fmt">Firebase User: %s</string>
-    <string name="title_activity_main">Point Of Sales</string>
 
     <!-- Navigation Drawer -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -32,7 +31,7 @@
     <string name="menu_drawer_log_out">Log Out</string>
 
     <!-- Main Fragment -->
-    <string name="pos_title">Point Of Sale</string>
+    <string name="pos_title">Point Of Sales</string>
 
     <!-- Receipts fragment -->
     <string name="receipt_tab_1">Receipt #1</string>
