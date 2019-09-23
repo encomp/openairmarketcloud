@@ -38,22 +38,15 @@
             android:id="@+id/right_side"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="72dp"
-            android:layout_marginBottom="48dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="@+id/guideline_vertical"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <include layout="@layout/bottomsheet_quick_buttons" />
-        </androidx.core.widget.NestedScrollView>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <FrameLayout
             android:id="@+id/full_screen_fragment_container"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="72dp"
-            android:layout_marginBottom="48dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="@+id/guideline_vertical"
             app:layout_constraintRight_toRightOf="parent"
