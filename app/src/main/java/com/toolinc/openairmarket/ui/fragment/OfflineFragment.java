@@ -8,10 +8,19 @@ import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.LiveData;
 
 import com.evrencoskun.tableview.TableView;
 import com.toolinc.openairmarket.R;
+import com.toolinc.openairmarket.persistence.local.offline.CollectionSyncState;
+import com.toolinc.openairmarket.persistence.local.offline.CollectionSyncStateRepository;
+import com.toolinc.openairmarket.ui.adapter.OfflineTableViewAdapter;
 import com.toolinc.openairmarket.ui.view.tableview.adapter.TableViewAdapter;
+import com.toolinc.openairmarket.ui.view.tableview.model.TableViewModel;
+
+import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,6 +35,11 @@ public class OfflineFragment extends DaggerFragment {
   @BindView(R.id.progressBar)
   ProgressBar progressBar;
 
+  @Inject CollectionSyncStateRepository collectionSyncStateRepository;
+
+  private LiveData<List<CollectionSyncState>> collectionSyncStates;
+  private TableViewModel.Builder tableViewModel =
+          TableViewModel.builder(new OfflineTableViewAdapter());
   private TableViewAdapter tableViewAdapter;
 
   @Nullable
@@ -36,14 +50,33 @@ public class OfflineFragment extends DaggerFragment {
       @Nullable Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_offline, container, false);
     ButterKnife.bind(this, view);
-
     initializeTableView(tableView);
     return view;
   }
 
-  private void initializeTableView(TableView tableView){
+  private void initializeTableView(TableView tableView) {
     tableViewAdapter = new TableViewAdapter(getContext());
     tableView.setAdapter(tableViewAdapter);
+    retrieveAllData();
+  }
+
+  private void retrieveAllData() {
+    showProgressBar();
+    collectionSyncStates = collectionSyncStateRepository.getAll();
+    collectionSyncStates.observe(
+        this,
+        collectionSyncStates -> {
+          TableViewModel tableViewModel =
+              TableViewModel.builder(new OfflineTableViewAdapter())
+                  .addAllCellModels(collectionSyncStates)
+                  .addColumnHeaderModel("Id")
+                  .addColumnHeaderModel("# Docs")
+                  .addColumnHeaderModel("Status")
+                  .addColumnHeaderModel("Last Update")
+                  .build();
+          tableViewAdapter.setTableViewModel(tableViewModel);
+          hideProgressBar();
+        });
   }
 
   public void showProgressBar() {

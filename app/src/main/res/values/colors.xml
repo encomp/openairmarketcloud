@@ -15,19 +15,19 @@
     <color name="grey_100">#F5F5F5</color>
     <color name="grey_200">#EEEEEE</color>
     <color name="grey_300">#E0E0E0</color>
-    <!--color name="grey_500">#9E9E9E</color-->
+    <color name="grey_400">#BDBDBD</color>
+    <color name="grey_500">#9E9E9E</color>
 
     <!-- Red -->
     <color name="red">#FF1744</color>
     <color name="btn_text_btn_ripple_color_red">#FF616F</color>
 
 
-    <color name="selected_background_color">#15a4fa</color>
-    <color name="unselected_background_color">#1c324a</color>
-    <color name="shadow_background_color">#28415f</color>
-    <color name="unselected_header_background_color">#1f3650</color>
-
-    <color name="unselected_text_color">#537095</color>
-    <color name="selected_text_color">#ffffff</color>
-    <color name="separator_color">#273e5b</color>
+    <color name="selected_background_color">@color/grey_100</color>
+    <color name="unselected_background_color">@color/colorPrimary</color>
+    <color name="shadow_background_color">@color/grey_50</color>
+    <color name="unselected_header_background_color">@color/grey_300</color>
+    <color name="unselected_text_color">@color/textColorPrimary</color>
+    <color name="selected_text_color">@color/textColorSecondary</color>
+    <color name="separator_color">@color/grey_300</color>
 </resources>

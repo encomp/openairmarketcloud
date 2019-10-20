@@ -20,10 +20,10 @@
 
         app:column_header_height="@dimen/table_view_cell_height"
         app:row_header_width="@dimen/table_view_row_header_width"
-        app:selected_color="@color/selected_background_color"
-        app:shadow_color="@color/shadow_background_color"
-        app:unselected_color="@color/unselected_background_color"
-        app:separator_color="@color/separator_color"/>
+        app:selected_color="@color/grey_50"
+        app:shadow_color="@color/grey_200"
+        app:unselected_color="@color/colorPrimary"
+        app:separator_color="@color/grey_300"/>
 
     <ProgressBar
         android:id="@+id/progressBar"
