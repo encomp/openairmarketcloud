@@ -16,7 +16,7 @@ import com.toolinc.openairmarket.ui.view.tableview.holder.RowHeaderViewHolder;
 import com.toolinc.openairmarket.ui.view.tableview.model.CellModel;
 import com.toolinc.openairmarket.ui.view.tableview.model.ColumnHeaderModel;
 import com.toolinc.openairmarket.ui.view.tableview.model.RowHeaderModel;
-import com.toolinc.openairmarket.ui.view.tableview.model.TableViewModel;
+import com.toolinc.openairmarket.ui.view.tableview.TableViewModel;
 
 /** Define the table adapter for a table view. */
 public final class TableViewAdapter

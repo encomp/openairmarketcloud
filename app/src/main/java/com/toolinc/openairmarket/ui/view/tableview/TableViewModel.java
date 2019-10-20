@@ -1,8 +1,11 @@
-package com.toolinc.openairmarket.ui.view.tableview.model;
+package com.toolinc.openairmarket.ui.view.tableview;
 
 import com.google.auto.value.AutoValue;
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
+import com.toolinc.openairmarket.ui.view.tableview.model.CellModel;
+import com.toolinc.openairmarket.ui.view.tableview.model.ColumnHeaderModel;
+import com.toolinc.openairmarket.ui.view.tableview.model.RowHeaderModel;
 
 import java.io.Serializable;
 import java.util.List;

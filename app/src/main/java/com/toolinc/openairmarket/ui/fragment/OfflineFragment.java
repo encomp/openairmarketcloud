@@ -15,8 +15,9 @@ import com.toolinc.openairmarket.R;
 import com.toolinc.openairmarket.persistence.local.offline.CollectionSyncState;
 import com.toolinc.openairmarket.persistence.local.offline.CollectionSyncStateRepository;
 import com.toolinc.openairmarket.ui.adapter.OfflineTableViewAdapter;
+import com.toolinc.openairmarket.ui.view.tableview.TableViewListener;
 import com.toolinc.openairmarket.ui.view.tableview.adapter.TableViewAdapter;
-import com.toolinc.openairmarket.ui.view.tableview.model.TableViewModel;
+import com.toolinc.openairmarket.ui.view.tableview.TableViewModel;
 
 import java.util.List;
 
@@ -57,6 +58,7 @@ public class OfflineFragment extends DaggerFragment {
   private void initializeTableView(TableView tableView) {
     tableViewAdapter = new TableViewAdapter(getContext());
     tableView.setAdapter(tableViewAdapter);
+    tableView.setTableViewListener(new TableViewListener(tableView));
     retrieveAllData();
   }
 
