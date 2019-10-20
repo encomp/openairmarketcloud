@@ -11,4 +11,8 @@
     <dimen name="shrine_toolbar_collapsed_height">72dp</dimen>
 
     <dimen name="shrine_section_header_text_size">16sp</dimen>
+
+    <dimen name="table_view_cell_height">28dp</dimen>
+    <dimen name="table_view_row_header_width">28dp</dimen>
+    <dimen name="table_view_default_text_size">11sp</dimen>
 </resources>
