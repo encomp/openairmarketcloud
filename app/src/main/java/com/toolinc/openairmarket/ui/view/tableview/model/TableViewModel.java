@@ -7,6 +7,10 @@ import com.google.common.collect.ImmutableList;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * Table view model that populates a given {@link
+ * com.toolinc.openairmarket.ui.view.tableview.adapter.TableViewAdapter}.
+ */
 @AutoValue
 public abstract class TableViewModel {
 
@@ -16,7 +20,8 @@ public abstract class TableViewModel {
 
   public abstract ImmutableList<List<CellModel>> cellModels();
 
-  public static Builder builder(Function<Serializable, ImmutableList<CellModel>> transformation) {
+  public static <T extends Serializable> Builder builder(
+      Function<T, ImmutableList<CellModel>> transformation) {
     return new AutoValue_TableViewModel.Builder().setTransformation(transformation);
   }
 
@@ -31,9 +36,10 @@ public abstract class TableViewModel {
 
     abstract ImmutableList.Builder<List<CellModel>> cellModelsBuilder();
 
-    public Builder setTransformation(
-        Function<Serializable, ImmutableList<CellModel>> transformation) {
-      this.transformation = transformation;
+    @SuppressWarnings("unchecked")
+    public <T extends Serializable> Builder setTransformation(
+        Function<T, ImmutableList<CellModel>> transformation) {
+      this.transformation = (Function<Serializable, ImmutableList<CellModel>>) transformation;
       return this;
     }
 
@@ -49,7 +55,7 @@ public abstract class TableViewModel {
       return this;
     }
 
-    public Builder addRowHeaderModel(String header) {
+    Builder addRowHeaderModel(String header) {
       rowHeaderModelsBuilder().add(RowHeaderModel.create(header));
       return this;
     }
@@ -61,14 +67,17 @@ public abstract class TableViewModel {
       return this;
     }
 
-    public <T extends Serializable> Builder addCellModel(T cell) {
+    <T extends Serializable> Builder addCellModel(T cell) {
       cellModelsBuilder().add(transformation.apply(cell));
       return this;
     }
 
     public <T extends Serializable> Builder addAllCellModels(List<T> cells) {
+      int i = 1;
       for (Serializable cell : cells) {
         addCellModel(cell);
+        addRowHeaderModel("" + i);
+        i++;
       }
       return this;
     }
