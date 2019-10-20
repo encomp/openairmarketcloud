@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.navigation.NavDirections;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.work.BackoffPolicy;
 import androidx.work.OneTimeWorkRequest;
@@ -99,11 +100,17 @@ public class MainFragment extends DaggerFragment
   @Override
   public boolean onNavigationItemSelected(@NonNull MenuItem item) {
     // Handle navigation view item clicks here.
-    int id = item.getItemId();
-    if (id == R.id.nav_log_out) {
-      ActionLogout actionLogout = MainFragmentDirections.actionLogout();
-      actionLogout = actionLogout.setLogout(Boolean.TRUE);
-      NavHostFragment.findNavController(this).navigate(actionLogout);
+    switch (item.getItemId()) {
+      case R.id.nav_log_out:
+        ActionLogout actionLogout = MainFragmentDirections.actionLogout();
+        actionLogout = actionLogout.setLogout(Boolean.TRUE);
+        NavHostFragment.findNavController(this).navigate(actionLogout);
+        break;
+
+      case R.id.nav_offline:
+        NavDirections navDirections = MainFragmentDirections.actionOffline();
+        NavHostFragment.findNavController(this).navigate(navDirections.getActionId());
+        break;
     }
     drawer.closeDrawer(GravityCompat.START);
     return true;

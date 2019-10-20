@@ -3,6 +3,7 @@ package com.toolinc.openairmarket.inject;
 import com.toolinc.openairmarket.ui.MainActivity;
 import com.toolinc.openairmarket.ui.fragment.LoginFragment;
 import com.toolinc.openairmarket.ui.fragment.MainFragment;
+import com.toolinc.openairmarket.ui.fragment.OfflineFragment;
 import com.toolinc.openairmarket.ui.fragment.ReceiptFragment;
 import com.toolinc.openairmarket.ui.fragment.ReceiptsFragment;
 
@@ -30,4 +31,7 @@ public abstract class OpenAirMarketUiModule {
 
   @ContributesAndroidInjector
   abstract ReceiptFragment contributeReceiptFragment();
+
+  @ContributesAndroidInjector
+  abstract OfflineFragment contributeOfflineFragment();
 }
