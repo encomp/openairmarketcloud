@@ -69,10 +69,10 @@ public class OfflineFragment extends DaggerFragment {
           TableViewModel tableViewModel =
               TableViewModel.builder(new OfflineTableViewAdapter())
                   .addAllCellModels(collectionSyncStates)
-                  .addColumnHeaderModel("Id")
-                  .addColumnHeaderModel("# Docs")
-                  .addColumnHeaderModel("Status")
-                  .addColumnHeaderModel("Last Update")
+                  .addColumnHeaderModel(getString(R.string.offline_header_id))
+                  .addColumnHeaderModel(getString(R.string.offline_header_number_docs))
+                  .addColumnHeaderModel(getString(R.string.offline_header_status))
+                  .addColumnHeaderModel(getString(R.string.offline_header_last_update))
                   .build();
           tableViewAdapter.setTableViewModel(tableViewModel);
           hideProgressBar();

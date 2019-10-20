@@ -106,6 +106,12 @@
     <string name="products_data_sync_notification_failure_title">Products  Failure</string>
     <string name="products_data_sync_notification_failure_content">The products synced failed.</string>
 
+    <!-- Table Views -->
+    <string name="offline_header_id">Id</string>
+    <string name="offline_header_number_docs"># Docs</string>
+    <string name="offline_header_status">Status</string>
+    <string name="offline_header_last_update">Last Update</string>
+
     <!-- Widget -->
     <string name="appwidget_title">Today</string>
     <string name="appwidget_sub_title">Sales:</string>
