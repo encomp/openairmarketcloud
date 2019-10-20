@@ -87,6 +87,9 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'joda-time:joda-time:2.10.1'
 
+    //Third party libraries Table View
+    implementation 'com.evrencoskun.library:tableview:0.8.8'
+
     implementation project(':common')
     implementation project(':pos_persistence')
 
