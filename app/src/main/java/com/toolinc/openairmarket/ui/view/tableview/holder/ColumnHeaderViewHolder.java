@@ -49,7 +49,7 @@ public final class ColumnHeaderViewHolder extends AbstractSorterViewHolder {
 
   public void setColumnHeaderModel(ColumnHeaderModel columnHeaderModel, int columnPosition) {
     // Change alignment of textView
-    headerTextView.setGravity(COLUMN_TEXT_ALIGNS[columnPosition] | Gravity.CENTER_VERTICAL);
+    headerTextView.setGravity(Gravity.CENTER_VERTICAL);
     // Set text data
     headerTextView.setText(columnHeaderModel.getData());
     // It is necessary to remeasure itself.
@@ -60,14 +60,11 @@ public final class ColumnHeaderViewHolder extends AbstractSorterViewHolder {
   @Override
   public void setSelected(SelectionState selectionState) {
     super.setSelected(selectionState);
-
     int nBackgroundColorId;
     int nForegroundColorId;
-
     if (selectionState == SelectionState.SELECTED) {
       nBackgroundColorId = R.color.selected_background_color;
       nForegroundColorId = R.color.selected_text_color;
-
     } else if (selectionState == SelectionState.UNSELECTED) {
       nBackgroundColorId = R.color.unselected_header_background_color;
       nForegroundColorId = R.color.unselected_text_color;
@@ -75,7 +72,6 @@ public final class ColumnHeaderViewHolder extends AbstractSorterViewHolder {
       nBackgroundColorId = R.color.shadow_background_color;
       nForegroundColorId = R.color.unselected_text_color;
     }
-
     headerContainer.setBackgroundColor(
         ContextCompat.getColor(headerContainer.getContext(), nBackgroundColorId));
     headerTextView.setTextColor(
@@ -85,11 +81,8 @@ public final class ColumnHeaderViewHolder extends AbstractSorterViewHolder {
   @Override
   public void onSortingStatusChanged(SortState sortState) {
     super.onSortingStatusChanged(sortState);
-    // It is necessary to remeasure itself.
     headerContainer.getLayoutParams().width = LinearLayout.LayoutParams.WRAP_CONTENT;
-
     controlSortState(sortState);
-
     headerTextView.requestLayout();
     headerSortButton.requestLayout();
     headerContainer.requestLayout();
@@ -107,37 +100,4 @@ public final class ColumnHeaderViewHolder extends AbstractSorterViewHolder {
       headerSortButton.setVisibility(View.GONE);
     }
   }
-
-  public static final int[] COLUMN_TEXT_ALIGNS = {
-    // Id
-    Gravity.CENTER,
-    // Name
-    Gravity.LEFT,
-    // Nickname
-    Gravity.LEFT,
-    // Email
-    Gravity.LEFT,
-    // BirthDay
-    Gravity.CENTER,
-    // Gender (Sex)
-    Gravity.CENTER,
-    // Age
-    Gravity.CENTER,
-    // Job
-    Gravity.LEFT,
-    // Salary
-    Gravity.CENTER,
-    // CreatedAt
-    Gravity.CENTER,
-    // UpdatedAt
-    Gravity.CENTER,
-    // Address
-    Gravity.LEFT,
-    // Zip Code
-    Gravity.RIGHT,
-    // Phone
-    Gravity.RIGHT,
-    // Fax
-    Gravity.RIGHT
-  };
 }
