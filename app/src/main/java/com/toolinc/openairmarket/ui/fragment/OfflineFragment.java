@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -40,7 +41,7 @@ public class OfflineFragment extends DaggerFragment {
 
   private LiveData<List<CollectionSyncState>> collectionSyncStates;
   private TableViewModel.Builder tableViewModel =
-          TableViewModel.builder(new OfflineTableViewAdapter());
+      TableViewModel.builder(new OfflineTableViewAdapter());
   private TableViewAdapter tableViewAdapter;
 
   @Nullable
@@ -58,7 +59,21 @@ public class OfflineFragment extends DaggerFragment {
   private void initializeTableView(TableView tableView) {
     tableViewAdapter = new TableViewAdapter(getContext());
     tableView.setAdapter(tableViewAdapter);
-    tableView.setTableViewListener(new TableViewListener(tableView));
+    tableView.setTableViewListener(
+        TableViewListener.builder(tableView)
+            .withColumnHeaderPopup()
+            .addColumnPosition(0)
+            .addColumnPosition(1)
+            .withRowHeaderPopup()
+            .setOnCellClickListener(
+                (cellView, row, column) -> {
+                  Toast.makeText(
+                          OfflineFragment.this.getContext(),
+                          "" + row + ":" + column,
+                          Toast.LENGTH_LONG)
+                      .show();
+                })
+            .build());
     retrieveAllData();
   }
 
