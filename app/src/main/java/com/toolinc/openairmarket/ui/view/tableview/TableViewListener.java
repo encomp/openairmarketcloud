@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.evrencoskun.tableview.ITableView;
 import com.evrencoskun.tableview.listener.ITableViewListener;
 import com.toolinc.openairmarket.ui.view.tableview.holder.ColumnHeaderViewHolder;
-import com.toolinc.openairmarket.ui.view.tableview.popup.ColumnHeaderLongPressPopup;
+import com.toolinc.openairmarket.ui.view.tableview.popup.ColumnHeaderPopup;
 
 import timber.log.Timber;
 
@@ -39,10 +39,13 @@ public class TableViewListener implements ITableViewListener {
   public void onColumnHeaderLongPressed(
       @NonNull RecyclerView.ViewHolder columnHeaderView, int column) {
     // Create Long Press Popup
-    ColumnHeaderLongPressPopup popup =
-        new ColumnHeaderLongPressPopup((ColumnHeaderViewHolder) columnHeaderView, iTableView);
+    ColumnHeaderPopup columnHeaderPopup =
+        ColumnHeaderPopup.builder()
+            .setITableView(iTableView)
+            .setColumnHeaderViewHolder((ColumnHeaderViewHolder) columnHeaderView)
+            .build();
     // Show
-    popup.show();
+    columnHeaderPopup.popupMenu().show();
   }
 
   @Override
