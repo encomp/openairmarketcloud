@@ -21,10 +21,8 @@ public final class RowHeaderViewHolder extends AbstractViewHolder {
   @Override
   public void setSelected(SelectionState selectionState) {
     super.setSelected(selectionState);
-
     int nBackgroundColorId;
     int nForegroundColorId;
-
     if (selectionState == SelectionState.SELECTED) {
       nBackgroundColorId = R.color.selected_background_color;
       nForegroundColorId = R.color.selected_text_color;
@@ -35,7 +33,6 @@ public final class RowHeaderViewHolder extends AbstractViewHolder {
       nBackgroundColorId = R.color.shadow_background_color;
       nForegroundColorId = R.color.unselected_text_color;
     }
-
     itemView.setBackgroundColor(ContextCompat.getColor(itemView.getContext(), nBackgroundColorId));
     headerTextView.setTextColor(
         ContextCompat.getColor(headerTextView.getContext(), nForegroundColorId));
