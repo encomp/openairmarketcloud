@@ -7,6 +7,7 @@ import com.google.auto.value.AutoValue;
 import com.google.common.collect.ImmutableSet;
 import com.toolinc.openairmarket.ui.view.tableview.holder.ColumnHeaderViewHolder;
 
+/** Provides a Popup for the column headers. */
 @AutoValue
 public abstract class ColumnHeaderPopup {
 
@@ -16,6 +17,7 @@ public abstract class ColumnHeaderPopup {
     return new Builder();
   }
 
+  /** Builder for {@link ColumnHeaderPopup}. */
   public static class Builder {
 
     private ColumnHeaderViewHolder columnHeaderViewHolder;

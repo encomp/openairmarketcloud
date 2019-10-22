@@ -12,7 +12,7 @@ import com.google.common.collect.ImmutableSet;
 import com.toolinc.openairmarket.R;
 import com.toolinc.openairmarket.ui.view.tableview.holder.ColumnHeaderViewHolder;
 
-/** Defines the long press functionality of the table view headers. */
+/** Internal Popup to add long press functionality of the table view headers. */
 final class ColumnHeaderLongPressPopup extends PopupMenu
     implements PopupMenu.OnMenuItemClickListener {
 
