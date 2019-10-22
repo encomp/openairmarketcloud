@@ -26,8 +26,7 @@ public final class CellViewHolder extends AbstractViewHolder {
 
   public void setCellModel(CellModel cellModel, int columnPosition) {
     // Change textView align by column
-    cellTextView.setGravity(
-        ColumnHeaderViewHolder.COLUMN_TEXT_ALIGNS[columnPosition] | Gravity.CENTER_VERTICAL);
+    cellTextView.setGravity(Gravity.CENTER_VERTICAL);
     // Set text
     cellTextView.setText(String.valueOf(cellModel.getData()));
     // It is necessary to remeasure itself.
