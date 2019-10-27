@@ -2,6 +2,9 @@ package com.toolinc.openairmarket.persistence.local.pos;
 
 import android.content.Context;
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
+import androidx.lifecycle.LiveData;
+import androidx.paging.LivePagedListBuilder;
 import androidx.paging.PagedList;
 import androidx.paging.RxPagedListBuilder;
 import androidx.room.Room;
@@ -10,6 +13,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 
 import com.google.common.collect.Lists;
+import com.toolinc.openairmarket.common.lifecycle.LiveDataTestUtil;
 import com.toolinc.openairmarket.common.reactivex.TrampolineSchedulerRule;
 import com.toolinc.openairmarket.persistence.local.pos.dao.ProductRoomCategoryDao;
 import com.toolinc.openairmarket.persistence.local.pos.model.ProductRoomCategory;
@@ -29,6 +33,9 @@ import static com.google.common.truth.Truth.assertThat;
 /** Tests for {@link ProductRoomCategoryDao}. */
 @RunWith(AndroidJUnit4.class)
 public class ProductRoomCategoryDaoTest {
+
+  @Rule
+  public final InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
 
   @Rule public final TrampolineSchedulerRule schedulerRule = new TrampolineSchedulerRule();
 
@@ -110,6 +117,21 @@ public class ProductRoomCategoryDaoTest {
     PagedList<ProductRoomCategory> productRoomCategories = result.blockingFirst();
     assertThat(Lists.newArrayList(productRoomCategories.iterator()))
         .containsAtLeastElementsIn(products);
+  }
+
+  @Test
+  public void all_records_withLiveData() throws InterruptedException {
+    ImmutableList<ProductRoomCategory> products = create();
+    for (ProductRoomCategory productCategory : products) {
+      Completable completable = productRoomCategoryDao.insert(productCategory);
+      completable.test().assertComplete();
+    }
+
+    PagedList.Config config = new PagedList.Config.Builder().setPageSize(10).build();
+    LiveData<PagedList<ProductRoomCategory>> listLiveData =
+        new LivePagedListBuilder<>(productRoomCategoryDao.all(), config).build();
+    PagedList<ProductRoomCategory> pagedList = LiveDataTestUtil.blocking(listLiveData);
+    assertThat(Lists.newArrayList(pagedList.iterator())).containsAtLeastElementsIn(products);
   }
 
   @Test
