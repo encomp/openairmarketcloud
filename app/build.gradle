@@ -41,12 +41,15 @@ android {
 }
 
 dependencies {
+    def paging_version = "2.1.0"
     def room_version = "2.2.1"
     def rxandroid_version = "2.1.1"
     def rxjava_version = "2.2.12"
 
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation "androidx.paging:paging-runtime:$paging_version"
+    implementation "androidx.paging:paging-rxjava2:$paging_version"
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.core:core:1.1.0'
     implementation 'androidx.cardview:cardview:1.0.0'
