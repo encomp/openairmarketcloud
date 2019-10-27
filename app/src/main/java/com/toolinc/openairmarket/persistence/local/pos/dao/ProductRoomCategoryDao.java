@@ -2,6 +2,7 @@ package com.toolinc.openairmarket.persistence.local.pos.dao;
 
 import androidx.paging.DataSource;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
@@ -18,8 +19,8 @@ public interface ProductRoomCategoryDao {
   @Insert(onConflict = OnConflictStrategy.REPLACE)
   Completable insert(ProductRoomCategory productRoomCategory);
 
-  @Query("DELETE FROM ProductCategory WHERE id = :id")
-  Completable delete(String id);
+  @Delete
+  Completable delete(ProductRoomCategory productRoomCategory);
 
   @Query("SELECT * FROM ProductCategory ORDER BY id DESC")
   DataSource.Factory<Integer, ProductRoomCategory> all();

@@ -93,7 +93,7 @@ public class ProductRoomCategoryDaoTest {
     Completable completable = productRoomCategoryDao.insert(productCategory);
     completable.test().assertComplete();
 
-    completable = productRoomCategoryDao.delete(productCategory.id());
+    completable = productRoomCategoryDao.delete(productCategory);
     completable.test().assertComplete();
   }
 

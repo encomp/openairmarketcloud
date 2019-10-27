@@ -3,7 +3,8 @@ package com.toolinc.openairmarket.persistence.local.pos.model;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.Fts4;
+import androidx.room.Index;
+import androidx.room.PrimaryKey;
 
 import com.google.auto.value.AutoValue;
 import com.google.auto.value.AutoValue.CopyAnnotations;
@@ -12,12 +13,19 @@ import com.toolinc.openairmarket.pos.persistence.model.product.Product;
 import com.toolinc.openairmarket.pos.persistence.model.product.ProductCategory;
 
 /** Define the different categories in which a {@link Product} can be assigned. */
-@Fts4
-@Entity(tableName = "ProductCategory")
+@Entity(
+    tableName = "ProductCategory",
+    indices = {
+      @Index(
+          name = "ProductRoomCategory_UK",
+          value = {"referenceId", "name"},
+          unique = true)
+    })
 @AutoValue
 public abstract class ProductRoomCategory implements RoomCatalogModel {
 
   @CopyAnnotations
+  @PrimaryKey
   @NonNull
   @ColumnInfo(name = "id")
   public abstract String id();
