@@ -47,7 +47,8 @@ public final class ColumnHeaderViewHolder extends AbstractSorterViewHolder {
     headerSortButton.setOnClickListener(mSortButtonClickListener);
   }
 
-  public void setColumnHeaderModel(ColumnHeaderModel columnHeaderModel, int columnPosition) {
+  public void setColumnHeaderModel(
+      @NonNull ColumnHeaderModel columnHeaderModel, int columnPosition) {
     // Change alignment of textView
     headerTextView.setGravity(Gravity.CENTER_VERTICAL);
     // Set text data
