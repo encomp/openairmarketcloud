@@ -11,6 +11,7 @@ import com.toolinc.openairmarket.common.persistence.model.AbstractModel;
  */
 public abstract class AbstractRoomActiveModel extends AbstractModel {
 
+  /** Specifies the current state of an entity. */
   @AutoValue.CopyAnnotations
   @ColumnInfo(name = "active")
   public abstract boolean active();

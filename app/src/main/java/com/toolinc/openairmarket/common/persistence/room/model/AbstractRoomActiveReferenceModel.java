@@ -10,6 +10,7 @@ import com.google.auto.value.AutoValue;
  */
 public abstract class AbstractRoomActiveReferenceModel extends AbstractRoomActiveModel {
 
+  /** Provides an alternate key that identifies uniquely this entity on the database. */
   @AutoValue.CopyAnnotations
   @ColumnInfo(name = "referenceId")
   public abstract String referenceId();
