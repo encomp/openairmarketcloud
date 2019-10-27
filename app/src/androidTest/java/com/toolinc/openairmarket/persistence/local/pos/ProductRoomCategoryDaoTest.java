@@ -54,22 +54,6 @@ public class ProductRoomCategoryDaoTest {
   }
 
   @Test
-  public void all_records() {
-    ImmutableList<ProductRoomCategory> products = create();
-    for (ProductRoomCategory productCategory : products) {
-      Completable completable = productRoomCategoryDao.insert(productCategory);
-      completable.test().assertComplete();
-    }
-
-    PagedList.Config config = new PagedList.Config.Builder().setPageSize(10).build();
-    Observable<PagedList<ProductRoomCategory>> result =
-        new RxPagedListBuilder(productRoomCategoryDao.all(), config).buildObservable();
-    PagedList<ProductRoomCategory> productRoomCategories = result.blockingFirst();
-    assertThat(Lists.newArrayList(productRoomCategories.iterator()))
-        .containsAtLeastElementsIn(products);
-  }
-
-  @Test
   public void insert_record() {
     ProductRoomCategory productCategory = builder.build();
 
@@ -95,6 +79,37 @@ public class ProductRoomCategoryDaoTest {
 
     completable = productRoomCategoryDao.delete(productCategory);
     completable.test().assertComplete();
+  }
+
+  @Test
+  public void update_record() {
+    ProductRoomCategory productCategory = builder.build();
+
+    Completable completable = productRoomCategoryDao.insert(productCategory);
+    completable.test().assertComplete();
+
+    completable =
+        productRoomCategoryDao.update(productCategory.toBuilder().setName("Other").build());
+    completable.test().assertComplete();
+
+    Maybe<ProductRoomCategory> maybe = productRoomCategoryDao.findById(productCategory.id());
+    maybe.test().assertValue(productCategory.toBuilder().setName("Other").build());
+  }
+
+  @Test
+  public void all_records() {
+    ImmutableList<ProductRoomCategory> products = create();
+    for (ProductRoomCategory productCategory : products) {
+      Completable completable = productRoomCategoryDao.insert(productCategory);
+      completable.test().assertComplete();
+    }
+
+    PagedList.Config config = new PagedList.Config.Builder().setPageSize(10).build();
+    Observable<PagedList<ProductRoomCategory>> result =
+        new RxPagedListBuilder(productRoomCategoryDao.all(), config).buildObservable();
+    PagedList<ProductRoomCategory> productRoomCategories = result.blockingFirst();
+    assertThat(Lists.newArrayList(productRoomCategories.iterator()))
+        .containsAtLeastElementsIn(products);
   }
 
   @Test
