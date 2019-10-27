@@ -32,6 +32,8 @@ public abstract class ProductRoomCategory implements RoomCatalogModel {
         .build();
   }
 
+  public abstract Builder toBuilder();
+
   public static Builder builder() {
     return new AutoValue_ProductRoomCategory.Builder();
   }
