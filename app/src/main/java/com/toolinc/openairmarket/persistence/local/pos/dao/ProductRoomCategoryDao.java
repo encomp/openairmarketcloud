@@ -1,5 +1,6 @@
 package com.toolinc.openairmarket.persistence.local.pos.dao;
 
+import androidx.paging.DataSource;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
@@ -20,6 +21,15 @@ public interface ProductRoomCategoryDao {
   @Query("DELETE FROM ProductCategory WHERE id = :id")
   Completable delete(String id);
 
+  @Query("SELECT * FROM ProductCategory ORDER BY id DESC")
+  DataSource.Factory<Integer, ProductRoomCategory> all();
+
   @Query("SELECT * FROM ProductCategory WHERE id = :id")
   Maybe<ProductRoomCategory> findById(String id);
+
+  @Query("SELECT * FROM ProductCategory WHERE referenceId = :referenceId")
+  Maybe<ProductRoomCategory> findByReferenceId(String referenceId);
+
+  @Query("SELECT * FROM ProductCategory WHERE name LIKE '%' || :name || '%'")
+  DataSource.Factory<Integer, ProductRoomCategory> findAllLikeName(String name);
 }
