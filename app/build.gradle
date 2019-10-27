@@ -38,6 +38,7 @@ android {
     }
     android.defaultConfig.javaCompileOptions.annotationProcessorOptions.includeCompileClasspath = true;
     dataBinding.enabled = true;
+    testOptions.unitTests.includeAndroidResources = true
 }
 
 dependencies {
@@ -97,6 +98,8 @@ dependencies {
     implementation project(':pos_persistence')
 
     testImplementation 'junit:junit:4.12'
+    testImplementation 'org.robolectric:robolectric:4.3.1'
+    androidTestImplementation 'androidx.arch.core:core-testing:2.1.0'
     androidTestImplementation 'androidx.test:core:1.2.0'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test:rules:1.2.0'
