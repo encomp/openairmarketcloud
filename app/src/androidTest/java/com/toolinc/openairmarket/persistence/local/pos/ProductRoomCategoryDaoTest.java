@@ -16,12 +16,20 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import io.reactivex.Completable;
+import io.reactivex.Maybe;
 
 /** Tests for {@link ProductRoomCategoryDao}. */
 @RunWith(AndroidJUnit4.class)
 public class ProductRoomCategoryDaoTest {
 
   private static final String[] PRODUCTS = new String[] {"A", "B", "C", "D", "E"};
+  private static final ProductRoomCategory.Builder builder =
+      ProductRoomCategory.builder()
+          .setId("NEW")
+          .setReferenceId("REF ID")
+          .setName("Name of Category")
+          .setActive(true);
+
   private PosRoomDatabase db;
   private ProductRoomCategoryDao productRoomCategoryDao;
 
@@ -34,13 +42,7 @@ public class ProductRoomCategoryDaoTest {
 
   @Test
   public void insert_record() {
-    ProductRoomCategory productCategory =
-        ProductRoomCategory.builder()
-            .setId("New")
-            .setReferenceId("Reference Id")
-            .setName("Category")
-            .setActive(true)
-            .build();
+    ProductRoomCategory productCategory = builder.build();
 
     Completable completable = productRoomCategoryDao.insert(productCategory);
     completable.test().assertComplete();
@@ -55,6 +57,28 @@ public class ProductRoomCategoryDaoTest {
     }
   }
 
+  @Test
+  public void delete_record() {
+    ProductRoomCategory productCategory = builder.build();
+
+    Completable completable = productRoomCategoryDao.insert(productCategory);
+    completable.test().assertComplete();
+
+    completable = productRoomCategoryDao.delete(productCategory.id());
+    completable.test().assertComplete();
+  }
+
+  @Test
+  public void findById_record() {
+    ProductRoomCategory productCategory = builder.build();
+
+    Completable completable = productRoomCategoryDao.insert(productCategory);
+    completable.test().assertComplete();
+
+    Maybe<ProductRoomCategory> maybe = productRoomCategoryDao.findById(productCategory.id());
+    maybe.test().assertValue(productCategory);
+  }
+
   @After
   public void teardown() {
     db.close();
@@ -64,11 +88,11 @@ public class ProductRoomCategoryDaoTest {
     ImmutableList.Builder<ProductRoomCategory> builder = ImmutableList.builder();
     for (String product : PRODUCTS) {
       ProductRoomCategory.Builder builderProduct =
-              ProductRoomCategory.builder()
-                      .setId("NEW - " + product)
-                      .setReferenceId("REF ID - " + product)
-                      .setName("NAME - " + product)
-                      .setActive(true);
+          ProductRoomCategory.builder()
+              .setId("NEW - " + product)
+              .setReferenceId("REF ID - " + product)
+              .setName("NAME - " + product)
+              .setActive(true);
       builder.add(builderProduct.build());
     }
     return builder.build();

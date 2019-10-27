@@ -1,11 +1,9 @@
 package com.toolinc.openairmarket.persistence.local.pos.dao;
 
 import androidx.room.Dao;
-import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
-import androidx.room.Update;
 
 import com.toolinc.openairmarket.persistence.local.pos.model.ProductRoomCategory;
 
@@ -19,15 +17,9 @@ public interface ProductRoomCategoryDao {
   @Insert(onConflict = OnConflictStrategy.REPLACE)
   Completable insert(ProductRoomCategory productRoomCategory);
 
-  @Update(onConflict = OnConflictStrategy.REPLACE)
-  Completable update(ProductRoomCategory productRoomCategory);
+  @Query("DELETE FROM ProductCategory WHERE id = :id")
+  Completable delete(String id);
 
-  @Delete
-  Maybe<Integer> delete(ProductRoomCategory productRoomCategory);
-
-  @Query("DELETE FROM ProductCategory")
-  Completable deleteAll();
-
-  @Query("SELECT * FROM ProductCategory WHERE rowid = :id")
+  @Query("SELECT * FROM ProductCategory WHERE id = :id")
   Maybe<ProductRoomCategory> findById(String id);
 }
