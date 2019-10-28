@@ -2,7 +2,7 @@ package com.toolinc.openairmarket.ui.adapter;
 
 import com.google.common.base.Function;
 import com.google.common.collect.ImmutableList;
-import com.toolinc.openairmarket.common.room.converter.DateTimeConverter;
+import com.toolinc.openairmarket.common.persistence.room.converter.DateTimeConverter;
 import com.toolinc.openairmarket.persistence.local.offline.CollectionSyncState;
 import com.toolinc.openairmarket.ui.view.tableview.model.CellModel;
 

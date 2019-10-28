@@ -1,4 +1,4 @@
-package com.toolinc.openairmarket.common.room.converter;
+package com.toolinc.openairmarket.common.persistence.room.converter;
 
 import androidx.room.TypeConverter;
 
