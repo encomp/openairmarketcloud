@@ -9,12 +9,12 @@ import java.text.NumberFormat;
 public class BigDecimalConverter {
 
   @TypeConverter
-  public static BigDecimal toDate(String amount) {
+  public static BigDecimal toBigDecimal(String amount) {
     return amount == null ? null : new BigDecimal(amount);
   }
 
   @TypeConverter
-  public static String toTimestamp(BigDecimal amount) {
+  public static String toString(BigDecimal amount) {
     return amount == null ? null : NumberFormat.getCurrencyInstance().format(amount);
   }
 }
