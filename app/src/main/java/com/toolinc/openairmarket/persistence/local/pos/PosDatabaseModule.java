@@ -4,7 +4,11 @@ import android.app.Application;
 
 import androidx.room.Room;
 
+import com.toolinc.openairmarket.persistence.local.pos.dao.ProductRoomBrandDao;
 import com.toolinc.openairmarket.persistence.local.pos.dao.ProductRoomCategoryDao;
+import com.toolinc.openairmarket.persistence.local.pos.dao.ProductRoomDao;
+import com.toolinc.openairmarket.persistence.local.pos.dao.ProductRoomManufacturerDao;
+import com.toolinc.openairmarket.persistence.local.pos.dao.ProductRoomMeasureUnitDao;
 
 import javax.inject.Singleton;
 
@@ -35,7 +39,27 @@ public class PosDatabaseModule {
   }
 
   @Provides
+  ProductRoomBrandDao providesProductRoomBrandDao(PosRoomDatabase posRoomDatabase) {
+    return posRoomDatabase.productRoomBrandDao();
+  }
+
+  @Provides
   ProductRoomCategoryDao providesProductRoomCategoryDao(PosRoomDatabase posRoomDatabase) {
     return posRoomDatabase.productRoomCategoryDao();
+  }
+
+  @Provides
+  ProductRoomDao providesProductRoomDao(PosRoomDatabase posRoomDatabase) {
+    return posRoomDatabase.productRoomDao();
+  }
+
+  @Provides
+  ProductRoomManufacturerDao providesProductRoomManufacturerDao(PosRoomDatabase posRoomDatabase) {
+    return posRoomDatabase.productRoomManufacturerDao();
+  }
+
+  @Provides
+  ProductRoomMeasureUnitDao providesProductRoomMeasureUnitDao(PosRoomDatabase posRoomDatabase) {
+    return posRoomDatabase.productRoomMeasureUnitDao();
   }
 }
