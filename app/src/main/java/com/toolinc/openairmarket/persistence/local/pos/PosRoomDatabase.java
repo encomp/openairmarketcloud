@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
 import com.toolinc.openairmarket.common.persistence.room.converter.BigDecimalConverter;
-import com.toolinc.openairmarket.common.persistence.room.converter.ProductTypeConverter;
+import com.toolinc.openairmarket.persistence.local.pos.converter.ProductTypeConverter;
 import com.toolinc.openairmarket.persistence.local.pos.dao.ProductRoomBrandDao;
 import com.toolinc.openairmarket.persistence.local.pos.dao.ProductRoomCategoryDao;
 import com.toolinc.openairmarket.persistence.local.pos.dao.ProductRoomDao;
