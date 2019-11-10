@@ -29,6 +29,7 @@ import com.toolinc.openairmarket.persistence.local.pos.model.ProductRoomPurchase
 import com.toolinc.openairmarket.persistence.local.pos.model.ProductRoomSalePrice;
 import com.toolinc.openairmarket.pos.persistence.model.product.ProductType;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -109,6 +110,11 @@ public class ProductRoomDaoTest {
             .setProductType(ProductType.ITEM)
             .setProductPurchasePrice(ProductRoomPurchasePrice.create(uno, uno, uno))
             .setProductSalePrice(ProductRoomSalePrice.create(uno, uno, uno, uno));
+  }
+
+  @After
+  public void teardown() {
+    db.close();
   }
 
   @Test
@@ -213,6 +219,59 @@ public class ProductRoomDaoTest {
 
     completable = productRoomMeasureUnitDao.insert(builderMeasureUnit.build());
     completable.test().assertComplete();
+  }
+
+  @Test
+  public void findById_record() {
+    insert_entities();
+
+    ProductRoom product =
+        builder
+            .setProductBrand(builderBrand.build().id())
+            .setProductCategory(builderCategory.build().id())
+            .setProductMeasureUnit(builderMeasureUnit.build().id())
+            .build();
+
+    Completable completable = productRoomDao.insert(product);
+    completable.test().assertComplete();
+
+    Maybe<ProductRoom> maybe = productRoomDao.findById(product.id());
+    maybe.test().assertValue(product);
+  }
+
+  @Test
+  public void findById_referenceId() {
+    insert_entities();
+
+    ProductRoom product =
+        builder
+            .setProductBrand(builderBrand.build().id())
+            .setProductCategory(builderCategory.build().id())
+            .setProductMeasureUnit(builderMeasureUnit.build().id())
+            .build();
+
+    Completable completable = productRoomDao.insert(product);
+    completable.test().assertComplete();
+
+    Maybe<ProductRoom> maybe = productRoomDao.findByReferenceId(product.referenceId());
+    maybe.test().assertValue(product);
+  }
+
+  @Test
+  public void findAllLikeName_records() {
+    insert_entities();
+
+    ImmutableList<ProductRoom> products = create();
+    for (ProductRoom productRoom : products) {
+      Completable completable = productRoomDao.insert(productRoom);
+      completable.test().assertComplete();
+    }
+
+    PagedList.Config config = new PagedList.Config.Builder().setPageSize(10).build();
+    Observable<PagedList<ProductRoom>> result =
+        new RxPagedListBuilder(productRoomDao.findAllLikeName("NAME -"), config).buildObservable();
+    PagedList<ProductRoom> productsRoom = result.blockingFirst();
+    assertThat(Lists.newArrayList(productsRoom.iterator())).containsAtLeastElementsIn(products);
   }
 
   private static final ImmutableList<ProductRoom> create() {
