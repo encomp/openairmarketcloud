@@ -8,6 +8,7 @@ import com.toolinc.openairmarket.common.persistence.room.converter.BigDecimalCon
 import com.toolinc.openairmarket.common.persistence.room.converter.ProductTypeConverter;
 import com.toolinc.openairmarket.persistence.local.pos.dao.ProductRoomBrandDao;
 import com.toolinc.openairmarket.persistence.local.pos.dao.ProductRoomCategoryDao;
+import com.toolinc.openairmarket.persistence.local.pos.dao.ProductRoomDao;
 import com.toolinc.openairmarket.persistence.local.pos.dao.ProductRoomManufacturerDao;
 import com.toolinc.openairmarket.persistence.local.pos.dao.ProductRoomMeasureUnitDao;
 import com.toolinc.openairmarket.persistence.local.pos.model.ProductRoom;
@@ -29,6 +30,8 @@ import com.toolinc.openairmarket.persistence.local.pos.model.ProductRoomMeasureU
     version = 1)
 @TypeConverters({BigDecimalConverter.class, ProductTypeConverter.class})
 abstract class PosRoomDatabase extends RoomDatabase {
+
+  public abstract ProductRoomDao productRoomDao();
 
   public abstract ProductRoomBrandDao productRoomBrandDao();
 
