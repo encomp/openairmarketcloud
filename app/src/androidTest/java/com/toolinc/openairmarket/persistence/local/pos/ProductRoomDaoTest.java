@@ -3,10 +3,14 @@ package com.toolinc.openairmarket.persistence.local.pos;
 import android.content.Context;
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
+import androidx.paging.PagedList;
+import androidx.paging.RxPagedListBuilder;
 import androidx.room.Room;
+import androidx.test.espresso.web.internal.deps.guava.collect.ImmutableList;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 
+import com.google.common.collect.Lists;
 import com.toolinc.openairmarket.common.reactivex.TrampolineSchedulerRule;
 import com.toolinc.openairmarket.persistence.local.pos.dao.ProductRoomBrandDao;
 import com.toolinc.openairmarket.persistence.local.pos.dao.ProductRoomCategoryDao;
@@ -31,6 +35,9 @@ import java.math.BigDecimal;
 
 import io.reactivex.Completable;
 import io.reactivex.Maybe;
+import io.reactivex.Observable;
+
+import static com.google.common.truth.Truth.assertThat;
 
 /** Tests for {@link ProductRoomDao}. */
 @RunWith(AndroidJUnit4.class)
@@ -155,6 +162,23 @@ public class ProductRoomDaoTest {
     maybe.test().assertValue(product.toBuilder().setName("Other").build());
   }
 
+  @Test
+  public void all_records() {
+    insert_entities();
+
+    ImmutableList<ProductRoom> products = create();
+    for (ProductRoom productRoom : products) {
+      Completable completable = productRoomDao.insert(productRoom);
+      completable.test().assertComplete();
+    }
+
+    PagedList.Config config = new PagedList.Config.Builder().setPageSize(10).build();
+    Observable<PagedList<ProductRoom>> result =
+        new RxPagedListBuilder(productRoomDao.all(), config).buildObservable();
+    PagedList<ProductRoom> productsRoom = result.blockingFirst();
+    assertThat(Lists.newArrayList(productsRoom.iterator())).containsAtLeastElementsIn(products);
+  }
+
   private void insert_entities() {
     Completable completable = productRoomManufacturerDao.insert(builderManufacturer.build());
     completable.test().assertComplete();
@@ -169,5 +193,27 @@ public class ProductRoomDaoTest {
 
     completable = productRoomMeasureUnitDao.insert(builderMeasureUnit.build());
     completable.test().assertComplete();
+  }
+
+  private static final ImmutableList<ProductRoom> create() {
+    BigDecimal uno = new BigDecimal("1.0");
+    ImmutableList.Builder<ProductRoom> builder = ImmutableList.builder();
+    for (String product : PRODUCTS) {
+      ProductRoom.Builder builderProduct =
+          ProductRoom.builder()
+              .setId("NEW - " + product)
+              .setReferenceId("REF ID - " + product)
+              .setName("NAME - " + product)
+              .setActive(true)
+              .setImage("Image")
+              .setProductType(ProductType.ITEM)
+              .setProductPurchasePrice(ProductRoomPurchasePrice.create(uno, uno, uno))
+              .setProductSalePrice(ProductRoomSalePrice.create(uno, uno, uno, uno))
+              .setProductBrand(builderBrand.build().id())
+              .setProductCategory(builderCategory.build().id())
+              .setProductMeasureUnit(builderMeasureUnit.build().id());
+      builder.add(builderProduct.build());
+    }
+    return builder.build();
   }
 }
