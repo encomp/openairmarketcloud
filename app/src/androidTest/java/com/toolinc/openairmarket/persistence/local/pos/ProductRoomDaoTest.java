@@ -30,6 +30,7 @@ import org.junit.runner.RunWith;
 import java.math.BigDecimal;
 
 import io.reactivex.Completable;
+import io.reactivex.Maybe;
 
 /** Tests for {@link ProductRoomDao}. */
 @RunWith(AndroidJUnit4.class)
@@ -65,19 +66,7 @@ public class ProductRoomDaoTest {
           .setReferenceId("REF ID")
           .setName("Name of Manufacturer")
           .setActive(true);
-  private static final ProductRoom.Builder builder =
-      ProductRoom.builder()
-          .setId("NEW")
-          .setReferenceId("REF ID")
-          .setName("Name of Category")
-          .setActive(true)
-          .setImage("Image")
-          .setProductType(ProductType.ITEM)
-          .setProductPurchasePrice(
-              ProductRoomPurchasePrice.create(BigDecimal.ONE, BigDecimal.ONE, BigDecimal.ONE))
-          .setProductSalePrice(
-              ProductRoomSalePrice.create(
-                  BigDecimal.ONE, BigDecimal.ONE, BigDecimal.ONE, BigDecimal.ONE));
+  private ProductRoom.Builder builder;
 
   private PosRoomDatabase db;
   private ProductRoomBrandDao productRoomBrandDao;
@@ -98,6 +87,18 @@ public class ProductRoomDaoTest {
     productRoomManufacturerDao = db.productRoomManufacturerDao();
     productRoomMeasureUnitDao = db.productRoomMeasureUnitDao();
     productRoomDao = db.productRoomDao();
+
+    BigDecimal uno = new BigDecimal("1.0");
+    builder =
+        ProductRoom.builder()
+            .setId("NEW")
+            .setReferenceId("REF ID")
+            .setName("Name of Product")
+            .setActive(true)
+            .setImage("Image")
+            .setProductType(ProductType.ITEM)
+            .setProductPurchasePrice(ProductRoomPurchasePrice.create(uno, uno, uno))
+            .setProductSalePrice(ProductRoomSalePrice.create(uno, uno, uno, uno));
   }
 
   @Test
@@ -113,6 +114,45 @@ public class ProductRoomDaoTest {
 
     Completable completable = productRoomDao.insert(product);
     completable.test().assertComplete();
+  }
+
+  @Test
+  public void delete_record() {
+    insert_entities();
+
+    ProductRoom product =
+        builder
+            .setProductBrand(builderBrand.build().id())
+            .setProductCategory(builderCategory.build().id())
+            .setProductMeasureUnit(builderMeasureUnit.build().id())
+            .build();
+
+    Completable completable = productRoomDao.insert(product);
+    completable.test().assertComplete();
+
+    completable = productRoomDao.delete(product);
+    completable.test().assertComplete();
+  }
+
+  @Test
+  public void update_record() {
+    insert_entities();
+
+    ProductRoom product =
+        builder
+            .setProductBrand(builderBrand.build().id())
+            .setProductCategory(builderCategory.build().id())
+            .setProductMeasureUnit(builderMeasureUnit.build().id())
+            .build();
+
+    Completable completable = productRoomDao.insert(product);
+    completable.test().assertComplete();
+
+    completable = productRoomDao.update(product.toBuilder().setName("Other").build());
+    completable.test().assertComplete();
+
+    Maybe<ProductRoom> maybe = productRoomDao.findById(product.id());
+    maybe.test().assertValue(product.toBuilder().setName("Other").build());
   }
 
   private void insert_entities() {
