@@ -3,6 +3,8 @@ package com.toolinc.openairmarket.persistence.local.pos;
 import android.content.Context;
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
+import androidx.lifecycle.LiveData;
+import androidx.paging.LivePagedListBuilder;
 import androidx.paging.PagedList;
 import androidx.paging.RxPagedListBuilder;
 import androidx.room.Room;
@@ -11,6 +13,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 
 import com.google.common.collect.Lists;
+import com.toolinc.openairmarket.common.lifecycle.LiveDataTestUtil;
 import com.toolinc.openairmarket.common.reactivex.TrampolineSchedulerRule;
 import com.toolinc.openairmarket.persistence.local.pos.dao.ProductRoomBrandDao;
 import com.toolinc.openairmarket.persistence.local.pos.dao.ProductRoomCategoryDao;
@@ -177,6 +180,23 @@ public class ProductRoomDaoTest {
         new RxPagedListBuilder(productRoomDao.all(), config).buildObservable();
     PagedList<ProductRoom> productsRoom = result.blockingFirst();
     assertThat(Lists.newArrayList(productsRoom.iterator())).containsAtLeastElementsIn(products);
+  }
+
+  @Test
+  public void all_records_withLiveData() throws InterruptedException {
+    insert_entities();
+
+    ImmutableList<ProductRoom> products = create();
+    for (ProductRoom productRoom : products) {
+      Completable completable = productRoomDao.insert(productRoom);
+      completable.test().assertComplete();
+    }
+
+    PagedList.Config config = new PagedList.Config.Builder().setPageSize(10).build();
+    LiveData<PagedList<ProductRoom>> listLiveData =
+        new LivePagedListBuilder<>(productRoomDao.all(), config).build();
+    PagedList<ProductRoom> pagedList = LiveDataTestUtil.blocking(listLiveData);
+    assertThat(Lists.newArrayList(pagedList.iterator())).containsAtLeastElementsIn(products);
   }
 
   private void insert_entities() {
