@@ -6,7 +6,8 @@ apply plugin: 'com.google.firebase.firebase-perf'
 apply plugin: 'dagger.hilt.android.plugin'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
+    buildToolsVersion "30.0.1"
     defaultConfig {
         applicationId "com.toolinc.openairmarket"
         minSdkVersion 21
@@ -63,6 +64,7 @@ dependencies {
     implementation "androidx.work:work-runtime:2.4.0"
     implementation 'androidx.viewpager:viewpager:1.0.0'
     implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
     implementation "androidx.room:room-rxjava2:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
     implementation 'com.android.support:multidex:1.0.3'
