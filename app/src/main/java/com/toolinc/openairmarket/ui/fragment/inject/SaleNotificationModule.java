@@ -15,7 +15,10 @@ import com.toolinc.openairmarket.ui.fragment.inject.Annotations.Sale.Succeed;
 
 import dagger.Module;
 import dagger.Provides;
+import dagger.hilt.InstallIn;
+import dagger.hilt.android.components.ApplicationComponent;
 
+@InstallIn(ApplicationComponent.class)
 @Module
 public class SaleNotificationModule {
 

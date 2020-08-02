@@ -1,6 +1,7 @@
 package com.toolinc.openairmarket.persistence.local.pos;
 
 import android.app.Application;
+import android.content.Context;
 
 import androidx.room.Room;
 
@@ -14,28 +15,20 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import dagger.hilt.InstallIn;
+import dagger.hilt.android.components.ApplicationComponent;
+import dagger.hilt.android.qualifiers.ApplicationContext;
 
 /** Specifies the Pos database dagger module. */
+@InstallIn(ApplicationComponent.class)
 @Module
 public class PosDatabaseModule {
 
-  private static volatile PosRoomDatabase posRoomDatabase;
-
-  public PosDatabaseModule(Application mApplication) {
-    if (posRoomDatabase == null) {
-      synchronized (PosDatabaseModule.class) {
-        if (posRoomDatabase == null) {
-          posRoomDatabase =
-              Room.databaseBuilder(mApplication, PosRoomDatabase.class, "pos_database").build();
-        }
-      }
-    }
-  }
 
   @Singleton
   @Provides
-  PosRoomDatabase providesRoomDatabase() {
-    return posRoomDatabase;
+  PosRoomDatabase providesRoomDatabase(@ApplicationContext Context appContext) {
+    return Room.databaseBuilder(appContext, PosRoomDatabase.class, "pos_database").build();
   }
 
   @Provides

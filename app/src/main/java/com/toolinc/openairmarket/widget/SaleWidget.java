@@ -47,9 +47,9 @@ public class SaleWidget extends AppWidgetProvider {
   }
 
   private void inject(Context context) {
-    ((OpenAirMarketApplication) context.getApplicationContext())
-        .getOpenAirMarketInjector()
-        .inject(this);
+//    ((OpenAirMarketApplication) context.getApplicationContext())
+//        .getOpenAirMarketInjector()
+//        .inject(this);
   }
 
   @Override

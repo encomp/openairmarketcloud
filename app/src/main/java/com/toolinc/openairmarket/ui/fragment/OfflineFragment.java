@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 
 import com.evrencoskun.tableview.TableView;
@@ -26,10 +27,11 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import dagger.android.support.DaggerFragment;
+import dagger.hilt.android.AndroidEntryPoint;
 
 /** Offline configuration fragment. */
-public class OfflineFragment extends DaggerFragment {
+@AndroidEntryPoint
+public class OfflineFragment extends Fragment {
 
   @BindView(R.id.offlineTableView)
   TableView tableView;

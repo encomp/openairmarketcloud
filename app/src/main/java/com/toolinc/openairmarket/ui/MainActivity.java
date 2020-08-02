@@ -2,6 +2,7 @@ package com.toolinc.openairmarket.ui;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -10,10 +11,11 @@ import com.toolinc.openairmarket.viewmodel.ReceiptsViewModel;
 
 import javax.inject.Inject;
 
-import dagger.android.support.DaggerAppCompatActivity;
+import dagger.hilt.android.AndroidEntryPoint;
 
 /** Main activity. */
-public final class MainActivity extends DaggerAppCompatActivity {
+@AndroidEntryPoint
+public final class MainActivity extends AppCompatActivity {
 
   @Inject ViewModelProvider.Factory viewModelFactory;
   private ReceiptsViewModel receiptsViewModel;

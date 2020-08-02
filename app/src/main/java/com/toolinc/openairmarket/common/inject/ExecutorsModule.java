@@ -12,8 +12,11 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import dagger.hilt.InstallIn;
+import dagger.hilt.android.components.ApplicationComponent;
 
 /** Provides the executors for the app. */
+@InstallIn(ApplicationComponent.class)
 @Module
 public class ExecutorsModule {
 

@@ -1,7 +1,7 @@
 package com.toolinc.openairmarket.persistence.sync.inject;
 
-import android.app.Application;
 import android.app.NotificationManager;
+import android.content.Context;
 import android.os.Build;
 
 import com.toolinc.openairmarket.ChannelIds;
@@ -21,10 +21,15 @@ import com.toolinc.openairmarket.persistence.sync.DataSync;
 import java.util.concurrent.Executor;
 
 import javax.inject.Named;
+import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import dagger.hilt.InstallIn;
+import dagger.hilt.android.components.ApplicationComponent;
+import dagger.hilt.android.qualifiers.ApplicationContext;
 
+@InstallIn(ApplicationComponent.class)
 @Module(includes = SyncRepositoryModule.class)
 public class ProductDataSyncModule {
   private static final NotificationProperties.Builder START_BUILDER =
@@ -34,19 +39,20 @@ public class ProductDataSyncModule {
   private static final NotificationProperties.Builder FAILURE_BUILDER =
       notiBuilder().setIcon(R.drawable.ic_cloud_off);
 
+  @Singleton
   @Provides
   @Named("DataSync")
-  ChannelProperties provideChannel(Application application) {
+  ChannelProperties provideChannel(@ApplicationContext Context context) {
     return channelBuilder()
-        .setChannelName(getString(application, R.string.data_sync_channel_name))
-        .setChannelDesc(getString(application, R.string.data_sync_channel_description))
+        .setChannelName(getString(context, R.string.data_sync_channel_name))
+        .setChannelDesc(getString(context, R.string.data_sync_channel_description))
         .build();
   }
 
   @Provides
   @Categories
   DataSync providesProductCategoriesSync(
-      Application application,
+      @ApplicationContext Context context,
       @Global.NetworkIO Executor executor,
       @Categories SyncRepository syncRepository,
       CollectionSyncStateRepository collectionSyncStateRepository,
@@ -56,10 +62,10 @@ public class ProductDataSyncModule {
             .setNotificationId(NotificationIds.DATA_SYNC_CATEGORIES_START)
             .setTitle(
                 getString(
-                    application, R.string.product_category_data_sync_notification_inprogress_title))
+                    context, R.string.product_category_data_sync_notification_inprogress_title))
             .setContent(
                 getString(
-                    application,
+                    context,
                     R.string.product_category_data_sync_notification_inprogress_content))
             .build();
 
@@ -68,10 +74,10 @@ public class ProductDataSyncModule {
             .setNotificationId(NotificationIds.DATA_SYNC_CATEGORIES_SUCCESS)
             .setTitle(
                 getString(
-                    application, R.string.product_category_data_sync_notification_success_title))
+                    context, R.string.product_category_data_sync_notification_success_title))
             .setContent(
                 getString(
-                    application, R.string.product_category_data_sync_notification_success_content))
+                    context, R.string.product_category_data_sync_notification_success_content))
             .build();
 
     NotificationProperties brandFailure =
@@ -79,10 +85,10 @@ public class ProductDataSyncModule {
             .setNotificationId(NotificationIds.DATA_SYNC_CATEGORIES_FAILED)
             .setTitle(
                 getString(
-                    application, R.string.product_category_data_sync_notification_failure_title))
+                    context, R.string.product_category_data_sync_notification_failure_title))
             .setContent(
                 getString(
-                    application, R.string.product_category_data_sync_notification_failure_content))
+                    context, R.string.product_category_data_sync_notification_failure_content))
             .build();
 
     return new DataSync(
@@ -99,7 +105,7 @@ public class ProductDataSyncModule {
   @Provides
   @Products
   DataSync providesProductsSync(
-      Application application,
+      @ApplicationContext Context context,
       @Global.NetworkIO Executor executor,
       @Products SyncRepository syncRepository,
       CollectionSyncStateRepository collectionSyncStateRepository,
@@ -108,27 +114,27 @@ public class ProductDataSyncModule {
         START_BUILDER
             .setNotificationId(NotificationIds.DATA_SYNC_PRODUCTS_START)
             .setTitle(
-                getString(application, R.string.products_data_sync_notification_inprogress_title))
+                getString(context, R.string.products_data_sync_notification_inprogress_title))
             .setContent(
-                getString(application, R.string.products_data_sync_notification_inprogress_content))
+                getString(context, R.string.products_data_sync_notification_inprogress_content))
             .build();
 
     NotificationProperties brandSuccess =
         SUCCESS_BUILDER
             .setNotificationId(NotificationIds.DATA_SYNC_PRODUCTSY_SUCCESS)
             .setTitle(
-                getString(application, R.string.products_data_sync_notification_success_title))
+                getString(context, R.string.products_data_sync_notification_success_title))
             .setContent(
-                getString(application, R.string.products_data_sync_notification_success_content))
+                getString(context, R.string.products_data_sync_notification_success_content))
             .build();
 
     NotificationProperties brandFailure =
         FAILURE_BUILDER
             .setNotificationId(NotificationIds.DATA_SYNC_PRODUCTS_FAILED)
             .setTitle(
-                getString(application, R.string.products_data_sync_notification_failure_title))
+                getString(context, R.string.products_data_sync_notification_failure_title))
             .setContent(
-                getString(application, R.string.products_data_sync_notification_failure_content))
+                getString(context, R.string.products_data_sync_notification_failure_content))
             .build();
 
     return new DataSync(
@@ -160,7 +166,7 @@ public class ProductDataSyncModule {
     return builder;
   }
 
-  private String getString(Application application, int resId) {
-    return application.getString(resId);
+  private String getString(Context context, int resId) {
+    return context.getString(resId);
   }
 }

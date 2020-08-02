@@ -1,6 +1,6 @@
 package com.toolinc.openairmarket.persistence.local.offline;
 
-import android.app.Application;
+import android.content.Context;
 
 import androidx.room.Room;
 
@@ -12,29 +12,22 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import dagger.hilt.InstallIn;
+import dagger.hilt.android.components.ApplicationComponent;
+import dagger.hilt.android.qualifiers.ApplicationContext;
 
 /** Specifies the Offline database dagger module. */
+@InstallIn(ApplicationComponent.class)
 @Module
 public class OfflineDatabaseModule {
 
   private static volatile OfflineRoomDatabase offlineRoomDatabase;
 
-  public OfflineDatabaseModule(Application mApplication) {
-    if (offlineRoomDatabase == null) {
-      synchronized (OfflineDatabaseModule.class) {
-        if (offlineRoomDatabase == null) {
-          offlineRoomDatabase =
-              Room.databaseBuilder(mApplication, OfflineRoomDatabase.class, "offline_database")
-                  .build();
-        }
-      }
-    }
-  }
-
   @Singleton
   @Provides
-  OfflineRoomDatabase providesRoomDatabase() {
-    return offlineRoomDatabase;
+  OfflineRoomDatabase providesRoomDatabase(@ApplicationContext Context appContext) {
+    return Room.databaseBuilder(appContext, OfflineRoomDatabase.class, "offline_database")
+            .build();
   }
 
   @Provides

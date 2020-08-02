@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,11 +25,12 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import dagger.android.support.DaggerFragment;
+import dagger.hilt.android.AndroidEntryPoint;
 import timber.log.Timber;
 
 /** Receipt fragment to handle all the items of a sale. */
-public final class ReceiptFragment extends DaggerFragment {
+@AndroidEntryPoint
+public final class ReceiptFragment extends Fragment {
 
   private static final String TAG = ReceiptFragment.class.getSimpleName();
   private final SaleLineListAdapter saleLineListAdapter = new SaleLineListAdapter();

@@ -7,31 +7,28 @@ import com.toolinc.openairmarket.ui.fragment.OfflineFragment;
 import com.toolinc.openairmarket.ui.fragment.ReceiptFragment;
 import com.toolinc.openairmarket.ui.fragment.ReceiptsFragment;
 
-import dagger.Module;
-import dagger.android.ContributesAndroidInjector;
-
 /**
  * Specifies the object graph to inject different instances to activities and fragments of the
  * application.
  */
-@Module
+//@Module
 public abstract class OpenAirMarketUiModule {
 
-  @ContributesAndroidInjector
+//  @ContributesAndroidInjector
   abstract MainActivity mainActivity();
 
-  @ContributesAndroidInjector
+//  @ContributesAndroidInjector
   abstract MainFragment contributeMainFragment();
 
-  @ContributesAndroidInjector
+//  @ContributesAndroidInjector
   abstract LoginFragment contributeLoginFragment();
 
-  @ContributesAndroidInjector
+//  @ContributesAndroidInjector
   abstract ReceiptsFragment contributeReceiptsFragment();
 
-  @ContributesAndroidInjector
+//  @ContributesAndroidInjector
   abstract ReceiptFragment contributeReceiptFragment();
 
-  @ContributesAndroidInjector
+//  @ContributesAndroidInjector
   abstract OfflineFragment contributeOfflineFragment();
 }

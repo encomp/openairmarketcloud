@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -25,11 +26,12 @@ import com.toolinc.openairmarket.databinding.FragmentLoginBinding;
 
 import javax.inject.Inject;
 
-import dagger.android.support.DaggerFragment;
+import dagger.hilt.android.AndroidEntryPoint;
 import timber.log.Timber;
 
 /** Fragment that allows the creation of a new account or login with an existing account. */
-public class LoginFragment extends DaggerFragment implements View.OnClickListener {
+@AndroidEntryPoint
+public class LoginFragment extends Fragment implements View.OnClickListener {
 
   private static final String TAG = LoginFragment.class.getSimpleName();
   private FragmentLoginBinding loginBinding;

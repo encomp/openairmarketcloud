@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavDirections;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.work.BackoffPolicy;
@@ -35,10 +36,11 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import dagger.android.support.DaggerFragment;
+import dagger.hilt.android.AndroidEntryPoint;
 
+@AndroidEntryPoint
 /** Initial screen for the pos app. */
-public class MainFragment extends DaggerFragment
+public class MainFragment extends Fragment
     implements NavigationView.OnNavigationItemSelectedListener {
 
   DrawerLayout drawer;
@@ -57,7 +59,7 @@ public class MainFragment extends DaggerFragment
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    syncFromFirestore();
+    //syncFromFirestore();
   }
 
   @Nullable

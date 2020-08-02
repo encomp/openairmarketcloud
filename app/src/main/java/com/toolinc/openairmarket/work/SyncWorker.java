@@ -1,6 +1,6 @@
 package com.toolinc.openairmarket.work;
 
-import android.app.Application;
+import android.content.Context;
 
 import androidx.work.ListenableWorker;
 import androidx.work.ListenableWorker.Result;
@@ -32,7 +32,7 @@ abstract class SyncWorker {
 
   abstract String collectionId();
 
-  abstract Application application();
+  abstract Context context();
 
   abstract CollectionSyncStateRepository collectionSyncStateRepository();
 
@@ -57,7 +57,7 @@ abstract class SyncWorker {
   }
 
   private ListenableWorker.Result syncFromFirestore() {
-    Task<QuerySnapshot> task = dataSync().refresh(application().getApplicationContext());
+    Task<QuerySnapshot> task = dataSync().refresh(context());
     Timber.tag(TAG).d("Waiting for the task to complete...");
     try {
       Tasks.await(task);
@@ -79,7 +79,7 @@ abstract class SyncWorker {
 
     abstract Builder setCollectionId(String collectionId);
 
-    abstract Builder setApplication(Application application);
+    abstract Builder setContext(Context context);
 
     abstract Builder setCollectionSyncStateRepository(
         CollectionSyncStateRepository collectionSyncStateRepository);

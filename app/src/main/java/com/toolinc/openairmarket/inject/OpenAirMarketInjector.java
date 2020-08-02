@@ -6,20 +6,13 @@ import com.toolinc.openairmarket.widget.SaleWidget;
 import javax.inject.Singleton;
 
 import dagger.Component;
-import dagger.android.AndroidInjectionModule;
-import dagger.android.AndroidInjector;
 
 /** Provides dependency injection for the entire application from the specific modules provided. */
 @Singleton
-@Component(
-    modules = {
-      AndroidInjectionModule.class,
-      OpenAirMarketModule.class,
-      OpenAirMarketUiModule.class
-    })
-public interface OpenAirMarketInjector extends AndroidInjector<OpenAirMarketApplication> {
+@Component(modules = {OpenAirMarketModule.class})
+public abstract class OpenAirMarketInjector {
 
-  void inject(OpenAirMarketApplication app);
+  abstract void inject(OpenAirMarketApplication app);
 
-  void inject(SaleWidget saleWidget);
+  abstract void inject(SaleWidget saleWidget);
 }

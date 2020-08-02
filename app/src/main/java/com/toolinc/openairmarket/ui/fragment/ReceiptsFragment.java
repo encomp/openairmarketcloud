@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -49,11 +50,12 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import dagger.android.support.DaggerFragment;
+import dagger.hilt.android.AndroidEntryPoint;
 import timber.log.Timber;
 
 /** Receipts fragment to handle product search and append. */
-public class ReceiptsFragment extends DaggerFragment {
+@AndroidEntryPoint
+public class ReceiptsFragment extends Fragment {
 
   private static final String TAG = ReceiptsFragment.class.getSimpleName();
 

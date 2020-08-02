@@ -1,15 +1,13 @@
 package com.toolinc.openairmarket.work;
 
-import android.app.Application;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
+import androidx.hilt.Assisted;
+import androidx.hilt.work.WorkerInject;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
-import com.squareup.inject.assisted.Assisted;
-import com.squareup.inject.assisted.AssistedInject;
-import com.toolinc.openairmarket.common.work.ListenableWorkerFactory;
 import com.toolinc.openairmarket.persistence.cloud.CollectionsNames;
 import com.toolinc.openairmarket.persistence.inject.Annotations.Product.Products;
 import com.toolinc.openairmarket.persistence.local.offline.CollectionSyncStateRepository;
@@ -20,19 +18,18 @@ public class ProductSyncWorker extends Worker {
 
   private static final String TAG = ProductSyncWorker.class.getSimpleName();
 
-  private final Application application;
+  private final Context context;
   private final CollectionSyncStateRepository collectionProductRepo;
   private final DataSync dataSync;
 
-  @AssistedInject
+  @WorkerInject
   public ProductSyncWorker(
-      Application application,
       @Products DataSync dataSync,
       CollectionSyncStateRepository collectionProductRepo,
       @Assisted Context context,
       @Assisted WorkerParameters workerParameters) {
     super(context, workerParameters);
-    this.application = application;
+    this.context = context;
     this.collectionProductRepo = collectionProductRepo;
     this.dataSync = dataSync;
   }
@@ -43,14 +40,10 @@ public class ProductSyncWorker extends Worker {
     SyncWorker syncWorker =
         SyncWorker.builder()
             .setCollectionId(CollectionsNames.PRODUCTS)
-            .setApplication(application)
+            .setContext(context)
             .setCollectionSyncStateRepository(collectionProductRepo)
             .setDataSync(dataSync)
             .build();
     return syncWorker.syncCollection();
   }
-
-  @AssistedInject.Factory
-  /** Marker interface to support dependency injection for {@link ProductSyncWorker} instances. */
-  public interface Factory extends ListenableWorkerFactory {}
 }

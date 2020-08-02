@@ -1,19 +1,13 @@
 package com.toolinc.openairmarket;
 
-import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.net.ConnectivityManager;
 
+import androidx.annotation.NonNull;
 import androidx.work.Configuration;
-import androidx.work.WorkManager;
 
 import com.google.common.base.Preconditions;
-import com.toolinc.openairmarket.common.inject.AppModule;
-import com.toolinc.openairmarket.common.work.WorkerFactoryDagger;
-import com.toolinc.openairmarket.inject.DaggerOpenAirMarketInjector;
-import com.toolinc.openairmarket.inject.OpenAirMarketInjector;
-import com.toolinc.openairmarket.persistence.local.offline.OfflineDatabaseModule;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
@@ -22,19 +16,16 @@ import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.Date;
 
-import javax.inject.Inject;
-
-import dagger.android.AndroidInjector;
-import dagger.android.DispatchingAndroidInjector;
-import dagger.android.HasActivityInjector;
+import dagger.hilt.android.HiltAndroidApp;
 import timber.log.Timber;
 
 /** Base class for maintaining global application state and provide injection to the entire app. */
-public class OpenAirMarketApplication extends Application implements HasActivityInjector {
+@HiltAndroidApp
+public class OpenAirMarketApplication extends Application implements Configuration.Provider {
 
-  private OpenAirMarketInjector openAirMarketInjector;
-  @Inject DispatchingAndroidInjector<Activity> dispatchingActivityInjector;
-  @Inject WorkerFactoryDagger workerFactory;
+  // TODO: Doest work yet WorkerFactory Injection...
+  //   https://developer.android.com/training/dependency-injection/hilt-jetpack#workmanager
+  // @Inject HiltWorkerFactory workerFactory;
 
   /** Determines if there is network connection available on the device. */
   public static boolean isInternetAvailable(Context context) {
@@ -49,26 +40,17 @@ public class OpenAirMarketApplication extends Application implements HasActivity
   @Override
   public void onCreate() {
     super.onCreate();
-    openAirMarketInjector =
-        DaggerOpenAirMarketInjector.builder()
-            .appModule(new AppModule(this))
-            .offlineDatabaseModule(new OfflineDatabaseModule(this))
-            .build();
-    openAirMarketInjector.inject(this);
-    WorkManager.initialize(
-        this, new Configuration.Builder().setWorkerFactory(workerFactory).build());
     if (BuildConfig.DEBUG) {
       Timber.plant(new Timber.DebugTree());
     }
   }
 
-  public OpenAirMarketInjector getOpenAirMarketInjector() {
-    return openAirMarketInjector;
-  }
-
+  @NonNull
   @Override
-  public AndroidInjector<Activity> activityInjector() {
-    return dispatchingActivityInjector;
+  public Configuration getWorkManagerConfiguration() {
+    return new Configuration.Builder()
+          //  .setWorkerFactory(workerFactory.get())
+            .build();
   }
 
   public static String toString(BigDecimal bigDecimal) {
