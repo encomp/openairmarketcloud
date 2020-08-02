@@ -17,8 +17,9 @@ import dagger.Module;
 import dagger.Provides;
 import dagger.hilt.InstallIn;
 import dagger.hilt.android.components.ApplicationComponent;
+import dagger.hilt.android.components.FragmentComponent;
 
-@InstallIn(ApplicationComponent.class)
+@InstallIn(FragmentComponent.class)
 @Module
 public class SaleNotificationModule {
 
