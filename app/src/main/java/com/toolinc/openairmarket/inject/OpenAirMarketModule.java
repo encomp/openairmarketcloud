@@ -5,7 +5,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.toolinc.openairmarket.common.inject.ExecutorsModule;
-import com.toolinc.openairmarket.persistence.cloud.inject.RepositoryModule;
+import com.toolinc.openairmarket.persistence.local.offline.OfflineDatabaseModule;
+import com.toolinc.openairmarket.persistence.local.pos.PosDatabaseModule;
 import com.toolinc.openairmarket.ui.fragment.inject.SaleNotificationModule;
 import com.toolinc.openairmarket.viewmodel.inject.ViewModelModule;
 
@@ -19,7 +20,8 @@ import dagger.hilt.android.components.ApplicationComponent;
 @Module(
     includes = {
       ExecutorsModule.class,
-      RepositoryModule.class,
+      OfflineDatabaseModule.class,
+      PosDatabaseModule.class,
       SaleNotificationModule.class,
       ViewModelModule.class,
     })

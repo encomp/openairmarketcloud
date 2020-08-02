@@ -11,10 +11,11 @@ import dagger.Module;
 import dagger.Provides;
 import dagger.hilt.InstallIn;
 import dagger.hilt.android.components.ApplicationComponent;
+import dagger.hilt.android.components.FragmentComponent;
 
 /** Provides the injection for the sync repositories for firestore database. */
-@InstallIn(ApplicationComponent.class)
-@Module(includes = {OfflineDatabaseModule.class})
+@InstallIn(FragmentComponent.class)
+@Module
 public class SyncRepositoryModule {
 
   @Categories
