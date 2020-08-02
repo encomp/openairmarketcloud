@@ -20,7 +20,8 @@ import com.toolinc.openairmarket.pos.persistence.model.product.ProductBrand;
       @Index(
           name = "ProductBrand_UK",
           value = {"referenceId", "name"},
-          unique = true)
+          unique = true),
+      @Index(name = "ProductManufacturer_FK", value = "productManufacturerId")
     },
     foreignKeys =
         @ForeignKey(
