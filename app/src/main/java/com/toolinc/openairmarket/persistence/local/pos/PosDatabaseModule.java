@@ -24,7 +24,6 @@ import dagger.hilt.android.qualifiers.ApplicationContext;
 @Module
 public class PosDatabaseModule {
 
-
   @Singleton
   @Provides
   PosRoomDatabase providesRoomDatabase(@ApplicationContext Context appContext) {
