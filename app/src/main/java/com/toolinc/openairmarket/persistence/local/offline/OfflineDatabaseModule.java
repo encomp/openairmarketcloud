@@ -21,13 +21,10 @@ import dagger.hilt.android.qualifiers.ApplicationContext;
 @Module
 public class OfflineDatabaseModule {
 
-  private static volatile OfflineRoomDatabase offlineRoomDatabase;
-
   @Singleton
   @Provides
   OfflineRoomDatabase providesRoomDatabase(@ApplicationContext Context appContext) {
-    return Room.databaseBuilder(appContext, OfflineRoomDatabase.class, "offline_database")
-            .build();
+    return Room.databaseBuilder(appContext, OfflineRoomDatabase.class, "offline_database").build();
   }
 
   @Provides
