@@ -42,7 +42,7 @@ android {
 }
 
 dependencies {
-    def paging_version = "2.1.0"
+    def paging_version = "2.1.2"
     def room_version = "2.2.5"
     def rxandroid_version = "2.1.1"
     def rxjava_version = "2.2.12"
@@ -88,7 +88,7 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
     compileOnly 'com.squareup.inject:assisted-inject-annotations-dagger2:0.4.0'
     annotationProcessor 'com.squareup.inject:assisted-inject-processor-dagger2:0.4.0'
-    implementation 'com.squareup.okhttp3:okhttp:3.11.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.12.1'
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'joda-time:joda-time:2.10.1'
 
