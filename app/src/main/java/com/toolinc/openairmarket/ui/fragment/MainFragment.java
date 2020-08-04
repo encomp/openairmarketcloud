@@ -15,9 +15,11 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.hilt.work.HiltWorkerFactory;
 import androidx.navigation.NavDirections;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.work.BackoffPolicy;
+import androidx.work.Configuration;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
@@ -25,6 +27,7 @@ import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseUser;
+import com.toolinc.openairmarket.OpenAirMarketApplication;
 import com.toolinc.openairmarket.R;
 import com.toolinc.openairmarket.ui.fragment.MainFragmentDirections.ActionLogout;
 import com.toolinc.openairmarket.work.ProductCategorySyncWorker;
@@ -56,10 +59,15 @@ public class MainFragment extends Fragment
 
   @Inject FirebaseUser currentUser;
 
+  @Inject HiltWorkerFactory workerFactory;
+
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    //syncFromFirestore();
+    // TODO: workaround to install the HiltWorkerFactory
+    OpenAirMarketApplication.setWorkerFactory(workerFactory, getContext());
+    // END
+    syncFromFirestore();
   }
 
   @Nullable

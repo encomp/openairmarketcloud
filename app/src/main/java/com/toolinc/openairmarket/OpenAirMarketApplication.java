@@ -5,7 +5,9 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 
 import androidx.annotation.NonNull;
+import androidx.hilt.work.HiltWorkerFactory;
 import androidx.work.Configuration;
+import androidx.work.WorkManager;
 
 import com.google.common.base.Preconditions;
 
@@ -25,7 +27,7 @@ public class OpenAirMarketApplication extends Application implements Configurati
 
   // TODO: Doest work yet WorkerFactory Injection...
   //   https://developer.android.com/training/dependency-injection/hilt-jetpack#workmanager
-  // @Inject HiltWorkerFactory workerFactory;
+  private static HiltWorkerFactory workerFactory;
 
   /** Determines if there is network connection available on the device. */
   public static boolean isInternetAvailable(Context context) {
@@ -48,9 +50,17 @@ public class OpenAirMarketApplication extends Application implements Configurati
   @NonNull
   @Override
   public Configuration getWorkManagerConfiguration() {
-    return new Configuration.Builder()
-          //  .setWorkerFactory(workerFactory.get())
-            .build();
+    Configuration.Builder builder = new Configuration.Builder();
+    if (workerFactory != null) {
+      builder.setWorkerFactory(workerFactory);
+    }
+    return builder.build();
+  }
+
+  public static void setWorkerFactory(HiltWorkerFactory workerFactory, Context context) {
+    OpenAirMarketApplication.workerFactory = workerFactory;
+    WorkManager.initialize(
+        context, new Configuration.Builder().setWorkerFactory(workerFactory).build());
   }
 
   public static String toString(BigDecimal bigDecimal) {
