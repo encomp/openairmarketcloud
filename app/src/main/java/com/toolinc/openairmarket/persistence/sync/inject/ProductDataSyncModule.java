@@ -26,10 +26,10 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import dagger.hilt.InstallIn;
-import dagger.hilt.android.components.FragmentComponent;
+import dagger.hilt.android.components.ApplicationComponent;
 import dagger.hilt.android.qualifiers.ApplicationContext;
 
-@InstallIn(FragmentComponent.class)
+@InstallIn(ApplicationComponent.class)
 @Module(includes = SyncRepositoryModule.class)
 public class ProductDataSyncModule {
   private static final NotificationProperties.Builder START_BUILDER =
