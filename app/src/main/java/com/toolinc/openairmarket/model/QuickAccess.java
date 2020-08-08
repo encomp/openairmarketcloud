@@ -15,15 +15,15 @@ import com.toolinc.openairmarket.R;
 @AutoValue
 public abstract class QuickAccess {
 
-  @StyleRes private static final int BUTTON = R.style.Widget_Shrine_Button_OutlinedButton;
+  @StyleRes private static final int BUTTON = R.style.Widget_Pos_Button_OutlinedButton_Blue;
 
-  @ColorRes private static final int BUTTON_RIPPLE = R.color.btn_text_btn_ripple_color_accent;
+  @ColorRes private static final int BUTTON_RIPPLE = R.color.color_secondary_variant;
 
   @StyleRes
-  private static final int BUTTON_ACCENT = R.style.Widget_Shrine_Button_OutlinedButton_Accent;
+  private static final int BUTTON_ACCENT = R.style.Widget_Pos_Button_OutlinedButton_Yellow;
 
   @ColorRes
-  private static final int BUTTON_ACCENT_RIPPLE = R.color.btn_text_btn_ripple_color_accent2;
+  private static final int BUTTON_ACCENT_RIPPLE = R.color.amber_300;
 
   public abstract String productId();
 

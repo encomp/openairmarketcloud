@@ -14,12 +14,12 @@
         android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Shrine">
+        android:theme="@style/Pos.MyTheme">
 
         <activity
             android:name=".ui.MainActivity"
             android:label="@string/pos_title"
-            android:theme="@style/Base.Theme.Shrine.NoActionBar">
+            android:theme="@style/Pos.MyTheme">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.MAIN" />

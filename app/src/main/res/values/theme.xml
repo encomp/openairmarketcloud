@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Base theme builder -->
+    <style name="Pos.MaterialThemeBuilder" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!--
+        <item name="alphaEmphasisHigh">@dimen/alpha_emphasis_high</item>
+        <item name="alphaEmphasisMedium">@dimen/alpha_emphasis_medium</item>
+        <item name="alphaEmphasisDisabled">@dimen/alpha_emphasis_disabled</item>
+        -->
+
+        <item name="android:statusBarColor">?colorSurface</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:navigationBarColor">?android:colorBackground</item>
+        <item name="android:windowLightNavigationBar" tools:ignore="NewApi">true</item>
+        <item name="android:navigationBarDividerColor" tools:ignore="NewApi">?colorControlHighlight</item>
+
+        <!--Remap legacy AppCompat attributes to MaterialComponent attributes-->
+        <item name="colorPrimaryDark">?colorPrimaryVariant</item>
+        <item name="colorAccent">?colorSecondary</item>
+    </style>
+
+    <!--Base custom theme which will be shared between both light and dark theme variants-->
+    <style name="Pos.MyTheme" parent="Pos.MaterialThemeBuilder">
+        <!--Material color attributes -->
+        <item name="colorPrimary">@color/color_secondary</item>
+        <item name="colorPrimaryVariant">@color/color_secondary_variant</item>
+        <item name="colorSecondary">#29b6f6</item>
+        <item name="colorSecondaryVariant">#73e8ff</item>
+
+        <item name="android:colorBackground">@color/color_background</item>
+        <item name="colorSurface">@color/color_surface</item>
+        <item name="colorError">@color/color_error</item>
+
+        <item name="colorOnPrimary">@color/color_on_primary</item>
+        <item name="colorOnSecondary">@color/color_on_secondary</item>
+        <item name="colorOnBackground">@color/color_on_background</item>
+        <item name="colorOnSurface">@color/color_on_surface</item>
+        <item name="colorOnError">@color/color_on_error</item>
+
+        <!--Material type attributes-->
+        <item name="textAppearanceHeadline1">@style/TextAppearance.MyTheme.Headline1</item>
+        <item name="textAppearanceHeadline2">@style/TextAppearance.MyTheme.Headline2</item>
+        <item name="textAppearanceHeadline3">@style/TextAppearance.MyTheme.Headline3</item>
+        <item name="textAppearanceHeadline4">@style/TextAppearance.MyTheme.Headline4</item>
+        <item name="textAppearanceHeadline5">@style/TextAppearance.MyTheme.Headline5</item>
+        <item name="textAppearanceHeadline6">@style/TextAppearance.MyTheme.Headline6</item>
+        <item name="textAppearanceSubtitle1">@style/TextAppearance.MyTheme.Subtitle1</item>
+        <item name="textAppearanceSubtitle2">@style/TextAppearance.MyTheme.Subtitle2</item>
+        <item name="textAppearanceBody1">@style/TextAppearance.MyTheme.Body1</item>
+        <item name="textAppearanceBody2">@style/TextAppearance.MyTheme.Body2</item>
+        <item name="textAppearanceButton">@style/TextAppearance.MyTheme.Button</item>
+        <item name="textAppearanceCaption">@style/TextAppearance.MyTheme.Caption</item>
+        <item name="textAppearanceOverline">@style/TextAppearance.MyTheme.Overline</item>
+
+        <!--Material shape attributes-->
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.MyTheme.SmallComponent</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.MyTheme.MediumComponent</item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.MyTheme.LargeComponent</item>
+
+        <!--Component styles-->
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.MaterialComponents.Dialog.Alert</item>
+        <!--<item name="bottomSheetDialogTheme">@style/ThemeOverlay.MyTheme.BottomSheetDialog</item>
+        <item name="navigationViewStyle">@style/Widget.MyTheme.NavigationView</item>-->
+        <item name="toolbarStyle">@style/Widget.MaterialComponents.Toolbar.PrimarySurface</item>
+    </style>
+
+    <style name="Widget.Pos.ActionBar" parent="Widget.AppCompat.Light.ActionBar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/shrine_toolbar_collapsed_height</item>
+        <item name="android:minHeight">@dimen/shrine_toolbar_collapsed_height</item>
+        <item name="android:titleTextStyle">@style/TextAppearance.MyTheme.Headline1</item>
+        <item name="titleTextStyle">@style/TextAppearance.MyTheme.Headline1</item>
+    </style>
+
+    <style name="Widget.Pos.TextView" parent="">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAppearance">@style/TextAppearance.Pos.Filter</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="Widget.Pos.TextView.SectionHeader">
+        <item name="android:textAppearance">@style/TextAppearance.Pos.Filter.SubHead</item>
+    </style>
+
+    <style name="Widget.Pos.TextView.SectionHeaderEnd">
+        <item name="android:layout_weight">0</item>
+        <item name="android:textSize">@dimen/pos_section_header_text_size</item>
+    </style>
+
+    <style name="TextAppearance.Pos.Filter" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textColor">@color/textColorPrimary</item>
+    </style>
+
+    <style name="TextAppearance.Pos.Filter.SubHead" parent="TextAppearance.AppCompat.Subhead">
+        <item name="android:textSize">@dimen/pos_section_header_text_size</item>
+        <item name="android:textColor">@color/textColorSecondary</item>
+    </style>
+
+    <style name="Widget.Pos.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fadeScrollbars">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:maxLines">5</item>
+        <item name="android:padding">4dp</item>
+        <item name="android:scrollbars">vertical</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="Widget.Pos.Button.OutlinedButton.Blue" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="rippleColor">@color/color_secondary_variant</item>
+        <item name="android:textColor">@color/color_secondary</item>
+        <item name="strokeColor">@color/color_secondary</item>
+    </style>
+
+    <style name="Widget.Pos.Button.OutlinedButton.Red" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="rippleColor">@color/btn_text_btn_ripple_color_red</item>
+        <item name="android:textColor">@color/red_a400</item>
+        <item name="strokeColor">@color/red_a400</item>
+    </style>
+
+    <style name="Widget.Pos.Button.OutlinedButton.Yellow" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="rippleColor">@color/amber_300</item>
+        <item name="android:textColor">@color/amber_700</item>
+        <item name="strokeColor">@color/amber_700</item>
+    </style>
+
+    <!-- Login -->
+    <style name="ThemeOverlay.LoginIcon" parent="Pos.MyTheme">
+        <item name="android:layout_marginTop">@dimen/icon_top_margin</item>
+        <item name="android:layout_marginBottom">@dimen/icon_bottom_margin</item>
+    </style>
+
+    <style name="ThemeOverlay.TitleText" parent="Pos.MyTheme">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">36sp</item>
+    </style>
+</resources>

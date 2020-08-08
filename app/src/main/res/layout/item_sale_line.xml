@@ -16,7 +16,7 @@
         android:padding="@dimen/shrine_tiny_spacing">
 
         <TextView
-            style="@style/TextAppearance.Shrine.Filter.SubHead"
+            style="@style/TextAppearance.Pos.Filter.SubHead"
             android:layout_width="40dp"
             android:layout_height="wrap_content"
             android:text="@{String.valueOf(saleLine.lineOrder)}"
@@ -24,7 +24,7 @@
             tools:text="1" />
 
         <TextView
-            style="@style/TextAppearance.Shrine.Filter.SubHead"
+            style="@style/TextAppearance.Pos.Filter.SubHead"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:text="@{saleLine.product}"
@@ -32,7 +32,7 @@
             tools:text="Product" />
 
         <TextView
-            style="@style/TextAppearance.Shrine.Filter.SubHead"
+            style="@style/TextAppearance.Pos.Filter.SubHead"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:text="@{saleLine.price}"
@@ -40,7 +40,7 @@
             tools:text="$1.0" />
 
         <TextView
-            style="@style/TextAppearance.Shrine.Filter.SubHead"
+            style="@style/TextAppearance.Pos.Filter.SubHead"
             android:layout_width="65dp"
             android:layout_height="wrap_content"
             android:text="@{saleLine.quantity}"
@@ -48,7 +48,7 @@
             tools:text="3" />
 
         <TextView
-            style="@style/TextAppearance.Shrine.Filter.SubHead"
+            style="@style/TextAppearance.Pos.Filter.SubHead"
             android:layout_width="72dp"
             android:layout_height="wrap_content"
             android:text="@{saleLine.total}"

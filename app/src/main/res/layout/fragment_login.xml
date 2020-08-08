@@ -6,7 +6,7 @@
         android:id="@+id/main_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimary"
+        android:background="@color/color_primary"
         android:orientation="vertical">
 
         <LinearLayout
@@ -36,12 +36,12 @@
 
             <TextView
                 android:id="@+id/status"
-                style="@style/Widget.Shrine.TextInputLayout"
+                style="@style/Widget.Pos.TextInputLayout"
                 android:text="@string/signed_out" />
 
             <TextView
                 android:id="@+id/detail"
-                style="@style/Widget.Shrine.TextInputLayout"
+                style="@style/Widget.Pos.TextInputLayout"
                 tools:text="Firebase User ID: 123456789abc" />
         </LinearLayout>
 
@@ -109,7 +109,7 @@
                     android:layout_weight="1.0"
                     android:padding="@dimen/shrine_small_spacing"
                     android:text="@string/sign_in"
-                    app:backgroundTint="@color/colorAccent2" />
+                    app:backgroundTint="@color/amber_700" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/emailCreateAccountButton"
@@ -153,7 +153,7 @@
                     android:layout_weight="1.0"
                     android:gravity="center"
                     android:text="@string/verify_email"
-                    app:backgroundTint="@color/colorAccent2" />
+                    app:backgroundTint="@color/amber_700" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

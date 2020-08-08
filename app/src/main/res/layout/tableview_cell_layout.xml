@@ -9,7 +9,7 @@
 
     <TextView
         android:id="@+id/cell_data"
-        style="@style/TextAppearance.Shrine.Filter.SubHead"
+        style="@style/TextAppearance.Pos.Filter.SubHead"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center_vertical"

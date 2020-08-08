@@ -23,7 +23,7 @@
 
             <TextView
                 android:id="@+id/column_header_textView"
-                style="@style/TextAppearance.Shrine.Filter.SubHead"
+                style="@style/TextAppearance.Pos.Filter.SubHead"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"

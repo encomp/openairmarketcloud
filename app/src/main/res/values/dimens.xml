@@ -10,7 +10,7 @@
     <dimen name="shrine_large_spacing">36dp</dimen>
     <dimen name="shrine_toolbar_collapsed_height">72dp</dimen>
 
-    <dimen name="shrine_section_header_text_size">16sp</dimen>
+    <dimen name="pos_section_header_text_size">16sp</dimen>
 
     <dimen name="table_view_cell_height">36dp</dimen>
     <dimen name="table_view_row_header_width">36dp</dimen>
