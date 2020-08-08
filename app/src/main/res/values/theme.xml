@@ -67,8 +67,8 @@
 
     <style name="Widget.Pos.ActionBar" parent="Widget.AppCompat.Light.ActionBar">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/shrine_toolbar_collapsed_height</item>
-        <item name="android:minHeight">@dimen/shrine_toolbar_collapsed_height</item>
+        <item name="android:layout_height">@dimen/toolbar_collapsed_height</item>
+        <item name="android:minHeight">@dimen/toolbar_collapsed_height</item>
         <item name="android:titleTextStyle">@style/TextAppearance.MyTheme.Headline1</item>
         <item name="titleTextStyle">@style/TextAppearance.MyTheme.Headline1</item>
     </style>
@@ -86,7 +86,7 @@
 
     <style name="Widget.Pos.TextView.SectionHeaderEnd">
         <item name="android:layout_weight">0</item>
-        <item name="android:textSize">@dimen/pos_section_header_text_size</item>
+        <item name="android:textSize">@dimen/section_header_text_size</item>
     </style>
 
     <style name="TextAppearance.Pos.Filter" parent="TextAppearance.AppCompat.Medium">
@@ -94,7 +94,7 @@
     </style>
 
     <style name="TextAppearance.Pos.Filter.SubHead" parent="TextAppearance.AppCompat.Subhead">
-        <item name="android:textSize">@dimen/pos_section_header_text_size</item>
+        <item name="android:textSize">@dimen/section_header_text_size</item>
         <item name="android:textColor">@color/textColorSecondary</item>
     </style>
 

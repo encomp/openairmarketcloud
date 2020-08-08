@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_margin="@dimen/shrine_tiny_spacing"
+        android:layout_margin="@dimen/tiny_spacing"
         android:orientation="vertical">
 
         <TextView
@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:padding="@dimen/shrine_tiny_spacing"
+            android:padding="@dimen/tiny_spacing"
             android:text="@string/appwidget_title"
             android:textAlignment="center"
             android:textSize="20sp" />
@@ -28,8 +28,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:paddingStart="@dimen/shrine_tiny_spacing"
-            android:paddingEnd="@dimen/shrine_tiny_spacing"
+            android:paddingStart="@dimen/tiny_spacing"
+            android:paddingEnd="@dimen/tiny_spacing"
             android:text="@string/appwidget_sub_title"
             android:textAlignment="center" />
 
@@ -39,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:padding="@dimen/shrine_tiny_spacing"
+            android:padding="@dimen/tiny_spacing"
             android:textAlignment="center"
             tools:text="$2500" />
     </LinearLayout>
@@ -48,7 +48,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="11dp"
-        android:layout_marginEnd="@dimen/shrine_tiny_spacing"
+        android:layout_marginEnd="@dimen/tiny_spacing"
         android:contentDescription="@string/appwidget_image_description"
         android:src="@mipmap/ic_launcher" />
 </LinearLayout>

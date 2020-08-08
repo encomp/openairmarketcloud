@@ -13,7 +13,7 @@
         android:id="@+id/product_line"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/shrine_tiny_spacing">
+        android:padding="@dimen/tiny_spacing">
 
         <TextView
             style="@style/TextAppearance.Pos.Filter.SubHead"
