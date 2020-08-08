@@ -1,14 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--Color-->
 
-    <color name="colorPrimary">#ffffff</color>
-    <color name="colorPrimaryDark">#e0e0e0</color>
-    <color name="colorAccent">#039BE5</color>
-    <color name="btn_text_btn_ripple_color_accent">#63CCFF</color>
-    <color name="colorAccent2">#FFA000</color>
-    <color name="btn_text_btn_ripple_color_accent2">#FFD149</color>
+    <!--Material uses an organized approach to applying color by providing a set of attributes -->
+    <!--which define the color of generalized UI elements such as backgrounds, surfaces, type -->
+    <!--and icons. Using these attributes throughout your app makes it easy to change a single -->
+    <!--color, or the entire theme, and have those changes cascade through the interface.-->
+
+    <!--Color is customized by overriding Material Components color attributes with custom -->
+    <!--color values. In this project, your theme’s color attributes are already overridden -->
+    <!--with default values defined in this file, color.xml.  Change any of the values in -->
+    <!--this file to see changes applied across all elements of your app.-->
+
+    <!--LIGHT COLOR THEME-->
+
+    <!--colorPrimary colors map to components and elements, such as app bars and buttons. -->
+    <!--colorSecondary colors are most often used as accents on components, such as FABs and -->
+    <!--selection controls.-->
+    <color name="color_primary">@color/white</color>
+    <color name="color_primary_variant">@color/grey_300</color>
+    <color name="color_secondary">@color/blue_400</color>
+    <color name="color_secondary_variant">@color/light_blue_200</color>
     <color name="textColorPrimary">#dd000000</color>
     <color name="textColorSecondary">#89000000</color>
+
+    <!--colorBackground appears behind scrollable content and is used for the default window-->
+    <!--background. colorSurface is mapped to the surface of components such as cards, sheets-->
+    <!--and menus. colorError is used to indicate an error state for components such as-->
+    <!--text fields.-->
+    <color name="color_background">@color/white</color>
+    <color name="color_surface">@color/white</color>
+    <color name="color_error">#f4511e</color>
+
+    <!--"On" colors define how text, icons and strokes are colored in relation to the surface-->
+    <!--on which they appear.-->
+    <color name="color_on_primary">#dd000000</color>
+    <color name="color_on_secondary">#89000000</color>
+    <color name="color_on_background">#000000</color>
+    <color name="color_on_surface">#000000</color>
+    <color name="color_on_error">#FF616F</color>
+
+    <!-- Amber -->
+    <color name="amber_300">#ffd54f</color>
+    <color name="amber_700">#FFA000</color>
+
+    <!-- Blue -->
+    <color name="blue_400">#42a5f5</color>
 
     <!-- Grey -->
     <color name="grey_50">#FAFAFA</color>
@@ -18,13 +55,19 @@
     <color name="grey_400">#BDBDBD</color>
     <color name="grey_500">#9E9E9E</color>
 
+    <!-- Light Blue -->
+    <color name="light_blue_200">#81d4fa</color>
+
     <!-- Red -->
-    <color name="red">#FF1744</color>
+    <color name="red_400">#EF5350</color>
+    <color name="red_a400">#FF1744</color>
     <color name="btn_text_btn_ripple_color_red">#FF616F</color>
 
+    <!-- White -->
+    <color name="white">#ffffff</color>
 
     <color name="selected_background_color">@color/grey_100</color>
-    <color name="unselected_background_color">@color/colorPrimary</color>
+    <color name="unselected_background_color">@color/color_primary</color>
     <color name="shadow_background_color">@color/grey_50</color>
     <color name="unselected_header_background_color">@color/grey_300</color>
     <color name="unselected_text_color">@color/textColorPrimary</color>
