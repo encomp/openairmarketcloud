@@ -30,7 +30,7 @@
     <!--text fields.-->
     <color name="color_background">@color/white</color>
     <color name="color_surface">@color/white</color>
-    <color name="color_error">#f4511e</color>
+    <color name="color_error">@color/red_300</color>
 
     <!--"On" colors define how text, icons and strokes are colored in relation to the surface-->
     <!--on which they appear.-->
@@ -38,7 +38,7 @@
     <color name="color_on_secondary">#89000000</color>
     <color name="color_on_background">#000000</color>
     <color name="color_on_surface">#000000</color>
-    <color name="color_on_error">#FF616F</color>
+    <color name="color_on_error">@color/red_600</color>
 
     <!-- Amber -->
     <color name="amber_300">#ffd54f</color>
@@ -59,7 +59,9 @@
     <color name="light_blue_200">#81d4fa</color>
 
     <!-- Red -->
+    <color name="red_300">#e57373</color>
     <color name="red_400">#EF5350</color>
+    <color name="red_600">#e53935</color>
     <color name="red_a200">#ff5252</color>
     <color name="red_a400">#FF1744</color>
 
