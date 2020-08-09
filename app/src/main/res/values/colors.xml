@@ -60,8 +60,8 @@
 
     <!-- Red -->
     <color name="red_400">#EF5350</color>
+    <color name="red_a200">#ff5252</color>
     <color name="red_a400">#FF1744</color>
-    <color name="btn_text_btn_ripple_color_red">#FF616F</color>
 
     <!-- White -->
     <color name="white">#ffffff</color>

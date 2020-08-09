@@ -116,7 +116,7 @@
     </style>
 
     <style name="Widget.Pos.Button.OutlinedButton.Red" parent="Widget.MaterialComponents.Button.OutlinedButton">
-        <item name="rippleColor">@color/btn_text_btn_ripple_color_red</item>
+        <item name="rippleColor">@color/red_a200</item>
         <item name="android:textColor">@color/red_a400</item>
         <item name="strokeColor">@color/red_a400</item>
     </style>
