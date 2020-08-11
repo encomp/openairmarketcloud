@@ -36,7 +36,7 @@
         <item name="colorOnSecondary">@color/color_on_secondary</item>
         <item name="colorOnBackground">@color/color_on_background</item>
         <item name="colorOnSurface">@color/color_on_surface</item>
-        <item name="colorOnError">@color/color_on_error</item>
+        <item name="colorOnError">@color/white</item>
 
         <!--Material type attributes-->
         <item name="textAppearanceHeadline1">@style/TextAppearance.MyTheme.Headline1</item>
@@ -59,6 +59,7 @@
         <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.Pos.LargeComponent</item>
 
         <!--Component styles-->
+        <item name="badgeStyle">@style/Widget.Pos.Badge</item>
         <item name="materialAlertDialogTheme">@style/ThemeOverlay.MaterialComponents.Dialog.Alert</item>
         <!--<item name="bottomSheetDialogTheme">@style/ThemeOverlay.MyTheme.BottomSheetDialog</item>
         <item name="navigationViewStyle">@style/Widget.MyTheme.NavigationView</item>-->
@@ -125,6 +126,12 @@
         <item name="rippleColor">@color/amber_300</item>
         <item name="android:textColor">@color/amber_700</item>
         <item name="strokeColor">@color/amber_700</item>
+    </style>
+
+    <!-- Badge theme -->
+    <style name="Widget.Pos.Badge" parent="Widget.MaterialComponents.Badge">
+        <item name="backgroundColor">@color/red_600</item>
+        <item name="badgeTextColor">@color/white</item>
     </style>
 
     <!-- Login -->

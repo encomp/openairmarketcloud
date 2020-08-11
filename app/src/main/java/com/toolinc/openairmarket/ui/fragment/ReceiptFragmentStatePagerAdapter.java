@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.tabs.TabLayout;
 import com.google.auto.value.AutoValue;
 import com.google.common.base.Preconditions;
@@ -68,10 +69,14 @@ public final class ReceiptFragmentStatePagerAdapter extends FragmentStatePagerAd
   public void addProduct(Product product) {
     Timber.tag(TAG).d("Current Tab Position: [%d].", tabLayout.getSelectedTabPosition());
     Timber.tag(TAG).d("Append product: [%s].", product.id());
-    getReceiptViewModel().add(product);
+    ReceiptViewModel receiptViewModel = getReceiptViewModel();
+    receiptViewModel.add(product);
+    BadgeDrawable badge = tabLayout.getTabAt(tabLayout.getSelectedTabPosition()).getOrCreateBadge();
+    badge.setNumber(receiptViewModel.getLines().getValue().size());
   }
 
   public void removeAllProducts() {
+    tabLayout.getTabAt(tabLayout.getSelectedTabPosition()).removeBadge();
     getReceiptViewModel().removeAllProducts();
   }
 
