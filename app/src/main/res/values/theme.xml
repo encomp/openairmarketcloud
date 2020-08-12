@@ -23,10 +23,10 @@
     <!--Base custom theme which will be shared between both light and dark theme variants-->
     <style name="Pos.MyTheme" parent="Pos.MaterialThemeBuilder">
         <!--Material color attributes -->
-        <item name="colorPrimary">@color/color_secondary</item>
-        <item name="colorPrimaryVariant">@color/color_secondary_variant</item>
-        <item name="colorSecondary">#29b6f6</item>
-        <item name="colorSecondaryVariant">#73e8ff</item>
+        <item name="colorPrimary">@color/light_blue_800</item>
+        <item name="colorPrimaryVariant">@color/light_blue_600</item>
+        <item name="colorSecondary">@color/light_blue_300</item>
+        <item name="colorSecondaryVariant">@color/light_blue_100</item>
 
         <item name="android:colorBackground">@color/color_background</item>
         <item name="colorSurface">@color/color_surface</item>
@@ -64,6 +64,10 @@
         <!--<item name="bottomSheetDialogTheme">@style/ThemeOverlay.MyTheme.BottomSheetDialog</item>
         <item name="navigationViewStyle">@style/Widget.MyTheme.NavigationView</item>-->
         <item name="toolbarStyle">@style/Widget.MaterialComponents.Toolbar.PrimarySurface</item>
+
+        <!-- Pos Styles -->
+        <item name="buttonBlueStyle">@style/Widget.Pos.Button.Blue</item>
+        <item name="buttonRedStyle">@style/Widget.Pos.Button.Red</item>
     </style>
 
     <style name="Widget.Pos.ActionBar" parent="Widget.AppCompat.Light.ActionBar">
@@ -108,24 +112,6 @@
         <item name="android:padding">4dp</item>
         <item name="android:scrollbars">vertical</item>
         <item name="android:textSize">14sp</item>
-    </style>
-
-    <style name="Widget.Pos.Button.OutlinedButton.Blue" parent="Widget.MaterialComponents.Button.OutlinedButton">
-        <item name="rippleColor">@color/color_secondary_variant</item>
-        <item name="android:textColor">@color/color_secondary</item>
-        <item name="strokeColor">@color/color_secondary</item>
-    </style>
-
-    <style name="Widget.Pos.Button.OutlinedButton.Red" parent="Widget.MaterialComponents.Button.OutlinedButton">
-        <item name="rippleColor">@color/red_a200</item>
-        <item name="android:textColor">@color/red_a400</item>
-        <item name="strokeColor">@color/red_a400</item>
-    </style>
-
-    <style name="Widget.Pos.Button.OutlinedButton.Yellow" parent="Widget.MaterialComponents.Button.OutlinedButton">
-        <item name="rippleColor">@color/amber_300</item>
-        <item name="android:textColor">@color/amber_700</item>
-        <item name="strokeColor">@color/amber_700</item>
     </style>
 
     <!-- Badge theme -->

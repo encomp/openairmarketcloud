@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Button High Emphasis -->
+    <style name="Widget.Pos.Button.Blue" parent="Widget.MaterialComponents.Button">
+        <item name="android:textColor">@color/black_alpha_96</item>
+        <item name="android:textStyle">bold</item>
+        <item name="iconTint">@color/black_alpha_96</item>
+        <item name="backgroundTint">@color/light_blue_200</item>
+        <item name="rippleColor">@color/grey_900_alpha_20</item>
+    </style>
+
+    <style name="Widget.Pos.Button.Red" parent="Widget.MaterialComponents.Button">
+        <item name="android:textColor">@color/black_alpha_96</item>
+        <item name="android:textStyle">bold</item>
+        <item name="iconTint">@color/black_alpha_96</item>
+        <item name="backgroundTint">@color/red_200</item>
+        <item name="rippleColor">@color/grey_900_alpha_20</item>
+    </style>
+
+    <!-- Outline Buttons -->
+    <style name="Widget.Pos.Button.OutlinedButton.Blue" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="rippleColor">@color/color_secondary_variant</item>
+        <item name="android:textColor">@color/color_secondary</item>
+        <item name="strokeColor">@color/color_secondary</item>
+    </style>
+
+    <style name="Widget.Pos.Button.OutlinedButton.Red" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="rippleColor">@color/red_a200</item>
+        <item name="android:textColor">@color/red_a400</item>
+        <item name="strokeColor">@color/red_a400</item>
+    </style>
+
+    <style name="Widget.Pos.Button.OutlinedButton.Yellow" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="rippleColor">@color/amber_300</item>
+        <item name="android:textColor">@color/amber_700</item>
+        <item name="strokeColor">@color/amber_700</item>
+    </style>
+</resources>
