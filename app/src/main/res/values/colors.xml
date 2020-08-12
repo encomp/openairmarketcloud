@@ -17,12 +17,12 @@
     <!--colorPrimary colors map to components and elements, such as app bars and buttons. -->
     <!--colorSecondary colors are most often used as accents on components, such as FABs and -->
     <!--selection controls.-->
-    <color name="color_primary">@color/white</color>
-    <color name="color_primary_variant">@color/grey_300</color>
-    <color name="color_secondary">@color/blue_400</color>
-    <color name="color_secondary_variant">@color/light_blue_200</color>
-    <color name="textColorPrimary">#dd000000</color>
-    <color name="textColorSecondary">#89000000</color>
+    <color name="color_primary">@color/light_blue_800</color>
+    <color name="color_primary_variant">@color/light_blue_600</color>
+    <color name="color_secondary">@color/light_blue_300</color>
+    <color name="color_secondary_variant">@color/light_blue_100</color>
+    <color name="textColorPrimary">@color/black_alpha_86</color>
+    <color name="textColorSecondary">@color/black_alpha_60</color>
 
     <!--colorBackground appears behind scrollable content and is used for the default window-->
     <!--background. colorSurface is mapped to the surface of components such as cards, sheets-->
@@ -34,8 +34,8 @@
 
     <!--"On" colors define how text, icons and strokes are colored in relation to the surface-->
     <!--on which they appear.-->
-    <color name="color_on_primary">#dd000000</color>
-    <color name="color_on_secondary">#89000000</color>
+    <color name="color_on_primary">@color/black_alpha_86</color>
+    <color name="color_on_secondary">@color/black_alpha_64</color>
     <color name="color_on_background">#000000</color>
     <color name="color_on_surface">#000000</color>
     <color name="color_on_error">@color/red_600</color>
@@ -64,6 +64,14 @@
     <color name="blue_800">#1565c0</color>
     <color name="blue_900">#0d47a1</color>
 
+    <!-- Black -->
+    <color name="black_alpha_60">#89000000</color>
+    <color name="black_alpha_64">#90000000</color>
+    <color name="black_alpha_74">#BD000000</color>
+    <color name="black_alpha_86">#dd000000</color>
+    <color name="black_alpha_96">#d8000000</color>
+    <color name="black">#000000</color>
+
     <!-- Grey -->
     <color name="grey_50">#FAFAFA</color>
     <color name="grey_100">#F5F5F5</color>
@@ -75,6 +83,8 @@
     <color name="grey_700">#616161</color>
     <color name="grey_800">#424242</color>
     <color name="grey_900">#212121</color>
+    <color name="grey_700_alpha_20">#33616161</color>
+    <color name="grey_900_alpha_20">#33212121</color>
 
     <!-- Light Blue -->
     <color name="light_blue_50">#e1f5fe</color>
@@ -87,6 +97,10 @@
     <color name="light_blue_700">#0288d1</color>
     <color name="light_blue_800">#0277bd</color>
     <color name="light_blue_900">#01579b</color>
+    <color name="light_blue_a100">#80d8ff</color>
+    <color name="light_blue_a200">#40c4ff</color>
+    <color name="light_blue_a400">#00b0ff</color>
+    <color name="light_blue_a700">#0091ea</color>
 
     <!-- Red -->
     <color name="red_50">#ffebee</color>
@@ -106,7 +120,7 @@
     <color name="white">#ffffff</color>
 
     <color name="selected_background_color">@color/grey_100</color>
-    <color name="unselected_background_color">@color/color_primary</color>
+    <color name="unselected_background_color">@color/white</color>
     <color name="shadow_background_color">@color/grey_50</color>
     <color name="unselected_header_background_color">@color/grey_300</color>
     <color name="unselected_text_color">@color/textColorPrimary</color>
