@@ -41,7 +41,7 @@ public final class SaleLineListAdapter
       if (position % 2 == 0) {
         tableRow.setBackgroundColor(context.getColor(R.color.grey_100));
       } else {
-        tableRow.setBackgroundColor(context.getColor(R.color.color_primary));
+        tableRow.setBackgroundColor(context.getColor(R.color.color_background));
       }
     }
     saleLineViewHolder.itemSaleLineBinding.setSaleLine(productLines.get(position).saleLine());
