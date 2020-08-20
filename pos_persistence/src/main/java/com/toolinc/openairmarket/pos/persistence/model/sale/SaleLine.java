@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 public class SaleLine extends AbstractModel {
 
   private String product;
+  private String name;
   private int lineOrder;
   private BigDecimal quantity;
   private BigDecimal price;
@@ -21,6 +22,14 @@ public class SaleLine extends AbstractModel {
 
   public void setProduct(String product) {
     this.product = product;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
   }
 
   public int getLineOrder() {
@@ -110,6 +119,7 @@ public class SaleLine extends AbstractModel {
   public static final class Builder implements Domain {
 
     private String product;
+    private String name;
     private int lineOrder;
     private BigDecimal quantity;
     private BigDecimal price;
@@ -121,6 +131,10 @@ public class SaleLine extends AbstractModel {
     public Builder setProduct(String product) {
       this.product = product;
       return this;
+    }
+
+    public void setName(String name) {
+      this.name = name;
     }
 
     public Builder setLineOrder(int lineOrder) {
@@ -156,6 +170,7 @@ public class SaleLine extends AbstractModel {
     public SaleLine build() {
       SaleLine saleLine = new SaleLine();
       saleLine.setProduct(product);
+      saleLine.setName(name);
       saleLine.setLineOrder(lineOrder);
       saleLine.quantity(quantity);
       saleLine.price(price);

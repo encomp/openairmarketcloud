@@ -56,7 +56,7 @@
     <string name="payment_sale_dialog_payment_label">Pago</string>
     <string name="payment_sale_dialog_change_label">Cambio:</string>
     <!-- BottomSheet menu labels -->
-    <string name="bottom_sheet_quick_access">Productos de Acceso Rapido.</string>
+    <string name="bottom_sheet_quick_access">Productos de Acceso Rápido.</string>
     <!-- Quick Access labels -->
     <string name="product_one_id">1</string>
     <string name="product_one_label">Fud Ham</string>
@@ -76,8 +76,9 @@
     <string name="product_eigth_label">Pork Sausage</string>
 
     <!-- Receipt table fragment -->
-    <string name="receipt_row">Linea</string>
-    <string name="receipt_product">Codigo Barras</string>
+    <string name="receipt_row">Línea</string>
+    <string name="receipt_product_code">Codigo Barras</string>
+    <string name="receipt_product_name">Nombre</string>
     <string name="receipt_price">Precio</string>
     <string name="receipt_quantity">Cantidad</string>
     <string name="receipt_subtotal">Total</string>
@@ -94,12 +95,12 @@
     <!-- Data Sync Channel and Notifications -->
     <string name="data_sync_channel_name">Sincronizacion de Datos</string>
     <string name="data_sync_channel_description">Canal de Notificacion de sincronizacion de datos de la nube.</string>
-    <string name="product_category_data_sync_notification_success_title">Categoria de Productos</string>
-    <string name="product_category_data_sync_notification_success_content">La categoria de productos fue sincronizado exitosamente.</string>
-    <string name="product_category_data_sync_notification_inprogress_title">Sincronizacion Categoria de Productos</string>
-    <string name="product_category_data_sync_notification_inprogress_content">La sincronizacion de la categoria de productos se ha iniciado.</string>
-    <string name="product_category_data_sync_notification_failure_title">Sincronizacion Categoria de Productos Fallo</string>
-    <string name="product_category_data_sync_notification_failure_content">La sincronizacion de la categoria de productos ha fallado.</string>
+    <string name="product_category_data_sync_notification_success_title">Categoría de Productos</string>
+    <string name="product_category_data_sync_notification_success_content">La categoría de productos fue sincronizado exitosamente.</string>
+    <string name="product_category_data_sync_notification_inprogress_title">Sincronizacion Categoría de Productos</string>
+    <string name="product_category_data_sync_notification_inprogress_content">La sincronizacion de la categoría de productos se ha iniciado.</string>
+    <string name="product_category_data_sync_notification_failure_title">Sincronizacion Categoría de Productos Fallo</string>
+    <string name="product_category_data_sync_notification_failure_content">La sincronizacion de la categoría de productos ha fallado.</string>
     <string name="products_data_sync_notification_success_title">Sincronizacion de Productos</string>
     <string name="products_data_sync_notification_success_content">Los productos fueron sincronizado exitosamente.</string>
     <string name="products_data_sync_notification_inprogress_title">Sincronizacion de Productos</string>

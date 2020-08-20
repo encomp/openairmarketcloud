@@ -77,7 +77,8 @@
 
     <!-- Receipt table fragment -->
     <string name="receipt_row">Row</string>
-    <string name="receipt_product">Product</string>
+    <string name="receipt_product_code">Product</string>
+    <string name="receipt_product_name">Name</string>
     <string name="receipt_price">Price</string>
     <string name="receipt_quantity">Qty</string>
     <string name="receipt_subtotal">Total</string>

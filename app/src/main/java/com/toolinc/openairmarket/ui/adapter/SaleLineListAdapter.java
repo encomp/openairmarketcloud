@@ -39,9 +39,9 @@ public final class SaleLineListAdapter
           saleLineViewHolder.itemSaleLineBinding.getRoot().findViewById(R.id.product_line);
       Context context = saleLineViewHolder.itemSaleLineBinding.getRoot().getContext();
       if (position % 2 == 0) {
-        tableRow.setBackgroundColor(context.getColor(R.color.grey_100));
+        tableRow.setBackgroundColor(context.getColor(R.color.white));
       } else {
-        tableRow.setBackgroundColor(context.getColor(R.color.color_background));
+        tableRow.setBackgroundColor(context.getColor(R.color.grey_100));
       }
     }
     saleLineViewHolder.itemSaleLineBinding.setSaleLine(productLines.get(position).saleLine());

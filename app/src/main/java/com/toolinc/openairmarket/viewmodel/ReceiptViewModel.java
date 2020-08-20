@@ -34,6 +34,7 @@ public final class ReceiptViewModel {
       SaleLine saleLine = new SaleLine();
       saleLine.setLineOrder(lines.getValue().size() + 1);
       saleLine.setProduct(product.id());
+      saleLine.setName(product.getName());
       saleLine.quantity(BigDecimal.ONE);
       saleLine.price(productSalePrice.price());
       saleLine.total(BigDecimal.ONE.multiply(productSalePrice.price()));
