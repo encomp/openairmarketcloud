@@ -48,9 +48,6 @@ public class MainFragment extends Fragment
 
   DrawerLayout drawer;
 
-  @BindView(R.id.toolbar)
-  Toolbar toolbar;
-
   @BindView(R.id.bottom_app_bar)
   BottomAppBar bottomAppBar;
 
@@ -79,8 +76,6 @@ public class MainFragment extends Fragment
     ButterKnife.bind(this, view);
 
     AppCompatActivity activity = (AppCompatActivity) getActivity();
-    toolbar.setTitle("POS");
-    activity.setSupportActionBar(toolbar);
     drawer = (DrawerLayout) activity.findViewById(R.id.drawer_layout);
     ActionBarDrawerToggle toggle =
         new ActionBarDrawerToggle(

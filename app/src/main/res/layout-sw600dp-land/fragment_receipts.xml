@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         app:tabIndicator="@drawable/tab_rounded_line_indicator"
         app:tabIndicatorGravity="bottom"
+        app:tabInlineLabel="true"
         app:tabGravity="fill"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
