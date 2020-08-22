@@ -6,12 +6,6 @@
     android:orientation="vertical"
     tools:context=".ui.MainActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary" />
-
     <com.evrencoskun.tableview.TableView
         android:id="@+id/offlineTableView"
         android:layout_width="match_parent"
