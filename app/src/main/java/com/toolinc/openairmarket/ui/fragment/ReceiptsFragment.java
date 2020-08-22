@@ -1,16 +1,14 @@
 package com.toolinc.openairmarket.ui.fragment;
 
 import android.app.AlertDialog;
+import android.content.res.Configuration;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -18,7 +16,8 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -26,7 +25,6 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.common.base.Strings;
 import com.toolinc.openairmarket.OpenAirMarketApplication;
 import com.toolinc.openairmarket.R;
 import com.toolinc.openairmarket.common.NotificationUtil;
@@ -35,25 +33,22 @@ import com.toolinc.openairmarket.common.NotificationUtil.NotificationProperties;
 import com.toolinc.openairmarket.model.QuickAccess;
 import com.toolinc.openairmarket.persistence.cloud.ProductsRepository;
 import com.toolinc.openairmarket.persistence.cloud.SaleRepository;
-import com.toolinc.openairmarket.pos.persistence.model.product.Product;
 import com.toolinc.openairmarket.ui.MainActivity;
 import com.toolinc.openairmarket.ui.adapter.QuickAccessListAdapter;
+import com.toolinc.openairmarket.ui.component.CodeBarComponent;
 import com.toolinc.openairmarket.ui.fragment.inject.Annotations.Sale;
 import com.toolinc.openairmarket.ui.fragment.inject.Annotations.Sale.Failed;
 import com.toolinc.openairmarket.ui.fragment.inject.Annotations.Sale.Succeed;
 import com.toolinc.openairmarket.viewmodel.ReceiptViewModel;
 import com.toolinc.openairmarket.viewmodel.ReceiptsViewModel;
-
-import java.math.BigDecimal;
-
-import javax.inject.Inject;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import dagger.hilt.android.AndroidEntryPoint;
+import java.math.BigDecimal;
+import javax.inject.Inject;
 import timber.log.Timber;
 
-/** Receipts fragment to handle product search and append. */
+/**
+ * Receipts fragment to handle product search and append.
+ */
 @AndroidEntryPoint
 public class ReceiptsFragment extends Fragment {
 
@@ -72,6 +67,7 @@ public class ReceiptsFragment extends Fragment {
   @BindView(R.id.view_pager)
   ViewPager viewPager;
 
+  @Nullable
   @BindView(R.id.text_input_edit_text)
   TextInputEditText textInputEditText;
 
@@ -82,10 +78,16 @@ public class ReceiptsFragment extends Fragment {
   Button payBtn;
 
   private ReceiptsViewModel receiptsViewModel;
-  private BottomAppBar bottomAppBar;
-  private BottomSheetDialog bottomSheetDialog;
-  private FloatingActionButton floatingActionButton;
   private ReceiptFragmentStatePagerAdapter receiptFragmentStatePagerAdapter;
+  // Portrait variables
+  private @Nullable
+  BottomAppBar bottomAppBar;
+  private @Nullable
+  FloatingActionButton floatingActionButton;
+  private @Nullable
+  BottomSheetDialog bottomSheetDialog;
+  private @Nullable
+  CodeBarComponent codeBarComponent;
 
   @Override
   public void onCreate(@Nullable Bundle bundle) {
@@ -104,18 +106,26 @@ public class ReceiptsFragment extends Fragment {
     View view =
         layoutInflater.inflate(R.layout.fragment_receipts, viewGroup, false /* attachToRoot */);
     ButterKnife.bind(this, view);
-    bottomAppBar = getActivity().findViewById(R.id.bottom_app_bar);
-    floatingActionButton = getActivity().findViewById(R.id.fab_add_to_receipt);
     receiptFragmentStatePagerAdapter =
         new ReceiptFragmentStatePagerAdapter(
-            getFragmentManager(), receiptsViewModel, getContext(), viewPager, tabLayout);
-    setUpBottomSheet();
-    bottomAppBar.replaceMenu(R.menu.bottom_app_bar_receipts);
-    bottomAppBar.setOnMenuItemClickListener(this::onMenuItemClick);
-    floatingActionButton.setOnClickListener(this::onClick);
-    textInputEditText.setOnKeyListener(this::onKey);
+            getParentFragmentManager(), receiptsViewModel, getContext(), viewPager, tabLayout);
+    receiptsViewModel.getReceiptFragmentStatePagerAdapter()
+        .setValue(receiptFragmentStatePagerAdapter);
     payBtn.setOnClickListener(this::displayCompleteSaleDialog);
     cancelBtn.setOnClickListener(this::displayCancelSaleDialog);
+    if (isPortrait()) {
+      bottomAppBar = getActivity().findViewById(R.id.bottom_app_bar);
+      floatingActionButton = getActivity().findViewById(R.id.fab_add_to_receipt);
+      setUpBottomSheet();
+      bottomAppBar.replaceMenu(R.menu.bottom_app_bar_receipts);
+      bottomAppBar.setOnMenuItemClickListener(this::onMenuItemClick);
+      codeBarComponent = CodeBarComponent.builder()
+          .setFloatingActionButton(floatingActionButton)
+          .setTextInputEditText(textInputEditText)
+          .setProductsRepository(productsRepository)
+          .setReceiptFragmentStatePagerAdapter(receiptFragmentStatePagerAdapter)
+          .build();
+    }
     return view;
   }
 
@@ -141,29 +151,10 @@ public class ReceiptsFragment extends Fragment {
     return false;
   }
 
-  private void onClick(View view) {
-    String productId = textInputEditText.getText().toString();
-    textInputEditText.getText().clear();
-    if (!Strings.isNullOrEmpty(productId)) {
-      productsRepository.findProductById(productId, this::onSuccess, this::onFailure);
-    }
-  }
-
-  private boolean onKey(View view, int keyCode, KeyEvent event) {
-    if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
-      String productId = textInputEditText.getText().toString();
-      textInputEditText.getText().clear();
-      if (!Strings.isNullOrEmpty(productId)) {
-        productsRepository.findProductById(productId, this::onSuccess, this::onFailure);
-        Timber.tag(TAG).d("Searching for Product: [%s].", productId);
-      }
-      return true;
-    }
-    return false;
-  }
-
   private void onClickQuickAccess(String productId) {
-    productsRepository.findProductById(productId, this::onSuccess, this::onFailure);
+    productsRepository
+        .findProductById(productId, product -> receiptFragmentStatePagerAdapter.addProduct(product),
+            e -> Timber.tag(TAG).e(e));
   }
 
   private void displayCompleteSaleDialog(View view) {
@@ -253,11 +244,7 @@ public class ReceiptsFragment extends Fragment {
     }
   }
 
-  void onSuccess(Product product) {
-    receiptFragmentStatePagerAdapter.addProduct(product);
-  }
-
-  private void onFailure(@NonNull Exception e) {
-    Timber.tag(TAG).e(e);
+  private boolean isPortrait() {
+    return Configuration.ORIENTATION_PORTRAIT == getResources().getConfiguration().orientation;
   }
 }

@@ -53,7 +53,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.64" />
+        app:layout_constraintGuide_percent="0.85" />
 
     <LinearLayout
         android:id="@+id/controls_layout"
@@ -87,20 +87,5 @@
                 android:text="@string/receipt_pay_btn"
                 app:icon="@drawable/ic_payment" />
         </LinearLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/standard_spacing"
-            android:hint="@string/receipt_code_bar_hint">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/text_input_edit_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number" />
-        </com.google.android.material.textfield.TextInputLayout>
-
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

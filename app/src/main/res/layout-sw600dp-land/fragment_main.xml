@@ -20,7 +20,7 @@
             tools:layout_editor_absoluteY="0dp" />
 
         <androidx.core.widget.NestedScrollView
-            android:id="@+id/right_side"
+            android:id="@+id/left_side_fragment_container"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -45,11 +45,4 @@
         android:layout_gravity="bottom"
         app:backgroundTint="@color/color_background"
         app:fabAlignmentMode="end" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_add_to_receipt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_add_shopping_cart"
-        app:layout_anchor="@id/bottom_app_bar" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,5 +1,6 @@
 package com.toolinc.openairmarket.ui.fragment;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -19,7 +20,6 @@ import androidx.hilt.work.HiltWorkerFactory;
 import androidx.navigation.NavDirections;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.work.BackoffPolicy;
-import androidx.work.Configuration;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
@@ -51,6 +51,7 @@ public class MainFragment extends Fragment
   @BindView(R.id.bottom_app_bar)
   BottomAppBar bottomAppBar;
 
+  @Nullable
   @BindView(R.id.fab_add_to_receipt)
   FloatingActionButton floatingActionButton;
 
@@ -98,6 +99,13 @@ public class MainFragment extends Fragment
         .beginTransaction()
         .add(R.id.full_screen_fragment_container, receiptsFragment)
         .commit();
+    if (isLandscape()) {
+      SearchBoxFragment searchBoxFragment = new SearchBoxFragment();
+      getChildFragmentManager()
+          .beginTransaction()
+          .add(R.id.left_side_fragment_container, searchBoxFragment)
+          .commit();
+    }
     return view;
   }
 
@@ -141,5 +149,9 @@ public class MainFragment extends Fragment
                     OneTimeWorkRequest.MIN_BACKOFF_MILLIS,
                     TimeUnit.MILLISECONDS)
                 .build());
+  }
+
+  private boolean isLandscape() {
+    return Configuration.ORIENTATION_LANDSCAPE == getResources().getConfiguration().orientation;
   }
 }
