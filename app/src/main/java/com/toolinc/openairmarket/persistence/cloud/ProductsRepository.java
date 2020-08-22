@@ -3,12 +3,10 @@ package com.toolinc.openairmarket.persistence.cloud;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.common.collect.FluentIterable;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.toolinc.openairmarket.common.inject.Global;
 import com.toolinc.openairmarket.pos.persistence.model.product.Product;
-import java.util.List;
 import java.util.concurrent.Executor;
 import javax.inject.Inject;
 
@@ -40,17 +38,6 @@ public final class ProductsRepository {
             exc -> {
               onFailure(exc, onFailureListener);
             });
-  }
-
-  public static final List<Product> toProducts(List<DocumentSnapshot> documentSnapshots) {
-    return FluentIterable.from(documentSnapshots)
-        .filter(documentSnapshot -> documentSnapshot.exists())
-        .transform(documentSnapshot -> {
-          Product product = documentSnapshot.toObject(Product.class);
-          product.setId(documentSnapshot.getId());
-          return product;
-        })
-        .toList();
   }
 
   private void onSuccess(
