@@ -7,9 +7,15 @@
     tools:context=".ui.MainActivity">
 
     <FrameLayout
-        android:id="@+id/full_screen_fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+        <fragment
+          android:id="@+id/nav_drawer_fragment"
+          android:name="androidx.navigation.fragment.NavHostFragment"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          app:navGraph="@navigation/nav_drawer_graph" />
+    </FrameLayout>
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottom_app_bar"
