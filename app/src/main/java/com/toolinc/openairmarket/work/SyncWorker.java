@@ -12,11 +12,14 @@ import com.google.common.base.Optional;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.toolinc.openairmarket.persistence.local.offline.CollectionSyncState;
 import com.toolinc.openairmarket.persistence.local.offline.CollectionSyncStateRepository;
+import com.toolinc.openairmarket.persistence.local.offline.SyncStatus;
 import com.toolinc.openairmarket.persistence.sync.DataSync;
 
 import org.joda.time.DateTime;
 
 import java.util.concurrent.ExecutionException;
+
+import javax.annotation.Nullable;
 
 import timber.log.Timber;
 
@@ -47,7 +50,10 @@ abstract class SyncWorker {
     Optional<CollectionSyncState> css = collectionSyncStateRepository().findById(collectionId());
     if (css.isPresent()) {
       DateTime thresholdDateTime = DateTime.now().minusHours(THRESHOLD);
-      if (css.get().getLastUpdate().compareTo(thresholdDateTime) <= 0) {
+      if ((SyncStatus.FAILED.equals(css.get().getStatus())
+              || SyncStatus.IN_PROGRESS.equals(css.get().getStatus()))
+              || (SyncStatus.COMPLETE.equals(css.get().getStatus()) &&
+              css.get().getLastUpdate().compareTo(thresholdDateTime) <= 0)) {
         return syncFromFirestore();
       }
     } else {
@@ -57,17 +63,37 @@ abstract class SyncWorker {
   }
 
   private ListenableWorker.Result syncFromFirestore() {
+    updateSyncState(SyncStatus.IN_PROGRESS);
     Task<QuerySnapshot> task = dataSync().refresh(context());
     Timber.tag(TAG).d("Waiting for the task to complete...");
     try {
       Tasks.await(task);
       if (task.isSuccessful()) {
+        Timber.tag(TAG).d("Sync was completed.");
+        updateSyncState(SyncStatus.COMPLETE, task.getResult().size());
         return Result.success();
       }
     } catch (ExecutionException | InterruptedException exc) {
-      Timber.tag(TAG).e(exc);
+      Timber.tag(TAG).e(exc,"Sync failed.");
+      updateSyncState(SyncStatus.FAILED);
     }
     return Result.failure();
+  }
+
+  private void updateSyncState(SyncStatus syncStatus) {
+      updateSyncState(syncStatus, null);
+  }
+
+  private void updateSyncState(SyncStatus syncStatus, @Nullable Integer numberOfDocs) {
+    Timber.tag(TAG).d("Updating the database.");
+    CollectionSyncState collectionSyncState = new CollectionSyncState();
+    collectionSyncState.setId(collectionId());
+    collectionSyncState.setStatus(syncStatus);
+    collectionSyncState.setLastUpdate(DateTime.now());
+    if (numberOfDocs != null) {
+      collectionSyncState.setNumberOfDocs(numberOfDocs);
+    }
+    collectionSyncStateRepository().insert(collectionSyncState);
   }
 
   static Builder builder() {
