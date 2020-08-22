@@ -34,7 +34,7 @@ public class OfflineDatabaseModule {
 
   @Provides
   CollectionSyncStateRepository providesCollectionStateRepository(
-      @Global.NetworkIO Executor executor, CollectionSyncStateDao collectionSyncStateDao) {
-    return new CollectionSyncStateRepository(executor, collectionSyncStateDao);
+      CollectionSyncStateDao collectionSyncStateDao) {
+    return new CollectionSyncStateRepository(collectionSyncStateDao);
   }
 }

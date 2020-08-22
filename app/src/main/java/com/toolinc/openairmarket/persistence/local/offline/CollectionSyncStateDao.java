@@ -10,21 +10,15 @@ import androidx.room.Query;
 import java.io.Serializable;
 import java.util.List;
 
-import io.reactivex.Completable;
-import io.reactivex.Maybe;
-
 /** Specifies the data access object behavior for the {@link CollectionSyncState}. */
 @Dao
 interface CollectionSyncStateDao extends Serializable {
 
   @Insert(onConflict = OnConflictStrategy.REPLACE)
-  Completable insert(CollectionSyncState collectionSyncState);
+  void insert(CollectionSyncState collectionSyncState);
 
   @Delete
-  Maybe<Integer> delete(CollectionSyncState collectionSyncState);
-
-  @Query("DELETE FROM CollectionSyncState")
-  Completable deleteAll();
+  void delete(CollectionSyncState collectionSyncState);
 
   @Query("SELECT * FROM CollectionSyncState WHERE id = :id")
   CollectionSyncState findById(String id);
