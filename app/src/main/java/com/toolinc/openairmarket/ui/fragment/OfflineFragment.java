@@ -2,6 +2,7 @@ package com.toolinc.openairmarket.ui.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -9,14 +10,18 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 
+import androidx.navigation.NavDirections;
+import androidx.navigation.fragment.NavHostFragment;
 import com.evrencoskun.tableview.TableView;
 import com.toolinc.openairmarket.R;
 import com.toolinc.openairmarket.persistence.local.offline.CollectionSyncState;
 import com.toolinc.openairmarket.persistence.local.offline.CollectionSyncStateRepository;
 import com.toolinc.openairmarket.ui.adapter.OfflineTableViewAdapter;
+import com.toolinc.openairmarket.ui.fragment.base.DrawerMenuFragment;
 import com.toolinc.openairmarket.ui.view.tableview.TableViewListener;
 import com.toolinc.openairmarket.ui.view.tableview.adapter.TableViewAdapter;
 import com.toolinc.openairmarket.ui.view.tableview.TableViewModel;
@@ -31,7 +36,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 /** Offline configuration fragment. */
 @AndroidEntryPoint
-public class OfflineFragment extends Fragment {
+public class OfflineFragment extends DrawerMenuFragment {
 
   @BindView(R.id.offlineTableView)
   TableView tableView;
@@ -52,6 +57,7 @@ public class OfflineFragment extends Fragment {
       @NonNull LayoutInflater inflater,
       @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
+    bindComponents();
     View view = inflater.inflate(R.layout.fragment_offline, container, false);
     ButterKnife.bind(this, view);
     initializeTableView(tableView);
