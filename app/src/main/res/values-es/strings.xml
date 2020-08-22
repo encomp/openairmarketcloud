@@ -29,6 +29,7 @@
     <string name="nav_header_title">Open Air Market</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
+    <string name="menu_drawer_pos">Punto de Venta</string>
     <string name="menu_drawer_offline">Offline</string>
     <string name="menu_drawer_log_out">Log Out</string>
 
