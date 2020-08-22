@@ -6,19 +6,19 @@
     <group android:checkableBehavior="single">
 
         <item
-          android:id="@+id/nav_pos"
+          android:id="@+id/pointOfSaleFragment"
           android:icon="@drawable/ic_shopping_cart"
           android:title="@string/menu_drawer_pos" />
 
         <item
-            android:id="@+id/nav_offline"
+            android:id="@+id/offlineFragment"
             android:icon="@drawable/ic_cloud_off"
             android:title="@string/menu_drawer_offline" />
 
-        <item
+        <!-- item
             android:id="@+id/nav_log_out"
             android:icon="@drawable/ic_exit_to_app"
-            android:title="@string/menu_drawer_log_out" />
+            android:title="@string/menu_drawer_log_out" / -->
     </group>
 
 </menu>
