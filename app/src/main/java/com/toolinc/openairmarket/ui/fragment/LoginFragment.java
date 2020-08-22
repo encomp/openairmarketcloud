@@ -81,7 +81,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     super.onStart();
     FirebaseUser currentUser = mAuth.getCurrentUser();
     if (currentUser != null && currentUser.isEmailVerified()) {
-      NavHostFragment.findNavController(LoginFragment.this).navigate(R.id.action_start_recipts);
+      NavHostFragment.findNavController(LoginFragment.this).navigate(R.id.action_main);
     } else {
       updateUI(currentUser);
     }
@@ -137,7 +137,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                   FirebaseUser user = mAuth.getCurrentUser();
                   if (user.isEmailVerified()) {
                     NavHostFragment.findNavController(LoginFragment.this)
-                        .navigate(R.id.action_start_recipts);
+                        .navigate(R.id.action_main);
                   } else {
                     String msg =
                         String.format(getString(R.string.hint_verification_email), user.getEmail());
