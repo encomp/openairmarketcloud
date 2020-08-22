@@ -1,21 +1,15 @@
 package com.toolinc.openairmarket.persistence.cloud;
 
-import androidx.annotation.Nullable;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.common.base.Optional;
 import com.google.common.collect.FluentIterable;
-import com.google.common.collect.ImmutableList;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.toolinc.openairmarket.common.inject.Global;
 import com.toolinc.openairmarket.pos.persistence.model.product.Product;
-
 import java.util.List;
 import java.util.concurrent.Executor;
-
-import javax.annotation.concurrent.Immutable;
 import javax.inject.Inject;
 
 /** Products repository hides firebase details of the api. */
