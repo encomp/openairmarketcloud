@@ -4,10 +4,6 @@ import android.content.Context;
 
 import androidx.room.Room;
 
-import com.toolinc.openairmarket.common.inject.Global;
-
-import java.util.concurrent.Executor;
-
 import javax.inject.Singleton;
 
 import dagger.Module;
