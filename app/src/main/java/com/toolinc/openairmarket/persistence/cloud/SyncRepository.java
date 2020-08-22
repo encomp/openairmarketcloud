@@ -7,6 +7,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import com.toolinc.openairmarket.pos.persistence.model.product.Product;
+import com.toolinc.openairmarket.pos.persistence.model.product.ProductCategory;
 import java.util.List;
 import javax.inject.Inject;
 
@@ -31,6 +32,18 @@ public final class SyncRepository {
         .filter(documentSnapshot -> documentSnapshot.exists())
         .transform(documentSnapshot -> {
           Product product = documentSnapshot.toObject(Product.class);
+          product.setId(documentSnapshot.getId());
+          return product;
+        })
+        .toList();
+  }
+
+  public static final List<ProductCategory> toProductCategories(
+      List<DocumentSnapshot> documentSnapshots) {
+    return FluentIterable.from(documentSnapshots)
+        .filter(documentSnapshot -> documentSnapshot.exists())
+        .transform(documentSnapshot -> {
+          ProductCategory product = documentSnapshot.toObject(ProductCategory.class);
           product.setId(documentSnapshot.getId());
           return product;
         })
