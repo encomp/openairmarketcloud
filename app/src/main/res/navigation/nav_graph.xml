@@ -11,7 +11,7 @@
         android:label="fragment_login"
         tools:layout="@layout/fragment_login">
         <action
-            android:id="@+id/action_start_recipts"
+            android:id="@+id/action_main"
             app:destination="@id/mainFragment" />
         <argument
             android:name="logout"
@@ -19,19 +19,22 @@
             android:defaultValue="false" />
     </fragment>
     <fragment
-        android:id="@+id/mainFragment"
-        android:name="com.toolinc.openairmarket.ui.fragment.MainFragment"
-        android:label="MainFragment">
+      android:id="@+id/mainFragment"
+      android:name="com.toolinc.openairmarket.ui.fragment.MainFragment"
+      android:label="MainFragment"
+      tools:layout="@layout/fragment_main">
         <action
-            android:id="@+id/action_logout"
-            app:destination="@id/loginFragment"
-            app:launchSingleTop="false" />
-        <action
-            android:id="@+id/action_offline"
-            app:destination="@id/offlineFragment" />
+          android:id="@+id/action_logout"
+          app:destination="@id/loginFragment"
+          app:launchSingleTop="false" />
     </fragment>
-    <fragment
-        android:id="@+id/offlineFragment"
-        android:name="com.toolinc.openairmarket.ui.fragment.OfflineFragment"
-        android:label="OfflineFragment" />
+
+    <action
+      android:id="@+id/global_logoutFragment"
+      app:destination="@id/loginFragment" >
+        <argument
+          android:name="logout"
+          app:argType="boolean"
+          android:defaultValue="true" />
+    </action>
 </navigation>
