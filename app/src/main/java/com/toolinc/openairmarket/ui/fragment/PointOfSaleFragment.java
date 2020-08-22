@@ -36,7 +36,7 @@ public class PointOfSaleFragment extends DrawerMenuFragment {
     ReceiptsFragment receiptsFragment = new ReceiptsFragment();
     getChildFragmentManager()
         .beginTransaction()
-        .add(R.id.full_screen_fragment_container, receiptsFragment)
+        .replace(R.id.full_screen_fragment_container, receiptsFragment)
         .commit();
     return view;
   }
