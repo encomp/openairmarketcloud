@@ -5,6 +5,7 @@ import android.content.Context;
 import androidx.work.ListenableWorker;
 import androidx.work.ListenableWorker.Result;
 
+import butterknife.ButterKnife;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
 import com.google.auto.value.AutoValue;
@@ -41,6 +42,8 @@ abstract class SyncWorker {
 
   abstract DataSync dataSync();
 
+  abstract StoreSyncData storeSyncData();
+
   /**
    * Performs the synchronization of the collection {@link #collectionId()} if it has not been
    * performed in the last {@link #THRESHOLD} hours. If the data is not stale then the
@@ -71,6 +74,7 @@ abstract class SyncWorker {
       if (task.isSuccessful()) {
         Timber.tag(TAG).d("Sync was completed.");
         updateSyncState(SyncStatus.COMPLETE, task.getResult().size());
+        storeSyncData().store(task.getResult().getDocuments());
         return Result.success();
       }
     } catch (ExecutionException | InterruptedException exc) {
@@ -111,6 +115,8 @@ abstract class SyncWorker {
         CollectionSyncStateRepository collectionSyncStateRepository);
 
     abstract Builder setDataSync(DataSync dataSync);
+
+    abstract Builder setStoreSyncData(StoreSyncData storeSyncData);
 
     abstract SyncWorker build();
   }
