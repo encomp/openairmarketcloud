@@ -15,12 +15,13 @@ public final class FirestoreSync {
   private FirestoreSync() {}
 
   public static List<OneTimeWorkRequest> syncCatalogData() {
-    return ImmutableList.of(syncProductCategoryRequest(), syncProductManufacturerRequest());
+    return ImmutableList.of(syncProductMeasureUnitRequest(), syncProductManufacturerRequest(),
+        syncProductCategoryRequest());
   }
 
   public static OneTimeWorkRequest syncProductBrandRequest() {
     return new OneTimeWorkRequest.Builder(ProductBrandSyncWorker.class)
-        .setInitialDelay(2000, TimeUnit.MILLISECONDS)
+        .setInitialDelay(500, TimeUnit.MILLISECONDS)
         .setBackoffCriteria(
             BackoffPolicy.EXPONENTIAL,
             OneTimeWorkRequest.MIN_BACKOFF_MILLIS,
@@ -30,7 +31,7 @@ public final class FirestoreSync {
 
   private static OneTimeWorkRequest syncProductCategoryRequest() {
     return new OneTimeWorkRequest.Builder(ProductCategorySyncWorker.class)
-        .setInitialDelay(2000, TimeUnit.MILLISECONDS)
+        .setInitialDelay(2, TimeUnit.SECONDS)
         .setBackoffCriteria(
             BackoffPolicy.EXPONENTIAL,
             OneTimeWorkRequest.MIN_BACKOFF_MILLIS,
@@ -40,7 +41,17 @@ public final class FirestoreSync {
 
   private static OneTimeWorkRequest syncProductManufacturerRequest() {
     return new OneTimeWorkRequest.Builder(ProductManufacturerSyncWorker.class)
-        .setInitialDelay(2000, TimeUnit.MILLISECONDS)
+        .setInitialDelay(1, TimeUnit.SECONDS)
+        .setBackoffCriteria(
+            BackoffPolicy.EXPONENTIAL,
+            OneTimeWorkRequest.MIN_BACKOFF_MILLIS,
+            TimeUnit.MILLISECONDS)
+        .build();
+  }
+
+  private static OneTimeWorkRequest syncProductMeasureUnitRequest() {
+    return new OneTimeWorkRequest.Builder(ProductMeasureUnitSyncWorker.class)
+        .setInitialDelay(500, TimeUnit.MILLISECONDS)
         .setBackoffCriteria(
             BackoffPolicy.EXPONENTIAL,
             OneTimeWorkRequest.MIN_BACKOFF_MILLIS,
@@ -50,7 +61,7 @@ public final class FirestoreSync {
 
   private static OneTimeWorkRequest syncProductRequest() {
     return new OneTimeWorkRequest.Builder(ProductSyncWorker.class)
-        .setInitialDelay(2000, TimeUnit.MILLISECONDS)
+        .setInitialDelay(300, TimeUnit.MILLISECONDS)
         .setBackoffCriteria(
             BackoffPolicy.EXPONENTIAL,
             OneTimeWorkRequest.MIN_BACKOFF_MILLIS,
