@@ -96,12 +96,24 @@
     <!-- Data Sync Channel and Notifications -->
     <string name="data_sync_channel_name">Data Sync</string>
     <string name="data_sync_channel_description">Data Synchronization from Cloud notifications channel.</string>
+    <string name="product_brand_data_sync_notification_success_title">Product Brands Synced</string>
+    <string name="product_brand_data_sync_notification_success_content">The product brands were synced successfully.</string>
+    <string name="product_brand_data_sync_notification_inprogress_title">Product Brands Syncing</string>
+    <string name="product_brand_data_sync_notification_inprogress_content">The product brands syncing process started.</string>
+    <string name="product_brand_data_sync_notification_failure_title">Product Brands Failure</string>
+    <string name="product_brand_data_sync_notification_failure_content">The product brands synced failed.</string>
     <string name="product_category_data_sync_notification_success_title">Product Categories Synced</string>
     <string name="product_category_data_sync_notification_success_content">The product categories were synced successfully.</string>
     <string name="product_category_data_sync_notification_inprogress_title">Product Categories Syncing</string>
     <string name="product_category_data_sync_notification_inprogress_content">The product categories syncing process started.</string>
     <string name="product_category_data_sync_notification_failure_title">Product Categories Failure</string>
     <string name="product_category_data_sync_notification_failure_content">The product categories synced failed.</string>
+    <string name="product_manufacturer_data_sync_notification_success_title">Product Manufacturer Synced</string>
+    <string name="product_manufacturer_data_sync_notification_success_content">The product manufacturers were synced successfully.</string>
+    <string name="product_manufacturer_data_sync_notification_inprogress_title">Product Manufacturer Syncing</string>
+    <string name="product_manufacturer_data_sync_notification_inprogress_content">The product manufacturers syncing process started.</string>
+    <string name="product_manufacturer_data_sync_notification_failure_title">Product Manufacturer Failure</string>
+    <string name="product_manufacturer_data_sync_notification_failure_content">The product manufacturers synced failed.</string>
     <string name="products_data_sync_notification_success_title">Products Synced</string>
     <string name="products_data_sync_notification_success_content">The products were synced successfully.</string>
     <string name="products_data_sync_notification_inprogress_title">Products Syncing</string>

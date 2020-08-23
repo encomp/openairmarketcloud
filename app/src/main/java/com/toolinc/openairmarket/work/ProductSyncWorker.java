@@ -1,13 +1,11 @@
 package com.toolinc.openairmarket.work;
 
 import android.content.Context;
-
 import androidx.annotation.NonNull;
 import androidx.hilt.Assisted;
 import androidx.hilt.work.WorkerInject;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
-
 import com.toolinc.openairmarket.persistence.cloud.CollectionsNames;
 import com.toolinc.openairmarket.persistence.inject.Annotations.Product.Products;
 import com.toolinc.openairmarket.persistence.local.offline.CollectionSyncStateRepository;

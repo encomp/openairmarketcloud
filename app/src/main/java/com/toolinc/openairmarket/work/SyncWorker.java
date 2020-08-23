@@ -11,6 +11,7 @@ import com.google.android.gms.tasks.Tasks;
 import com.google.auto.value.AutoValue;
 import com.google.common.base.Optional;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.toolinc.openairmarket.common.NotificationUtil;
 import com.toolinc.openairmarket.persistence.local.offline.CollectionSyncState;
 import com.toolinc.openairmarket.persistence.local.offline.CollectionSyncStateRepository;
 import com.toolinc.openairmarket.persistence.local.offline.SyncStatus;
@@ -42,8 +43,6 @@ abstract class SyncWorker {
 
   abstract DataSync dataSync();
 
-  abstract StoreSyncData storeSyncData();
-
   /**
    * Performs the synchronization of the collection {@link #collectionId()} if it has not been
    * performed in the last {@link #THRESHOLD} hours. If the data is not stale then the
@@ -66,7 +65,9 @@ abstract class SyncWorker {
   }
 
   private ListenableWorker.Result syncFromFirestore() {
+    NotificationUtil.createChannel(context(), dataSync().channelProperties());
     updateSyncState(SyncStatus.IN_PROGRESS);
+    NotificationUtil.notify(context(), dataSync().startNotification());
     Task<QuerySnapshot> task = dataSync().refresh(context());
     Timber.tag(TAG).d("Waiting for the task to complete...");
     try {
@@ -74,12 +75,14 @@ abstract class SyncWorker {
       if (task.isSuccessful()) {
         Timber.tag(TAG).d("Sync was completed.");
         updateSyncState(SyncStatus.COMPLETE, task.getResult().size());
-        storeSyncData().store(task.getResult().getDocuments());
+        dataSync().store(task.getResult().getDocuments());
+        NotificationUtil.notify(context(), dataSync().successNotification());
         return Result.success();
       }
     } catch (ExecutionException | InterruptedException exc) {
       Timber.tag(TAG).e(exc,"Sync failed.");
       updateSyncState(SyncStatus.FAILED);
+      NotificationUtil.notify(context(), dataSync().failureNotification());
     }
     return Result.failure();
   }
@@ -115,8 +118,6 @@ abstract class SyncWorker {
         CollectionSyncStateRepository collectionSyncStateRepository);
 
     abstract Builder setDataSync(DataSync dataSync);
-
-    abstract Builder setStoreSyncData(StoreSyncData storeSyncData);
 
     abstract SyncWorker build();
   }

@@ -18,13 +18,13 @@ import io.reactivex.Maybe;
 public interface ProductRoomManufacturerDao {
 
   @Insert(onConflict = OnConflictStrategy.REPLACE)
-  Completable insert(ProductRoomManufacturer productRoomManufacturer);
+  void insert(ProductRoomManufacturer productRoomManufacturer);
 
   @Delete
-  Completable delete(ProductRoomManufacturer productRoomManufacturer);
+  void delete(ProductRoomManufacturer productRoomManufacturer);
 
   @Update(onConflict = OnConflictStrategy.REPLACE)
-  Completable update(ProductRoomManufacturer productRoomManufacturer);
+  void update(ProductRoomManufacturer productRoomManufacturer);
 
   @Query("SELECT * FROM ProductManufacturer ORDER BY id DESC")
   DataSource.Factory<Integer, ProductRoomManufacturer> all();

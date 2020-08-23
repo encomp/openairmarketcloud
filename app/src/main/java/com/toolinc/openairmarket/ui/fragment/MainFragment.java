@@ -8,17 +8,13 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.hilt.work.HiltWorkerFactory;
-import androidx.work.BackoffPolicy;
-import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseUser;
 import com.toolinc.openairmarket.OpenAirMarketApplication;
 import com.toolinc.openairmarket.R;
-import com.toolinc.openairmarket.work.ProductCategorySyncWorker;
-import com.toolinc.openairmarket.work.ProductSyncWorker;
+import com.toolinc.openairmarket.work.FirestoreSync;
 import dagger.hilt.android.AndroidEntryPoint;
-import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 
 @AndroidEntryPoint
@@ -48,24 +44,6 @@ public class MainFragment extends Fragment {
   }
 
   private void syncFromFirestore() {
-    WorkManager.getInstance(getActivity())
-        .enqueue(
-            new OneTimeWorkRequest.Builder(ProductCategorySyncWorker.class)
-                .setInitialDelay(2000, TimeUnit.MILLISECONDS)
-                .setBackoffCriteria(
-                    BackoffPolicy.EXPONENTIAL,
-                    OneTimeWorkRequest.MIN_BACKOFF_MILLIS,
-                    TimeUnit.MILLISECONDS)
-                .build());
-
-    WorkManager.getInstance(getActivity())
-        .enqueue(
-            new OneTimeWorkRequest.Builder(ProductSyncWorker.class)
-                .setInitialDelay(2000, TimeUnit.MILLISECONDS)
-                .setBackoffCriteria(
-                    BackoffPolicy.EXPONENTIAL,
-                    OneTimeWorkRequest.MIN_BACKOFF_MILLIS,
-                    TimeUnit.MILLISECONDS)
-                .build());
+    WorkManager.getInstance(getActivity()).enqueue(FirestoreSync.syncCatalogData());
   }
 }

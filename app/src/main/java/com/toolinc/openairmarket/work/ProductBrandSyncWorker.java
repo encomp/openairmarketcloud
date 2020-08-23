@@ -8,29 +8,25 @@ import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 import com.toolinc.openairmarket.persistence.cloud.CollectionsNames;
 import com.toolinc.openairmarket.persistence.local.offline.CollectionSyncStateRepository;
-import com.toolinc.openairmarket.persistence.local.pos.dao.ProductRoomCategoryDao;
-import com.toolinc.openairmarket.persistence.sync.CategoryDataSync;
+import com.toolinc.openairmarket.persistence.sync.BrandDataSync;
 
-/** Downloads the product category information from firestore database. */
-public class ProductCategorySyncWorker extends Worker {
+/** Downloads the product brand information from firestore database. */
+public class ProductBrandSyncWorker extends Worker {
 
   private final Context context;
   private final CollectionSyncStateRepository collectionProductRepo;
-  private final CategoryDataSync categoryDataSync;
-  private final ProductRoomCategoryDao productRoomCategoryDao;
+  private final BrandDataSync brandDataSync;
 
   @WorkerInject
-  public ProductCategorySyncWorker(
-      CategoryDataSync categoryDataSync,
-      ProductRoomCategoryDao productRoomDao,
+  public ProductBrandSyncWorker(
+      BrandDataSync brandDataSync,
       CollectionSyncStateRepository collectionProductRepo,
       @Assisted Context context,
       @Assisted WorkerParameters workerParameters) {
     super(context, workerParameters);
-    this.context = context;
+    this.brandDataSync = brandDataSync;
     this.collectionProductRepo = collectionProductRepo;
-    this.productRoomCategoryDao = productRoomDao;
-    this.categoryDataSync = categoryDataSync;
+    this.context = context;
   }
 
   @NonNull
@@ -38,10 +34,10 @@ public class ProductCategorySyncWorker extends Worker {
   public Result doWork() {
     SyncWorker syncWorker =
         SyncWorker.builder()
-            .setCollectionId(CollectionsNames.PRODUCT_CATEGORIES)
+            .setCollectionId(CollectionsNames.PRODUCT_BRANDS)
             .setContext(context)
             .setCollectionSyncStateRepository(collectionProductRepo)
-            .setDataSync(categoryDataSync)
+            .setDataSync(brandDataSync)
             .build();
     return syncWorker.syncCollection();
   }
