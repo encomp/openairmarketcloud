@@ -6,6 +6,7 @@ import com.toolinc.openairmarket.persistence.cloud.SyncRepository;
 import com.toolinc.openairmarket.persistence.inject.Annotations.Product.Brands;
 import com.toolinc.openairmarket.persistence.inject.Annotations.Product.Categories;
 import com.toolinc.openairmarket.persistence.inject.Annotations.Product.Manufacturers;
+import com.toolinc.openairmarket.persistence.inject.Annotations.Product.MeasureUnit;
 import com.toolinc.openairmarket.persistence.inject.Annotations.Product.Products;
 
 import dagger.Module;
@@ -34,6 +35,12 @@ public class SyncRepositoryModule {
   @Provides
   SyncRepository providesProductManufacturersRepo(FirebaseFirestore firebaseFirestore) {
     return new SyncRepository(CollectionsNames.PRODUCT_MANUFACTURERS, firebaseFirestore);
+  }
+
+  @MeasureUnit
+  @Provides
+  SyncRepository providesProductMeasureUnitsRepo(FirebaseFirestore firebaseFirestore) {
+    return new SyncRepository(CollectionsNames.PRODUCT_UNITS, firebaseFirestore);
   }
 
   @Products
