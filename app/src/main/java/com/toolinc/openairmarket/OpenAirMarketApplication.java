@@ -57,10 +57,13 @@ public class OpenAirMarketApplication extends Application implements Configurati
     return builder.build();
   }
 
-  public static void setWorkerFactory(HiltWorkerFactory workerFactory, Context context) {
-    OpenAirMarketApplication.workerFactory = workerFactory;
-    WorkManager.initialize(
-        context, new Configuration.Builder().setWorkerFactory(workerFactory).build());
+  public static synchronized void setWorkerFactory(HiltWorkerFactory workerFactory,
+      Context context) {
+    if (OpenAirMarketApplication.workerFactory == null) {
+      WorkManager.initialize(
+          context, new Configuration.Builder().setWorkerFactory(workerFactory).build());
+      OpenAirMarketApplication.workerFactory = workerFactory;
+    }
   }
 
   public static String toString(BigDecimal bigDecimal) {
