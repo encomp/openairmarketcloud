@@ -35,6 +35,12 @@ public final class Annotations {
     @Retention(RUNTIME)
     public @interface Manufacturers {}
 
+    /** Specifies product measure units injection. */
+    @Qualifier
+    @Documented
+    @Retention(RUNTIME)
+    public @interface MeasureUnit {}
+
     /** Specifies products injection. */
     @Qualifier
     @Documented
