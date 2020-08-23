@@ -114,6 +114,12 @@
     <string name="product_manufacturer_data_sync_notification_inprogress_content">The product manufacturers syncing process started.</string>
     <string name="product_manufacturer_data_sync_notification_failure_title">Product Manufacturer Failure</string>
     <string name="product_manufacturer_data_sync_notification_failure_content">The product manufacturers synced failed.</string>
+    <string name="product_measure_unit_data_sync_notification_success_title">Product Measure Units Synced</string>
+    <string name="product_measure_unit_data_sync_notification_success_content">The product measure units were synced successfully.</string>
+    <string name="product_measure_unit_data_sync_notification_inprogress_title">Product Measure Units Syncing</string>
+    <string name="product_measure_unit_data_sync_notification_inprogress_content">The product measure units syncing process started.</string>
+    <string name="product_measure_unit_data_sync_notification_failure_title">Product Measure Units Failure</string>
+    <string name="product_measure_unit_data_sync_notification_failure_content">The product measure units synced failed.</string>
     <string name="products_data_sync_notification_success_title">Products Synced</string>
     <string name="products_data_sync_notification_success_content">The products were synced successfully.</string>
     <string name="products_data_sync_notification_inprogress_title">Products Syncing</string>

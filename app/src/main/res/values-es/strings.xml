@@ -111,9 +111,15 @@
     <string name="product_manufacturer_data_sync_notification_success_title">Manufacturacion de Productos</string>
     <string name="product_manufacturer_data_sync_notification_success_content">La manufacturacions de productos fue sincronizado exitosamente.</string>
     <string name="product_manufacturer_data_sync_notification_inprogress_title">Sincronizacion Manufacturacion de Producto</string>
-    <string name="product_manufacturer_data_sync_notification_inprogress_content">La sincronizacion de la manufacturacion de productos se ha iniciado</string>
+    <string name="product_manufacturer_data_sync_notification_inprogress_content">La sincronizacion de la manufacturacion de productos se ha iniciado.</string>
     <string name="product_manufacturer_data_sync_notification_failure_title">Sincronizacion Manufacturacion de Productos Fallo</string>
     <string name="product_manufacturer_data_sync_notification_failure_content">La sincronizacion de la manufacturacion de productos ha fallado.</string>
+    <string name="product_measure_unit_data_sync_notification_success_title">Unidades de Medida de Productos</string>
+    <string name="product_measure_unit_data_sync_notification_success_content">Las unidades de medida de productos fueron sincronizados exitosamente.</string>
+    <string name="product_measure_unit_data_sync_notification_inprogress_title">Sincronizacion Unidades de Medida de Producto</string>
+    <string name="product_measure_unit_data_sync_notification_inprogress_content">La sincronizacion de unidades de medida de productos se ha iniciado.</string>
+    <string name="product_measure_unit_data_sync_notification_failure_title">Sincronizacion Unidades de Medida de Productos Fallo</string>
+    <string name="product_measure_unit_data_sync_notification_failure_content">La sincronizacion de unidades de medida de productos ha fallado.</string>
     <string name="products_data_sync_notification_success_title">Sincronizacion de Productos</string>
     <string name="products_data_sync_notification_success_content">Los productos fueron sincronizado exitosamente.</string>
     <string name="products_data_sync_notification_inprogress_title">Sincronizacion de Productos</string>
