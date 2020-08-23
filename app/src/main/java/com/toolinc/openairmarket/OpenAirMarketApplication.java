@@ -7,10 +7,10 @@ import android.net.ConnectivityManager;
 import androidx.annotation.NonNull;
 import androidx.hilt.work.HiltWorkerFactory;
 import androidx.work.Configuration;
-import androidx.work.WorkManager;
 
 import com.google.common.base.Preconditions;
 
+import java.util.concurrent.atomic.AtomicReference;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
@@ -27,7 +27,7 @@ public class OpenAirMarketApplication extends Application implements Configurati
 
   // TODO: Doest work yet WorkerFactory Injection...
   //   https://developer.android.com/training/dependency-injection/hilt-jetpack#workmanager
-  private static HiltWorkerFactory workerFactory;
+  private static AtomicReference<HiltWorkerFactory> workerFactory = new AtomicReference<>();
 
   /** Determines if there is network connection available on the device. */
   public static boolean isInternetAvailable(Context context) {
@@ -51,18 +51,16 @@ public class OpenAirMarketApplication extends Application implements Configurati
   @Override
   public Configuration getWorkManagerConfiguration() {
     Configuration.Builder builder = new Configuration.Builder();
-    if (workerFactory != null) {
-      builder.setWorkerFactory(workerFactory);
+    if (workerFactory.get() != null) {
+      builder.setWorkerFactory(workerFactory.get());
     }
     return builder.build();
   }
 
-  public static synchronized void setWorkerFactory(HiltWorkerFactory workerFactory,
-      Context context) {
-    if (OpenAirMarketApplication.workerFactory == null) {
-      WorkManager.initialize(
-          context, new Configuration.Builder().setWorkerFactory(workerFactory).build());
-      OpenAirMarketApplication.workerFactory = workerFactory;
+  public static void setWorkerFactory(HiltWorkerFactory workerFactory) {
+    if (workerFactory != null && !workerFactory
+        .equals(OpenAirMarketApplication.workerFactory.get())) {
+      OpenAirMarketApplication.workerFactory.set(workerFactory);
     }
   }
 
