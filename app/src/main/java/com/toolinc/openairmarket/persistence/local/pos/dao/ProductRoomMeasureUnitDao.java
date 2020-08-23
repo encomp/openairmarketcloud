@@ -10,20 +10,19 @@ import androidx.room.Update;
 
 import com.toolinc.openairmarket.persistence.local.pos.model.ProductRoomMeasureUnit;
 
-import io.reactivex.Completable;
 import io.reactivex.Maybe;
 
 /** Specifies the data access object behavior for the {@link ProductRoomMeasureUnitDao}. */
 @Dao
 public interface ProductRoomMeasureUnitDao {
   @Insert(onConflict = OnConflictStrategy.REPLACE)
-  Completable insert(ProductRoomMeasureUnit productRoomMeasureUnit);
+  void insert(ProductRoomMeasureUnit productRoomMeasureUnit);
 
   @Delete
-  Completable delete(ProductRoomMeasureUnit productRoomMeasureUnit);
+  void delete(ProductRoomMeasureUnit productRoomMeasureUnit);
 
   @Update(onConflict = OnConflictStrategy.REPLACE)
-  Completable update(ProductRoomMeasureUnit productRoomMeasureUnit);
+  void update(ProductRoomMeasureUnit productRoomMeasureUnit);
 
   @Query("SELECT * FROM ProductMeasureUnit ORDER BY id DESC")
   DataSource.Factory<Integer, ProductRoomMeasureUnit> all();
