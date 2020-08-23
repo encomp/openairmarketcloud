@@ -13,16 +13,19 @@ import com.toolinc.openairmarket.persistence.cloud.inject.SyncRepositoryModule;
 import com.toolinc.openairmarket.persistence.inject.Annotations.Product.Brands;
 import com.toolinc.openairmarket.persistence.inject.Annotations.Product.Categories;
 import com.toolinc.openairmarket.persistence.inject.Annotations.Product.Manufacturers;
+import com.toolinc.openairmarket.persistence.inject.Annotations.Product.MeasureUnit;
 import com.toolinc.openairmarket.persistence.inject.Annotations.Product.Products;
 import com.toolinc.openairmarket.persistence.local.offline.CollectionSyncStateRepository;
 import com.toolinc.openairmarket.persistence.local.pos.PosDatabaseModule;
 import com.toolinc.openairmarket.persistence.local.pos.dao.ProductRoomBrandDao;
 import com.toolinc.openairmarket.persistence.local.pos.dao.ProductRoomCategoryDao;
 import com.toolinc.openairmarket.persistence.local.pos.dao.ProductRoomManufacturerDao;
+import com.toolinc.openairmarket.persistence.local.pos.dao.ProductRoomMeasureUnitDao;
 import com.toolinc.openairmarket.persistence.sync.BrandDataSync;
 import com.toolinc.openairmarket.persistence.sync.CategoryDataSync;
 import com.toolinc.openairmarket.persistence.sync.DataSync;
 import com.toolinc.openairmarket.persistence.sync.ManufacturerDataSync;
+import com.toolinc.openairmarket.persistence.sync.MeasureUnitDataSync;
 import dagger.Module;
 import dagger.Provides;
 import dagger.hilt.InstallIn;
@@ -198,6 +201,55 @@ public class ProductDataSyncModule {
         manufacturerStart,
         manufacturerSuccess,
         manufacturerFailure);
+  }
+
+  @Provides
+  MeasureUnitDataSync providesProductMeasureUnitDataSync(
+      ProductRoomMeasureUnitDao productRoomMeasureUnitDao,
+      @ApplicationContext Context context,
+      @MeasureUnit SyncRepository syncRepository,
+      @Named("DataSync") ChannelProperties channelProperties) {
+    NotificationProperties measureUnitStart =
+        START_BUILDER
+            .setNotificationId(NotificationIds.DATA_SYNC_CATEGORIES_START)
+            .setTitle(
+                getString(
+                    context, R.string.product_measure_unit_data_sync_notification_inprogress_title))
+            .setContent(
+                getString(
+                    context,
+                    R.string.product_measure_unit_data_sync_notification_inprogress_content))
+            .build();
+
+    NotificationProperties measureUnitSuccess =
+        SUCCESS_BUILDER
+            .setNotificationId(NotificationIds.DATA_SYNC_CATEGORIES_SUCCESS)
+            .setTitle(
+                getString(
+                    context, R.string.product_measure_unit_data_sync_notification_success_title))
+            .setContent(
+                getString(
+                    context, R.string.product_measure_unit_data_sync_notification_success_content))
+            .build();
+
+    NotificationProperties measureUnitFailure =
+        FAILURE_BUILDER
+            .setNotificationId(NotificationIds.DATA_SYNC_CATEGORIES_FAILED)
+            .setTitle(
+                getString(
+                    context, R.string.product_measure_unit_data_sync_notification_failure_title))
+            .setContent(
+                getString(
+                    context, R.string.product_measure_unit_data_sync_notification_failure_content))
+            .build();
+
+    return new MeasureUnitDataSync(
+        productRoomMeasureUnitDao,
+        syncRepository,
+        channelProperties,
+        measureUnitStart,
+        measureUnitSuccess,
+        measureUnitFailure);
   }
 
   @Provides
