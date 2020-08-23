@@ -1,28 +1,24 @@
 package com.toolinc.openairmarket.work;
 
 import android.content.Context;
-
 import androidx.work.ListenableWorker;
 import androidx.work.ListenableWorker.Result;
-
-import butterknife.ButterKnife;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
 import com.google.auto.value.AutoValue;
 import com.google.common.base.Optional;
+import com.google.common.collect.ImmutableList;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.toolinc.openairmarket.common.NotificationUtil;
 import com.toolinc.openairmarket.persistence.local.offline.CollectionSyncState;
 import com.toolinc.openairmarket.persistence.local.offline.CollectionSyncStateRepository;
 import com.toolinc.openairmarket.persistence.local.offline.SyncStatus;
 import com.toolinc.openairmarket.persistence.sync.DataSync;
-
-import org.joda.time.DateTime;
-
 import java.util.concurrent.ExecutionException;
-
 import javax.annotation.Nullable;
-
+import org.joda.time.DateTime;
 import timber.log.Timber;
 
 /**
@@ -43,6 +39,9 @@ abstract class SyncWorker {
 
   abstract DataSync dataSync();
 
+  @Nullable
+  abstract ImmutableList<OneTimeWorkRequest> oneTimeWorkRequests();
+
   /**
    * Performs the synchronization of the collection {@link #collectionId()} if it has not been
    * performed in the last {@link #THRESHOLD} hours. If the data is not stale then the
@@ -53,14 +52,15 @@ abstract class SyncWorker {
     if (css.isPresent()) {
       DateTime thresholdDateTime = DateTime.now().minusHours(THRESHOLD);
       if ((SyncStatus.FAILED.equals(css.get().getStatus())
-              || SyncStatus.IN_PROGRESS.equals(css.get().getStatus()))
-              || (SyncStatus.COMPLETE.equals(css.get().getStatus()) &&
-              css.get().getLastUpdate().compareTo(thresholdDateTime) <= 0)) {
+          || SyncStatus.IN_PROGRESS.equals(css.get().getStatus()))
+          || (SyncStatus.COMPLETE.equals(css.get().getStatus()) &&
+          css.get().getLastUpdate().compareTo(thresholdDateTime) <= 0)) {
         return syncFromFirestore();
       }
     } else {
       return syncFromFirestore();
     }
+    maybeScheduleSyncTasks();
     return Result.success();
   }
 
@@ -77,18 +77,25 @@ abstract class SyncWorker {
         updateSyncState(SyncStatus.COMPLETE, task.getResult().size());
         dataSync().store(task.getResult().getDocuments());
         NotificationUtil.notify(context(), dataSync().successNotification());
+        maybeScheduleSyncTasks();
         return Result.success();
       }
     } catch (ExecutionException | InterruptedException exc) {
-      Timber.tag(TAG).e(exc,"Sync failed.");
+      Timber.tag(TAG).e(exc, "Sync failed.");
       updateSyncState(SyncStatus.FAILED);
       NotificationUtil.notify(context(), dataSync().failureNotification());
     }
     return Result.failure();
   }
 
+  private void maybeScheduleSyncTasks() {
+    if (oneTimeWorkRequests() != null && oneTimeWorkRequests().size() > 0) {
+      WorkManager.getInstance(context()).enqueue(oneTimeWorkRequests());
+    }
+  }
+
   private void updateSyncState(SyncStatus syncStatus) {
-      updateSyncState(syncStatus, null);
+    updateSyncState(syncStatus, null);
   }
 
   private void updateSyncState(SyncStatus syncStatus, @Nullable Integer numberOfDocs) {
@@ -110,15 +117,18 @@ abstract class SyncWorker {
   @AutoValue.Builder
   abstract static class Builder {
 
-    abstract Builder setCollectionId(String collectionId);
+    public abstract Builder setCollectionId(String collectionId);
 
-    abstract Builder setContext(Context context);
+    public abstract Builder setContext(Context context);
 
-    abstract Builder setCollectionSyncStateRepository(
+    public abstract Builder setCollectionSyncStateRepository(
         CollectionSyncStateRepository collectionSyncStateRepository);
 
-    abstract Builder setDataSync(DataSync dataSync);
+    public abstract Builder setDataSync(DataSync dataSync);
 
-    abstract SyncWorker build();
+    public abstract Builder setOneTimeWorkRequests(
+        OneTimeWorkRequest... oneTimeWorkRequest);
+
+    public abstract SyncWorker build();
   }
 }

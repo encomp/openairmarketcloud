@@ -38,6 +38,7 @@ public class ProductManufacturerSyncWorker extends Worker {
             .setContext(context)
             .setCollectionSyncStateRepository(collectionProductRepo)
             .setDataSync(manufacturerDataSync)
+            .setOneTimeWorkRequests(FirestoreSync.syncProductBrandRequest())
             .build();
     return syncWorker.syncCollection();
   }

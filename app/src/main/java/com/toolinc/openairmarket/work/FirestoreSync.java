@@ -18,7 +18,7 @@ public final class FirestoreSync {
     return ImmutableList.of(syncProductCategoryRequest(), syncProductManufacturerRequest());
   }
 
-  private static OneTimeWorkRequest syncProductBrandRequest() {
+  public static OneTimeWorkRequest syncProductBrandRequest() {
     return new OneTimeWorkRequest.Builder(ProductBrandSyncWorker.class)
         .setInitialDelay(2000, TimeUnit.MILLISECONDS)
         .setBackoffCriteria(
