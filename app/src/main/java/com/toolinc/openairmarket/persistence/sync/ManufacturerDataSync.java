@@ -1,5 +1,6 @@
 package com.toolinc.openairmarket.persistence.sync;
 
+import android.database.SQLException;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.toolinc.openairmarket.common.NotificationUtil.ChannelProperties;
 import com.toolinc.openairmarket.common.NotificationUtil.NotificationProperties;
@@ -9,9 +10,12 @@ import com.toolinc.openairmarket.persistence.local.pos.model.ProductRoomManufact
 import com.toolinc.openairmarket.pos.persistence.model.product.ProductManufacturer;
 import java.util.List;
 import javax.inject.Inject;
+import timber.log.Timber;
 
 /** Keeps the local information of manufacturers data fresh. */
 public class ManufacturerDataSync extends DataSync {
+
+  private static final String TAG = ManufacturerDataSync.class.getSimpleName();
 
   private final ProductRoomManufacturerDao productRoomManufacturerDao;
 
@@ -35,7 +39,11 @@ public class ManufacturerDataSync extends DataSync {
     for (ProductManufacturer productManufacturer : productManufacturers) {
       ProductRoomManufacturer.Builder builder = ProductRoomManufacturer.builder();
       builder.setProductManufacturer(productManufacturer);
-      productRoomManufacturerDao.insert(builder.build());
+      try {
+        productRoomManufacturerDao.insert(builder.build());
+      } catch (SQLException exc) {
+        Timber.tag(TAG).w(exc);
+      }
     }
   }
 }
