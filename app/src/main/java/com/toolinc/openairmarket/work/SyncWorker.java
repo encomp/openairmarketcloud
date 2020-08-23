@@ -127,7 +127,7 @@ abstract class SyncWorker {
     public abstract Builder setDataSync(DataSync dataSync);
 
     public abstract Builder setOneTimeWorkRequests(
-        OneTimeWorkRequest... oneTimeWorkRequest);
+        @Nullable OneTimeWorkRequest... oneTimeWorkRequest);
 
     public abstract SyncWorker build();
   }
