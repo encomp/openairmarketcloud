@@ -34,19 +34,19 @@ import com.toolinc.openairmarket.pos.persistence.model.product.ProductType;
           parentColumns = "id",
           childColumns = "productCategoryId",
           onUpdate = ForeignKey.CASCADE,
-          onDelete = ForeignKey.RESTRICT),
+          onDelete = ForeignKey.CASCADE),
       @ForeignKey(
           entity = ProductRoomMeasureUnit.class,
           parentColumns = "id",
           childColumns = "productMeasureUnitId",
           onUpdate = ForeignKey.CASCADE,
-          onDelete = ForeignKey.RESTRICT),
+          onDelete = ForeignKey.CASCADE),
       @ForeignKey(
           entity = ProductRoomBrand.class,
           parentColumns = "id",
           childColumns = "productBrandId",
           onUpdate = ForeignKey.CASCADE,
-          onDelete = ForeignKey.RESTRICT)
+          onDelete = ForeignKey.CASCADE)
     })
 @AutoValue
 public abstract class ProductRoom implements RoomCatalogModel {

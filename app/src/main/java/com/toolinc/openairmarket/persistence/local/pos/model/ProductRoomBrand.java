@@ -29,7 +29,7 @@ import com.toolinc.openairmarket.pos.persistence.model.product.ProductBrand;
             parentColumns = "id",
             childColumns = "productManufacturerId",
             onUpdate = ForeignKey.CASCADE,
-            onDelete = ForeignKey.RESTRICT))
+            onDelete = ForeignKey.CASCADE))
 @AutoValue
 public abstract class ProductRoomBrand implements RoomCatalogModel {
 
