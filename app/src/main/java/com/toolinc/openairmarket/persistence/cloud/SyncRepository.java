@@ -10,6 +10,7 @@ import com.toolinc.openairmarket.pos.persistence.model.product.Product;
 import com.toolinc.openairmarket.pos.persistence.model.product.ProductBrand;
 import com.toolinc.openairmarket.pos.persistence.model.product.ProductCategory;
 import com.toolinc.openairmarket.pos.persistence.model.product.ProductManufacturer;
+import com.toolinc.openairmarket.pos.persistence.model.product.ProductMeasureUnit;
 import java.util.List;
 import javax.inject.Inject;
 
@@ -60,6 +61,19 @@ public final class SyncRepository {
           ProductManufacturer productBrand = documentSnapshot.toObject(ProductManufacturer.class);
           productBrand.setId(documentSnapshot.getId());
           return productBrand;
+        })
+        .toList();
+  }
+
+  public static final List<ProductMeasureUnit> toProductMeasureUnits(
+      List<DocumentSnapshot> documentSnapshots) {
+    return FluentIterable.from(documentSnapshots)
+        .filter(documentSnapshot -> documentSnapshot.exists())
+        .transform(documentSnapshot -> {
+          ProductMeasureUnit productMeasureUnit = documentSnapshot
+              .toObject(ProductMeasureUnit.class);
+          productMeasureUnit.setId(documentSnapshot.getId());
+          return productMeasureUnit;
         })
         .toList();
   }
