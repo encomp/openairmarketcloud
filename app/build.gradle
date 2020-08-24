@@ -114,6 +114,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-accessibility:3.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-web:3.2.0'
     androidTestImplementation 'androidx.test.espresso.idling:idling-concurrent:3.2.0'
-    androidTestImplementation 'androidx.work:work-testing:2.4.0'
+    androidTestImplementation 'androidx.work:work-testing:2.3.4'
     androidTestImplementation "androidx.room:room-testing:$room_version"
 }
