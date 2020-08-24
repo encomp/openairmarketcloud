@@ -30,7 +30,7 @@ public final class ProductTest {
       "openairmarket-150121-firebase-adminsdk-2flfk-1db5fe164d.json";
   private Firestore db;
 
-  @Before
+  //@Before
   public void setUp() throws IOException {
     InputStream serviceAccount = new FileInputStream(PATH + FILE_NAME);
     GoogleCredentials credentials = GoogleCredentials.fromStream(serviceAccount);
