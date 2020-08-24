@@ -6,7 +6,7 @@ import com.toolinc.openairmarket.common.persistence.room.converter.DateTimeConve
 import com.toolinc.openairmarket.persistence.local.database.model.CollectionSyncState;
 import com.toolinc.openairmarket.ui.view.tableview.model.CellModel;
 
-/** */
+/** Offline table view adapter. */
 public class OfflineTableViewAdapter
     implements Function<CollectionSyncState, ImmutableList<CellModel>> {
 
