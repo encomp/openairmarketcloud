@@ -1,4 +1,4 @@
-package com.toolinc.openairmarket.persistence.local.offline;
+package com.toolinc.openairmarket.persistence.local.database.model;
 
 /** Specifies the status of a {@link CollectionSyncState}. */
 public enum SyncStatus {

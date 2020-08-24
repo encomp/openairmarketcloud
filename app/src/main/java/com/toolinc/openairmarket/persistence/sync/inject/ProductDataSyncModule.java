@@ -15,7 +15,7 @@ import com.toolinc.openairmarket.persistence.inject.Annotations.Product.Categori
 import com.toolinc.openairmarket.persistence.inject.Annotations.Product.Manufacturers;
 import com.toolinc.openairmarket.persistence.inject.Annotations.Product.MeasureUnit;
 import com.toolinc.openairmarket.persistence.inject.Annotations.Product.Products;
-import com.toolinc.openairmarket.persistence.local.offline.CollectionSyncStateRepository;
+import com.toolinc.openairmarket.persistence.local.database.dao.CollectionSyncStateRepository;
 import com.toolinc.openairmarket.persistence.local.pos.PosDatabaseModule;
 import com.toolinc.openairmarket.persistence.local.pos.dao.ProductRoomBrandDao;
 import com.toolinc.openairmarket.persistence.local.pos.dao.ProductRoomCategoryDao;

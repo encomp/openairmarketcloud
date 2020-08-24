@@ -1,8 +1,8 @@
-package com.toolinc.openairmarket.persistence.local.offline.converter;
+package com.toolinc.openairmarket.persistence.local.database.converter;
 
 import androidx.room.TypeConverter;
 
-import com.toolinc.openairmarket.persistence.local.offline.SyncStatus;
+import com.toolinc.openairmarket.persistence.local.database.model.SyncStatus;
 
 /** Converts back and forth between {@link SyncStatus} and String data types. */
 public final class StatusConverter {

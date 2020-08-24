@@ -1,7 +1,8 @@
 package com.toolinc.openairmarket.persistence.local.pos;
 
-import android.content.Context;
+import static com.google.common.truth.Truth.assertThat;
 
+import android.content.Context;
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 import androidx.lifecycle.LiveData;
 import androidx.paging.LivePagedListBuilder;
@@ -11,24 +12,18 @@ import androidx.room.Room;
 import androidx.test.espresso.web.internal.deps.guava.collect.ImmutableList;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
-
 import com.google.common.collect.Lists;
 import com.toolinc.openairmarket.common.lifecycle.LiveDataTestUtil;
 import com.toolinc.openairmarket.common.reactivex.TrampolineSchedulerRule;
 import com.toolinc.openairmarket.persistence.local.pos.dao.ProductRoomMeasureUnitDao;
 import com.toolinc.openairmarket.persistence.local.pos.model.ProductRoomMeasureUnit;
-
+import io.reactivex.Maybe;
+import io.reactivex.Observable;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import io.reactivex.Completable;
-import io.reactivex.Maybe;
-import io.reactivex.Observable;
-
-import static com.google.common.truth.Truth.assertThat;
 
 /** Tests for {@link ProductRoomMeasureUnitDao}. */
 @RunWith(AndroidJUnit4.class)
@@ -37,9 +32,10 @@ public class ProductRoomMeasureUnitDaoTest {
   @Rule
   public final InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
 
-  @Rule public final TrampolineSchedulerRule schedulerRule = new TrampolineSchedulerRule();
+  @Rule
+  public final TrampolineSchedulerRule schedulerRule = new TrampolineSchedulerRule();
 
-  private static final String[] PRODUCTS = new String[] {"A", "B", "C", "D", "E"};
+  private static final String[] PRODUCTS = new String[]{"A", "B", "C", "D", "E"};
   private static final ProductRoomMeasureUnit.Builder builder =
       ProductRoomMeasureUnit.builder()
           .setId("NEW")
@@ -65,16 +61,14 @@ public class ProductRoomMeasureUnitDaoTest {
   public void insert_record() {
     ProductRoomMeasureUnit productRoomMeasureUnit = builder.build();
 
-    Completable completable = productRoomMeasureUnitDao.insert(productRoomMeasureUnit);
-    completable.test().assertComplete();
+    productRoomMeasureUnitDao.insert(productRoomMeasureUnit);
   }
 
   @Test
   public void insert_records() {
     ImmutableList<ProductRoomMeasureUnit> products = create();
     for (ProductRoomMeasureUnit productRoomMeasureUnit : products) {
-      Completable completable = productRoomMeasureUnitDao.insert(productRoomMeasureUnit);
-      completable.test().assertComplete();
+      productRoomMeasureUnitDao.insert(productRoomMeasureUnit);
     }
   }
 
@@ -82,24 +76,19 @@ public class ProductRoomMeasureUnitDaoTest {
   public void delete_record() {
     ProductRoomMeasureUnit productRoomMeasureUnit = builder.build();
 
-    Completable completable = productRoomMeasureUnitDao.insert(productRoomMeasureUnit);
-    completable.test().assertComplete();
+    productRoomMeasureUnitDao.insert(productRoomMeasureUnit);
 
-    completable = productRoomMeasureUnitDao.delete(productRoomMeasureUnit);
-    completable.test().assertComplete();
+    productRoomMeasureUnitDao.delete(productRoomMeasureUnit);
   }
 
   @Test
   public void update_record() {
     ProductRoomMeasureUnit productRoomMeasureUnit = builder.build();
 
-    Completable completable = productRoomMeasureUnitDao.insert(productRoomMeasureUnit);
-    completable.test().assertComplete();
+    productRoomMeasureUnitDao.insert(productRoomMeasureUnit);
 
-    completable =
-        productRoomMeasureUnitDao.update(
-            productRoomMeasureUnit.toBuilder().setName("Other").build());
-    completable.test().assertComplete();
+    productRoomMeasureUnitDao.update(
+        productRoomMeasureUnit.toBuilder().setName("Other").build());
 
     Maybe<ProductRoomMeasureUnit> maybe =
         productRoomMeasureUnitDao.findById(productRoomMeasureUnit.id());
@@ -110,8 +99,7 @@ public class ProductRoomMeasureUnitDaoTest {
   public void all_records() {
     ImmutableList<ProductRoomMeasureUnit> products = create();
     for (ProductRoomMeasureUnit productRoomMeasureUnit : products) {
-      Completable completable = productRoomMeasureUnitDao.insert(productRoomMeasureUnit);
-      completable.test().assertComplete();
+      productRoomMeasureUnitDao.insert(productRoomMeasureUnit);
     }
 
     PagedList.Config config = new PagedList.Config.Builder().setPageSize(10).build();
@@ -126,8 +114,7 @@ public class ProductRoomMeasureUnitDaoTest {
   public void all_records_withLiveData() throws InterruptedException {
     ImmutableList<ProductRoomMeasureUnit> products = create();
     for (ProductRoomMeasureUnit productRoomMeasureUnit : products) {
-      Completable completable = productRoomMeasureUnitDao.insert(productRoomMeasureUnit);
-      completable.test().assertComplete();
+      productRoomMeasureUnitDao.insert(productRoomMeasureUnit);
     }
 
     PagedList.Config config = new PagedList.Config.Builder().setPageSize(10).build();
@@ -141,8 +128,7 @@ public class ProductRoomMeasureUnitDaoTest {
   public void findById_record() {
     ProductRoomMeasureUnit productRoomMeasureUnit = builder.build();
 
-    Completable completable = productRoomMeasureUnitDao.insert(productRoomMeasureUnit);
-    completable.test().assertComplete();
+    productRoomMeasureUnitDao.insert(productRoomMeasureUnit);
 
     Maybe<ProductRoomMeasureUnit> maybe =
         productRoomMeasureUnitDao.findById(productRoomMeasureUnit.id());
@@ -153,8 +139,7 @@ public class ProductRoomMeasureUnitDaoTest {
   public void findById_referenceId() {
     ProductRoomMeasureUnit productRoomMeasureUnit = builder.build();
 
-    Completable completable = productRoomMeasureUnitDao.insert(productRoomMeasureUnit);
-    completable.test().assertComplete();
+    productRoomMeasureUnitDao.insert(productRoomMeasureUnit);
 
     Maybe<ProductRoomMeasureUnit> maybe =
         productRoomMeasureUnitDao.findByReferenceId(productRoomMeasureUnit.referenceId());
@@ -165,8 +150,7 @@ public class ProductRoomMeasureUnitDaoTest {
   public void findAllLikeName_records() {
     ImmutableList<ProductRoomMeasureUnit> products = create();
     for (ProductRoomMeasureUnit productRoomMeasureUnit : products) {
-      Completable completable = productRoomMeasureUnitDao.insert(productRoomMeasureUnit);
-      completable.test().assertComplete();
+      productRoomMeasureUnitDao.insert(productRoomMeasureUnit);
     }
 
     PagedList.Config config = new PagedList.Config.Builder().setPageSize(10).build();

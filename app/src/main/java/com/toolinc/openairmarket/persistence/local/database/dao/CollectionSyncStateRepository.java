@@ -1,9 +1,10 @@
-package com.toolinc.openairmarket.persistence.local.offline;
+package com.toolinc.openairmarket.persistence.local.database.dao;
 
 import androidx.lifecycle.LiveData;
 
 import com.google.common.base.Optional;
 
+import com.toolinc.openairmarket.persistence.local.database.model.CollectionSyncState;
 import java.util.List;
 
 import javax.inject.Inject;

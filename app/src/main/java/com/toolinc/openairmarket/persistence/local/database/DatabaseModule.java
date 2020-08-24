@@ -1,9 +1,11 @@
-package com.toolinc.openairmarket.persistence.local.offline;
+package com.toolinc.openairmarket.persistence.local.database;
 
 import android.content.Context;
 
 import androidx.room.Room;
 
+import com.toolinc.openairmarket.persistence.local.database.dao.CollectionSyncStateDao;
+import com.toolinc.openairmarket.persistence.local.database.dao.CollectionSyncStateRepository;
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -12,19 +14,19 @@ import dagger.hilt.InstallIn;
 import dagger.hilt.android.components.ApplicationComponent;
 import dagger.hilt.android.qualifiers.ApplicationContext;
 
-/** Specifies the Offline database dagger module. */
+/** Specifies the OpenAirMarket database dagger module. */
 @InstallIn(ApplicationComponent.class)
 @Module
-public class OfflineDatabaseModule {
+public class DatabaseModule {
 
   @Singleton
   @Provides
-  OfflineRoomDatabase providesRoomDatabase(@ApplicationContext Context appContext) {
-    return Room.databaseBuilder(appContext, OfflineRoomDatabase.class, "offline_database").build();
+  LocalRoomDatabase providesRoomDatabase(@ApplicationContext Context appContext) {
+    return Room.databaseBuilder(appContext, LocalRoomDatabase.class, "open_air_market_database").build();
   }
 
   @Provides
-  CollectionSyncStateDao providesCollectionStateDao(OfflineRoomDatabase demoDatabase) {
+  CollectionSyncStateDao providesCollectionStateDao(LocalRoomDatabase demoDatabase) {
     return demoDatabase.collectionStateDao();
   }
 

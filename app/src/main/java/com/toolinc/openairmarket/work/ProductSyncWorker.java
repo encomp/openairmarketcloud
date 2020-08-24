@@ -8,7 +8,7 @@ import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 import com.toolinc.openairmarket.persistence.cloud.CollectionsNames;
 import com.toolinc.openairmarket.persistence.inject.Annotations.Product.Products;
-import com.toolinc.openairmarket.persistence.local.offline.CollectionSyncStateRepository;
+import com.toolinc.openairmarket.persistence.local.database.dao.CollectionSyncStateRepository;
 import com.toolinc.openairmarket.persistence.sync.DataSync;
 
 /** Downloads the product information from firestore database. */

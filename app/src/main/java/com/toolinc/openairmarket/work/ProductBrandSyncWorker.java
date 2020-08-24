@@ -7,7 +7,7 @@ import androidx.hilt.work.WorkerInject;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 import com.toolinc.openairmarket.persistence.cloud.CollectionsNames;
-import com.toolinc.openairmarket.persistence.local.offline.CollectionSyncStateRepository;
+import com.toolinc.openairmarket.persistence.local.database.dao.CollectionSyncStateRepository;
 import com.toolinc.openairmarket.persistence.sync.BrandDataSync;
 
 /** Downloads the product brand information from firestore database. */

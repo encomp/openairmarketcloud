@@ -1,4 +1,4 @@
-package com.toolinc.openairmarket.persistence.local.offline;
+package com.toolinc.openairmarket.persistence.local.database.model;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
