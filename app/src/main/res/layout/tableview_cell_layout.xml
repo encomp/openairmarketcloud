@@ -2,21 +2,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cell_container"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="@dimen/table_view_cell_height"
     android:background="@color/unselected_background_color"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/cell_data"
-        style="@style/TextAppearance.Pos.Filter.SubHead"
+        style="@style/TextAppearance.TableView.Cell"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center_vertical"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:gravity="center"
-        android:maxLines="1"
-        tools:text="Cell Data" />
+        android:layout_marginStart="@dimen/tiny_spacing"
+        android:layout_marginEnd="@dimen/tiny_spacing"
+      tools:text="Cell Data" />
 
 </LinearLayout>

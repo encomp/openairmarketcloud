@@ -15,12 +15,11 @@
 
         <TextView
             android:id="@+id/row_header_textview"
-            style="@style/TextAppearance.Pos.Filter.SubHead"
+            style="@style/TextAppearance.TableView.Header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:gravity="center"
-            android:maxLines="1"
+            android:textAlignment="center"
             tools:text="Row Data" />
 
     </LinearLayout>
