@@ -13,7 +13,8 @@
 
     <dimen name="section_header_text_size">16sp</dimen>
 
-    <dimen name="table_view_cell_height">36dp</dimen>
-    <dimen name="table_view_row_header_width">36dp</dimen>
-    <dimen name="table_view_default_text_size">16sp</dimen>
+    <dimen name="table_view_cell_height">40dp</dimen>
+    <dimen name="table_view_row_header_width">40dp</dimen>
+    <dimen name="table_view_header_text_size">16sp</dimen>
+    <dimen name="table_view_cell_text_size">14sp</dimen>
 </resources>
