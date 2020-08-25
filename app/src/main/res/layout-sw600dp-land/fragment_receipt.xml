@@ -6,64 +6,21 @@
     android:layout_height="match_parent"
     tools:context=".ui.MainActivity">
 
-    <TableLayout
-        android:id="@+id/table_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/grey_200"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <com.evrencoskun.tableview.TableView
+      android:id="@+id/table_layout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/small_spacing"
-            android:paddingTop="@dimen/tiny_spacing"
-            android:paddingBottom="@dimen/tiny_spacing">
-
-            <TextView
-                style="@style/TextAppearance.Pos.Filter"
-                android:layout_width="55dp"
-                android:layout_height="wrap_content"
-                android:text="@string/receipt_row"
-                android:textAlignment="center" />
-
-            <TextView
-                style="@style/TextAppearance.Pos.Filter"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:text="@string/receipt_product_code"
-                android:textAlignment="center" />
-
-            <TextView
-                style="@style/TextAppearance.Pos.Filter"
-                android:layout_width="230dp"
-                android:layout_height="wrap_content"
-                android:text="@string/receipt_product_name"
-                android:textAlignment="center" />
-
-            <TextView
-                style="@style/TextAppearance.Pos.Filter"
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
-                android:text="@string/receipt_price"
-                android:textAlignment="center" />
-
-            <TextView
-                style="@style/TextAppearance.Pos.Filter"
-                android:layout_width="75dp"
-                android:layout_height="wrap_content"
-                android:text="@string/receipt_quantity"
-                android:textAlignment="center" />
-
-            <TextView
-                style="@style/TextAppearance.Pos.Filter"
-                android:layout_width="75dp"
-                android:layout_height="wrap_content"
-                android:text="@string/receipt_subtotal"
-                android:textAlignment="center" />
-        </TableRow>
-    </TableLayout>
+      app:column_header_height="@dimen/table_view_cell_height"
+      app:row_header_width="@dimen/table_view_row_header_width"
+      app:selected_color="@color/selected_background_color"
+      app:shadow_color="@color/shadow_background_color"
+      app:unselected_color="@color/unselected_background_color"
+      app:separator_color="@color/separator_color"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toTopOf="parent"/>
 
     <FrameLayout
         android:layout_width="match_parent"

@@ -10,6 +10,7 @@ import com.toolinc.openairmarket.pos.persistence.model.product.Product;
 import com.toolinc.openairmarket.pos.persistence.model.product.ProductSalePrice;
 import com.toolinc.openairmarket.pos.persistence.model.sale.SaleLine;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Map;
 
@@ -75,7 +76,7 @@ public final class ReceiptViewModel {
   }
 
   @AutoValue
-  public abstract static class ProductLine {
+  public abstract static class ProductLine implements Serializable {
 
     public static final ProductLine create(Product product, SaleLine saleLine) {
       return new AutoValue_ReceiptViewModel_ProductLine(product, saleLine);
