@@ -81,7 +81,7 @@
     <string name="receipt_product_code">Codigo Barras</string>
     <string name="receipt_product_name">Nombre</string>
     <string name="receipt_price">Precio</string>
-    <string name="receipt_quantity">Cantidad</string>
+    <string name="receipt_quantity">Cant</string>
     <string name="receipt_subtotal">Total</string>
     <string name="receipt_total">Total: </string>
 
