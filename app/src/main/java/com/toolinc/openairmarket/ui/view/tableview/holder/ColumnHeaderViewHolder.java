@@ -1,6 +1,5 @@
 package com.toolinc.openairmarket.ui.view.tableview.holder;
 
-import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -49,12 +48,10 @@ public final class ColumnHeaderViewHolder extends AbstractSorterViewHolder {
 
   public void setColumnHeaderModel(
       @NonNull ColumnHeaderModel columnHeaderModel, int columnPosition) {
-    // Change alignment of textView
-    headerTextView.setGravity(Gravity.CENTER_VERTICAL);
     // Set text data
     headerTextView.setText(columnHeaderModel.getData());
     // It is necessary to remeasure itself.
-    headerContainer.getLayoutParams().width = LinearLayout.LayoutParams.WRAP_CONTENT;
+    headerContainer.getLayoutParams().width = columnHeaderModel.getWidth();
     headerTextView.requestLayout();
   }
 

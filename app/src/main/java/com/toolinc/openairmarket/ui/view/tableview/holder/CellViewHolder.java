@@ -1,6 +1,5 @@
 package com.toolinc.openairmarket.ui.view.tableview.holder;
 
-import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -25,12 +24,10 @@ public final class CellViewHolder extends AbstractViewHolder {
   }
 
   public void setCellModel(CellModel cellModel, int columnPosition) {
-    // Change textView align by column
-    cellTextView.setGravity(Gravity.CENTER_VERTICAL);
     // Set text
     cellTextView.setText(String.valueOf(cellModel.getData()));
     // It is necessary to remeasure itself.
-    cellContainer.getLayoutParams().width = LinearLayout.LayoutParams.WRAP_CONTENT;
+    cellContainer.getLayoutParams().width = cellModel.getWidth();
     cellTextView.requestLayout();
   }
 
