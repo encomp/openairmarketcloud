@@ -101,7 +101,7 @@
 
     <style name="TextAppearance.Pos.Filter.SubHead" parent="TextAppearance.AppCompat.Subhead">
         <item name="android:textSize">@dimen/section_header_text_size</item>
-        <item name="android:textColor">@color/black_alpha_74</item>
+        <item name="android:textColor">@color/black_alpha_86</item>
     </style>
 
     <style name="Widget.Pos.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -113,6 +113,19 @@
         <item name="android:padding">4dp</item>
         <item name="android:scrollbars">vertical</item>
         <item name="android:textSize">14sp</item>
+    </style>
+
+    <!-- Table Header -->
+    <style name="TextAppearance.TableView.Header" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textSize">@dimen/table_view_header_text_size</item>
+        <item name="android:textColor">@color/black_alpha_86</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Table Cell -->
+    <style name="TextAppearance.TableView.Cell" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textSize">@dimen/table_view_cell_text_size</item>
+        <item name="android:textColor">@color/black_alpha_86</item>
     </style>
 
     <!-- Badge theme -->
