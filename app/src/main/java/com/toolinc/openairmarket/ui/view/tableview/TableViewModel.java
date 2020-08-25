@@ -6,27 +6,25 @@ import com.google.common.collect.ImmutableList;
 import com.toolinc.openairmarket.ui.view.tableview.model.CellModel;
 import com.toolinc.openairmarket.ui.view.tableview.model.ColumnHeaderModel;
 import com.toolinc.openairmarket.ui.view.tableview.model.RowHeaderModel;
-
 import java.io.Serializable;
 import java.util.List;
 
 /**
- * Table view model that populates a given {@link
- * com.toolinc.openairmarket.ui.view.tableview.adapter.TableViewAdapter}.
+ * Table view model that populates a given {@link com.toolinc.openairmarket.ui.view.tableview.adapter.TableViewAdapter}.
  */
 @AutoValue
 public abstract class TableViewModel {
+
+  public static <T extends Serializable> Builder builder(
+      Function<T, ImmutableList<CellModel>> transformation) {
+    return new AutoValue_TableViewModel.Builder().setTransformation(transformation);
+  }
 
   public abstract ImmutableList<ColumnHeaderModel> columnHeaderModels();
 
   public abstract ImmutableList<RowHeaderModel> rowHeaderModels();
 
   public abstract ImmutableList<List<CellModel>> cellModels();
-
-  public static <T extends Serializable> Builder builder(
-      Function<T, ImmutableList<CellModel>> transformation) {
-    return new AutoValue_TableViewModel.Builder().setTransformation(transformation);
-  }
 
   @AutoValue.Builder
   public abstract static class Builder {
@@ -48,6 +46,11 @@ public abstract class TableViewModel {
 
     public Builder addColumnHeaderModel(String columnHeader) {
       columnHeaderModelsBuilder().add(ColumnHeaderModel.create(columnHeader));
+      return this;
+    }
+
+    public Builder addColumnHeaderModel(String columnHeader, int width) {
+      columnHeaderModelsBuilder().add(ColumnHeaderModel.create(columnHeader, width));
       return this;
     }
 
