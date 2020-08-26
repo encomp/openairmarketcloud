@@ -12,7 +12,11 @@
     tools:layout="@layout/fragment_receipts">
     <action
       android:id="@+id/to_offlineFragment"
-      app:destination="@id/offlineFragment" />
+      app:destination="@id/offlineFragment"
+      app:enterAnim="@android:anim/slide_in_left"
+      app:exitAnim="@android:anim/slide_out_right"
+      app:popEnterAnim="@android:anim/slide_in_left"
+      app:popExitAnim="@android:anim/slide_out_right" />
   </fragment>
   <fragment
     android:id="@+id/offlineFragment"
@@ -21,7 +25,12 @@
     tools:layout="@layout/fragment_offline">
     <action
       android:id="@+id/to_pointOfSaleFragment"
-      app:destination="@id/pointOfSaleFragment" />
+      app:destination="@id/pointOfSaleFragment"
+      app:enterAnim="@android:anim/slide_in_left"
+      app:exitAnim="@android:anim/slide_out_right"
+      app:popEnterAnim="@android:anim/slide_in_left"
+      app:popExitAnim="@android:anim/slide_out_right"
+      app:popUpTo="@id/pointOfSaleFragment" />
   </fragment>
 
 </navigation>
