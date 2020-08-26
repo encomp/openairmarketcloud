@@ -1,5 +1,6 @@
 package com.toolinc.openairmarket.persistence.cloud;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -26,11 +27,13 @@ public final class ProductsRepository {
   public Task<DocumentSnapshot> findProductById(
       String productId,
       OnSuccessListener<Product> successListener,
-      OnFailureListener onFailureListener) {
+      OnFailureListener onFailureListener,
+      OnCompleteListener<DocumentSnapshot> completeListener) {
     return firebaseFirestore
         .collection(CollectionsNames.PRODUCTS)
         .document(productId)
         .get()
+        .addOnCompleteListener(executor, completeListener)
         .addOnSuccessListener(
             executor, documentSnapshot -> onSuccess(documentSnapshot, successListener))
         .addOnFailureListener(
