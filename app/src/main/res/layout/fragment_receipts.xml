@@ -94,6 +94,23 @@
             android:layout_margin="@dimen/standard_spacing"
             android:hint="@string/receipt_code_bar_hint">
 
+            <FrameLayout
+              android:layout_width="match_parent"
+              android:layout_height="12dp"
+              android:layout_marginStart="16dp"
+              android:layout_marginEnd="16dp"
+              android:layout_marginTop="-10dp">
+
+                <ProgressBar
+                  android:id="@+id/progress_bar"
+                  style="?android:attr/progressBarStyleHorizontal"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:indeterminate="true"
+                  android:indeterminateTint="@color/color_primary_variant"
+                  android:visibility="gone"/>
+            </FrameLayout>
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/text_input_edit_text"
                 android:layout_width="match_parent"
