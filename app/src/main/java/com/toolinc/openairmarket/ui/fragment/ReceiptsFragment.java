@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -71,6 +72,10 @@ public class ReceiptsFragment extends Fragment {
   @BindView(R.id.text_input_edit_text)
   TextInputEditText textInputEditText;
 
+  @Nullable
+  @BindView(R.id.progress_bar)
+  ProgressBar progressBar;
+
   @BindView(R.id.cancel_btn)
   Button cancelBtn;
 
@@ -122,6 +127,7 @@ public class ReceiptsFragment extends Fragment {
       codeBarComponent = CodeBarComponent.builder()
           .setFloatingActionButton(floatingActionButton)
           .setTextInputEditText(textInputEditText)
+          .setProgressBar(progressBar)
           .setProductsRepository(productsRepository)
           .setReceiptFragmentStatePagerAdapter(receiptFragmentStatePagerAdapter)
           .build();
@@ -154,7 +160,8 @@ public class ReceiptsFragment extends Fragment {
   private void onClickQuickAccess(String productId) {
     productsRepository
         .findProductById(productId, product -> receiptFragmentStatePagerAdapter.addProduct(product),
-            e -> Timber.tag(TAG).e(e));
+            e -> Timber.tag(TAG).e(e), task -> {
+            });
   }
 
   private void displayCompleteSaleDialog(View view) {

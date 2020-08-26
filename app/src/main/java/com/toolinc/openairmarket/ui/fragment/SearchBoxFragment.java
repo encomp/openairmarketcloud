@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -31,6 +32,9 @@ public class SearchBoxFragment extends Fragment {
 
   @BindView(R.id.text_input_edit_text)
   TextInputEditText textInputEditText;
+
+  @BindView(R.id.progress_bar)
+  ProgressBar progressBar;
 
   @BindView(R.id.fab_add_to_receipt)
   FloatingActionButton floatingActionButton;
@@ -66,8 +70,11 @@ public class SearchBoxFragment extends Fragment {
   private void initCodeBarComponent() {
     if (codeBarComponent == null && textInputEditText != null && floatingActionButton != null
         && receiptFragmentStatePagerAdapter != null) {
-      codeBarComponent = CodeBarComponent.builder().setProductsRepository(productsRepository)
-          .setTextInputEditText(textInputEditText).setFloatingActionButton(floatingActionButton)
+      codeBarComponent = CodeBarComponent.builder()
+          .setProductsRepository(productsRepository)
+          .setTextInputEditText(textInputEditText)
+          .setProgressBar(progressBar)
+          .setFloatingActionButton(floatingActionButton)
           .setReceiptFragmentStatePagerAdapter(receiptFragmentStatePagerAdapter).build();
     }
   }
