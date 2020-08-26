@@ -17,7 +17,7 @@
     <com.evrencoskun.tableview.TableView
       android:id="@+id/table_layout"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
+      android:layout_height="match_parent"
       android:layout_gravity="center"
 
       app:column_header_height="@dimen/table_view_cell_height"
