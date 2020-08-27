@@ -1,6 +1,5 @@
 package com.toolinc.openairmarket.persistence.local.pos;
 
-import android.app.Application;
 import android.content.Context;
 
 import androidx.room.Room;
