@@ -36,13 +36,14 @@
     <!-- Main Fragment -->
     <string name="pos_title">Point Of Sales</string>
 
-    <!-- Receipts fragment -->
+    <!-- Receipts and Search Box fragment -->
     <string name="receipt_tab_1">Receipt #1</string>
     <string name="receipt_tab_2">Receipt #2</string>
     <string name="receipt_tab_3">Receipt #3</string>
     <string name="receipt_cancel_btn">Cancel</string>
     <string name="receipt_pay_btn">Pay</string>
     <string name="receipt_code_bar_hint">Code Bar</string>
+    <string name="receipt_snack_bar_msg">The product does not exist.</string>
     <!-- Dialog Buttons -->
     <string name="sale_dialog_positive_btn">Yes</string>
     <string name="sale_dialog_negative_btn">No</string>

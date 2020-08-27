@@ -5,16 +5,22 @@ import android.os.Looper;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ProgressBar;
+
 import androidx.annotation.NonNull;
+
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.auto.value.AutoValue;
 import com.google.common.base.Strings;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.toolinc.openairmarket.R;
 import com.toolinc.openairmarket.persistence.cloud.ProductsRepository;
 import com.toolinc.openairmarket.pos.persistence.model.product.Product;
 import com.toolinc.openairmarket.ui.fragment.ReceiptFragmentStatePagerAdapter;
+
 import timber.log.Timber;
 
 @AutoValue
@@ -74,24 +80,33 @@ public abstract class CodeBarComponent {
   public void onComplete(@NonNull Task<DocumentSnapshot> documentSnapshot) {
     if (!documentSnapshot.getResult().exists()) {
       hideProgressBar();
-      Timber.tag(TAG).d("Searching for Product: [%s].", documentSnapshot.getResult().getId());
+      Snackbar.make(
+              textInputEditText().getRootView(),
+              R.string.receipt_snack_bar_msg,
+              BaseTransientBottomBar.LENGTH_LONG)
+          .setAnchorView(textInputEditText())
+          .show();
     }
   }
 
   private void showProgressBar() {
-    new Handler(Looper.getMainLooper()).post(() -> {
-      progressBar().setVisibility(View.VISIBLE);
-    });
+    new Handler(Looper.getMainLooper())
+        .post(
+            () -> {
+              progressBar().setVisibility(View.VISIBLE);
+            });
   }
 
   private void hideProgressBar() {
-    new Handler(Looper.getMainLooper()).post(() -> {
-      progressBar().setVisibility(View.GONE);
-    });
+    new Handler(Looper.getMainLooper())
+        .post(
+            () -> {
+              progressBar().setVisibility(View.GONE);
+            });
   }
 
   @AutoValue.Builder
-  public static abstract class Builder {
+  public abstract static class Builder {
 
     public abstract Builder setProductsRepository(ProductsRepository productsRepository);
 

@@ -36,13 +36,14 @@
     <!-- Main Fragment -->
     <string name="pos_title">Punto de Venta</string>
 
-    <!-- Receipts fragment -->
+    <!-- Receipts and Search Box fragment -->
     <string name="receipt_tab_1">Venta #1</string>
     <string name="receipt_tab_2">Venta #2</string>
     <string name="receipt_tab_3">Venta #3</string>
     <string name="receipt_cancel_btn">Cancelar</string>
     <string name="receipt_pay_btn">Pagar</string>
     <string name="receipt_code_bar_hint">Codigo de Barras</string>
+    <string name="receipt_snack_bar_msg">El producto no existe.</string>
     <!-- Dialog Buttons -->
     <string name="sale_dialog_positive_btn">Aceptar</string>
     <string name="sale_dialog_negative_btn">Cancelar</string>
@@ -128,9 +129,9 @@
     <string name="products_data_sync_notification_failure_content">La sincronizacion de productos ha fallado.</string>
 
     <!-- Column header long press -->
-    <string name="sort_ascending">Sort Ascending</string>
-    <string name="sort_descending">Sort Descending</string>
-    <string name="sort_clear">Sort Default</string>
+    <string name="sort_ascending">Ordenar Ascedente</string>
+    <string name="sort_descending">Ordenar Decendente</string>
+    <string name="sort_clear">Order</string>
 
     <!-- Offline Table View -->
     <string name="offline_header_id">Id</string>
