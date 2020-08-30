@@ -71,8 +71,9 @@
             <Button
                 android:id="@+id/cancel_btn"
                 style="?attr/buttonRedStyle"
-                android:layout_width="147dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:minWidth="147dp"
                 android:layout_marginEnd="@dimen/standard_spacing"
                 android:text="@string/receipt_cancel_btn"
                 app:icon="@drawable/ic_close" />
@@ -80,8 +81,9 @@
             <Button
                 android:id="@+id/pay_btn"
                 style="?attr/buttonBlueStyle"
-                android:layout_width="140dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:minWidth="140dp"
                 android:layout_marginStart="@dimen/standard_spacing"
                 android:text="@string/receipt_pay_btn"
                 app:icon="@drawable/ic_payment" />
