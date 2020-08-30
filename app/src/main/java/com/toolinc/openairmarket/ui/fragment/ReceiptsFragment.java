@@ -1,6 +1,7 @@
 package com.toolinc.openairmarket.ui.fragment;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -95,13 +97,18 @@ public class ReceiptsFragment extends Fragment {
   CodeBarComponent codeBarComponent;
 
   @Override
+  public void onAttach(@NonNull Context context) {
+    super.onAttach(context);
+    receiptsViewModel =
+        ViewModelProviders.of((MainActivity) getActivity(), viewModelFactory)
+            .get(ReceiptsViewModel.class);
+  }
+
+  @Override
   public void onCreate(@Nullable Bundle bundle) {
     super.onCreate(bundle);
     NotificationUtil.createChannel(getContext(), channelProperties);
     setHasOptionsMenu(true);
-    receiptsViewModel =
-        ViewModelProviders.of((MainActivity) getActivity(), viewModelFactory)
-            .get(ReceiptsViewModel.class);
   }
 
   @Nullable
