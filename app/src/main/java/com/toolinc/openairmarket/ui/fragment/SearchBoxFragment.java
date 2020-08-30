@@ -44,6 +44,9 @@ public class SearchBoxFragment extends Fragment {
   @BindView(R.id.fab_add_to_receipt)
   FloatingActionButton floatingActionButton;
 
+  @BindView(R.id.quick_access_btn)
+  RecyclerView recyclerViewQuickButtons;
+
   private ReceiptsViewModel receiptsViewModel;
   private ReceiptFragmentStatePagerAdapter receiptFragmentStatePagerAdapter;
   private CodeBarComponent codeBarComponent;
@@ -69,7 +72,7 @@ public class SearchBoxFragment extends Fragment {
           initCodeBarComponent();
         });
     initCodeBarComponent();
-    setUpBottomSheet(view);
+    initQuickButtons();
     return view;
   }
 
@@ -85,14 +88,13 @@ public class SearchBoxFragment extends Fragment {
     }
   }
 
-  private void setUpBottomSheet(View view) {
-    RecyclerView recyclerView = view.findViewById(R.id.quick_access_btn);
+  private void initQuickButtons() {
+    GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
+    recyclerViewQuickButtons.setLayoutManager(gridLayoutManager);
     QuickAccessListAdapter adapter =
         new QuickAccessListAdapter(
             QuickAccess.quickAccessesButtons(getContext()), this::onClickQuickAccess);
-    recyclerView.setAdapter(adapter);
-    GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
-    recyclerView.setLayoutManager(gridLayoutManager);
+    recyclerViewQuickButtons.setAdapter(adapter);
   }
 
   private void onClickQuickAccess(String productId) {
