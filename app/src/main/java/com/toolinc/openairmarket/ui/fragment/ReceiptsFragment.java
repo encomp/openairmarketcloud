@@ -207,14 +207,14 @@ public class ReceiptsFragment extends Fragment {
                       new BigDecimal(tietPayment.getText().toString()),
                       (sale) -> {
                         // TODO (edgarrico): In case of a temporary offline we need to keep track of
-                        // this situation better.
+                        //  this situation better.
                         Timber.tag(TAG).d("Sale: [%s].", sale.id());
                         NotificationUtil.notify(getContext(), saleSucceedNotification);
                       },
                       (exc) -> {
                         // TODO (edgarrico): In case of a failure consider storing such information
-                        // in a local database to further audit in case the connection is lost and a
-                        // sale was actually performed.
+                        //  in a local database to further audit in case the connection is lost and
+                        //  a sale was actually performed.
                         Timber.tag(TAG).d("Unable to perform the Sale: [%s].", exc.getMessage());
                         NotificationUtil.notify(getContext(), saleFailedNotification);
                       });
