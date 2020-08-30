@@ -1,7 +1,6 @@
 package com.toolinc.openairmarket.ui.fragment.base;
 
 import android.content.res.Configuration;
-import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
@@ -24,16 +23,12 @@ public abstract class DrawerMenuFragment extends Fragment {
   @NonNull private Toolbar toolbar;
   @NonNull private DrawerLayout drawerLayout;
   @NonNull private NavigationView navigationView;
-
-  @Override
-  public void onCreate(@Nullable Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    navigationView = getActivity().findViewById(R.id.nav_view);
-    NavController navController = Navigation.findNavController(getActivity(), R.id.nav_drawer_fragment);
-    NavigationUI.setupWithNavController(navigationView, navController);
-  }
+  @NonNull private NavController navController;
 
   protected void bindComponents() {
+    navigationView = getActivity().findViewById(R.id.nav_view);
+    navController = Navigation.findNavController(getActivity(), R.id.nav_drawer_fragment);
+    NavigationUI.setupWithNavController(navigationView, navController);
     drawerLayout = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout);
     if (isLandscape()) {
       topAppBar = (MaterialToolbar) getActivity().findViewById(R.id.top_app_bar);
@@ -42,7 +37,6 @@ public abstract class DrawerMenuFragment extends Fragment {
       bottomAppBar = (BottomAppBar) getActivity().findViewById(R.id.bottom_app_bar);
       toolbar = bottomAppBar;
     }
-    NavController navController = Navigation.findNavController(getActivity(), R.id.nav_drawer_fragment);
     AppBarConfiguration appBarConfiguration =
         new AppBarConfiguration.Builder(navController.getGraph())
             .setOpenableLayout(drawerLayout)
