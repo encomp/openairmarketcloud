@@ -17,7 +17,7 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import com.toolinc.openairmarket.R;
 import com.toolinc.openairmarket.databinding.ItemQuickAccessBinding;
-import com.toolinc.openairmarket.model.QuickAccess;
+import com.toolinc.openairmarket.viewmodel.QuickAccess;
 
 /**
  * Adapter that provides a binding from an {@link ImmutableList} of {@link QuickAccess} to the view

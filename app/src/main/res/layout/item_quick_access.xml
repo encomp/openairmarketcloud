@@ -5,7 +5,7 @@
 
         <variable
             name="quickAccess"
-            type="com.toolinc.openairmarket.model.QuickAccess" />
+            type="com.toolinc.openairmarket.viewmodel.QuickAccess" />
     </data>
 
     <FrameLayout

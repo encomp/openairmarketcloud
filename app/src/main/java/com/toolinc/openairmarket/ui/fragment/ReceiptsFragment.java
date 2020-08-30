@@ -31,7 +31,7 @@ import com.toolinc.openairmarket.R;
 import com.toolinc.openairmarket.common.NotificationUtil;
 import com.toolinc.openairmarket.common.NotificationUtil.ChannelProperties;
 import com.toolinc.openairmarket.common.NotificationUtil.NotificationProperties;
-import com.toolinc.openairmarket.model.QuickAccess;
+import com.toolinc.openairmarket.viewmodel.QuickAccess;
 import com.toolinc.openairmarket.persistence.cloud.ProductsRepository;
 import com.toolinc.openairmarket.persistence.cloud.SaleRepository;
 import com.toolinc.openairmarket.ui.MainActivity;

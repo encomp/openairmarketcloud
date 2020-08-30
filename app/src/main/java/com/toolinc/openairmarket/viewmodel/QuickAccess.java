@@ -1,4 +1,4 @@
-package com.toolinc.openairmarket.model;
+package com.toolinc.openairmarket.viewmodel;
 
 import android.content.Context;
 

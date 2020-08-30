@@ -9,6 +9,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -16,10 +18,13 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.toolinc.openairmarket.R;
 import com.toolinc.openairmarket.persistence.cloud.ProductsRepository;
 import com.toolinc.openairmarket.ui.MainActivity;
+import com.toolinc.openairmarket.ui.adapter.QuickAccessListAdapter;
 import com.toolinc.openairmarket.ui.component.CodeBarComponent;
+import com.toolinc.openairmarket.viewmodel.QuickAccess;
 import com.toolinc.openairmarket.viewmodel.ReceiptsViewModel;
 import dagger.hilt.android.AndroidEntryPoint;
 import javax.inject.Inject;
+import timber.log.Timber;
 
 /** SearchBox fragment to handle product search and quick access products. */
 @AndroidEntryPoint
@@ -64,6 +69,7 @@ public class SearchBoxFragment extends Fragment {
           initCodeBarComponent();
         });
     initCodeBarComponent();
+    setUpBottomSheet(view);
     return view;
   }
 
@@ -77,5 +83,22 @@ public class SearchBoxFragment extends Fragment {
           .setFloatingActionButton(floatingActionButton)
           .setReceiptFragmentStatePagerAdapter(receiptFragmentStatePagerAdapter).build();
     }
+  }
+
+  private void setUpBottomSheet(View view) {
+    RecyclerView recyclerView = view.findViewById(R.id.quick_access_btn);
+    QuickAccessListAdapter adapter =
+        new QuickAccessListAdapter(
+            QuickAccess.quickAccessesButtons(getContext()), this::onClickQuickAccess);
+    recyclerView.setAdapter(adapter);
+    GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
+    recyclerView.setLayoutManager(gridLayoutManager);
+  }
+
+  private void onClickQuickAccess(String productId) {
+    productsRepository
+        .findProductById(productId, product -> receiptFragmentStatePagerAdapter.addProduct(product),
+            e -> Timber.tag(TAG).e(e), task -> {
+            });
   }
 }
