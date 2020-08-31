@@ -14,14 +14,14 @@ import com.toolinc.openairmarket.R;
 @AutoValue
 public abstract class QuickAccess {
 
-  @ColorRes private static final int BUTTON_COLOR = R.color.color_secondary;
+  @ColorRes private static final int BUTTON_COLOR = R.color.teal_800;
 
-  @ColorRes private static final int BUTTON_RIPPLE = R.color.color_secondary_variant;
+  @ColorRes private static final int BUTTON_RIPPLE = R.color.teal_300;
+
+  @ColorRes private static final int BUTTON_ACCENT_COLOR = R.color.indigo_800;
 
   @ColorRes
-  private static final int BUTTON_ACCENT_RIPPLE = R.color.amber_300;
-
-  @ColorRes private static final int BUTTON_ACCENT_COLOR = R.color.amber_700;
+  private static final int BUTTON_ACCENT_RIPPLE = R.color.indigo_300;
 
   public abstract String productId();
 
