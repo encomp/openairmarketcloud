@@ -39,6 +39,7 @@
         <item name="chipStrokeWidth">1dp</item>
         <item name="chipStrokeColor">@color/black</item>
         <item name="android:textColor">@color/black</item>
+        <item name="android:fontFamily">@font/google_sans_bold</item>
     </style>
 
     <style name="Widget.Pos.Chip.Hairline.Amber.Text" parent="Widget.Pos.Chip.Action.Hairline.Text">
