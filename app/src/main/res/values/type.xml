@@ -37,6 +37,10 @@
     <!--letterSpacing, etc. to define a custom appearance for each and see how they are -->
     <!--applied globally across your app.-->
 
+    <style name="TextAppearance.MyTheme.Headline" parent="TextAppearance.AppCompat.Headline">
+        <item name="fontFamily">@font/google_sans</item>
+    </style>
+
     <style name="TextAppearance.MyTheme.Headline1" parent="TextAppearance.MaterialComponents.Headline1">
         <item name="fontFamily">@font/google_sans</item>
     </style>
