@@ -7,7 +7,8 @@
   <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_margin="@dimen/standard_spacing">
 
     <LinearLayout
       android:layout_width="match_parent"
@@ -16,10 +17,9 @@
 
       <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/standard_spacing"
-        android:layout_marginTop="@dimen/standard_spacing"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_gravity="center"
         android:contentDescription="@string/cancel_sale_dialog_image_description"
         app:srcCompat="@drawable/ic_remove_shopping" />
 
@@ -28,18 +28,19 @@
         android:layout_height="wrap_content">
 
         <TextView
-          style="@style/TextAppearance.AppCompat.Title"
+          style="@style/TextAppearance.MyTheme.Headline"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_gravity="center"
           android:layout_marginEnd="24dp"
           android:padding="@dimen/small_spacing"
+          android:textStyle="bold"
           android:text="@string/cancel_sale_dialog_title" />
       </FrameLayout>
     </LinearLayout>
 
     <TextView
-      style="@style/TextAppearance.AppCompat.Medium"
+      style="@style/TextAppearance.MyTheme.Subtitle1"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_gravity="center"
