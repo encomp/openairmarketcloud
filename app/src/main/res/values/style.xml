@@ -56,20 +56,23 @@
 
     <!-- Outline Buttons -->
     <style name="Widget.Pos.Button.OutlinedButton.Blue" parent="Widget.MaterialComponents.Button.OutlinedButton">
-        <item name="rippleColor">@color/color_secondary_variant</item>
-        <item name="android:textColor">@color/color_secondary</item>
-        <item name="strokeColor">@color/color_secondary</item>
+        <item name="rippleColor">@color/light_blue_300</item>
+        <item name="android:textColor">@color/light_blue_800</item>
+        <item name="strokeColor">@color/light_blue_800</item>
+        <item name="android:fontFamily">@font/google_sans</item>
     </style>
 
     <style name="Widget.Pos.Button.OutlinedButton.Red" parent="Widget.MaterialComponents.Button.OutlinedButton">
-        <item name="rippleColor">@color/red_a200</item>
-        <item name="android:textColor">@color/red_a400</item>
-        <item name="strokeColor">@color/red_a400</item>
+        <item name="rippleColor">@color/red_300</item>
+        <item name="android:textColor">@color/red_700</item>
+        <item name="strokeColor">@color/red_700</item>
+        <item name="android:fontFamily">@font/google_sans</item>
     </style>
 
     <style name="Widget.Pos.Button.OutlinedButton.Yellow" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="rippleColor">@color/amber_300</item>
-        <item name="android:textColor">@color/amber_700</item>
-        <item name="strokeColor">@color/amber_700</item>
+        <item name="android:textColor">@color/amber_800</item>
+        <item name="strokeColor">@color/amber_800</item>
+        <item name="android:fontFamily">@font/google_sans_bold</item>
     </style>
 </resources>
