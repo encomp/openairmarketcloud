@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.chip.Chip;
 import com.google.common.base.Preconditions;
@@ -47,6 +48,8 @@ public final class QuickAccessListAdapter
     Chip textChip =
         holder.itemBinding.getRoot().findViewById(R.id.quick_access_btn_container);
     textChip.setChipStrokeColorResource(quickAccess.textColor());
+    textChip.setTextColor(AppCompatResources
+        .getColorStateList(holder.itemBinding.getRoot().getContext(), quickAccess.textColor()));
     textChip.setRippleColorResource(quickAccess.rippleColor());
     textChip.setOnClickListener(holder);
     holder.itemBinding.setQuickAccess(quickAccess);
