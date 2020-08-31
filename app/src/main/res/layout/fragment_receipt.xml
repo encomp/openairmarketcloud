@@ -47,8 +47,8 @@
     android:layout_marginStart="@dimen/large_spacing"
     android:layout_marginEnd="@dimen/large_spacing"
     android:layout_below="@+id/guideline"
-    android:backgroundTint="@color/grey_300"
-    app:cardCornerRadius="@dimen/tiny_spacing"
+    android:backgroundTint="@color/grey_100"
+    app:shapeAppearance="@style/ShapeAppearance.Pos.Total.Card"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintTop_toTopOf="@+id/guideline">
 
@@ -75,6 +75,7 @@
         android:paddingStart="@dimen/large_spacing"
         android:paddingEnd="@dimen/large_spacing"
         android:gravity="end"
+        android:textColor="@color/red_700"
         tools:text="$20.23" />
     </LinearLayout>
 
