@@ -3,6 +3,8 @@ package com.toolinc.openairmarket.ui.fragment;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.res.Configuration;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -175,6 +177,7 @@ public class ReceiptsFragment extends Fragment {
     if (receiptFragmentStatePagerAdapter.getReceiptViewModel().getLines().getValue().size() > 0) {
       final AlertDialog alertDialog =
           new AlertDialog.Builder(getContext()).setView(R.layout.dialog_complete_sale).create();
+      alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
       // Define the dialog listeners.
       alertDialog.setOnShowListener(
           (dialog) -> {
@@ -240,6 +243,7 @@ public class ReceiptsFragment extends Fragment {
     if (receiptFragmentStatePagerAdapter.getReceiptViewModel().getLines().getValue().size() > 0) {
       final AlertDialog alertDialog =
           new AlertDialog.Builder(getContext()).setView(R.layout.dialog_cancel_sale).create();
+      alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
       // Define the button listeners.
       alertDialog.setOnShowListener(
           (dialog) -> {
