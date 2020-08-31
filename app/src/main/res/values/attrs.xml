@@ -21,6 +21,6 @@
        when the style is set globally, due to how ThemeOverlays get created and resolved. So,
        instead on each Toolbar we have to explicitly set style="?attr/catalogToolbarStyle" or
        style="?attr/catalogToolbarWithCloseButtonStyle" if the toolbar contains a close button. -->
-  <attr name="buttonBlueStyle" format="reference"/>
-  <attr name="buttonRedStyle" format="reference"/>
+  <attr name="chipFilledBlueStyle" format="reference"/>
+  <attr name="chipFilledRedStyle" format="reference"/>
 </resources>

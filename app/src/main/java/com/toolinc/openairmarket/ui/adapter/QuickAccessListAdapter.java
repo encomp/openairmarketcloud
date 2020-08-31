@@ -1,18 +1,11 @@
 package com.toolinc.openairmarket.ui.adapter;
 
-import android.graphics.PorterDuff;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
-
 import androidx.annotation.NonNull;
-import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.android.material.button.MaterialButton;
+import com.google.android.material.chip.Chip;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import com.toolinc.openairmarket.R;
@@ -51,21 +44,11 @@ public final class QuickAccessListAdapter
   @Override
   public void onBindViewHolder(@NonNull QuickAccessViewHolder holder, int position) {
     QuickAccess quickAccess = quickAccesses.get(position);
-    FrameLayout frameLayout =
+    Chip textChip =
         holder.itemBinding.getRoot().findViewById(R.id.quick_access_btn_container);
-    ContextThemeWrapper contextThemeWrapper =
-        new ContextThemeWrapper(holder.itemBinding.getRoot().getContext(), quickAccess.style());
-    MaterialButton button = new MaterialButton(contextThemeWrapper, null, quickAccess.style());
-    button.setBackgroundTintMode(PorterDuff.Mode.CLEAR);
-    button.setRippleColorResource(quickAccess.rippleColor());
-    button.setText(quickAccess.shortDesc());
-    LinearLayout.LayoutParams layoutParams =
-        new LinearLayout.LayoutParams(
-            ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-    layoutParams.gravity = Gravity.CENTER;
-    button.setLayoutParams(layoutParams);
-    button.setOnClickListener(holder);
-    frameLayout.addView(button);
+    textChip.setChipStrokeColorResource(quickAccess.textColor());
+    textChip.setRippleColorResource(quickAccess.rippleColor());
+    textChip.setOnClickListener(holder);
     holder.itemBinding.setQuickAccess(quickAccess);
   }
 

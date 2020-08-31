@@ -66,8 +66,8 @@
         <item name="toolbarStyle">@style/Widget.MaterialComponents.Toolbar.PrimarySurface</item>
 
         <!-- Pos Styles -->
-        <item name="buttonBlueStyle">@style/Widget.Pos.Button.Blue</item>
-        <item name="buttonRedStyle">@style/Widget.Pos.Button.Red</item>
+        <item name="chipFilledBlueStyle">@style/Widget.Pos.Chip.Action.Filled.Blue</item>
+        <item name="chipFilledRedStyle">@style/Widget.Pos.Chip.Action.Filled.Red</item>
     </style>
 
     <style name="Widget.Pos.ActionBar" parent="Widget.AppCompat.Light.ActionBar">
