@@ -94,9 +94,10 @@
         <item name="android:textSize">@dimen/section_header_text_size</item>
     </style>
 
-    <style name="TextAppearance.Pos.Filter" parent="TextAppearance.AppCompat.Medium">
+    <style name="TextAppearance.Pos.Filter" parent="TextAppearance.MyTheme.Button">
         <item name="android:textColor">@color/black_alpha_96</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:textSize">18sp</item>
     </style>
 
     <style name="TextAppearance.Pos.Filter.SubHead" parent="TextAppearance.AppCompat.Subhead">
