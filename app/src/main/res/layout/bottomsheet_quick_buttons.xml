@@ -28,6 +28,12 @@
       android:text="@string/bottom_sheet_quick_access" />
   </FrameLayout>
 
-  <include layout="@layout/layout_quick_buttons" />
+  <FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/standard_spacing">
+
+    <include layout="@layout/layout_quick_buttons" />
+  </FrameLayout>
 
 </LinearLayout>
