@@ -2,7 +2,6 @@ package com.toolinc.openairmarket.ui.fragment;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -13,16 +12,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -35,27 +33,33 @@ import com.toolinc.openairmarket.R;
 import com.toolinc.openairmarket.common.NotificationUtil;
 import com.toolinc.openairmarket.common.NotificationUtil.ChannelProperties;
 import com.toolinc.openairmarket.common.NotificationUtil.NotificationProperties;
-import com.toolinc.openairmarket.viewmodel.QuickAccess;
 import com.toolinc.openairmarket.persistence.cloud.ProductsRepository;
 import com.toolinc.openairmarket.persistence.cloud.SaleRepository;
 import com.toolinc.openairmarket.ui.MainActivity;
 import com.toolinc.openairmarket.ui.adapter.QuickAccessListAdapter;
 import com.toolinc.openairmarket.ui.component.CodeBarComponent;
+import com.toolinc.openairmarket.ui.fragment.base.BaseFragment;
 import com.toolinc.openairmarket.ui.fragment.inject.Annotations.Sale;
 import com.toolinc.openairmarket.ui.fragment.inject.Annotations.Sale.Failed;
 import com.toolinc.openairmarket.ui.fragment.inject.Annotations.Sale.Succeed;
+import com.toolinc.openairmarket.viewmodel.QuickAccess;
 import com.toolinc.openairmarket.viewmodel.ReceiptViewModel;
 import com.toolinc.openairmarket.viewmodel.ReceiptsViewModel;
-import dagger.hilt.android.AndroidEntryPoint;
+
 import java.math.BigDecimal;
+
 import javax.inject.Inject;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import dagger.hilt.android.AndroidEntryPoint;
 import timber.log.Timber;
 
 /**
  * Receipts fragment to handle product search and append.
  */
 @AndroidEntryPoint
-public class ReceiptsFragment extends Fragment {
+public class ReceiptsFragment extends BaseFragment {
 
   private static final String TAG = ReceiptsFragment.class.getSimpleName();
 
@@ -260,9 +264,5 @@ public class ReceiptsFragment extends Fragment {
           });
       alertDialog.show();
     }
-  }
-
-  private boolean isPortrait() {
-    return Configuration.ORIENTATION_PORTRAIT == getResources().getConfiguration().orientation;
   }
 }

@@ -1,22 +1,21 @@
 package com.toolinc.openairmarket.ui.fragment.base;
 
-import android.content.res.Configuration;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.navigation.NavigationView;
 import com.toolinc.openairmarket.R;
 
 /** Base fragment for the left side menu drawer. */
-public abstract class DrawerMenuFragment extends Fragment {
+public abstract class DrawerMenuFragment extends BaseFragment {
 
   @Nullable private MaterialToolbar topAppBar;
   @Nullable private BottomAppBar bottomAppBar;
@@ -42,10 +41,6 @@ public abstract class DrawerMenuFragment extends Fragment {
             .setOpenableLayout(drawerLayout)
             .build();
     NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration);
-  }
-
-  protected boolean isLandscape() {
-    return Configuration.ORIENTATION_LANDSCAPE == getResources().getConfiguration().orientation;
   }
 
   @Nullable

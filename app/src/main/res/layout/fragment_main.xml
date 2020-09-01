@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".ui.MainActivity">
 
-    <FrameLayout
+    <androidx.core.widget.NestedScrollView
+        android:fillViewport="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <fragment
@@ -15,13 +16,15 @@
           android:layout_width="match_parent"
           android:layout_height="match_parent"
           app:navGraph="@navigation/nav_drawer_graph" />
-    </FrameLayout>
+    </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottom_app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+        app:hideOnScroll="true"
+        app:layout_scrollFlags="scroll|enterAlways"
         app:fabAlignmentMode="end" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
