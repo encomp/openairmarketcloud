@@ -6,28 +6,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.evrencoskun.tableview.TableView;
 import com.toolinc.openairmarket.R;
-import com.toolinc.openairmarket.persistence.local.database.model.CollectionSyncState;
 import com.toolinc.openairmarket.persistence.local.database.dao.CollectionSyncStateRepository;
+import com.toolinc.openairmarket.persistence.local.database.model.CollectionSyncState;
 import com.toolinc.openairmarket.ui.adapter.OfflineTableViewAdapter;
 import com.toolinc.openairmarket.ui.fragment.base.DrawerMenuFragment;
 import com.toolinc.openairmarket.ui.view.tableview.TableViewListener;
-import com.toolinc.openairmarket.ui.view.tableview.adapter.TableViewAdapter;
 import com.toolinc.openairmarket.ui.view.tableview.TableViewModel;
-
-import java.util.List;
-
-import javax.inject.Inject;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
+import com.toolinc.openairmarket.ui.view.tableview.adapter.TableViewAdapter;
 import dagger.hilt.android.AndroidEntryPoint;
+import java.util.List;
+import javax.inject.Inject;
 
 /** Offline configuration fragment. */
 @AndroidEntryPoint
@@ -71,9 +66,9 @@ public class OfflineFragment extends DrawerMenuFragment {
             .setOnCellClickListener(
                 (cellView, row, column) -> {
                   Toast.makeText(
-                          OfflineFragment.this.getContext(),
-                          "" + row + ":" + column,
-                          Toast.LENGTH_LONG)
+                      OfflineFragment.this.getContext(),
+                      "" + row + ":" + column,
+                      Toast.LENGTH_LONG)
                       .show();
                 })
             .build());
@@ -84,7 +79,7 @@ public class OfflineFragment extends DrawerMenuFragment {
     showProgressBar();
     collectionSyncStates = collectionSyncStateRepository.getAll();
     collectionSyncStates.observe(
-        this,
+        getViewLifecycleOwner(),
         collectionSyncStates -> {
           TableViewModel tableViewModel =
               TableViewModel.builder(new OfflineTableViewAdapter())
