@@ -11,10 +11,10 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import com.toolinc.openairmarket.R;
 import com.toolinc.openairmarket.databinding.ItemQuickAccessProductBinding;
-import com.toolinc.openairmarket.viewmodel.QuickAccessProduct;
+import com.toolinc.openairmarket.viewmodel.QuickAccessProductViewModel;
 
 /**
- * Adapter that provides a binding from an {@link ImmutableList} of {@link QuickAccessProduct} to
+ * Adapter that provides a binding from an {@link ImmutableList} of {@link QuickAccessProductViewModel} to
  * the view {@code R.layout.item_quick_access} displayed within a RecyclerView.
  */
 public final class QuickAccessProductListAdapter
@@ -28,10 +28,10 @@ public final class QuickAccessProductListAdapter
     void onClickQuickAccess(String productId);
   }
 
-  private final ImmutableList<QuickAccessProduct> quickAccesses;
+  private final ImmutableList<QuickAccessProductViewModel> quickAccesses;
   private final OnClick onClick;
 
-  public QuickAccessProductListAdapter(ImmutableList<QuickAccessProduct> quickAccesses,
+  public QuickAccessProductListAdapter(ImmutableList<QuickAccessProductViewModel> quickAccesses,
       OnClick onClick) {
     this.quickAccesses =
         Preconditions.checkNotNull(quickAccesses, "Quick Access items are missing.");
@@ -49,7 +49,7 @@ public final class QuickAccessProductListAdapter
 
   @Override
   public void onBindViewHolder(@NonNull QuickAccessViewHolder holder, int position) {
-    QuickAccessProduct quickAccess = quickAccesses.get(position);
+    QuickAccessProductViewModel quickAccess = quickAccesses.get(position);
     Chip textChip =
         holder.itemBinding.getRoot().findViewById(R.id.quick_access_btn_container);
     textChip.setChipStrokeColorResource(quickAccess.textColor());
@@ -66,7 +66,7 @@ public final class QuickAccessProductListAdapter
   }
 
   /**
-   * Describes a {@link QuickAccessProduct} item about its place within the RecyclerView.
+   * Describes a {@link QuickAccessProductViewModel} item about its place within the RecyclerView.
    */
   final class QuickAccessViewHolder extends RecyclerView.ViewHolder
       implements View.OnClickListener {

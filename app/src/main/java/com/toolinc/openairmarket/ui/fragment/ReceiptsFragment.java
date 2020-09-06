@@ -42,7 +42,7 @@ import com.toolinc.openairmarket.ui.fragment.base.BaseFragment;
 import com.toolinc.openairmarket.ui.fragment.inject.Annotations.Sale;
 import com.toolinc.openairmarket.ui.fragment.inject.Annotations.Sale.Failed;
 import com.toolinc.openairmarket.ui.fragment.inject.Annotations.Sale.Succeed;
-import com.toolinc.openairmarket.viewmodel.QuickAccessProduct;
+import com.toolinc.openairmarket.viewmodel.QuickAccessProductViewModel;
 import com.toolinc.openairmarket.viewmodel.ReceiptViewModel;
 import com.toolinc.openairmarket.viewmodel.ReceiptsViewModel;
 
@@ -154,7 +154,7 @@ public class ReceiptsFragment extends BaseFragment {
     RecyclerView recyclerView = bottomSheetDialog.findViewById(R.id.quick_access_btn);
     QuickAccessProductListAdapter adapter =
         new QuickAccessProductListAdapter(
-            QuickAccessProduct.quickAccessesButtons(getContext()), this::onClickQuickAccess);
+            QuickAccessProductViewModel.quickAccessesButtons(getContext()), this::onClickQuickAccess);
     recyclerView.setAdapter(adapter);
     GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
     recyclerView.setLayoutManager(gridLayoutManager);

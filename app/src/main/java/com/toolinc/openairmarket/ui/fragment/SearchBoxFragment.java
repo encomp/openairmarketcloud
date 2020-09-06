@@ -22,7 +22,7 @@ import com.toolinc.openairmarket.persistence.cloud.ProductsRepository;
 import com.toolinc.openairmarket.ui.MainActivity;
 import com.toolinc.openairmarket.ui.adapter.QuickAccessProductListAdapter;
 import com.toolinc.openairmarket.ui.component.CodeBarComponent;
-import com.toolinc.openairmarket.viewmodel.QuickAccessProduct;
+import com.toolinc.openairmarket.viewmodel.QuickAccessProductViewModel;
 import com.toolinc.openairmarket.viewmodel.ReceiptsViewModel;
 import dagger.hilt.android.AndroidEntryPoint;
 import javax.inject.Inject;
@@ -95,7 +95,7 @@ public class SearchBoxFragment extends Fragment {
     recyclerViewQuickButtons.setLayoutManager(gridLayoutManager);
     QuickAccessProductListAdapter adapter =
         new QuickAccessProductListAdapter(
-            QuickAccessProduct.quickAccessesButtons(getContext()), this::onClickQuickAccess);
+            QuickAccessProductViewModel.quickAccessesButtons(getContext()), this::onClickQuickAccess);
     recyclerViewQuickButtons.setAdapter(adapter);
   }
 
