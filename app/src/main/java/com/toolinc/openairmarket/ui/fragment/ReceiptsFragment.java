@@ -34,6 +34,7 @@ import com.toolinc.openairmarket.common.NotificationUtil;
 import com.toolinc.openairmarket.common.NotificationUtil.ChannelProperties;
 import com.toolinc.openairmarket.common.NotificationUtil.NotificationProperties;
 import com.toolinc.openairmarket.persistence.cloud.ProductsRepository;
+import com.toolinc.openairmarket.persistence.cloud.QuickAccessProductRepository;
 import com.toolinc.openairmarket.persistence.cloud.SaleRepository;
 import com.toolinc.openairmarket.ui.MainActivity;
 import com.toolinc.openairmarket.ui.adapter.QuickAccessProductListAdapter;
@@ -66,6 +67,7 @@ public class ReceiptsFragment extends BaseFragment {
   @Inject ViewModelProvider.Factory viewModelFactory;
   @Inject ProductsRepository productsRepository;
   @Inject SaleRepository saleRepository;
+  @Inject QuickAccessProductRepository quickAccessProductRepository;
   @Inject @Sale ChannelProperties channelProperties;
   @Inject @Succeed NotificationProperties saleSucceedNotification;
   @Inject @Failed NotificationProperties saleFailedNotification;
@@ -89,6 +91,9 @@ public class ReceiptsFragment extends BaseFragment {
 
   @BindView(R.id.pay_btn)
   Button payBtn;
+
+  @Nullable RecyclerView recyclerViewQuickButtons;
+  @Nullable ProgressBar progressBarQuickAccess;
 
   private ReceiptsViewModel receiptsViewModel;
   private ReceiptFragmentStatePagerAdapter receiptFragmentStatePagerAdapter;
@@ -151,15 +156,25 @@ public class ReceiptsFragment extends BaseFragment {
   private void setUpBottomSheet() {
     bottomSheetDialog = new BottomSheetDialog(getActivity());
     bottomSheetDialog.setContentView(R.layout.bottomsheet_quick_access_product);
-    RecyclerView recyclerView = bottomSheetDialog.findViewById(R.id.quick_access_btn);
-    QuickAccessProductListAdapter adapter =
-        new QuickAccessProductListAdapter(
-            QuickAccessProductViewModel.quickAccessesButtons(getContext()), this::onClickQuickAccess);
-    recyclerView.setAdapter(adapter);
+    recyclerViewQuickButtons = bottomSheetDialog.findViewById(R.id.quick_access_btn);
+    progressBarQuickAccess = bottomSheetDialog.findViewById(R.id.quick_access_progress_bar);
     GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
-    recyclerView.setLayoutManager(gridLayoutManager);
+    recyclerViewQuickButtons.setLayoutManager(gridLayoutManager);
+    quickAccessProductRepository.getAll(quickAccessProducts -> {
+      getActivity().runOnUiThread(() -> {
+        QuickAccessProductListAdapter adapter =
+            new QuickAccessProductListAdapter(
+                QuickAccessProductViewModel.quickAccessesButtons(getContext(), quickAccessProducts),
+                this::onClickQuickAccess);
+        recyclerViewQuickButtons.setAdapter(adapter);
+        hideQuickAccessProgressBar();
+      });
+    }, e -> {
+
+    });
     View bottomSheetInternal = bottomSheetDialog.findViewById(R.id.design_bottom_sheet);
-    BottomSheetBehavior.from(bottomSheetInternal).setPeekHeight(230);
+    BottomSheetBehavior.from(bottomSheetInternal).setPeekHeight(250);
+    showQuickAccessProgressBar();
   }
 
   private boolean onMenuItemClick(MenuItem menuItem) {
@@ -264,5 +279,15 @@ public class ReceiptsFragment extends BaseFragment {
           });
       alertDialog.show();
     }
+  }
+
+  private void showQuickAccessProgressBar() {
+    progressBarQuickAccess.setVisibility(View.VISIBLE);
+    recyclerViewQuickButtons.setVisibility(View.GONE);
+  }
+
+  private void hideQuickAccessProgressBar() {
+    progressBarQuickAccess.setVisibility(View.GONE);
+    recyclerViewQuickButtons.setVisibility(View.VISIBLE);
   }
 }

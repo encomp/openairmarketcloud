@@ -19,6 +19,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.toolinc.openairmarket.R;
 import com.toolinc.openairmarket.persistence.cloud.ProductsRepository;
+import com.toolinc.openairmarket.persistence.cloud.QuickAccessProductRepository;
 import com.toolinc.openairmarket.ui.MainActivity;
 import com.toolinc.openairmarket.ui.adapter.QuickAccessProductListAdapter;
 import com.toolinc.openairmarket.ui.component.CodeBarComponent;
@@ -28,7 +29,9 @@ import dagger.hilt.android.AndroidEntryPoint;
 import javax.inject.Inject;
 import timber.log.Timber;
 
-/** SearchBox fragment to handle product search and quick access products. */
+/**
+ * SearchBox fragment to handle product search and quick access products.
+ */
 @AndroidEntryPoint
 public class SearchBoxFragment extends Fragment {
 
@@ -36,6 +39,7 @@ public class SearchBoxFragment extends Fragment {
 
   @Inject ViewModelProvider.Factory viewModelFactory;
   @Inject ProductsRepository productsRepository;
+  @Inject QuickAccessProductRepository quickAccessProductRepository;
 
   @BindView(R.id.text_input_edit_text)
   TextInputEditText textInputEditText;
@@ -45,6 +49,9 @@ public class SearchBoxFragment extends Fragment {
 
   @BindView(R.id.fab_add_to_receipt)
   FloatingActionButton floatingActionButton;
+
+  @BindView(R.id.quick_access_progress_bar)
+  ProgressBar progressBarQuickAccess;
 
   @BindView(R.id.quick_access_btn)
   RecyclerView recyclerViewQuickButtons;
@@ -93,10 +100,19 @@ public class SearchBoxFragment extends Fragment {
   private void initQuickButtons() {
     GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
     recyclerViewQuickButtons.setLayoutManager(gridLayoutManager);
-    QuickAccessProductListAdapter adapter =
-        new QuickAccessProductListAdapter(
-            QuickAccessProductViewModel.quickAccessesButtons(getContext()), this::onClickQuickAccess);
-    recyclerViewQuickButtons.setAdapter(adapter);
+    quickAccessProductRepository.getAll(quickAccessProducts -> {
+      getActivity().runOnUiThread(() -> {
+        QuickAccessProductListAdapter adapter =
+            new QuickAccessProductListAdapter(
+                QuickAccessProductViewModel.quickAccessesButtons(getContext(), quickAccessProducts),
+                this::onClickQuickAccess);
+        recyclerViewQuickButtons.setAdapter(adapter);
+        hideQuickAccessProgressBar();
+      });
+    }, e -> {
+
+    });
+    showQuickAccessProgressBar();
   }
 
   private void onClickQuickAccess(String productId) {
@@ -104,5 +120,15 @@ public class SearchBoxFragment extends Fragment {
         .findProductById(productId, product -> receiptFragmentStatePagerAdapter.addProduct(product),
             e -> Timber.tag(TAG).e(e), task -> {
             });
+  }
+
+  private void showQuickAccessProgressBar() {
+    progressBarQuickAccess.setVisibility(View.VISIBLE);
+    recyclerViewQuickButtons.setVisibility(View.GONE);
+  }
+
+  private void hideQuickAccessProgressBar() {
+    progressBarQuickAccess.setVisibility(View.GONE);
+    recyclerViewQuickButtons.setVisibility(View.VISIBLE);
   }
 }
