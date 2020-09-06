@@ -12,15 +12,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -29,7 +28,6 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.common.collect.ImmutableList;
 import com.toolinc.openairmarket.OpenAirMarketApplication;
 import com.toolinc.openairmarket.R;
 import com.toolinc.openairmarket.common.NotificationUtil;
@@ -39,23 +37,17 @@ import com.toolinc.openairmarket.persistence.cloud.ProductsRepository;
 import com.toolinc.openairmarket.persistence.cloud.QuickAccessProductRepository;
 import com.toolinc.openairmarket.persistence.cloud.SaleRepository;
 import com.toolinc.openairmarket.ui.MainActivity;
-import com.toolinc.openairmarket.ui.adapter.QuickAccessProductListAdapter;
 import com.toolinc.openairmarket.ui.component.CodeBarComponent;
+import com.toolinc.openairmarket.ui.component.QuickAccessComponent;
 import com.toolinc.openairmarket.ui.fragment.base.BaseFragment;
 import com.toolinc.openairmarket.ui.fragment.inject.Annotations.Sale;
 import com.toolinc.openairmarket.ui.fragment.inject.Annotations.Sale.Failed;
 import com.toolinc.openairmarket.ui.fragment.inject.Annotations.Sale.Succeed;
-import com.toolinc.openairmarket.viewmodel.QuickAccessProductViewModel;
 import com.toolinc.openairmarket.viewmodel.ReceiptViewModel;
 import com.toolinc.openairmarket.viewmodel.ReceiptsViewModel;
-
-import java.math.BigDecimal;
-
-import javax.inject.Inject;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import dagger.hilt.android.AndroidEntryPoint;
+import java.math.BigDecimal;
+import javax.inject.Inject;
 import timber.log.Timber;
 
 /**
@@ -106,8 +98,8 @@ public class ReceiptsFragment extends BaseFragment {
   FloatingActionButton floatingActionButton;
   private @Nullable
   BottomSheetDialog bottomSheetDialog;
-  private @Nullable
-  CodeBarComponent codeBarComponent;
+  private @Nullable CodeBarComponent codeBarComponent;
+  private @Nullable QuickAccessComponent quickAccessComponent;
 
   @Override
   public void onAttach(@NonNull Context context) {
@@ -160,26 +152,18 @@ public class ReceiptsFragment extends BaseFragment {
     bottomSheetDialog.setContentView(R.layout.bottomsheet_quick_access_product);
     recyclerViewQuickButtons = bottomSheetDialog.findViewById(R.id.quick_access_btn);
     progressBarQuickAccess = bottomSheetDialog.findViewById(R.id.quick_access_progress_bar);
-    GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
-    recyclerViewQuickButtons.setLayoutManager(gridLayoutManager);
-    receiptsViewModel.getQuickAccessProducts().observe(getViewLifecycleOwner(), (observer) -> {
-      QuickAccessProductListAdapter adapter =
-          new QuickAccessProductListAdapter(
-              observer.asList(),
-              this::onClickQuickAccess);
-      recyclerViewQuickButtons.setAdapter(adapter);
-      hideQuickAccessProgressBar();
-    });
-    quickAccessProductRepository.getAll(quickAccessProducts -> {
-      ImmutableList<QuickAccessProductViewModel> quickAccessProductViewModels
-          = QuickAccessProductViewModel.quickAccessesButtons(getContext(), quickAccessProducts);
-      receiptsViewModel.getQuickAccessProducts().postValue(quickAccessProductViewModels);
-    }, e -> {
-
-    });
+    quickAccessComponent = QuickAccessComponent
+        .builder()
+        .setContext(getContext())
+        .setLifecycleOwner(getViewLifecycleOwner())
+        .setReceiptsViewModel(receiptsViewModel)
+        .setQuickAccessProductRepository(quickAccessProductRepository)
+        .setLottieAnimationView(progressBarQuickAccess)
+        .setRecyclerView(recyclerViewQuickButtons)
+        .setOnClickQuickAccess(this::onClickQuickAccess)
+        .build();
     View bottomSheetInternal = bottomSheetDialog.findViewById(R.id.design_bottom_sheet);
     BottomSheetBehavior.from(bottomSheetInternal).setPeekHeight(250);
-    showQuickAccessProgressBar();
   }
 
   private boolean onMenuItemClick(MenuItem menuItem) {
@@ -284,15 +268,5 @@ public class ReceiptsFragment extends BaseFragment {
           });
       alertDialog.show();
     }
-  }
-
-  private void showQuickAccessProgressBar() {
-    progressBarQuickAccess.setVisibility(View.VISIBLE);
-    recyclerViewQuickButtons.setVisibility(View.GONE);
-  }
-
-  private void hideQuickAccessProgressBar() {
-    progressBarQuickAccess.setVisibility(View.GONE);
-    recyclerViewQuickButtons.setVisibility(View.VISIBLE);
   }
 }

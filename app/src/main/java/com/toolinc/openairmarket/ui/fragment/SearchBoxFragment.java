@@ -11,21 +11,18 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.common.collect.ImmutableList;
 import com.toolinc.openairmarket.R;
 import com.toolinc.openairmarket.persistence.cloud.ProductsRepository;
 import com.toolinc.openairmarket.persistence.cloud.QuickAccessProductRepository;
 import com.toolinc.openairmarket.ui.MainActivity;
-import com.toolinc.openairmarket.ui.adapter.QuickAccessProductListAdapter;
 import com.toolinc.openairmarket.ui.component.CodeBarComponent;
-import com.toolinc.openairmarket.viewmodel.QuickAccessProductViewModel;
+import com.toolinc.openairmarket.ui.component.QuickAccessComponent;
 import com.toolinc.openairmarket.viewmodel.ReceiptsViewModel;
 import dagger.hilt.android.AndroidEntryPoint;
 import javax.inject.Inject;
@@ -61,6 +58,7 @@ public class SearchBoxFragment extends Fragment {
   private ReceiptsViewModel receiptsViewModel;
   private ReceiptFragmentStatePagerAdapter receiptFragmentStatePagerAdapter;
   private CodeBarComponent codeBarComponent;
+  private QuickAccessComponent quickAccessComponent;
 
   @Override
   public void onAttach(@NonNull Context context) {
@@ -100,24 +98,16 @@ public class SearchBoxFragment extends Fragment {
   }
 
   private void initQuickButtons() {
-    GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
-    recyclerViewQuickButtons.setLayoutManager(gridLayoutManager);
-    receiptsViewModel.getQuickAccessProducts().observe(getViewLifecycleOwner(), (observer) -> {
-      QuickAccessProductListAdapter adapter =
-          new QuickAccessProductListAdapter(
-              observer.asList(),
-              this::onClickQuickAccess);
-      recyclerViewQuickButtons.setAdapter(adapter);
-      hideQuickAccessProgressBar();
-    });
-    quickAccessProductRepository.getAll(quickAccessProducts -> {
-      ImmutableList<QuickAccessProductViewModel> quickAccessProductViewModels
-          = QuickAccessProductViewModel.quickAccessesButtons(getContext(), quickAccessProducts);
-      receiptsViewModel.getQuickAccessProducts().postValue(quickAccessProductViewModels);
-    }, e -> {
-
-    });
-    showQuickAccessProgressBar();
+    quickAccessComponent = QuickAccessComponent
+        .builder()
+        .setContext(getContext())
+        .setLifecycleOwner(getViewLifecycleOwner())
+        .setReceiptsViewModel(receiptsViewModel)
+        .setQuickAccessProductRepository(quickAccessProductRepository)
+        .setLottieAnimationView(progressBarQuickAccess)
+        .setRecyclerView(recyclerViewQuickButtons)
+        .setOnClickQuickAccess(this::onClickQuickAccess)
+        .build();
   }
 
   private void onClickQuickAccess(String productId) {
@@ -125,15 +115,5 @@ public class SearchBoxFragment extends Fragment {
         .findProductById(productId, product -> receiptFragmentStatePagerAdapter.addProduct(product),
             e -> Timber.tag(TAG).e(e), task -> {
             });
-  }
-
-  private void showQuickAccessProgressBar() {
-    progressBarQuickAccess.setVisibility(View.VISIBLE);
-    recyclerViewQuickButtons.setVisibility(View.GONE);
-  }
-
-  private void hideQuickAccessProgressBar() {
-    progressBarQuickAccess.setVisibility(View.GONE);
-    recyclerViewQuickButtons.setVisibility(View.VISIBLE);
   }
 }
