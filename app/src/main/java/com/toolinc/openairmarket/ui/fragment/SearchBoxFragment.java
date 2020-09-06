@@ -18,6 +18,7 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.toolinc.openairmarket.R;
+import com.toolinc.openairmarket.persistence.cloud.ProductMeasureUnitRepository;
 import com.toolinc.openairmarket.persistence.cloud.ProductsRepository;
 import com.toolinc.openairmarket.persistence.cloud.QuickAccessProductRepository;
 import com.toolinc.openairmarket.ui.MainActivity;
@@ -38,6 +39,7 @@ public class SearchBoxFragment extends Fragment {
 
   @Inject ViewModelProvider.Factory viewModelFactory;
   @Inject ProductsRepository productsRepository;
+  @Inject ProductMeasureUnitRepository productMeasureUnitRepository;
   @Inject QuickAccessProductRepository quickAccessProductRepository;
 
   @BindView(R.id.text_input_edit_text)
@@ -90,10 +92,12 @@ public class SearchBoxFragment extends Fragment {
         && receiptFragmentStatePagerAdapter != null) {
       codeBarComponent = CodeBarComponent.builder()
           .setProductsRepository(productsRepository)
+          .setProductMeasureUnitRepository(productMeasureUnitRepository)
           .setTextInputEditText(textInputEditText)
           .setProgressBar(progressBar)
           .setFloatingActionButton(floatingActionButton)
-          .setReceiptFragmentStatePagerAdapter(receiptFragmentStatePagerAdapter).build();
+          .setReceiptFragmentStatePagerAdapter(receiptFragmentStatePagerAdapter)
+          .build();
     }
   }
 
@@ -112,7 +116,7 @@ public class SearchBoxFragment extends Fragment {
 
   private void onClickQuickAccess(String productId) {
     productsRepository
-        .findProductById(productId, product -> receiptFragmentStatePagerAdapter.addProduct(product),
+        .findProductById(productId, product -> codeBarComponent.addProduct(product),
             e -> Timber.tag(TAG).e(e), task -> {
             });
   }

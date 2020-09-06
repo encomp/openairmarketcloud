@@ -33,6 +33,7 @@ import com.toolinc.openairmarket.R;
 import com.toolinc.openairmarket.common.NotificationUtil;
 import com.toolinc.openairmarket.common.NotificationUtil.ChannelProperties;
 import com.toolinc.openairmarket.common.NotificationUtil.NotificationProperties;
+import com.toolinc.openairmarket.persistence.cloud.ProductMeasureUnitRepository;
 import com.toolinc.openairmarket.persistence.cloud.ProductsRepository;
 import com.toolinc.openairmarket.persistence.cloud.QuickAccessProductRepository;
 import com.toolinc.openairmarket.persistence.cloud.SaleRepository;
@@ -60,6 +61,7 @@ public class ReceiptsFragment extends BaseFragment {
 
   @Inject ViewModelProvider.Factory viewModelFactory;
   @Inject ProductsRepository productsRepository;
+  @Inject ProductMeasureUnitRepository productMeasureUnitRepository;
   @Inject SaleRepository saleRepository;
   @Inject QuickAccessProductRepository quickAccessProductRepository;
   @Inject @Sale ChannelProperties channelProperties;
@@ -141,6 +143,7 @@ public class ReceiptsFragment extends BaseFragment {
           .setTextInputEditText(textInputEditText)
           .setProgressBar(progressBar)
           .setProductsRepository(productsRepository)
+          .setProductMeasureUnitRepository(productMeasureUnitRepository)
           .setReceiptFragmentStatePagerAdapter(receiptFragmentStatePagerAdapter)
           .build();
     }
@@ -176,7 +179,7 @@ public class ReceiptsFragment extends BaseFragment {
 
   private void onClickQuickAccess(String productId) {
     productsRepository
-        .findProductById(productId, product -> receiptFragmentStatePagerAdapter.addProduct(product),
+        .findProductById(productId, product -> codeBarComponent.addProduct(product),
             e -> Timber.tag(TAG).e(e), task -> {
             });
   }
