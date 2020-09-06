@@ -10,5 +10,6 @@ public final class CollectionsNames {
   public static final String PRODUCT_MANUFACTURERS = "productManufacturers";
   public static final String PRODUCT_UNITS = "productMeasureUnits";
   public static final String PRODUCTS = "products";
+  public static final String QUICK_ACCESS_PRODUCTS = "quickAccessProducts";
   public static final String SALES = "sales";
 }
