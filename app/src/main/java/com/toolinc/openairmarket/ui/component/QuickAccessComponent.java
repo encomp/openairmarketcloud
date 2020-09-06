@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
+import android.widget.Toast;
 import androidx.annotation.UiThread;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.airbnb.lottie.LottieAnimationView;
 import com.google.auto.value.AutoValue;
 import com.google.common.collect.ImmutableList;
+import com.toolinc.openairmarket.R;
 import com.toolinc.openairmarket.persistence.cloud.QuickAccessProductRepository;
 import com.toolinc.openairmarket.ui.adapter.QuickAccessProductListAdapter;
 import com.toolinc.openairmarket.ui.adapter.QuickAccessProductListAdapter.OnClick;
@@ -85,6 +87,11 @@ public abstract class QuickAccessComponent {
                     quickAccessComponent.onClickQuickAccess());
             quickAccessComponent.recyclerView().setAdapter(adapter);
             quickAccessComponent.hideQuickAccessProgressBar();
+            if (observer.asList().size() == 0) {
+              Toast.makeText(quickAccessComponent.context(),
+                  quickAccessComponent.context().getText(
+                      R.string.quick_access_products_not_found), Toast.LENGTH_SHORT).show();
+            }
           });
       quickAccessComponent.quickAccessProductRepository().getAll(quickAccessProducts -> {
         ImmutableList<QuickAccessProductViewModel> quickAccessProductViewModels
@@ -96,6 +103,9 @@ public abstract class QuickAccessComponent {
         new Handler(Looper.getMainLooper())
             .post(
                 () -> {
+                  Toast.makeText(quickAccessComponent.context(),
+                      quickAccessComponent.context().getText(
+                          R.string.quick_access_products_failure), Toast.LENGTH_SHORT).show();
                   quickAccessComponent.hideQuickAccessProgressBar();
                 });
       });

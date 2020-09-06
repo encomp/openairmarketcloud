@@ -60,22 +60,8 @@
     <!-- BottomSheet menu labels -->
     <string name="bottom_sheet_quick_access">Productos de Acceso Rápido.</string>
     <!-- Quick Access labels -->
-    <string name="product_one_id">1</string>
-    <string name="product_one_label">Fud Ham</string>
-    <string name="product_two_id">2</string>
-    <string name="product_two_label">Turkey Ham</string>
-    <string name="product_three_id">3</string>
-    <string name="product_three_label">Gali Ham</string>
-    <string name="product_four_id">5</string>
-    <string name="product_four_label">American Cheese</string>
-    <string name="product_five_id">7</string>
-    <string name="product_five_label">Cheese</string>
-    <string name="product_six_id">6</string>
-    <string name="product_six_label">Oaxaca Cheese</string>
-    <string name="product_seven_id">12</string>
-    <string name="product_seven_label">Bacon</string>
-    <string name="product_eigth_id">14</string>
-    <string name="product_eigth_label">Pork Sausage</string>
+    <string name="quick_access_products_not_found">No se encontraron Productos de Accesso Rapido.</string>
+    <string name="quick_access_products_failure">No se pudieron obtener Productos de Accesso Rapido.</string>
 
     <!-- Receipt table fragment -->
     <string name="receipt_row">Línea</string>
