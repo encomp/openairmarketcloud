@@ -6,6 +6,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.common.collect.ImmutableList;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query.Direction;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.toolinc.openairmarket.common.inject.Global;
 import com.toolinc.openairmarket.pos.persistence.model.ui.QuickAccessProduct;
@@ -31,6 +32,7 @@ public class QuickAccessProductRepository {
       OnFailureListener onFailureListener) {
     return firebaseFirestore
         .collection(CollectionsNames.QUICK_ACCESS_PRODUCTS)
+        .orderBy("position", Direction.ASCENDING)
         .get()
         .addOnSuccessListener(
             executor, querySnapshot -> onSuccess(querySnapshot, successListener))
