@@ -8,6 +8,7 @@ import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 
+import androidx.annotation.UiThread;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
@@ -121,6 +122,7 @@ public abstract class CodeBarComponent {
 
     abstract CodeBarComponent autoBuild();
 
+    @UiThread
     public CodeBarComponent build() {
       CodeBarComponent codeBarComponent = autoBuild();
       codeBarComponent.floatingActionButton().setOnClickListener(codeBarComponent::onClick);
