@@ -22,6 +22,7 @@ import com.toolinc.openairmarket.persistence.cloud.ProductsRepository;
 import com.toolinc.openairmarket.pos.persistence.model.product.Product;
 import com.toolinc.openairmarket.pos.persistence.model.product.ProductMeasureUnit;
 import com.toolinc.openairmarket.ui.fragment.ReceiptFragmentStatePagerAdapter;
+import java.math.BigDecimal;
 import java.util.Map;
 import timber.log.Timber;
 
@@ -75,13 +76,14 @@ public abstract class CodeBarComponent {
 
   /** Adds a new product to the receipt. */
   public void addProduct(Product product) {
+    BigDecimal quantity = BigDecimal.ONE;
     // If the product is found on the map, it means the product must be sold using a measurement
     // instrument such as a scale.
     if (productUnits.getValue().containsKey(product.getProductMeasureUnit())) {
       ProductMeasureUnit productUnit = productUnits.getValue().get(product.getProductMeasureUnit());
       Timber.tag(TAG).i("Product Unit is %s", productUnit.getName());
     }
-    receiptFragmentStatePagerAdapter().addProduct(product);
+    receiptFragmentStatePagerAdapter().addProduct(product, quantity);
   }
 
   public void onSuccess(Product product) {

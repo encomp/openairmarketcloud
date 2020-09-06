@@ -18,6 +18,7 @@ import com.toolinc.openairmarket.pos.persistence.model.product.Product;
 import com.toolinc.openairmarket.viewmodel.ReceiptViewModel;
 import com.toolinc.openairmarket.viewmodel.ReceiptsViewModel;
 
+import java.math.BigDecimal;
 import timber.log.Timber;
 
 /** Implementation of {@link PagerAdapter} that renders the content of three tickets. */
@@ -66,11 +67,11 @@ public final class ReceiptFragmentStatePagerAdapter extends FragmentStatePagerAd
     fragmentWithViewModels.get(position).bindObservers();
   }
 
-  public void addProduct(Product product) {
+  public void addProduct(Product product, BigDecimal quantity) {
     Timber.tag(TAG).d("Current Tab Position: [%d].", tabLayout.getSelectedTabPosition());
     Timber.tag(TAG).d("Append product: [%s].", product.id());
     ReceiptViewModel receiptViewModel = getReceiptViewModel();
-    receiptViewModel.add(product);
+    receiptViewModel.add(product, quantity);
     BadgeDrawable badge = tabLayout.getTabAt(tabLayout.getSelectedTabPosition()).getOrCreateBadge();
     badge.setNumber(receiptViewModel.getLines().getValue().size());
   }

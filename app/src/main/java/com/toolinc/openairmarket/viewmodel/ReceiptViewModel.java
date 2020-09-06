@@ -28,7 +28,7 @@ public final class ReceiptViewModel {
     removeAllProducts();
   }
 
-  public void add(Product product) {
+  public void add(Product product, BigDecimal quantity) {
     if (!productToSale.containsKey(product)) {
       Timber.tag(TAG).d("Adding new product: [%s]-[%s].", product.id(), product.getName());
       ProductSalePrice productSalePrice = product.getProductSalePrice();
@@ -36,7 +36,7 @@ public final class ReceiptViewModel {
       saleLine.setLineOrder(lines.getValue().size() + 1);
       saleLine.setProduct(product.id());
       saleLine.setName(product.getName());
-      saleLine.quantity(BigDecimal.ONE);
+      saleLine.quantity(quantity);
       saleLine.price(productSalePrice.price());
       saleLine.total(BigDecimal.ONE.multiply(productSalePrice.price()));
       ProductLine productLine = ProductLine.create(product, saleLine);
@@ -51,7 +51,7 @@ public final class ReceiptViewModel {
       Timber.tag(TAG).d("Existing product [%s]-[%s].", product.id(), product.getName());
       ProductSalePrice productSalePrice = product.getProductSalePrice();
       SaleLine saleLine = productToSale.get(product);
-      saleLine.quantity(saleLine.quantity().add(BigDecimal.ONE));
+      saleLine.quantity(saleLine.quantity().add(quantity));
       saleLine.total(saleLine.total().add(productSalePrice.price()));
       BigDecimal newTotal = amountDue.getValue().add(productSalePrice.price());
       lines.postValue(lines.getValue());
