@@ -5,8 +5,8 @@
 
   <data>
     <variable
-      name="quickAccess"
-      type="com.toolinc.openairmarket.viewmodel.QuickAccess" />
+      name="quickAccessProduct"
+      type="com.toolinc.openairmarket.viewmodel.QuickAccessProduct" />
   </data>
 
   <com.google.android.material.chip.Chip
@@ -14,7 +14,7 @@
     style="@style/Widget.Pos.Chip.Action.Hairline.Text"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="@{quickAccess.shortDesc()}"
+    android:text="@{quickAccessProduct.shortDesc()}"
     tools:text="CHEESE OAXACA" />
 
 </layout>

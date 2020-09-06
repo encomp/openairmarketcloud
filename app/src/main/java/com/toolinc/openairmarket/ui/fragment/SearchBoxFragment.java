@@ -20,9 +20,9 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.toolinc.openairmarket.R;
 import com.toolinc.openairmarket.persistence.cloud.ProductsRepository;
 import com.toolinc.openairmarket.ui.MainActivity;
-import com.toolinc.openairmarket.ui.adapter.QuickAccessListAdapter;
+import com.toolinc.openairmarket.ui.adapter.QuickAccessProductListAdapter;
 import com.toolinc.openairmarket.ui.component.CodeBarComponent;
-import com.toolinc.openairmarket.viewmodel.QuickAccess;
+import com.toolinc.openairmarket.viewmodel.QuickAccessProduct;
 import com.toolinc.openairmarket.viewmodel.ReceiptsViewModel;
 import dagger.hilt.android.AndroidEntryPoint;
 import javax.inject.Inject;
@@ -93,9 +93,9 @@ public class SearchBoxFragment extends Fragment {
   private void initQuickButtons() {
     GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
     recyclerViewQuickButtons.setLayoutManager(gridLayoutManager);
-    QuickAccessListAdapter adapter =
-        new QuickAccessListAdapter(
-            QuickAccess.quickAccessesButtons(getContext()), this::onClickQuickAccess);
+    QuickAccessProductListAdapter adapter =
+        new QuickAccessProductListAdapter(
+            QuickAccessProduct.quickAccessesButtons(getContext()), this::onClickQuickAccess);
     recyclerViewQuickButtons.setAdapter(adapter);
   }
 

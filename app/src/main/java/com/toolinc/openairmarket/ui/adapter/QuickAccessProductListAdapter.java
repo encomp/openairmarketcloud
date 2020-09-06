@@ -10,25 +10,29 @@ import com.google.android.material.chip.Chip;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import com.toolinc.openairmarket.R;
-import com.toolinc.openairmarket.databinding.ItemQuickAccessBinding;
-import com.toolinc.openairmarket.viewmodel.QuickAccess;
+import com.toolinc.openairmarket.databinding.ItemQuickAccessProductBinding;
+import com.toolinc.openairmarket.viewmodel.QuickAccessProduct;
 
 /**
- * Adapter that provides a binding from an {@link ImmutableList} of {@link QuickAccess} to the view
- * {@code R.layout.item_quick_access} displayed within a RecyclerView.
+ * Adapter that provides a binding from an {@link ImmutableList} of {@link QuickAccessProduct} to
+ * the view {@code R.layout.item_quick_access} displayed within a RecyclerView.
  */
-public final class QuickAccessListAdapter
-    extends RecyclerView.Adapter<QuickAccessListAdapter.QuickAccessViewHolder> {
+public final class QuickAccessProductListAdapter
+    extends RecyclerView.Adapter<QuickAccessProductListAdapter.QuickAccessViewHolder> {
 
-  /** Specifies the quick access product that was click by the user. */
+  /**
+   * Specifies the quick access product that was click by the user.
+   */
   public interface OnClick {
+
     void onClickQuickAccess(String productId);
   }
 
-  private final ImmutableList<QuickAccess> quickAccesses;
+  private final ImmutableList<QuickAccessProduct> quickAccesses;
   private final OnClick onClick;
 
-  public QuickAccessListAdapter(ImmutableList<QuickAccess> quickAccesses, OnClick onClick) {
+  public QuickAccessProductListAdapter(ImmutableList<QuickAccessProduct> quickAccesses,
+      OnClick onClick) {
     this.quickAccesses =
         Preconditions.checkNotNull(quickAccesses, "Quick Access items are missing.");
     this.onClick = Preconditions.checkNotNull(onClick, "OnClick listener is missing.");
@@ -38,13 +42,14 @@ public final class QuickAccessListAdapter
   @Override
   public QuickAccessViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
     LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-    ItemQuickAccessBinding itemBinding = ItemQuickAccessBinding.inflate(inflater, viewGroup, false);
+    ItemQuickAccessProductBinding itemBinding = ItemQuickAccessProductBinding
+        .inflate(inflater, viewGroup, false);
     return new QuickAccessViewHolder(itemBinding);
   }
 
   @Override
   public void onBindViewHolder(@NonNull QuickAccessViewHolder holder, int position) {
-    QuickAccess quickAccess = quickAccesses.get(position);
+    QuickAccessProduct quickAccess = quickAccesses.get(position);
     Chip textChip =
         holder.itemBinding.getRoot().findViewById(R.id.quick_access_btn_container);
     textChip.setChipStrokeColorResource(quickAccess.textColor());
@@ -52,7 +57,7 @@ public final class QuickAccessListAdapter
         .getColorStateList(holder.itemBinding.getRoot().getContext(), quickAccess.textColor()));
     textChip.setRippleColorResource(quickAccess.rippleColor());
     textChip.setOnClickListener(holder);
-    holder.itemBinding.setQuickAccess(quickAccess);
+    holder.itemBinding.setQuickAccessProduct(quickAccess);
   }
 
   @Override
@@ -60,20 +65,22 @@ public final class QuickAccessListAdapter
     return quickAccesses.size();
   }
 
-  /** Describes a {@link QuickAccess} item about its place within the RecyclerView. */
+  /**
+   * Describes a {@link QuickAccessProduct} item about its place within the RecyclerView.
+   */
   final class QuickAccessViewHolder extends RecyclerView.ViewHolder
       implements View.OnClickListener {
 
-    private final ItemQuickAccessBinding itemBinding;
+    private final ItemQuickAccessProductBinding itemBinding;
 
-    public QuickAccessViewHolder(@NonNull ItemQuickAccessBinding itemBinding) {
+    public QuickAccessViewHolder(@NonNull ItemQuickAccessProductBinding itemBinding) {
       super(itemBinding.getRoot());
       this.itemBinding = itemBinding;
     }
 
     @Override
     public void onClick(View v) {
-      onClick.onClickQuickAccess(itemBinding.getQuickAccess().productId());
+      onClick.onClickQuickAccess(itemBinding.getQuickAccessProduct().productId());
     }
   }
 }

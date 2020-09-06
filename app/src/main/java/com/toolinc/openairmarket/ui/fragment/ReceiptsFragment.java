@@ -36,13 +36,13 @@ import com.toolinc.openairmarket.common.NotificationUtil.NotificationProperties;
 import com.toolinc.openairmarket.persistence.cloud.ProductsRepository;
 import com.toolinc.openairmarket.persistence.cloud.SaleRepository;
 import com.toolinc.openairmarket.ui.MainActivity;
-import com.toolinc.openairmarket.ui.adapter.QuickAccessListAdapter;
+import com.toolinc.openairmarket.ui.adapter.QuickAccessProductListAdapter;
 import com.toolinc.openairmarket.ui.component.CodeBarComponent;
 import com.toolinc.openairmarket.ui.fragment.base.BaseFragment;
 import com.toolinc.openairmarket.ui.fragment.inject.Annotations.Sale;
 import com.toolinc.openairmarket.ui.fragment.inject.Annotations.Sale.Failed;
 import com.toolinc.openairmarket.ui.fragment.inject.Annotations.Sale.Succeed;
-import com.toolinc.openairmarket.viewmodel.QuickAccess;
+import com.toolinc.openairmarket.viewmodel.QuickAccessProduct;
 import com.toolinc.openairmarket.viewmodel.ReceiptViewModel;
 import com.toolinc.openairmarket.viewmodel.ReceiptsViewModel;
 
@@ -150,11 +150,11 @@ public class ReceiptsFragment extends BaseFragment {
 
   private void setUpBottomSheet() {
     bottomSheetDialog = new BottomSheetDialog(getActivity());
-    bottomSheetDialog.setContentView(R.layout.bottomsheet_quick_buttons);
+    bottomSheetDialog.setContentView(R.layout.bottomsheet_quick_access_product);
     RecyclerView recyclerView = bottomSheetDialog.findViewById(R.id.quick_access_btn);
-    QuickAccessListAdapter adapter =
-        new QuickAccessListAdapter(
-            QuickAccess.quickAccessesButtons(getContext()), this::onClickQuickAccess);
+    QuickAccessProductListAdapter adapter =
+        new QuickAccessProductListAdapter(
+            QuickAccessProduct.quickAccessesButtons(getContext()), this::onClickQuickAccess);
     recyclerView.setAdapter(adapter);
     GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
     recyclerView.setLayoutManager(gridLayoutManager);
