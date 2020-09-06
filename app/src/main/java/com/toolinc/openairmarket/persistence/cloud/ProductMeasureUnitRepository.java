@@ -3,11 +3,13 @@ package com.toolinc.openairmarket.persistence.cloud;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.common.collect.Maps;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.toolinc.openairmarket.common.inject.Global;
 import com.toolinc.openairmarket.pos.persistence.model.product.ProductMeasureUnit;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Executor;
 import javax.inject.Inject;
 
@@ -27,7 +29,7 @@ public class ProductMeasureUnitRepository {
   }
 
   public Task<QuerySnapshot> findAllUncountable(
-      OnSuccessListener<List<ProductMeasureUnit>> successListener,
+      OnSuccessListener<Map<String, ProductMeasureUnit>> successListener,
       OnFailureListener onFailureListener) {
     return firebaseFirestore
         .collection(CollectionsNames.PRODUCT_UNITS)
@@ -43,8 +45,13 @@ public class ProductMeasureUnitRepository {
   }
 
   private void onSuccess(
-      QuerySnapshot querySnapshot, OnSuccessListener<List<ProductMeasureUnit>> successListener) {
-    successListener.onSuccess(SyncRepository.toProductMeasureUnits(querySnapshot.getDocuments()));
+      QuerySnapshot querySnapshot,
+      OnSuccessListener<Map<String, ProductMeasureUnit>> successListener) {
+    List<ProductMeasureUnit> productMeasureUnits = SyncRepository
+        .toProductMeasureUnits(querySnapshot.getDocuments());
+    Map<String, ProductMeasureUnit> map = Maps
+        .uniqueIndex(productMeasureUnits, ProductMeasureUnit::id);
+    successListener.onSuccess(map);
   }
 
   private void onFailure(Exception exc, OnFailureListener onFailureListener) {
