@@ -15,8 +15,10 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.common.collect.ImmutableList;
 import com.toolinc.openairmarket.R;
 import com.toolinc.openairmarket.persistence.cloud.ProductsRepository;
 import com.toolinc.openairmarket.persistence.cloud.QuickAccessProductRepository;
@@ -51,7 +53,7 @@ public class SearchBoxFragment extends Fragment {
   FloatingActionButton floatingActionButton;
 
   @BindView(R.id.quick_access_progress_bar)
-  ProgressBar progressBarQuickAccess;
+  LottieAnimationView progressBarQuickAccess;
 
   @BindView(R.id.quick_access_btn)
   RecyclerView recyclerViewQuickButtons;
@@ -100,15 +102,18 @@ public class SearchBoxFragment extends Fragment {
   private void initQuickButtons() {
     GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
     recyclerViewQuickButtons.setLayoutManager(gridLayoutManager);
+    receiptsViewModel.getQuickAccessProducts().observe(getViewLifecycleOwner(), (observer) -> {
+      QuickAccessProductListAdapter adapter =
+          new QuickAccessProductListAdapter(
+              observer.asList(),
+              this::onClickQuickAccess);
+      recyclerViewQuickButtons.setAdapter(adapter);
+      hideQuickAccessProgressBar();
+    });
     quickAccessProductRepository.getAll(quickAccessProducts -> {
-      getActivity().runOnUiThread(() -> {
-        QuickAccessProductListAdapter adapter =
-            new QuickAccessProductListAdapter(
-                QuickAccessProductViewModel.quickAccessesButtons(getContext(), quickAccessProducts),
-                this::onClickQuickAccess);
-        recyclerViewQuickButtons.setAdapter(adapter);
-        hideQuickAccessProgressBar();
-      });
+      ImmutableList<QuickAccessProductViewModel> quickAccessProductViewModels
+          = QuickAccessProductViewModel.quickAccessesButtons(getContext(), quickAccessProducts);
+      receiptsViewModel.getQuickAccessProducts().postValue(quickAccessProductViewModels);
     }, e -> {
 
     });

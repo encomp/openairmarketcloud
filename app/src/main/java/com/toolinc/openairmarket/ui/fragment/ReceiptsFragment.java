@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -28,6 +29,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.common.collect.ImmutableList;
 import com.toolinc.openairmarket.OpenAirMarketApplication;
 import com.toolinc.openairmarket.R;
 import com.toolinc.openairmarket.common.NotificationUtil;
@@ -93,7 +95,7 @@ public class ReceiptsFragment extends BaseFragment {
   Button payBtn;
 
   @Nullable RecyclerView recyclerViewQuickButtons;
-  @Nullable ProgressBar progressBarQuickAccess;
+  @Nullable LottieAnimationView progressBarQuickAccess;
 
   private ReceiptsViewModel receiptsViewModel;
   private ReceiptFragmentStatePagerAdapter receiptFragmentStatePagerAdapter;
@@ -160,15 +162,18 @@ public class ReceiptsFragment extends BaseFragment {
     progressBarQuickAccess = bottomSheetDialog.findViewById(R.id.quick_access_progress_bar);
     GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
     recyclerViewQuickButtons.setLayoutManager(gridLayoutManager);
+    receiptsViewModel.getQuickAccessProducts().observe(getViewLifecycleOwner(), (observer) -> {
+      QuickAccessProductListAdapter adapter =
+          new QuickAccessProductListAdapter(
+              observer.asList(),
+              this::onClickQuickAccess);
+      recyclerViewQuickButtons.setAdapter(adapter);
+      hideQuickAccessProgressBar();
+    });
     quickAccessProductRepository.getAll(quickAccessProducts -> {
-      getActivity().runOnUiThread(() -> {
-        QuickAccessProductListAdapter adapter =
-            new QuickAccessProductListAdapter(
-                QuickAccessProductViewModel.quickAccessesButtons(getContext(), quickAccessProducts),
-                this::onClickQuickAccess);
-        recyclerViewQuickButtons.setAdapter(adapter);
-        hideQuickAccessProgressBar();
-      });
+      ImmutableList<QuickAccessProductViewModel> quickAccessProductViewModels
+          = QuickAccessProductViewModel.quickAccessesButtons(getContext(), quickAccessProducts);
+      receiptsViewModel.getQuickAccessProducts().postValue(quickAccessProductViewModels);
     }, e -> {
 
     });
